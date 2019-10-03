@@ -1,0 +1,13 @@
+Package: CellMigRation
+Type: Package
+Title: Tracking cells and analyzing their trajectories
+Version: 0.1.0
+Depends: R (>= 3.5.0)
+Author: Salim Ghannoum
+Maintainer: Salim Ghannoum <salim.ghannoum@medisin.uio.no>
+Description: Contains 15 trajectory analysis functions.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: SpatialTools, matrixStats, FME, Hmisc, vioplot, methods, sp, rgl
