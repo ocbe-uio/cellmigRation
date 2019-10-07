@@ -34,11 +34,11 @@ plotAllTracks= function(object,ExpName="ExpName",Type="l") {
   color <-c()
   if (Len> 1023){
     colnum= Len-1023
-    color1 <-palette(rainbow(1023))
-    colo2 <-palette(rainbow(colnum))
+    color1 <-rainbow(1023)
+    colo2 <-rainbow(colnum)
     color=c(color1 ,colo2)
   }else{
-    color <-palette(rainbow(Len))
+    color <- rainbow(Len)
   }
 
   MinX<-c()
@@ -127,11 +127,11 @@ plot3DAllTracks= function(object,VS=3,size=2) {
   color <-c()
   if (Len> 1023){
     colnum= Len-1023
-    color1 <-palette(rainbow(1023))
-    colo2 <-palette(rainbow(colnum))
+    color1 <-rainbow(1023)
+    colo2 <-rainbow(colnum)
     color=c(color1 ,colo2)
   }else{
-    color <-palette(rainbow(Len))
+    color <- rainbow(Len)
   }
   col=c()
   coll=c()
@@ -190,11 +190,11 @@ plot3DTracks= function(object,VS=3,size=2,cells) {
   color <-c()
   if (Len> 1023){
     colnum= Len-1023
-    color1 <-palette(rainbow(1023))
-    colo2 <-palette(rainbow(colnum))
+    color1 <-rainbow(1023)
+    colo2 <-rainbow(colnum)
     color=c(color1 ,colo2)
   }else{
-    color <-palette(rainbow(Len))
+    color <-rainbow(Len)
   }
   cells=sort(cells)
   col=c()
@@ -252,11 +252,11 @@ PlotTracksSeparately= function(object,ExpName="ExpName",Type="l") {
   color <-c()
   if (Len> 1023){
     colnum= Len-1023
-    color1 <-palette(rainbow(1023))
-    colo2 <-palette(rainbow(colnum))
+    color1 <-rainbow(1023)
+    colo2 <-rainbow(colnum)
     color=c(color1 ,colo2)
   }else{
-    color <-palette(rainbow(Len))
+    color <-rainbow(Len)
   }
 
   MinX<-c()
