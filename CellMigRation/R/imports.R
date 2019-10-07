@@ -1,5 +1,5 @@
 #' @importFrom Hmisc areg nFm
-#' @importFrom grDevices dev.off jpeg palette rainbow
+#' @importFrom grDevices dev.off jpeg rainbow
 #' @importFrom graphics lines points
 #' @import FME methods Hmisc sp vioplot rgl matrixStats SpatialTools stats
 #'
