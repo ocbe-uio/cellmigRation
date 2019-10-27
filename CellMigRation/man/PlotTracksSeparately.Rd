@@ -4,7 +4,8 @@
 \alias{PlotTracksSeparately}
 \title{A graphical display of the track of each cell.}
 \usage{
-PlotTracksSeparately(object, ExpName = "ExpName", Type = "l")
+PlotTracksSeparately(object, ExpName = "ExpName", Type = "l",
+  FixedField = TRUE)
 }
 \arguments{
 \item{object}{A list of data frames resulted from runnning the function "PreProcessing()".}
@@ -16,6 +17,8 @@ PlotTracksSeparately(object, ExpName = "ExpName", Type = "l")
 “l”: Lines
 “b”: Both
 “o”: Both “overplotted”}
+
+\item{FixedField}{logical(1) Allows generating individual plots with fixed field. Default is TRUE.}
 }
 \value{
 2D rose-plots of the cells' track Separately.
@@ -30,7 +33,7 @@ The visualization shows centered trajectories where the starting point of each t
 data(Trajectory_dataset)
 df<-Trajectory_dataset
 prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
-PlotTracksSeparately(prepro, ExpName="Test",Type="b")
+PlotTracksSeparately(prepro, ExpName="Test",Type="b",FixedField=FALSE)
 
 }
 \author{
