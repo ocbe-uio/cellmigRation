@@ -474,15 +474,15 @@ wsaPreProcessing = function(object,PixelSize=1.24,TimeInterval=10,imageH=1500,wo
 #'
 plotAllTracks= function(object,ExpName="ExpName",Type="l") {
   if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
-  object<-object@preprocessedDS
+  Object<-object@preprocessedDS
   msg <- NULL
-  if ( ! is.list(object) ){
+  if ( ! is.list(Object) ){
     msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
 
-  Len<-length(object)
+  Len<-length(Object)
   cat(paste0("The plot contains ",Len, " Cells"),"\n")
-  Step<-length(object[[1]][,1])
+  Step<-length(Object[[1]][,1])
   color <-c()
   if (Len> 1023){
     colnum= Len-1023
@@ -498,10 +498,10 @@ plotAllTracks= function(object,ExpName="ExpName",Type="l") {
   MinY<-c()
   MaxY<-c()
   for(j in 1:Len){
-    minX=min(object[[j]][1:Step,2])
-    minY=min(object[[j]][1:Step,3])
-    maxX=max(object[[j]][1:Step,2])
-    maxY=max(object[[j]][1:Step,3])
+    minX=min(Object[[j]][1:Step,2])
+    minY=min(Object[[j]][1:Step,3])
+    maxX=max(Object[[j]][1:Step,2])
+    maxY=max(Object[[j]][1:Step,3])
     MinX[j]<-c(minX)
     MaxX[j]<-c(maxX)
     MinY[j]<-c(minY)
@@ -509,10 +509,10 @@ plotAllTracks= function(object,ExpName="ExpName",Type="l") {
   }
   RangeX=c(MinX,MaxX)
   RangeY=c(MinY,MaxY)
-  plot(object[[1]][1:Step,2],object[[1]][1:Step,3],type=Type,xlab="X (um)",ylab="Y (um)",col=color[1],las=1,xlim=range(RangeX),ylim=range(RangeY),main=ExpName)
+  plot(Object[[1]][1:Step,2],Object[[1]][1:Step,3],type=Type,xlab="X (um)",ylab="Y (um)",col=color[1],las=1,xlim=range(RangeX),ylim=range(RangeY),main=ExpName)
   for(n in 2:Len){
-    points(object[[n]][,2],object[[n]][,3], type=Type,col=color[n])
-    end<-cbind(object[[n]][Step,2],object[[n]][Step,3])
+    points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
     points(end,pch=16,col=color[n], cex = 1)
   }
   x=c(min(RangeX)-100,max(RangeX)+100)
@@ -523,10 +523,10 @@ plotAllTracks= function(object,ExpName="ExpName",Type="l") {
   lines(x, y, type='l', col="black")
 
   jpeg(paste0(ExpName,"_All_tracks_plot.jpg"))
-  plot(object[[1]][1:Step,2],object[[1]][1:Step,3],type=Type,xlab="X (um)",ylab="Y (um)",col=color[1],las=1,xlim=range(RangeX),ylim=range(RangeY),main=ExpName)
+  plot(Object[[1]][1:Step,2],Object[[1]][1:Step,3],type=Type,xlab="X (um)",ylab="Y (um)",col=color[1],las=1,xlim=range(RangeX),ylim=range(RangeY),main=ExpName)
   for(n in 2:Len){
-    points(object[[n]][,2],object[[n]][,3], type=Type,col=color[n])
-    end<-cbind(object[[n]][Step,2],object[[n]][Step,3])
+    points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
     points(end,pch=16,col=color[n], cex = 1)
   }
   x=c(min(RangeX)-100,max(RangeX)+100)
@@ -565,18 +565,18 @@ plotAllTracks= function(object,ExpName="ExpName",Type="l") {
 #'
 #'
 plot3DAllTracks= function(object,VS=3,size=2) {
-  object<-object@preprocessedDS
+  Object<-object@preprocessedDS
   msg <- NULL
-  if ( ! is.list(object) ){
+  if ( ! is.list(Object) ){
     msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
 
   if ( ! is.numeric(VS) ) stop( "VS has to be a positive number" ) else if ( VS<= 0 ) stop( "VS has to be a positive number" )
   if ( ! is.numeric(size) ) stop( "size has to be a positive number" ) else if ( size<= 0 ) stop( "size has to be a positive number" )
   plotTable<-data.frame()
-  Len<-length(object)
+  Len<-length(Object)
   cat(paste0("The plot contains ",Len, " Cells"),"\n")
-  Step<-length(object[[1]][,1])
+  Step<-length(Object[[1]][,1])
   color <-c()
   if (Len> 1023){
     colnum= Len-1023
@@ -591,8 +591,8 @@ plot3DAllTracks= function(object,VS=3,size=2) {
   for(i in 1:Len){
     firstNum=((i*Step)-Step)+1
     RowNum=c(firstNum:(i*Step))
-    plotTable[RowNum,1]= object[[i]][1:Step,2]
-    plotTable[RowNum,2]=object[[i]][1:Step,3]
+    plotTable[RowNum,1]= Object[[i]][1:Step,2]
+    plotTable[RowNum,2]=Object[[i]][1:Step,3]
     plotTable[RowNum,3]=i*VS
     col= c(rep(color[i],Step))
     coll=c(coll,col)
@@ -626,17 +626,17 @@ plot3DAllTracks= function(object,VS=3,size=2) {
 #' plot3DTracks(rmTD, VS=3, size=2,cells=c(1,50,150,250,350))
 #'
 plot3DTracks= function(object,VS=3,size=2,cells) {
-  object<-object@preprocessedDS
+  Object<-object@preprocessedDS
   msg <- NULL
-  if ( ! is.list(object) ){
+  if ( ! is.list(Object) ){
     msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
   if ( ! is.numeric(VS) ) stop( "VS has to be a positive number" ) else if ( VS<= 0 ) stop( "VS has to be a positive number" )
   if ( ! is.numeric(size) ) stop( "size has to be a positive number" ) else if ( size<= 0 ) stop( "size has to be a positive number" )
   plotTable<-data.frame()
-  Len<-length(object)
+  Len<-length(Object)
   cat(paste0("The plot contains ",length(cells), " Cells"),"\n")
-  Step<-length(object[[1]][,1])
+  Step<-length(Object[[1]][,1])
   color <-c()
   if (Len> 1023){
     colnum= Len-1023
@@ -652,8 +652,8 @@ plot3DTracks= function(object,VS=3,size=2,cells) {
   for(i in cells){
     firstNum=((i*Step)-Step)+1
     RowNum=c(firstNum:(i*Step))
-    plotTable[RowNum,1]= object[[i]][1:Step,2]
-    plotTable[RowNum,2]=object[[i]][1:Step,3]
+    plotTable[RowNum,1]= Object[[i]][1:Step,2]
+    plotTable[RowNum,2]=Object[[i]][1:Step,3]
     plotTable[RowNum,3]=i*VS
     col= c(rep(color[i],Step))
     coll=c(coll,col)
@@ -691,14 +691,14 @@ plot3DTracks= function(object,VS=3,size=2,cells) {
 #'
 PlotTracksSeparately= function(object,ExpName="ExpName",Type="l",FixedField=TRUE) {
   if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
-  object<-object@preprocessedDS
+  Object<-object@preprocessedDS
   msg <- NULL
-  if ( ! is.list(object) ){
+  if ( ! is.list(Object) ){
     msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
-  Len<-length(object)
+  Len<-length(Object)
   cat(paste0(Len," plots will be generated in a folder called:",ExpName,"_Tracks","\n"))
-  Step<-length(object[[1]][,1])
+  Step<-length(Object[[1]][,1])
   color <-c()
   if (Len> 1023){
     colnum= Len-1023
@@ -718,10 +718,10 @@ PlotTracksSeparately= function(object,ExpName="ExpName",Type="l",FixedField=TRUE
     MinY<-c()
     MaxY<-c()
     for(j in 1:Len){
-      minX=min(object[[j]][1:Step,2])
-      minY=min(object[[j]][1:Step,3])
-      maxX=max(object[[j]][1:Step,2])
-      maxY=max(object[[j]][1:Step,3])
+      minX=min(Object[[j]][1:Step,2])
+      minY=min(Object[[j]][1:Step,3])
+      maxX=max(Object[[j]][1:Step,2])
+      maxY=max(Object[[j]][1:Step,3])
       MinX[j]<-c(minX)
       MaxX[j]<-c(maxX)
       MinY[j]<-c(minY)
@@ -731,31 +731,31 @@ PlotTracksSeparately= function(object,ExpName="ExpName",Type="l",FixedField=TRUE
     RangeY=c(MinY,MaxY)
     for(n in 1:Len){
       jpeg(paste0(ExpName,"_Track_Plot_",n,".jpg"))
-      plot(object[[n]][1:Step,2],object[[n]][1:Step,3],type=Type,xlab="x (um)",ylab="y (um)",col=color[n],las=1,xlim=range(RangeX),ylim=range(RangeY))
+      plot(Object[[n]][1:Step,2],Object[[n]][1:Step,3],type=Type,xlab="x (um)",ylab="y (um)",col=color[n],las=1,xlim=range(RangeX),ylim=range(RangeY))
       x=c(min(RangeX)-100,max(RangeX)+100)
       y=c(0,0)
       lines(x, y, type='l', col="black")
       x=c(0,0)
       y=c(min(RangeY)-100,max(RangeY)+100)
       lines(x, y, type='l', col="black")
-      end<-cbind(object[[n]][Step,2],object[[n]][Step,3])
+      end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
       points(end,pch=16,col=color[n], cex = 1)
       title(main=paste0("Cell Number  ", n),col.main="black")
       dev.off()
     }
   }else{
     for(n in 1:Len){
-      RangeX= object[[n]][1:Step,2]
-      RangeY= object[[n]][1:Step,3]
+      RangeX= Object[[n]][1:Step,2]
+      RangeY= Object[[n]][1:Step,3]
       jpeg(paste0(ExpName,"_Track_Plot_",n,".jpg"))
-      plot(object[[n]][1:Step,2],object[[n]][1:Step,3],type=Type,xlab="x (um)",ylab="y (um)",col=color[n],las=1,xlim=range(RangeX),ylim=range(RangeY))
+      plot(Object[[n]][1:Step,2],Object[[n]][1:Step,3],type=Type,xlab="x (um)",ylab="y (um)",col=color[n],las=1,xlim=range(RangeX),ylim=range(RangeY))
       x=c(min(RangeX)-100,max(RangeX)+100)
       y=c(0,0)
       lines(x, y, type='l', col="black")
       x=c(0,0)
       y=c(min(RangeY)-100,max(RangeY)+100)
       lines(x, y, type='l', col="black")
-      end<-cbind(object[[n]][Step,2],object[[n]][Step,3])
+      end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
       points(end,pch=16,col=color[n], cex = 1)
       dev.off()
     }
