@@ -1163,7 +1163,7 @@ PerAndSpeed= function(object,TimeInterval=10,ExpName="ExpName",PtSplot=TRUE,AllP
 #' Method DR
 #' @title Directionality Table
 #' @description Directionality Ratio is the displacement divided by the total length of the total path distance, where displacement is the straightline length between the start point and the endpoint of the migration trajectory,
-#' @param object \code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #'
@@ -1254,7 +1254,7 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName") {
 #' Method DR
 #' @title Directionality Ratio plots
 #' @description Directionality Ratio is the displacement divided by the total length of the total path distance, where displacement is the straightline length between the start point and the endpoint of the migration trajectory,
-#' @param object \code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #'
@@ -1349,7 +1349,7 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName) {
 #' @title Mean Square Displacement
 #' @description The MSD function automatically compute the mean square displacements across several sequantial time intervals. MSD parameters are used to assess the area explored by cells over time.
 #'
-#' @param object \code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #' @param sLAG A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.
@@ -1545,7 +1545,7 @@ MSD = function(object,TimeInterval=10,ExpName="ExpName",sLAG=0.25, ffLAG=0.25, S
 #' @title Direction AutoCorrelation
 #'
 #' @description The DiAutoCor function automatically compute the angular persistence across several sequantial time intervals.
-#' @param object \code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #' @param sLAG A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.
@@ -1728,7 +1728,7 @@ DiAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TR
 #' @title Velocity AutoCorrelation
 #'
 #' @description The VeAutoCor function automatically compute the changes in both speed and direction across several sequantial time intervals.
-#' @param object \code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #' @param sLAG A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.
@@ -1889,7 +1889,7 @@ VeAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TR
 #' @title Forward Migration
 #'
 #' @description The ForwardMigration function automatically generates data and plots for forward persistence and speed.
-#' @param object \code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
 #' @param sfptPLOT A logical vector that allows generating individual plots of persistence time vs speed per cell. Default is TRUE.
@@ -2235,7 +2235,7 @@ ForwardMigration= function(object, TimeInterval=10,ExpName="ExpName",sfptPLOT =T
 #' @title Forward Migration Index
 #'
 #' @description The FMI function automatically generates data for the forward migration index
-#' @param object \code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
 #' @return  An CellMig class Object with a data frame. The data frame is stored in the FMItable slot.
@@ -2368,7 +2368,7 @@ FMI= function(object, TimeInterval=10,ExpName="ExpName"){
 #' @title Final Results
 #'
 #' @description The FinRes function automatically generates a data frame that contains all the results.
-#' @param object \code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ParCor A logical vector that allows generating a correlation table. Default is TRUE.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
 #' @return  A data frame that contains all the results.
@@ -2458,7 +2458,7 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE){
 #' @title PCA
 #'
 #' @description The CellMigPCA function automatically generates Principal Component Analysis.
-#' @param object \code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data.
 #' @param parameters A numeric vector contains the parameters to be included in the Principal Component Analysis. These numbers can be obtained from the outcome of the FinRes() function.
 
