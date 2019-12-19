@@ -3,7 +3,6 @@
 \docType{package}
 \name{CellMigRation}
 \alias{CellMigRation}
-\alias{CellMigRation-package}
 \title{CellMigRation package}
 \description{
 Contains 15 trajectory analysis functions.
