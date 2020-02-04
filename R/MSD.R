@@ -106,7 +106,7 @@ MSD = function(object,TimeInterval=10,ExpName="ExpName",sLAG=0.25, ffLAG=0.25, S
     y=MSD.table[1:LAG,j]
     t <- c(1:length(y))
     Data<-c(t,y)
-    Data <- matrix(nc = 2, byrow = F, data =Data)
+    Data <- matrix(ncol = 2, byrow = F, data =Data)
     colnames(Data) <- c("time","y")
     parms <- c(D=1,P=1)
     parms["D"] <- 1
@@ -154,7 +154,7 @@ MSD = function(object,TimeInterval=10,ExpName="ExpName",sLAG=0.25, ffLAG=0.25, S
   y=RM1[1:round(Step*ffLAG)]
   t <- c(1:length(y))
   Data<-c(t,y)
-  Data <- matrix(nc = 2, byrow = F, data =Data)
+  Data <- matrix(ncol = 2, byrow = F, data =Data)
   colnames(Data) <- c("time","y")
   parms <- c(D=10,P=1)
   parms["D"] <- 1
