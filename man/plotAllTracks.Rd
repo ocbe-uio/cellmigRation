@@ -41,14 +41,18 @@ Method Plotting
 \examples{
 data(Trajectory_dataset)
 rmTD <- CellMig(Trajectory_dataset)
+\dontrun{
 rmTD <- rmPreProcessing(rmTD)
 plotAllTracks(rmTD, ExpName="Test",Type="b")
+}
 
 
+\dontrun{
 data(Trajectory_dataset)
 df<-Trajectory_dataset
 prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 plotAllTracks(prepro, ExpName="Test",Type="b")
+}
 
 }
 \author{

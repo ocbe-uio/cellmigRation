@@ -16,11 +16,12 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' df<-Trajectory_dataset
 #' prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 #' PerSp<-PerAndSpeed(prepro,TimeInterval=10,ExpName="ExpName")
-#'
+#' }
 #'
 PerAndSpeed= function(object,TimeInterval=10,ExpName="ExpName",PtSplot=TRUE,AllPtSplot=TRUE,ApSplot=TRUE,AllApSplot=TRUE) {
   msg <- NULL

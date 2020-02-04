@@ -63,14 +63,18 @@ Method msd
 Method msd
 }
 \examples{
+\dontrun{
 data(Trajectory_dataset)
 rmTD <- CellMig(Trajectory_dataset)
 rmTD <- rmPreProcessing(rmTD)
 rmTD<-MSD(rmTD,sLAG=0.25, ffLAG=0.25)
+}
+\dontrun{
 data(Trajectory_dataset)
 df<-Trajectory_dataset
 prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 msd<-MSD(prepro,sLAG=0.25, ffLAG=0.25)
+}
 }
 \author{
 Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}

@@ -51,14 +51,18 @@ Method VelAutoCor
 Method DiAutoCor
 }
 \examples{
+\dontrun{
 data(Trajectory_dataset)
 rmTD <- CellMig(Trajectory_dataset)
 rmTD <- rmPreProcessing(rmTD)
 rmTD <-VeAutoCor(rmTD,TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE)
+}
+\dontrun{
 data(Trajectory_dataset)
 df<-Trajectory_dataset
 prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 vac<-VeAutoCor(prepro,TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE)
+}
 }
 \author{
 Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}

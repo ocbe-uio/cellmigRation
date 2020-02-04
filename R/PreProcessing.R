@@ -13,10 +13,11 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' df<-Trajectory_dataset
 #' preproc<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
-#'
+#' }
 PreProcessing = function(object,PixelSize,TimeInterval) {
             msg <- NULL
             if ( ! is.data.frame(object) ){
