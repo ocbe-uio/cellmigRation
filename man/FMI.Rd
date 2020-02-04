@@ -7,7 +7,7 @@
 FMI(object, TimeInterval = 10, ExpName = "ExpName")
 }
 \arguments{
-\item{object}{\code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
