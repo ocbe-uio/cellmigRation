@@ -1559,18 +1559,20 @@ MSD = function(object,TimeInterval=10,ExpName="ExpName",sLAG=0.25, ffLAG=0.25, S
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
 #' rmTD <- rmPreProcessing(rmTD)
 #' rmTD <- DiAutoCor(rmTD,TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE)
+#' }
 
 DiAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   if ( ! is.numeric(sLAG) ) stop( "sLAG has to be a positive number" ) else if ( sLAG<= 0 ) stop( "sLAG has to be a positive number" )
   Object<-object@preprocessedDS
-  msg <- NULL
+
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    stop("Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
   d=getwd()
   dir.create(paste0(ExpName,"-DIAutoCorResults"))
