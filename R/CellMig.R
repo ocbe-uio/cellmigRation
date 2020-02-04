@@ -2474,20 +2474,18 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE){
 #' wsaTD <- CellMig(WSAdataset)
 #' wsaTD <- wsaPreProcessing(wsaTD)
 #' wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
-#' CellMigPCA(wsaTD,ExpName="ExpName",parameters=c(1,2,3))
-
-
+#'
 CellMigPCA= function(object,ExpName="ExpName",parameters=c(1,2,3)){
-  msg <- NULL
+
   if ( ! is.list(object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    stop("Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
   if ( length(object@results[,1])<1 ){
-    msg <- c(msg, "There are no results stored. Please run trajectory analysis first")
+    stop("There are no results stored. Please run trajectory analysis first")
   }
 
   if ( length(parameters)<2){
-    msg <- c(msg, "At least two parameters are required to run the PCA")
+    stop("At least two parameters are required to run the PCA")
   }
   df1<- object@results
   df1=df1[,-length(object@results[1,])]    #### excluding the last column since it is the avarage of all the cells
