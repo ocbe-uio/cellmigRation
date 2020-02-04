@@ -27,7 +27,7 @@ data(Trajectory_dataset)
 wsaTD <- CellMig(WSAdataset)
 wsaTD <- wsaPreProcessing(wsaTD)
 wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
-CellMigPCA(wsaTD,ExpName="ExpName",parameters=c(1,2,3))
+
 }
 \author{
 Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}
