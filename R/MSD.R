@@ -19,10 +19,12 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' df<-Trajectory_dataset
 #' prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 #' msd<-MSD(prepro,sLAG=0.25, ffLAG=0.25)
+#' }
 
 MSD = function(object,TimeInterval=10,ExpName="ExpName",sLAG=0.25, ffLAG=0.25, SlopePlot=TRUE,AllSlopesPlot=TRUE,FurthPlot=TRUE,AllFurthPlot=TRUE) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )

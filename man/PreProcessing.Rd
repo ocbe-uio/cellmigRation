@@ -20,10 +20,11 @@ A list of data frames, each data frame shows the trajectories of a single cell.
 The PreProcessing function automatically adjusts the X and Y coordinates based on the physical size of the pixel “PixelSize” and let all cells start from a single point (X=0,Y=0). Furthermore, it computes several descriptive parameters, including distances, absolute angles,relative angles, persistence time, squared speed, cumulative distance, Directional ratio and acceleration.
 }
 \examples{
+\dontrun{
 data(Trajectory_dataset)
 df<-Trajectory_dataset
 preproc<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
-
+}
 }
 \author{
 Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}

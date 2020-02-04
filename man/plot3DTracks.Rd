@@ -33,15 +33,19 @@ The 3D visualization shows centered trajectories where the starting point of eac
 The 3D visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
 }
 \examples{
+\dontrun{
 data(Trajectory_dataset)
 rmTD <- CellMig(Trajectory_dataset)
 rmTD <- rmPreProcessing(rmTD)
 plot3DTracks(rmTD, VS=3, size=2,cells=c(1,50,150,250,350))
+}
 
+\dontrun{
 data(Trajectory_dataset)
 df<-Trajectory_dataset
 prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 plot3DTracks(prepro, VS=3, size=2,cells=c(1,50,150,250,350))
+}
 
 }
 \author{

@@ -14,10 +14,12 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' df<-Trajectory_dataset
 #' prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 #' DR=DiRatio(prepro, ExpName="Test")
+#' }
 #'
 DiRatio = function(object,TimeInterval=10,ExpName="ExpName") {
   msg <- NULL
@@ -106,11 +108,13 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName") {
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' df<-Trajectory_dataset
 #' prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 #' DR=DiRatio(prepro, ExpName="Test")
 #' DiRatio.Plot(prepro, ExpName="Test")
+#' }
 #'
 DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )

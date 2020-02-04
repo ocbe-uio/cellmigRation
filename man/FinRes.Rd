@@ -23,10 +23,12 @@ The FinRes function automatically generates a data frame that contains all the r
 Method Final Results
 }
 \examples{
+\dontrun{
 data(Trajectory_dataset)
 wsaTD <- CellMig(WSAdataset)
 wsaTD <- wsaPreProcessing(wsaTD)
 wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
+}
 }
 \author{
 Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}

@@ -17,10 +17,12 @@
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' df<-Trajectory_dataset
 #' prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 #' plotAllTracks(prepro, ExpName="Test",Type="b")
+#' }
 #'
 plotAllTracks= function(object,ExpName="ExpName",Type="l") {
   if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
@@ -108,10 +110,12 @@ plotAllTracks= function(object,ExpName="ExpName",Type="l") {
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' df<-Trajectory_dataset
 #' prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 #' plot3DAllTracks(prepro, VS=3, size=2)
+#' }
 #'
 plot3DAllTracks= function(object,VS=3,size=2) {
   msg <- NULL
@@ -171,10 +175,12 @@ plot3DAllTracks= function(object,VS=3,size=2) {
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' df<-Trajectory_dataset
 #' prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 #' plot3DTracks(prepro, VS=3, size=2,cells=c(1,50,150,250,350))
+#' }
 #'
 plot3DTracks= function(object,VS=3,size=2,cells) {
   msg <- NULL
@@ -236,10 +242,12 @@ plot3DTracks= function(object,VS=3,size=2,cells) {
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' df<-Trajectory_dataset
 #' prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 #' PlotTracksSeparately(prepro, ExpName="Test",Type="b",FixedField=FALSE)
+#' }
 #'
 PlotTracksSeparately= function(object,ExpName="ExpName",Type="l",FixedField=TRUE) {
   if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")

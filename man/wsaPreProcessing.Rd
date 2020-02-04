@@ -42,6 +42,7 @@ An CellMig class object with filtered, annotated and preprocessed data.
 This function allows filtering of cells and preprocessing of the trajectory data from wound scratch assay (WSA) experiments.
 }
 \examples{
+
 data(WSAdataset)
 wsaTD <- CellMig(WSAdataset)
 wsaTD <- wsaPreProcessing(wsaTD)

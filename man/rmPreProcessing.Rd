@@ -22,7 +22,9 @@ This function allows preprocessing of the trajectory data from random migration 
 \examples{
 data(Trajectory_dataset)
 rmTD <- CellMig(Trajectory_dataset)
+\dontrun{
 rmTD <- rmPreProcessing(rmTD)
+}
 }
 \author{
 Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}
