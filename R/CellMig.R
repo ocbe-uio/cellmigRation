@@ -70,7 +70,9 @@ setMethod("initialize",
 #' @examples
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
+#' \dontrun{
 #' rmTD <- rmPreProcessing(rmTD)
+#' }
 #' @export
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 rmPreProcessing = function(object,PixelSize=1.24,TimeInterval=10) {
@@ -247,6 +249,7 @@ rmPreProcessing = function(object,PixelSize=1.24,TimeInterval=10) {
 #'
 #' @return An CellMig class object with filtered, annotated and preprocessed data.
 #' @examples
+#'
 #' data(WSAdataset)
 #' wsaTD <- CellMig(WSAdataset)
 #' wsaTD <- wsaPreProcessing(wsaTD)
@@ -468,8 +471,10 @@ wsaPreProcessing = function(object,PixelSize=1.24,TimeInterval=10,imageH=1500,wo
 #' @examples
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
+#' \dontrun{
 #' rmTD <- rmPreProcessing(rmTD)
 #' plotAllTracks(rmTD, ExpName="Test",Type="b")
+#' }
 #'
 #'
 plotAllTracks= function(object,ExpName="ExpName",Type="l") {
@@ -558,11 +563,12 @@ plotAllTracks= function(object,ExpName="ExpName",Type="l") {
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
 #' rmTD <- rmPreProcessing(rmTD)
 #' plot3DAllTracks(rmTD, VS=3, size=2)
-#'
+#' }
 #'
 plot3DAllTracks= function(object,VS=3,size=2) {
   Object<-object@preprocessedDS
@@ -620,10 +626,12 @@ plot3DAllTracks= function(object,VS=3,size=2) {
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
 #' rmTD <- rmPreProcessing(rmTD)
 #' plot3DTracks(rmTD, VS=3, size=2,cells=c(1,50,150,250,350))
+#' }
 #'
 plot3DTracks= function(object,VS=3,size=2,cells) {
   Object<-object@preprocessedDS
@@ -684,11 +692,12 @@ plot3DTracks= function(object,VS=3,size=2,cells) {
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
 #' rmTD <- rmPreProcessing(rmTD)
 #' PlotTracksSeparately(rmTD, ExpName="Test",Type="b",FixedField=FALSE)
-#'
+#' }
 PlotTracksSeparately= function(object,ExpName="ExpName",Type="l",FixedField=TRUE) {
   if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
   Object<-object@preprocessedDS
@@ -786,11 +795,12 @@ PlotTracksSeparately= function(object,ExpName="ExpName",Type="l",FixedField=TRUE
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
 #' rmTD <- rmPreProcessing(rmTD)
 #' rmTD <- PerAndSpeed(rmTD,TimeInterval=10,ExpName="ExpName")
-#'
+#' }
 #'
 PerAndSpeed= function(object,TimeInterval=10,ExpName="ExpName",PtSplot=TRUE,AllPtSplot=TRUE,ApSplot=TRUE,AllApSplot=TRUE) {
   Object<-object@preprocessedDS
@@ -1176,11 +1186,12 @@ PerAndSpeed= function(object,TimeInterval=10,ExpName="ExpName",PtSplot=TRUE,AllP
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
 #' rmTD <- rmPreProcessing(rmTD)
 #' rmTD <- DiRatio(rmTD, ExpName="Test")
-#'
+#' }
 DiRatio = function(object,TimeInterval=10,ExpName="ExpName") {
   Object<-object@preprocessedDS
   msg <- NULL
@@ -1267,12 +1278,13 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName") {
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
 #' rmTD <- rmPreProcessing(rmTD)
 #' rmTD <-DiRatio(rmTD, ExpName="Test")
 #' DiRatio.Plot(rmTD, ExpName="Test")
-#'
+#' }
 DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   Object<-object@preprocessedDS
@@ -1366,10 +1378,12 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName) {
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
 #' rmTD <- rmPreProcessing(rmTD)
 #' rmTD<-MSD(rmTD,sLAG=0.25, ffLAG=0.25)
+#' }
 
 MSD = function(object,TimeInterval=10,ExpName="ExpName",sLAG=0.25, ffLAG=0.25, SlopePlot=TRUE,AllSlopesPlot=TRUE,FurthPlot=TRUE,AllFurthPlot=TRUE) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
@@ -1744,10 +1758,12 @@ DiAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TR
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' rmTD <- CellMig(Trajectory_dataset)
 #' rmTD <- rmPreProcessing(rmTD)
 #' rmTD <-VeAutoCor(rmTD,TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE)
+#' }
 
 VeAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
@@ -1906,10 +1922,12 @@ VeAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TR
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' wsaTD <- CellMig(WSAdataset)
 #' wsaTD <- wsaPreProcessing(wsaTD)
 #' wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
+#' }
 
 ForwardMigration= function(object, TimeInterval=10,ExpName="ExpName",sfptPLOT =TRUE,afptPLOT =TRUE,sfpPLOT =TRUE,afpPLOT =TRUE){
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
@@ -2248,10 +2266,12 @@ ForwardMigration= function(object, TimeInterval=10,ExpName="ExpName",sfptPLOT =T
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' wsaTD <- CellMig(WSAdataset)
 #' wsaTD <- wsaPreProcessing(wsaTD)
 #' wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName")
+#' }
 
 FMI= function(object, TimeInterval=10,ExpName="ExpName"){
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
@@ -2381,10 +2401,12 @@ FMI= function(object, TimeInterval=10,ExpName="ExpName"){
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' wsaTD <- CellMig(WSAdataset)
 #' wsaTD <- wsaPreProcessing(wsaTD)
 #' wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
+#' }
 
 FinRes= function(object,ExpName="ExpName",ParCor=TRUE){
   msg <- NULL
@@ -2472,10 +2494,12 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE){
 #'
 #'
 #' @examples
+#' \dontrun{
 #' data(Trajectory_dataset)
 #' wsaTD <- CellMig(WSAdataset)
 #' wsaTD <- wsaPreProcessing(wsaTD)
 #' wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
+#' }
 #'
 CellMigPCA= function(object,ExpName="ExpName",parameters=c(1,2,3)){
 

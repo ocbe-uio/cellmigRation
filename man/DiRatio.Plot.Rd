@@ -35,17 +35,20 @@ Method DR
  Directionality Ratio
 }
 \examples{
+\dontrun{
 data(Trajectory_dataset)
 rmTD <- CellMig(Trajectory_dataset)
 rmTD <- rmPreProcessing(rmTD)
 rmTD <-DiRatio(rmTD, ExpName="Test")
 DiRatio.Plot(rmTD, ExpName="Test")
-
+}
+\dontrun{
 data(Trajectory_dataset)
 df<-Trajectory_dataset
 prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
 DR=DiRatio(prepro, ExpName="Test")
 DiRatio.Plot(prepro, ExpName="Test")
+}
 
 }
 \author{

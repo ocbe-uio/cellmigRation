@@ -23,10 +23,12 @@ The CellMigPCA function automatically generates Principal Component Analysis.
 Method PCA
 }
 \examples{
+\dontrun{
 data(Trajectory_dataset)
 wsaTD <- CellMig(WSAdataset)
 wsaTD <- wsaPreProcessing(wsaTD)
 wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
+}
 
 }
 \author{
