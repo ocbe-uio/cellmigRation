@@ -157,7 +157,7 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName) {
     DIR.RATIO.AllCells[1:MM2,j]<-object[[j]][1:MM2,13]
   }
 
-  mycolblue <- rgb(0, 0, 255, max = 255, alpha = 100, names = "blue")    #transparent color
+  mycolblue <- rgb(0, 0, 255, maxColorValue = 255, alpha = 100, names = "blue")    #transparent color
   mean.DIR.RATIO.AllCells<-rowMedians(as.matrix(DIR.RATIO.AllCells),na.rm = T)
   SD.DIR.RATIO.AllCells<-rowSds(as.matrix(DIR.RATIO.AllCells),na.rm = T)    # is a function in matrixStats
   meanSDp<-mean.DIR.RATIO.AllCells+SD.DIR.RATIO.AllCells
