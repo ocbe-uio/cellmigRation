@@ -51,10 +51,12 @@ Method DiAutoCor
 Method DiAutoCor
 }
 \examples{
+\dontrun{
 data(Trajectory_dataset)
 rmTD <- CellMig(Trajectory_dataset)
 rmTD <- rmPreProcessing(rmTD)
 rmTD <- DiAutoCor(rmTD,TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE)
+}
 data(Trajectory_dataset)
 df<-Trajectory_dataset
 prepro<-PreProcessing(df,PixelSize=1.24, TimeInterval=10)
