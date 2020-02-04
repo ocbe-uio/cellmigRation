@@ -7,7 +7,7 @@
 CellMigPCA(object, ExpName = "ExpName", parameters = c(1, 2, 3))
 }
 \arguments{
-\item{object}{\code{CellMig} class Object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
 \item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data.}
 
