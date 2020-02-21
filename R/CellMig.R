@@ -56,26 +56,25 @@ setMethod("initialize",
 )
 
 
-
 #' @title Data preprocessing for random migration (RM)
 
 #'
 #' @description This function allows preprocessing of the trajectory data from random migration (RM) experiments.
 #' @param object \code{CellMig} class object.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
-#' @param PixelSize A numeric value of the physical size of a pixel.
+#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack. Default is 10 min.
+#' @param PixelSize A numeric value of the physical size of a pixel. Default is 1.24.
+#' @param FrameN A numeric value of the number of frames. Default is NULL 
 #'
 #'
 #' @return An CellMig class object with preprocessed data.
 #' @examples
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' \dontrun{
-#' rmTD <- rmPreProcessing(rmTD)
-#' }
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' @export
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
-rmPreProcessing = function(object,PixelSize=1.24,TimeInterval=10) {
+rmPreProcessing = function(object,PixelSize=1.24,TimeInterval=10,FrameN=NULL) {
   msg <- NULL
   if ( ! is.data.frame(object@trajdata)){
     msg <- c(msg, "input data must be data.frame")
@@ -206,30 +205,60 @@ rmPreProcessing = function(object,PixelSize=1.24,TimeInterval=10) {
     })
     ID_split[[j]][1:MM2, 24] <- as.data.frame(res)
   }
+ 
 
   size<-c()
   for(j in 1:length(ID_split)){
-    size[j]<-length(ID_split[[j]][,1])
+	size[j]<-length(ID_split[[j]][,1])
   }
   S<-summary(size)
-  names(S)<-NULL
-  IncompleteTracks<-subset(size,S<S[6])
-  for(j in 1:length(ID_split)){
-    ID_split[[j]]<-ID_split[[j]][1:S[1],]
-    ID_split[[j]][S[1],4:25]=0
-    ID_split[[j]][S[1],10]=TimeInterval
-    ID_split[[j]][1,10]=0
-  }
+  names(S)<-NULL 
+  
+  if (is.null(FrameN)){
+ 	IncompleteTracks<-subset(size,S<S[6])
+	for(j in 1:length(ID_split)){
+		ID_split[[j]]<-ID_split[[j]][1:S[1],]
+		ID_split[[j]][S[1],4:25]=0
+		ID_split[[j]][S[1],10]=TimeInterval
+		ID_split[[j]][1,10]=0
+	}
 
-  cat("The minimum number of steps: ",S[1],"\n")
-  cat("The maximum number of steps: ",S[6],"\n")
-  cat("Number of cells with a total number of steps less than ",S[6],"steps",":",length(IncompleteTracks),"\n")
-  cat("All the tracks are adjusted to have only ",S[1]," steps","\n")
-  PreprocessedData<-ID_split
-  object@preprocessedDS<-PreprocessedData
+	cat("The minimum number of steps: ",S[1],"\n")
+	cat("The maximum number of steps: ",S[6],"\n")
+	cat("Number of cells with a total number of steps less than ",S[6],"steps",":",length(IncompleteTracks),"\n")
+	cat("All the tracks are adjusted to have only ",S[1]," steps","\n")
+    PreprocessedData<-ID_split
+    object@preprocessedDS<-PreprocessedData
+  
+  }else{
+    if ( ! is.numeric(FrameN)) stop( "FrameN has to be a positive number" ) else if ( FrameN<= 0 ) stop( "FrameN has to be a positive number" )
+    if (FrameN>S[6]) stop( paste0("No cells have ",FrameN, " steps in their tracks"))
+	okTracks<-c()
+	for(j in 1:length(ID_split)){
+		if (length(ID_split[[j]][,1])>=FrameN){
+			okTracks<-c(okTracks,j)
+		}
+    }
+  
+	ID_split=ID_split[okTracks]
+	for(j in 1:length(ID_split)){
+		ID_split[[j]]<-ID_split[[j]][1:FrameN,]
+		ID_split[[j]][1:FrameN,1]<-j
+		ID_split[[j]][FrameN,4:25]=0
+		ID_split[[j]][FrameN,10]=TimeInterval
+		ID_split[[j]][1,10]=0
+	}
+	cat("The desired number of steps: ",FrameN,"\n")
+	cat("The maximum number of steps: ",S[6],"\n")
+	cat("Only: ", length(ID_split), " cells were selected","\n")
+
+	cat("All the tracks of the selected cells are adjusted to have only ",FrameN," steps","\n")
+    PreprocessedData<-ID_split
+    object@preprocessedDS<-PreprocessedData
+	
+  }
   return(object)
 }
-
 
 
 #' @title Data preprocessing for wound scratch assay (WSA).
@@ -239,6 +268,7 @@ rmPreProcessing = function(object,PixelSize=1.24,TimeInterval=10) {
 #' @param object \code{CellMig} class object.
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #' @param PixelSize A numeric value of the physical size of a pixel.
+#' @param FrameN A numeric value of the number of frames. Default is NULL 
 #' @param imageH A numeric value of the image hight.
 #' @param woundH A numeric value of the image hight.
 #' @param upperE A numeric value of the upper edge of the wound.
@@ -251,11 +281,12 @@ rmPreProcessing = function(object,PixelSize=1.24,TimeInterval=10) {
 #' @examples
 #'
 #' data(WSAdataset)
-#' wsaTD <- CellMig(WSAdataset)
-#' wsaTD <- wsaPreProcessing(wsaTD)
+#' wasDF=WSAdataset[1:2000,]
+#' wsaTD <- CellMig(wasDF)
+#' wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 #' @export
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
-wsaPreProcessing = function(object,PixelSize=1.24,TimeInterval=10,imageH=1500,woundH=600,upperE=400,lowerE=1000,mar=75,clearW=TRUE) {
+wsaPreProcessing = function(object,PixelSize=1.24,TimeInterval=10,FrameN=NULL,imageH=1500,woundH=600,upperE=400,lowerE=1000,mar=75,clearW=TRUE) {
   msg <- NULL
   if ( ! is.data.frame(object@trajdata)){
     msg <- c(msg, "input data must be data.frame")
@@ -423,32 +454,58 @@ wsaPreProcessing = function(object,PixelSize=1.24,TimeInterval=10,imageH=1500,wo
     })
     ID_split[[j]][1:MM2, 24] <- as.data.frame(res)
   }
-
   size<-c()
   for(j in 1:length(ID_split)){
-    size[j]<-length(ID_split[[j]][,1])
+	size[j]<-length(ID_split[[j]][,1])
   }
   S<-summary(size)
-  names(S)<-NULL
-  IncompleteTracks<-subset(size,S<S[6])
-  for(j in 1:length(ID_split)){
-    ID_split[[j]]<-ID_split[[j]][1:S[1],]
-    ID_split[[j]][S[1],4:25]=0
-    ID_split[[j]][S[1],10]=TimeInterval
-    ID_split[[j]][1,10]=0
-  }
+  names(S)<-NULL 
+  
+  if (is.null(FrameN)){
+ 	IncompleteTracks<-subset(size,S<S[6])
+	for(j in 1:length(ID_split)){
+		ID_split[[j]]<-ID_split[[j]][1:S[1],]
+		ID_split[[j]][S[1],4:25]=0
+		ID_split[[j]][S[1],10]=TimeInterval
+		ID_split[[j]][1,10]=0
+	}
 
-  cat("The minimum number of steps: ",S[1],"\n")
-  cat("The maximum number of steps: ",S[6],"\n")
-  cat("Number of cells with a total number of steps less than ",S[6],"steps",":",length(IncompleteTracks),"\n")
-  cat("All the tracks are adjusted to have only ",S[1]," steps","\n")
-  PreprocessedData<-ID_split
-  object@preprocessedDS<-PreprocessedData
+	cat("The minimum number of steps: ",S[1],"\n")
+	cat("The maximum number of steps: ",S[6],"\n")
+	cat("Number of cells with a total number of steps less than ",S[6],"steps",":",length(IncompleteTracks),"\n")
+	cat("All the tracks are adjusted to have only ",S[1]," steps","\n")
+    PreprocessedData<-ID_split
+    object@preprocessedDS<-PreprocessedData
+  
+  }else{
+    if ( ! is.numeric(FrameN)) stop( "FrameN has to be a positive number" ) else if ( FrameN<= 0 ) stop( "FrameN has to be a positive number" )
+    if (FrameN>S[6]) stop( paste0("No cells have ",FrameN, " steps in their tracks"))
+	okTracks<-c()
+	for(j in 1:length(ID_split)){
+		if (length(ID_split[[j]][,1])>=FrameN){
+			okTracks<-c(okTracks,j)
+		}
+    }
+  
+	ID_split=ID_split[okTracks]
+	for(j in 1:length(ID_split)){
+		ID_split[[j]]<-ID_split[[j]][1:FrameN,]
+		ID_split[[j]][1:FrameN,1]<-j
+		ID_split[[j]][FrameN,4:25]=0
+		ID_split[[j]][FrameN,10]=TimeInterval
+		ID_split[[j]][1,10]=0
+	}
+	cat("The desired number of steps: ",FrameN,"\n")
+	cat("The maximum number of steps: ",S[6],"\n")
+	cat("Only: ", length(ID_split), " cells were selected","\n")
+
+	cat("All the tracks of the selected cells are adjusted to have only ",FrameN," steps","\n")
+    PreprocessedData<-ID_split
+    object@preprocessedDS<-PreprocessedData
+	
+  }
   return(object)
 }
-
-
-
 
 #' Method Plotting
 #' @title A 2D rose-plot
@@ -470,11 +527,10 @@ wsaPreProcessing = function(object,PixelSize=1.24,TimeInterval=10,imageH=1500,wo
 #'
 #' @examples
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' \dontrun{
-#' rmTD <- rmPreProcessing(rmTD)
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' plotAllTracks(rmTD, ExpName="Test",Type="b")
-#' }
 #'
 #'
 plotAllTracks= function(object,ExpName="ExpName",Type="l") {
@@ -563,12 +619,11 @@ plotAllTracks= function(object,ExpName="ExpName",Type="l") {
 #'
 #'
 #' @examples
-#' \dontrun{
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' rmTD <- rmPreProcessing(rmTD)
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' plot3DAllTracks(rmTD, VS=3, size=2)
-#' }
 #'
 plot3DAllTracks= function(object,VS=3,size=2) {
   Object<-object@preprocessedDS
@@ -626,12 +681,11 @@ plot3DAllTracks= function(object,VS=3,size=2) {
 #'
 #'
 #' @examples
-#' \dontrun{
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' rmTD <- rmPreProcessing(rmTD)
-#' plot3DTracks(rmTD, VS=3, size=2,cells=c(1,50,150,250,350))
-#' }
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
+#' plot3DTracks(rmTD, VS=3, size=2,cells=c(1,10,15))
 #'
 plot3DTracks= function(object,VS=3,size=2,cells) {
   Object<-object@preprocessedDS
@@ -692,12 +746,12 @@ plot3DTracks= function(object,VS=3,size=2,cells) {
 #'
 #'
 #' @examples
-#' \dontrun{
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' rmTD <- rmPreProcessing(rmTD)
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' PlotTracksSeparately(rmTD, ExpName="Test",Type="b",FixedField=FALSE)
-#' }
+#'
 PlotTracksSeparately= function(object,ExpName="ExpName",Type="l",FixedField=TRUE) {
   if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
   Object<-object@preprocessedDS
@@ -795,12 +849,11 @@ PlotTracksSeparately= function(object,ExpName="ExpName",Type="l",FixedField=TRUE
 #'
 #'
 #' @examples
-#' \dontrun{
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' rmTD <- rmPreProcessing(rmTD)
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD <- PerAndSpeed(rmTD,TimeInterval=10,ExpName="ExpName")
-#' }
 #'
 PerAndSpeed= function(object,TimeInterval=10,ExpName="ExpName",PtSplot=TRUE,AllPtSplot=TRUE,ApSplot=TRUE,AllApSplot=TRUE) {
   Object<-object@preprocessedDS
@@ -1186,12 +1239,12 @@ PerAndSpeed= function(object,TimeInterval=10,ExpName="ExpName",PtSplot=TRUE,AllP
 #'
 #'
 #' @examples
-#' \dontrun{
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' rmTD <- rmPreProcessing(rmTD)
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD <- DiRatio(rmTD, ExpName="Test")
-#' }
+#' 
 DiRatio = function(object,TimeInterval=10,ExpName="ExpName") {
   Object<-object@preprocessedDS
   msg <- NULL
@@ -1278,13 +1331,13 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName") {
 #'
 #'
 #' @examples
-#' \dontrun{
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' rmTD <- rmPreProcessing(rmTD)
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD <-DiRatio(rmTD, ExpName="Test")
 #' DiRatio.Plot(rmTD, ExpName="Test")
-#' }
+#' 
 DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   Object<-object@preprocessedDS
@@ -1378,13 +1431,12 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName) {
 #'
 #'
 #' @examples
-#' \dontrun{
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' rmTD <- rmPreProcessing(rmTD)
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD<-MSD(rmTD,sLAG=0.25, ffLAG=0.25)
-#' }
-
+#' 
 MSD = function(object,TimeInterval=10,ExpName="ExpName",sLAG=0.25, ffLAG=0.25, SlopePlot=TRUE,AllSlopesPlot=TRUE,FurthPlot=TRUE,AllFurthPlot=TRUE) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   if ( ! is.numeric(sLAG) ) stop( "sLAG has to be a positive number" ) else if ( sLAG<= 0 ) stop( "sLAG has to be a positive number" )
@@ -1463,7 +1515,7 @@ MSD = function(object,TimeInterval=10,ExpName="ExpName",sLAG=0.25, ffLAG=0.25, S
     title(main=paste0("All Cells -  MSD Slope = ",reg1),col.main="black")
     dev.off()
   }
-  for (j in 1: length(MSD.table[1,])){                      # Fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method
+  for (j in 1: length(MSD.table[1,])){                      # Fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method
     LAG<-round(Step*ffLAG)
     y=MSD.table[1:LAG,j]
     t <- c(1:length(y))
@@ -1573,13 +1625,12 @@ MSD = function(object,TimeInterval=10,ExpName="ExpName",sLAG=0.25, ffLAG=0.25, S
 #'
 #'
 #' @examples
-#' \dontrun{
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' rmTD <- rmPreProcessing(rmTD)
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD <- DiAutoCor(rmTD,TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE)
-#' }
-
+#' 
 DiAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   if ( ! is.numeric(sLAG) ) stop( "sLAG has to be a positive number" ) else if ( sLAG<= 0 ) stop( "sLAG has to be a positive number" )
@@ -1758,13 +1809,12 @@ DiAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TR
 #'
 #'
 #' @examples
-#' \dontrun{
 #' data(Trajectory_dataset)
-#' rmTD <- CellMig(Trajectory_dataset)
-#' rmTD <- rmPreProcessing(rmTD)
+#' rmDF=Trajectory_dataset[1:2000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD <-VeAutoCor(rmTD,TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE)
-#' }
-
+#' 
 VeAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   if ( ! is.numeric(sLAG) ) stop( "sLAG has to be a positive number" ) else if ( sLAG<= 0 ) stop( "sLAG has to be a positive number" )
@@ -1922,13 +1972,12 @@ VeAutoCor= function(object, TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TR
 #'
 #'
 #' @examples
-#' \dontrun{
-#' data(Trajectory_dataset)
-#' wsaTD <- CellMig(WSAdataset)
-#' wsaTD <- wsaPreProcessing(wsaTD)
+#' data(WSAdataset)
+#' wasDF=WSAdataset[1:2000,]
+#' wsaTD <- CellMig(wasDF)
+#' wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 #' wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
-#' }
-
+#' 
 ForwardMigration= function(object, TimeInterval=10,ExpName="ExpName",sfptPLOT =TRUE,afptPLOT =TRUE,sfpPLOT =TRUE,afpPLOT =TRUE){
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   Object<-object@preprocessedDS
@@ -2266,13 +2315,12 @@ ForwardMigration= function(object, TimeInterval=10,ExpName="ExpName",sfptPLOT =T
 #'
 #'
 #' @examples
-#' \dontrun{
-#' data(Trajectory_dataset)
-#' wsaTD <- CellMig(WSAdataset)
-#' wsaTD <- wsaPreProcessing(wsaTD)
+#' data(WSAdataset)
+#' wasDF=WSAdataset[1:2000,]
+#' wsaTD <- CellMig(wasDF)
+#' wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 #' wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName")
-#' }
-
+#' 
 FMI= function(object, TimeInterval=10,ExpName="ExpName"){
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   Object<-object@preprocessedDS
@@ -2402,9 +2450,12 @@ FMI= function(object, TimeInterval=10,ExpName="ExpName"){
 #'
 #' @examples
 #' \dontrun{
-#' data(Trajectory_dataset)
-#' wsaTD <- CellMig(WSAdataset)
-#' wsaTD <- wsaPreProcessing(wsaTD)
+#' data(WSAdataset)
+#' wasDF=WSAdataset[1:2000,]
+#' wsaTD <- CellMig(wasDF)
+#' wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
+#' wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName")
+#' wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
 #' wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
 #' }
 
@@ -2495,10 +2546,14 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE){
 #'
 #' @examples
 #' \dontrun{
-#' data(Trajectory_dataset)
-#' wsaTD <- CellMig(WSAdataset)
-#' wsaTD <- wsaPreProcessing(wsaTD)
+#' data(WSAdataset)
+#' wasDF=WSAdataset[1:2000,]
+#' wsaTD <- CellMig(wasDF)
+#' wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
+#' wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName")
+#' wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
 #' wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
+#' PCAplot<-CellMigPCA(wsaTD,,parameters=c(1,2))
 #' }
 #'
 CellMigPCA= function(object,ExpName="ExpName",parameters=c(1,2,3)){
