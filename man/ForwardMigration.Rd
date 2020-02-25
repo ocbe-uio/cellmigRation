@@ -39,12 +39,12 @@ The ForwardMigration function automatically generates data and plots for forward
 Method Forward Migration
 }
 \examples{
-\dontrun{
-data(Trajectory_dataset)
-wsaTD <- CellMig(WSAdataset)
-wsaTD <- wsaPreProcessing(wsaTD)
+data(WSAdataset)
+wasDF=WSAdataset[1:2000,]
+wsaTD <- CellMig(wasDF)
+wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
-}
+
 }
 \author{
 Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}

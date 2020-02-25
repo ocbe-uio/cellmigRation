@@ -8,6 +8,7 @@ wsaPreProcessing(
   object,
   PixelSize = 1.24,
   TimeInterval = 10,
+  FrameN = NULL,
   imageH = 1500,
   woundH = 600,
   upperE = 400,
@@ -22,6 +23,8 @@ wsaPreProcessing(
 \item{PixelSize}{A numeric value of the physical size of a pixel.}
 
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+
+\item{FrameN}{A numeric value of the number of frames. Default is NULL}
 
 \item{imageH}{A numeric value of the image hight.}
 
@@ -44,8 +47,9 @@ This function allows filtering of cells and preprocessing of the trajectory data
 \examples{
 
 data(WSAdataset)
-wsaTD <- CellMig(WSAdataset)
-wsaTD <- wsaPreProcessing(wsaTD)
+wasDF=WSAdataset[1:2000,]
+wsaTD <- CellMig(wasDF)
+wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 }
 \author{
 Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}
