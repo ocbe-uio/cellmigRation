@@ -3,7 +3,7 @@ Type: Package
 Title: Tracking cells and analyzing their trajectories
 Version: 0.1.1
 Depends: R (>= 3.5.0)
-Author: Salim Ghannoum, Damiano Fantini and Øystein Sørensen
+Author: Salim Ghannoum, Damiano Fantini, Waldir Leoncio Netto and Øystein Sørensen
 Maintainer: Salim Ghannoum <salim.ghannoum@medisin.uio.no>
 Description: Contains 15 trajectory analysis functions.
 License: CC0
