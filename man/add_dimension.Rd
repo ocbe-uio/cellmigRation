@@ -19,7 +19,7 @@ Creates a new (molten) data matrix where all elements of y ar added to each row 
 Each row in x is recycled for each element in y. Elements in y are added as the first column in the returned matrix.
 }
 \examples{
-cellTracker:::add_dimension(x = cbind(1:4, 4:1), y = c(9, 7))
+CellMigRation:::add_dimension(x = cbind(1:4, 4:1), y = c(9, 7))
 
 }
 \references{

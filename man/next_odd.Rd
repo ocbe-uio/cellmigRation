@@ -16,7 +16,7 @@ a vector of class integer
 Returns the smallest odd number bigger than the number(s) provided as the argument
 }
 \examples{
-cellTracker:::next_odd(2:5)
+CellMigRation:::next_odd(2:5)
 
 }
 \references{
