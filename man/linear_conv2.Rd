@@ -30,7 +30,7 @@ Alternatively, the convolution is performed in a row-wise fashion
 \examples{
 graphics::par(mfrow = c(1, 2))
 tmp <- sapply(1:12, function(i) { (6 + abs(i - 6)) * c(1:10, 10:1) })
-cnv.tmp <- cellTracker:::linear_conv2(tmp, c(-3, 0, 3))
+cnv.tmp <- CellMigRation:::linear_conv2(tmp, c(-3, 0, 3))
 graphics::image(tmp); graphics::image(cnv.tmp)
 }
 \references{

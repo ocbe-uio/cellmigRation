@@ -17,7 +17,7 @@ and LEN indicates the diameter size
 Estimates the diameters of particles in a numeric or logical vector
 }
 \examples{
-cellTracker:::detect_radii(c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1))
+CellMigRation:::detect_radii(c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1))
 
 }
 \references{

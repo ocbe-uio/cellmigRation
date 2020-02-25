@@ -19,7 +19,7 @@ Circularly shift the elements in an array by a user-defined number of positions.
 This emulates the behavior of the corresponding Matlab Circhsift function.
 }
 \examples{
-cellTracker:::circshift(1:10, -2)
+CellMigRation:::circshift(1:10, -2)
 
 }
 \references{

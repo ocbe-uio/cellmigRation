@@ -21,7 +21,7 @@ Creates a Molten Hypercube with a user-defined number of dimensions. The values 
 are used to fill each dimension. All possible combination of values are included in the resulting hyper cube.
 }
 \examples{
-cellTracker:::make_hypercube(1:3, 3)
+CellMigRation:::make_hypercube(1:3, 3)
 
 }
 \references{

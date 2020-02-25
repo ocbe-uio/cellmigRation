@@ -133,7 +133,7 @@ setMethod("show", signature(object = "trackedCells"),
 #' \url{https://www.data-pulse.com/dev_site/celltracker/}
 #'
 #' @examples
-#' cellTracker:::next_odd(2:5)
+#' CellMigRation:::next_odd(2:5)
 #'
 #' @keywords internal
 next_odd <- function(x) {
@@ -158,7 +158,7 @@ next_odd <- function(x) {
 #' \url{https://www.data-pulse.com/dev_site/celltracker/}
 #'
 #' @examples
-#' cellTracker:::circshift(1:10, -2)
+#' CellMigRation:::circshift(1:10, -2)
 #'
 #' @keywords internal
 circshift <- function(x, n = 1) {
@@ -209,7 +209,7 @@ circshift <- function(x, n = 1) {
 #' \url{https://www.data-pulse.com/dev_site/celltracker/}
 #'
 #' @examples
-#' cellTracker:::add_dimension(x = cbind(1:4, 4:1), y = c(9, 7))
+#' CellMigRation:::add_dimension(x = cbind(1:4, 4:1), y = c(9, 7))
 #'
 #' @keywords internal
 add_dimension <- function(x, y) {
@@ -245,7 +245,7 @@ add_dimension <- function(x, y) {
 #' \url{https://www.data-pulse.com/dev_site/celltracker/}
 #'
 #' @examples
-#' cellTracker:::make_hypercube(1:3, 3)
+#' CellMigRation:::make_hypercube(1:3, 3)
 #'
 #' @keywords internal
 make_hypercube <- function(vals, dims) {
@@ -277,7 +277,7 @@ make_hypercube <- function(vals, dims) {
 #'
 #' @examples
 #' tmp <- data.frame(A = 1:4, B=c(3.1, 2.8, 3.3, 9.1), C = FALSE)
-#' cellTracker:::matfix(tmp)
+#' CellMigRation:::matfix(tmp)
 #'
 #' @keywords internal
 matfix <- function(x) {
@@ -316,7 +316,7 @@ matfix <- function(x) {
 #' @examples
 #' graphics::par(mfrow = c(1, 2))
 #' tmp <- sapply(1:12, function(i) { (6 + abs(i - 6)) * c(1:10, 10:1) })
-#' cnv.tmp <- cellTracker:::linear_conv2(tmp, c(-3, 0, 3))
+#' cnv.tmp <- CellMigRation:::linear_conv2(tmp, c(-3, 0, 3))
 #' graphics::image(tmp); graphics::image(cnv.tmp)
 #' @importFrom graphics par image
 #'
@@ -1040,7 +1040,7 @@ centroid_array <- function(stack, lobject, threshold)
 #' \url{https://www.data-pulse.com/dev_site/celltracker/}
 #'
 #' @examples
-#' cellTracker:::detect_radii(c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1))
+#' CellMigRation:::detect_radii(c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1))
 #'
 #' @keywords internal
 detect_radii <- function(x) {
@@ -2706,13 +2706,13 @@ optimize_params <- function(tc_obj, lnoise_range = NULL,
   }
 
   ## ----- debugging -----
-  #bpass = cellTracker:::bpass
-  #pkfnd = cellTracker:::pkfnd
-  #visualize_img = cellTracker:::visualize_img
-  #cntrd = cellTracker:::cntrd
-  #next_odd = cellTracker:::next_odd
-  #visualize_cntr = cellTracker:::visualize_cntr
-  #track = cellTracker:::track
+  #bpass = CellMigRation:::bpass
+  #pkfnd = CellMigRation:::pkfnd
+  #visualize_img = CellMigRation:::visualize_img
+  #cntrd = CellMigRation:::cntrd
+  #next_odd = CellMigRation:::next_odd
+  #visualize_cntr = CellMigRation:::visualize_cntr
+  #track = CellMigRation:::track
   ## ----- endo of debugging -----
 
   # select mid signal image
@@ -3078,13 +3078,13 @@ cell_tracker <- function(tc_obj,
   }
 
   ## ----- debugging -----
-  #bpass = cellTracker:::bpass
-  #pkfnd = cellTracker:::pkfnd
-  #visualize_img = cellTracker:::visualize_img
-  #cntrd = cellTracker:::cntrd
-  #next_odd = cellTracker:::next_odd
-  #visualize_cntr = cellTracker:::visualize_cntr
-  #track = cellTracker:::track
+  #bpass = CellMigRation:::bpass
+  #pkfnd = CellMigRation:::pkfnd
+  #visualize_img = CellMigRation:::visualize_img
+  #cntrd = CellMigRation:::cntrd
+  #next_odd = CellMigRation:::next_odd
+  #visualize_cntr = CellMigRation:::visualize_cntr
+  #track = CellMigRation:::track
   ## ----- endo of debugging -----
 
   # Load stack
