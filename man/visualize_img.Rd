@@ -17,7 +17,7 @@ visualize_img(img_mtx, col = NULL, ...)
 None
 }
 \description{
-Shows an image representation of a numeric matrix. Typically, this is a non-negative numeric matrix, 
+Shows an image representation of a numeric matrix. Typically, this is a non-negative numeric matrix,
 where signal (high values) corresponds to the presence of cells, or cell-like particles
 }
 \references{

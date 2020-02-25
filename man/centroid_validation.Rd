@@ -21,8 +21,8 @@ centroid_validation(
 
 \item{lobject}{integer, length in pixels somewhat larger than a typical object (cell)}
 
-\item{threshold}{the minimum brightness of a pixel that might be local maxima. NOTE: 
-Make it big and the code runs faster but you might miss some particles.  
+\item{threshold}{the minimum brightness of a pixel that might be local maxima. NOTE:
+Make it big and the code runs faster but you might miss some particles.
 Make it small and you'll get everything and it'll be slow.}
 
 \item{pnt.cex}{cex of the circle drawn around each cell}
@@ -35,7 +35,7 @@ Make it small and you'll get everything and it'll be slow.}
 data.frame of centroid positions
 }
 \description{
-Validate parameters used to identify cells in a image stack. A figure containing 
+Validate parameters used to identify cells in a image stack. A figure containing
 current image frame with identified particles labeled with circles and numberical tags is generated
 }
 \references{

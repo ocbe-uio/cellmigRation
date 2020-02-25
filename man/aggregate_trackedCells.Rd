@@ -15,13 +15,13 @@ aggregate_trackedCells(
 
 \item{...}{one or more trackedCells-class object(s) where cells have already been tracked}
 
-\item{meta_id_field}{string, can take one of the following values, c("tiff_file", "experiment", 
+\item{meta_id_field}{string, can take one of the following values, c("tiff_file", "experiment",
 "condition", "replicate"). Indicates the meta-data column used as unique ID for the image/experiment.
 Can be abbreviated. Defaults to "tiff_file".}
 }
 \value{
-An aggregate data.frame including all cells that were tracked over two or more images/experiments. 
-The data.frame includes the following columns: "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name", 
+An aggregate data.frame including all cells that were tracked over two or more images/experiments.
+The data.frame includes the following columns: "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name",
 "experiment", "condition", "replicate". The "new.ID" uniquely identifies a cell in a given image/experiment.
 }
 \description{
@@ -30,7 +30,7 @@ tracks (oterwise an error will be raised). All tracks form the different experim
 large data.frame. A new unique ID is assigned to specifically identify each cell track from each image/experiment.
 }
 \details{
-each trackedCells-class object passed to this function requires a unique identifier (such as a unique 
+each trackedCells-class object passed to this function requires a unique identifier (such as a unique
 tiff_file name). Any of the metadata columns can be used as unique ID for an image/experiment. The function
 will raise an error if non-unique identifiers are found across the input objects.
 }
