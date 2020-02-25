@@ -10,7 +10,7 @@ detect_radii(x)
 \item{x}{numeric or logical vector}
 }
 \value{
-data.frame including two columns: MPOS indicates the centroid position of a particle, 
+data.frame including two columns: MPOS indicates the centroid position of a particle,
 and LEN indicates the diameter size
 }
 \description{

@@ -15,7 +15,7 @@ circshift(x, n = 1)
 a vector corresponding to x (same size, same class), whose elements have been shifted
 }
 \description{
-Circularly shift the elements in an array by a user-defined number of positions. 
+Circularly shift the elements in an array by a user-defined number of positions.
 This emulates the behavior of the corresponding Matlab Circhsift function.
 }
 \examples{

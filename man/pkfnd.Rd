@@ -7,24 +7,24 @@
 pkfnd(im, th, sz = NULL)
 }
 \arguments{
-\item{im}{image to process, particle should be bright spots on dark background 
+\item{im}{image to process, particle should be bright spots on dark background
 with little noise ofen an bandpass filtered brightfield image}
 
-\item{th}{the minimum brightness of a pixel that might be local maxima. 
+\item{th}{the minimum brightness of a pixel that might be local maxima.
 NOTE: Make it big and the code runs faster but you might miss some particles.
 Make it small and you'll get everything and it'll be slow.}
 
-\item{sz}{if your data is noisy, (e.g. a single particle has multiple local maxima), 
-then set this optional keyword to a value slightly larger than the diameter of your blob. 
-If multiple peaks are found withing a radius of sz/2 then the code will keep only the brightest.  
+\item{sz}{if your data is noisy, (e.g. a single particle has multiple local maxima),
+then set this optional keyword to a value slightly larger than the diameter of your blob.
+If multiple peaks are found withing a radius of sz/2 then the code will keep only the brightest.
 Also gets rid of all peaks within sz of boundary}
 }
 \value{
 a numeric data.frame with two columns, with the coordinates of local maxima
 }
 \description{
-Finds local maxima in an image to pixel level accuracy. This provides a rough guess 
-of particle centers to be used by cntrd(). Inspired by the lmx subroutine of 
+Finds local maxima in an image to pixel level accuracy. This provides a rough guess
+of particle centers to be used by cntrd(). Inspired by the lmx subroutine of
 Grier and Crocker's. CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
 }
 \references{
