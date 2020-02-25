@@ -14,8 +14,8 @@ migrationStats(tracks, interval_time, pixel_micron)
 \item{pixel_micron}{integer, image resolution, i.e. number of pixels per micron}
 }
 \value{
-list of stats calculated for the cell tracks. Info include variables of speed, 
-distance, euclidean displacement, persistence, angular displacement, 
+list of stats calculated for the cell tracks. Info include variables of speed,
+distance, euclidean displacement, persistence, angular displacement,
 yFMI, xFMI, y-displacement, x-displacement and frames
 }
 \description{

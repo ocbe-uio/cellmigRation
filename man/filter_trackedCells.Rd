@@ -14,10 +14,10 @@ filter_trackedCells(
 \item{x}{data.frame, is an aggregated Table of Cell Tracks. Must include the following columns:
 "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name", "experiment", "condition", "replicate"}
 
-\item{id_list}{character vector, indicates the IDs (such as tiff_filenames) to be retained in the 
+\item{id_list}{character vector, indicates the IDs (such as tiff_filenames) to be retained in the
 output data.frame}
 
-\item{meta_id_field}{string, can take one of the following values, c("tiff_file", "experiment", 
+\item{meta_id_field}{string, can take one of the following values, c("tiff_file", "experiment",
 "condition", "replicate"). Indicates the meta-data column used as unique ID for the image/experiment.
 Can be abbreviated. Defaults to "tiff_file".}
 }
@@ -25,15 +25,15 @@ Can be abbreviated. Defaults to "tiff_file".}
 data.frame, a filtered aggregated Table of Cell Tracks
 }
 \description{
-Filter an Aggregated Table (data.frame) of cell tracks (from multiple images/experiments) and 
+Filter an Aggregated Table (data.frame) of cell tracks (from multiple images/experiments) and
 retain cell tracks from images/experiments of interest
 }
 \examples{
-A <- data.frame(new.ID = 1:10, 
-                frame.ID = 10:1, 
-                X = sample(1:100, size = 10), 
-                Y = sample(1:100, size = 10), 
-                cell.ID = c(rep(1, 5), rep(2, 5)), 
+A <- data.frame(new.ID = 1:10,
+                frame.ID = 10:1,
+                X = sample(1:100, size = 10),
+                Y = sample(1:100, size = 10),
+                cell.ID = c(rep(1, 5), rep(2, 5)),
                 tiff_file= c(rep("ii", 3), rep("jj", 5), rep('kk', 2)))
 filter_trackedCells(A, id_list = c("ii", "kk"))
 

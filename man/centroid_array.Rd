@@ -14,7 +14,7 @@ centroid_array(stack, lobject, threshold)
 \item{threshold}{the minimum brightness of a pixel that might be local maxima}
 }
 \value{
-data.frame of centroids, whith 4 columns corresponding to x-postion of centroid, 
+data.frame of centroids, whith 4 columns corresponding to x-postion of centroid,
 y-postion of centroid, brightness, and square of the radius of gyration
 }
 \description{

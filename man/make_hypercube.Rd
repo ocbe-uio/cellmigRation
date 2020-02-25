@@ -9,11 +9,11 @@ make_hypercube(vals, dims)
 \arguments{
 \item{vals}{vector of values used to fill the hyper cube}
 
-\item{dims}{integer indicating the number of dimensions. The resulting molden data frame will have a number of 
+\item{dims}{integer indicating the number of dimensions. The resulting molden data frame will have a number of
 columns equal to dims}
 }
 \value{
-Matrix corresponding to a molten hyper cube. The number of columns is equal to dims; 
+Matrix corresponding to a molten hyper cube. The number of columns is equal to dims;
 the number of rows is equal to length(vals) ^ dims
 }
 \description{

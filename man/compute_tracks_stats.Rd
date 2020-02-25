@@ -17,7 +17,7 @@ compute_tracks_stats(tc_obj, time_between_frames, resolution_pixel_per_micron)
 a trackedCells object, including cell track statistics
 }
 \description{
-Wrapper for the migrationStats() function. It computes statistics for a 
+Wrapper for the migrationStats() function. It computes statistics for a
 trackedCells object where cells have already been tracked.
 }
 \references{

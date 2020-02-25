@@ -21,13 +21,13 @@ stray noise or small particles.}
 Numeric matrix corresponding to the filtered image
 }
 \description{
-Implements a real-space bandpass filter that suppresses pixel noise and long-wavelength 
+Implements a real-space bandpass filter that suppresses pixel noise and long-wavelength
 image variations while retaining information of a characteristic size.
-First, a lowpassed image is produced by convolving the original with a gaussian.  
-Next, a second lowpassed image is produced by convolving the original with a 
-boxcar function. By subtracting the boxcar version from the gaussian version, 
+First, a lowpassed image is produced by convolving the original with a gaussian.
+Next, a second lowpassed image is produced by convolving the original with a
+boxcar function. By subtracting the boxcar version from the gaussian version,
 we are using the boxcar version to perform a highpass.
-This code 'bpass.pro' is copyright 1997, John C. Crocker and 
+This code 'bpass.pro' is copyright 1997, John C. Crocker and
 David G. Grier.  It should be considered 'freeware'- and may be
 distributed freely in its original form when properly attributed.
 }

@@ -13,7 +13,7 @@ matfix(x)
 numeric matrix with all its elements coerced to integer
 }
 \description{
-Convert any matrix-lie object to a numeric Matrix, and coerces all the elements to integer. 
+Convert any matrix-lie object to a numeric Matrix, and coerces all the elements to integer.
 Row names and column names are removed
 }
 \examples{

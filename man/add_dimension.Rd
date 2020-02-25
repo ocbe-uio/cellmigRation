@@ -15,7 +15,7 @@ add_dimension(x, y)
 a matrix with an extra column as compared to x
 }
 \description{
-Creates a new (molten) data matrix where all elements of y ar added to each row of x. 
+Creates a new (molten) data matrix where all elements of y ar added to each row of x.
 Each row in x is recycled for each element in y. Elements in y are added as the first column in the returned matrix.
 }
 \examples{

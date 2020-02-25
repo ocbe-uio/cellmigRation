@@ -44,18 +44,18 @@ to guide a highpass background subtraction. The threshold param is used for a ba
 the initial image convolution
 \itemize{
 
-  \item \strong{lnoise}: Characteristic lengthscale of noise in pixels. 
+  \item \strong{lnoise}: Characteristic lengthscale of noise in pixels.
   Additive noise averaged over this length should vanish. May assume any positive floating value.
   May be also set to 0, in which case only the highpass "background subtraction" operation is performed.
 
-  \item \strong{lobject} Integer length in pixels somewhat larger than a typical object. 
-  Can also be set to 0, in which case only the lowpass "blurring" operation defined by lnoise is done 
+  \item \strong{lobject} Integer length in pixels somewhat larger than a typical object.
+  Can also be set to 0, in which case only the lowpass "blurring" operation defined by lnoise is done
   without the background subtraction defined by lobject
-  
-  \item \strong{threshold} Numeric. By default, after the convolution, any negative pixels are reset 
-  to 0.  Threshold changes the threshhold for setting pixels to 0.  Positive values may be useful 
-  for removing stray noise or small particles. 
-  
+
+  \item \strong{threshold} Numeric. By default, after the convolution, any negative pixels are reset
+  to 0.  Threshold changes the threshhold for setting pixels to 0.  Positive values may be useful
+  for removing stray noise or small particles.
+
 }
 }
 \references{
