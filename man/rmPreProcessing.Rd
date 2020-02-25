@@ -4,14 +4,16 @@
 \alias{rmPreProcessing}
 \title{Data preprocessing for random migration (RM)}
 \usage{
-rmPreProcessing(object, PixelSize = 1.24, TimeInterval = 10)
+rmPreProcessing(object, PixelSize = 1.24, TimeInterval = 10, FrameN = NULL)
 }
 \arguments{
 \item{object}{\code{CellMig} class object.}
 
-\item{PixelSize}{A numeric value of the physical size of a pixel.}
+\item{PixelSize}{A numeric value of the physical size of a pixel. Default is 1.24.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack. Default is 10 min.}
+
+\item{FrameN}{A numeric value of the number of frames. Default is NULL}
 }
 \value{
 An CellMig class object with preprocessed data.
@@ -21,10 +23,9 @@ This function allows preprocessing of the trajectory data from random migration 
 }
 \examples{
 data(Trajectory_dataset)
-rmTD <- CellMig(Trajectory_dataset)
-\dontrun{
-rmTD <- rmPreProcessing(rmTD)
-}
+rmDF=Trajectory_dataset[1:2000,]
+rmTD <- CellMig(rmDF)
+rmTD <- rmPreProcessing(rmTD,FrameN=100)
 }
 \author{
 Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}

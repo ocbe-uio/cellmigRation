@@ -24,10 +24,14 @@ Method PCA
 }
 \examples{
 \dontrun{
-data(Trajectory_dataset)
-wsaTD <- CellMig(WSAdataset)
-wsaTD <- wsaPreProcessing(wsaTD)
+data(WSAdataset)
+wasDF=WSAdataset[1:2000,]
+wsaTD <- CellMig(wasDF)
+wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
+wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName")
+wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
 wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
+PCAplot<-CellMigPCA(wsaTD,,parameters=c(1,2))
 }
 
 }
