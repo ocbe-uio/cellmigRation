@@ -10,4 +10,4 @@ License: CC0
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
-Imports: SpatialTools, matrixStats, FME, Hmisc, vioplot, methods, sp, rgl, FactoMineR
+Imports: SpatialTools, matrixStats, FME, Hmisc, vioplot, methods, sp, rgl, FactoMineR, doParallel, foreach, reshape2, tiff
