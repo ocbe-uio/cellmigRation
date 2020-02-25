@@ -18,7 +18,7 @@ Row names and column names are removed
 }
 \examples{
 tmp <- data.frame(A = 1:4, B=c(3.1, 2.8, 3.3, 9.1), C = FALSE)
-cellTracker:::matfix(tmp)
+CellMigRation:::matfix(tmp)
 
 }
 \references{
