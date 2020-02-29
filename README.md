@@ -9,7 +9,7 @@
 
 <!-- badges: end -->
 
-An R package for tracking cells and analyzing their trajectories.
+An R package for tracking cells and analyzing their trajectories. It enables finding migratory patterns.
 
 ## Installation
 
