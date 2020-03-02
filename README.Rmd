@@ -43,8 +43,8 @@ Example usage:
 library(CellMigRation)
 
 data(Trajectory_dataset)
-df <- Trajectory_dataset[1:100, ]
-preproc <- PreProcessing(df, PixelSize = 1.24, TimeInterval = 100)
+df <- CellMig(Trajectory_dataset[1:100, ])
+preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 100)
 ```
 
 
