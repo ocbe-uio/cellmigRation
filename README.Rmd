@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 ![CellMigRation](CellMigRationLogo.png)
 
 <!-- badges: start -->
+[![Build Status](https://travis-ci.org/ocbe-uio/CellMigRation.svg?branch=master)](https://travis-ci.org/ocbe-uio/CellMigRation)
 <!-- badges: end -->
 
 
