@@ -6,5 +6,5 @@
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #'
-#' @name CellMigRation
+#' @name CellMigration-package
 NULL
