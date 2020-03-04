@@ -2858,7 +2858,7 @@ optimize_params <- function(tc_obj, lnoise_range = NULL,
     all_results <-
       tryCatch(foreach::foreach(j = (1:nrow(all_params)),
                                 .verbose = TRUE,
-                                .packages = "cellTracker") %dopar% {
+                                .packages = "CellMigRation") %dopar% {
 
                                   # Verbose
                                   message(".", appendLF = FALSE)
@@ -3170,7 +3170,7 @@ cell_tracker <- function(tc_obj,
     all_results <-
       tryCatch(foreach::foreach(j = (1:NumberImages),
                                 .verbose = TRUE,
-                                .packages = "cellTracker") %dopar% {
+                                .packages = "CellMigRation") %dopar% {
 
                                   # Verbose
                                   message(".", appendLF = FALSE)
@@ -3610,22 +3610,22 @@ filter_trackedCells <- function(x, id_list,
 #
 #
 #
-# setwd("~/Documents/r_pack_dev/cellTracker/my_R_v4/")
-# package.skeleton(name = "cellTracker", code_files = "~/Documents/r_pack_dev/cellTracker/my_R_v4/cellTracker_core.R")
-# dir.create("cellTracker/data")
-# source("~/Documents/r_pack_dev/cellTracker/my_R_v4/cellTracker_core.R")
-# sample_tracked_cells <- load_tif(tiff_file = "~/Documents/r_pack_dev/cellTracker/input/input_sample.tif", experiment = "My Experiment 01")
+# setwd("~/Documents/r_pack_dev/CellMigRation/my_R_v4/")
+# package.skeleton(name = "CellMigRation", code_files = "~/Documents/r_pack_dev/CellMigRation/my_R_v4/cellTracker_core.R")
+# dir.create("CellMigRation/data")
+# source("~/Documents/r_pack_dev/CellMigRation/my_R_v4/cellTracker_core.R")
+# sample_tracked_cells <- load_tif(tiff_file = "~/Documents/r_pack_dev/CellMigRation/input/input_sample.tif", experiment = "My Experiment 01")
 # sample_tracked_cells@images$images <- sample_tracked_cells@images$images[1:10]
 # sample_tracked_cells@images$attributes <- sample_tracked_cells@images$attributes[1:10]
 # sample_tracked_cells@images$dim$NumberImages <- 10
-# save(list = "sample_tracked_cells", file = "cellTracker/data/sample_tracked_cells.rda", compress = "xz")
-# file.remove(c("cellTracker/DESCRIPTION", "cellTracker/NAMESPACE", "cellTracker/Read-and-delete-me"))
-# sapply(grep("Rd$", dir("cellTracker/man/"), value = TRUE), function(x) {file.remove(paste0("cellTracker/man/", x))})
-# file.copy(from = "DESCRIPTION", to = "cellTracker/")
-# roxygen2::roxygenize("cellTracker/")
-# file.remove(c("cellTracker/DESCRIPTION", "cellTracker/NAMESPACE"))
-# file.copy(from = "NAMESPACE", to = "cellTracker/")
-# file.copy(from = "DESCRIPTION", to = "cellTracker/")
+# save(list = "sample_tracked_cells", file = "CellMigRation/data/sample_tracked_cells.rda", compress = "xz")
+# file.remove(c("CellMigRation/DESCRIPTION", "CellMigRation/NAMESPACE", "CellMigRation/Read-and-delete-me"))
+# sapply(grep("Rd$", dir("CellMigRation/man/"), value = TRUE), function(x) {file.remove(paste0("CellMigRation/man/", x))})
+# file.copy(from = "DESCRIPTION", to = "CellMigRation/")
+# roxygen2::roxygenize("CellMigRation/")
+# file.remove(c("CellMigRation/DESCRIPTION", "CellMigRation/NAMESPACE"))
+# file.copy(from = "NAMESPACE", to = "CellMigRation/")
+# file.copy(from = "DESCRIPTION", to = "CellMigRation/")
 
 
 
