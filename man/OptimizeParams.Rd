@@ -4,9 +4,16 @@
 \alias{OptimizeParams}
 \title{Optimize Detection Params}
 \usage{
-OptimizeParams(tc_obj, lnoise_range = NULL, diameter_range = NULL,
-  threshold_range = NULL, target_cell_num = NULL, threads = 1,
-  quantile.val = NULL, px.margin = NULL)
+OptimizeParams(
+  tc_obj,
+  lnoise_range = NULL,
+  diameter_range = NULL,
+  threshold_range = NULL,
+  target_cell_num = NULL,
+  threads = 1,
+  quantile.val = NULL,
+  px.margin = NULL
+)
 }
 \arguments{
 \item{tc_obj}{a \code{trackedCells} object}

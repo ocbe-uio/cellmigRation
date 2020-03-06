@@ -4,8 +4,14 @@
 \alias{VisualizeStackCentroids}
 \title{Visualize Cells in an Image Stack}
 \usage{
-VisualizeStackCentroids(tc_obj, stack = 1, pnt.cex = 1.2,
-  txt.cex = 0.9, offset = 0.18, main = NULL)
+VisualizeStackCentroids(
+  tc_obj,
+  stack = 1,
+  pnt.cex = 1.2,
+  txt.cex = 0.9,
+  offset = 0.18,
+  main = NULL
+)
 }
 \arguments{
 \item{tc_obj}{a \code{trackedCells} object}

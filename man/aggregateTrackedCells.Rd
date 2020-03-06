@@ -4,8 +4,11 @@
 \alias{aggregateTrackedCells}
 \title{Aggregate trackedCells Objects}
 \usage{
-aggregateTrackedCells(x, ..., meta_id_field = c("tiff_file",
-  "experiment", "condition", "replicate"))
+aggregateTrackedCells(
+  x,
+  ...,
+  meta_id_field = c("tiff_file", "experiment", "condition", "replicate")
+)
 }
 \arguments{
 \item{x}{a \code{trackedCells}-class object where cells have already been tracked}

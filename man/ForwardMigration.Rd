@@ -4,8 +4,15 @@
 \alias{ForwardMigration}
 \title{Forward Migration}
 \usage{
-ForwardMigration(object, TimeInterval = 10, ExpName = "ExpName",
-  sfptPLOT = TRUE, afptPLOT = TRUE, sfpPLOT = TRUE, afpPLOT = TRUE)
+ForwardMigration(
+  object,
+  TimeInterval = 10,
+  ExpName = "ExpName",
+  sfptPLOT = TRUE,
+  afptPLOT = TRUE,
+  sfpPLOT = TRUE,
+  afpPLOT = TRUE
+)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}

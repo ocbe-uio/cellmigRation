@@ -4,8 +4,11 @@
 \alias{FilterTrackedCells}
 \title{Filter an Aggregated Table of Cell Tracks}
 \usage{
-FilterTrackedCells(x, id_list, meta_id_field = c("tiff_file",
-  "experiment", "condition", "replicate"))
+FilterTrackedCells(
+  x,
+  id_list,
+  meta_id_field = c("tiff_file", "experiment", "condition", "replicate")
+)
 }
 \arguments{
 \item{x}{data.frame, is an aggregated Table of Cell Tracks. Must include the following columns:

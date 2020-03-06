@@ -4,8 +4,12 @@
 \alias{PlotTracksSeparately}
 \title{A graphical display of the track of each cell.}
 \usage{
-PlotTracksSeparately(object, ExpName = "ExpName", Type = "l",
-  FixedField = TRUE)
+PlotTracksSeparately(
+  object,
+  ExpName = "ExpName",
+  Type = "l",
+  FixedField = TRUE
+)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}

@@ -4,8 +4,7 @@
 \alias{LoadTiff}
 \title{Import Image from TIFF}
 \usage{
-LoadTiff(tiff_file, experiment = NULL, condition = NULL,
-  replicate = NULL)
+LoadTiff(tiff_file, experiment = NULL, condition = NULL, replicate = NULL)
 }
 \arguments{
 \item{tiff_file}{path to a TIFF file to be read in}

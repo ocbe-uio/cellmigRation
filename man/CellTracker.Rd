@@ -4,9 +4,18 @@
 \alias{CellTracker}
 \title{Compute Cell Tracks}
 \usage{
-CellTracker(tc_obj, lnoise = NULL, diameter = NULL, threshold = NULL,
-  maxDisp = 25, memory_b = 0, goodenough = 0, threads = 1,
-  show_plots = TRUE, verbose = TRUE)
+CellTracker(
+  tc_obj,
+  lnoise = NULL,
+  diameter = NULL,
+  threshold = NULL,
+  maxDisp = 25,
+  memory_b = 0,
+  goodenough = 0,
+  threads = 1,
+  show_plots = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{tc_obj}{a \code{trackedCells} object}
