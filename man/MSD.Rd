@@ -4,9 +4,17 @@
 \alias{MSD}
 \title{Mean Square Displacement}
 \usage{
-MSD(object, TimeInterval = 10, ExpName = "ExpName", sLAG = 0.25,
-  ffLAG = 0.25, SlopePlot = TRUE, AllSlopesPlot = TRUE,
-  FurthPlot = TRUE, AllFurthPlot = TRUE)
+MSD(
+  object,
+  TimeInterval = 10,
+  ExpName = "ExpName",
+  sLAG = 0.25,
+  ffLAG = 0.25,
+  SlopePlot = TRUE,
+  AllSlopesPlot = TRUE,
+  FurthPlot = TRUE,
+  AllFurthPlot = TRUE
+)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}

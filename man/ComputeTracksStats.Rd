@@ -4,8 +4,7 @@
 \alias{ComputeTracksStats}
 \title{Compute Tracks Stats}
 \usage{
-ComputeTracksStats(tc_obj, time_between_frames,
-  resolution_pixel_per_micron)
+ComputeTracksStats(tc_obj, time_between_frames, resolution_pixel_per_micron)
 }
 \arguments{
 \item{tc_obj}{a \code{trackedCells} object}

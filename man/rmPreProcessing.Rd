@@ -4,8 +4,7 @@
 \alias{rmPreProcessing}
 \title{Data preprocessing for random migration (RM)}
 \usage{
-rmPreProcessing(object, PixelSize = 1.24, TimeInterval = 10,
-  FrameN = NULL)
+rmPreProcessing(object, PixelSize = 1.24, TimeInterval = 10, FrameN = NULL)
 }
 \arguments{
 \item{object}{\code{CellMig} class object.}

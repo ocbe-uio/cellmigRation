@@ -4,9 +4,18 @@
 \alias{wsaPreProcessing}
 \title{Data preprocessing for wound scratch assay (WSA).}
 \usage{
-wsaPreProcessing(object, PixelSize = 1.24, TimeInterval = 10,
-  FrameN = NULL, imageH = 1500, woundH = 600, upperE = 400,
-  lowerE = 1000, mar = 75, clearW = TRUE)
+wsaPreProcessing(
+  object,
+  PixelSize = 1.24,
+  TimeInterval = 10,
+  FrameN = NULL,
+  imageH = 1500,
+  woundH = 600,
+  upperE = 400,
+  lowerE = 1000,
+  mar = 75,
+  clearW = TRUE
+)
 }
 \arguments{
 \item{object}{\code{CellMig} class object.}

@@ -4,8 +4,7 @@
 \alias{setCellsMeta}
 \title{Set MetaData}
 \usage{
-setCellsMeta(tc_obj, experiment = NULL, condition = NULL,
-  replicate = NULL)
+setCellsMeta(tc_obj, experiment = NULL, condition = NULL, replicate = NULL)
 }
 \arguments{
 \item{tc_obj}{a \code{trackedCells} object}

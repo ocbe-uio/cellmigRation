@@ -4,8 +4,15 @@
 \alias{VisualizeCntr}
 \title{Visualize Centroids}
 \usage{
-VisualizeCntr(centroids, width_px, height_px, pnt.cex = 1.2,
-  txt.cex = 0.9, offset = 0.18, col = "red2")
+VisualizeCntr(
+  centroids,
+  width_px,
+  height_px,
+  pnt.cex = 1.2,
+  txt.cex = 0.9,
+  offset = 0.18,
+  col = "red2"
+)
 }
 \arguments{
 \item{centroids}{centroid data.frame}

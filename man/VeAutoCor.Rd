@@ -4,8 +4,14 @@
 \alias{VeAutoCor}
 \title{Velocity AutoCorrelation}
 \usage{
-VeAutoCor(object, TimeInterval = 10, ExpName = "ExpName",
-  sLAG = 0.25, sPLOT = TRUE, aPLOT = TRUE)
+VeAutoCor(
+  object,
+  TimeInterval = 10,
+  ExpName = "ExpName",
+  sLAG = 0.25,
+  sPLOT = TRUE,
+  aPLOT = TRUE
+)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
