@@ -4,8 +4,7 @@
 \alias{EstimateDiameterRange}
 \title{Detect Paricle Diameters in a Numeric matrix}
 \usage{
-EstimateDiameterRange(x, px.margin = 2, quantile.val = 0.99,
-  plot = TRUE)
+EstimateDiameterRange(x, px.margin = 2, quantile.val = 0.99, plot = TRUE)
 }
 \arguments{
 \item{x}{numeric matrix corresponding to a digital image}

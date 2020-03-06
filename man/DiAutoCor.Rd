@@ -4,8 +4,14 @@
 \alias{DiAutoCor}
 \title{Direction AutoCorrelation}
 \usage{
-DiAutoCor(object, TimeInterval = 10, ExpName = "ExpName",
-  sLAG = 0.25, sPLOT = TRUE, aPLOT = TRUE)
+DiAutoCor(
+  object,
+  TimeInterval = 10,
+  ExpName = "ExpName",
+  sLAG = 0.25,
+  sPLOT = TRUE,
+  aPLOT = TRUE
+)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}

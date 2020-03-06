@@ -4,8 +4,15 @@
 \alias{CentroidValidation}
 \title{Validate Centroids}
 \usage{
-CentroidValidation(stack, slice, lobject, threshold, pnt.cex = 1.2,
-  txt.cex = 0.85, offset = 0.18)
+CentroidValidation(
+  stack,
+  slice,
+  lobject,
+  threshold,
+  pnt.cex = 1.2,
+  txt.cex = 0.85,
+  offset = 0.18
+)
 }
 \arguments{
 \item{stack}{stack of images to be evaluated}

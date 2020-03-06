@@ -4,9 +4,15 @@
 \alias{PerAndSpeed}
 \title{Persistence and Speed}
 \usage{
-PerAndSpeed(object, TimeInterval = 10, ExpName = "ExpName",
-  PtSplot = TRUE, AllPtSplot = TRUE, ApSplot = TRUE,
-  AllApSplot = TRUE)
+PerAndSpeed(
+  object,
+  TimeInterval = 10,
+  ExpName = "ExpName",
+  PtSplot = TRUE,
+  AllPtSplot = TRUE,
+  ApSplot = TRUE,
+  AllApSplot = TRUE
+)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
