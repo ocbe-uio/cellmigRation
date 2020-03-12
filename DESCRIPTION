@@ -1,13 +1,13 @@
 Package: CellMigRation
 Type: Package
-Title: Track Cells, Analyze Cell Trajectories and Compute Migration Statistics
+Title: Tracking cells and analyzing their trajectories
 Version: 0.1.1
-Author: Salim Ghannoum, Damiano Fantini, Waldir Leoncio Netto, Øystein Sørensen
+Depends: R (>= 3.5.0)
+Author: Salim Ghannoum, Damiano Fantini, Waldir Leoncio Netto and Øystein Sørensen
 Maintainer: Salim Ghannoum <salim.ghannoum@medisin.uio.no>
-Description: Import TIFF images of fluorescently labeled cells, and track cell movements over time. Parallelization is supported for image processing and for fast computation of cell trajectories. In-depth analysis of cell trajectories is enabled by 15 trajectory analysis functions.
+Description: Contains 15 trajectory analysis functions.
 License: CC0
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 3.1.0), methods, foreach
-Imports: tiff, graphics, stats, utils, reshape2, parallel, doParallel, grDevices, matrixStats, FME, SpatialTools, rgl, sp, vioplot, FactoMineR, Hmisc
 RoxygenNote: 7.0.2
+Imports: SpatialTools, matrixStats, FME, Hmisc, vioplot, methods, sp, rgl, FactoMineR, doParallel, foreach, reshape2, tiff
