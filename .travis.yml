@@ -8,6 +8,7 @@ r:
 addons:
   apt:
     packages:
-      - tklib
+      - tcl8.6-dev
+      - tk8.6-dev
 before_install:
   - export DISPLAY=:99.0
