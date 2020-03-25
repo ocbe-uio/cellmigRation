@@ -7,10 +7,3 @@ r:
   - bioc-devel
 services:
   - xvfb
-# addons:
-#   apt:
-#     packages:
-#       - tcl8.6-dev
-#       - tk8.6-dev
-# before_install:
-#   - export DISPLAY=:99.0
