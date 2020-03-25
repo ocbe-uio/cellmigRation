@@ -5,5 +5,9 @@ cache: packages
 r:
   - bioc-release
   - bioc-devel
+addons:
+  apt:
+    packages:
+      - tklib
 before_install:
-  - xvfb-run R --no-save
+  - export DISPLAY=:99.0
