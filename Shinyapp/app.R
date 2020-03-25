@@ -57,7 +57,8 @@ server <- function(input, output) {
     output$dimdata <- renderText(dim(data()[[1]]))
     output$data <- DT::renderDataTable(data.frame(data()[[1]]))
     output$images <- renderPlot({
-            plot(rnorm(100), rnorm(100))
+        data_frames <- data()
+        plot(data_frames[[1]][, 1], data_frames[[1]][, 2])
     })
 }
 
