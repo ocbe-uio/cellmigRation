@@ -5,3 +5,9 @@ cache: packages
 r:
   - bioc-release
   - bioc-devel
+services:
+  - xvfb
+addons:
+  apt:
+    packages:
+    - libglu1-mesa-dev
