@@ -19,7 +19,8 @@ ui <- pageWithSidebar(
     # --------------------------------------------------------------------------
     mainPanel(
         h1("Cell tracking"),
-        sliderInput("frame", "Frame:", min=1, max=10, value=1), # TODO: custom max
+        plotOutput("images"),
+        uiOutput("slider"),
         h1("Data summary"),
         "Number of images:", textOutput("tot_frames"),
         "Dimensions of images:", textOutput("dimdata"),
@@ -48,14 +49,15 @@ server <- function(input, output) {
     })
     tot_frames <- reactive(length(data()))
     output$tot_frames <- renderText(tot_frames())
+    output$slider <- renderUI(
+        sliderInput(
+            "frameSelector", "Frame:", min=1, max=max(tot_frames(), 2), value=1
+        )
+    )
     output$dimdata <- renderText(dim(data()[[1]]))
     output$data <- DT::renderDataTable(data.frame(data()[[1]]))
     output$images <- renderPlot({
-        # if (!is(data, "trackedCells")) {
-        #     browser()
-        # } else {
             plot(rnorm(100), rnorm(100))
-        # }
     })
 }
 
