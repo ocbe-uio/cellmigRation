@@ -4,7 +4,9 @@
 \name{TrajectoryDataset}
 \alias{TrajectoryDataset}
 \title{Trajectories of 350 cells}
-\format{A data frame with 50216 rows and 4 columns}
+\format{
+A data frame with 50216 rows and 4 columns
+}
 \usage{
 data(TrajectoryDataset)
 }

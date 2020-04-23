@@ -4,7 +4,9 @@
 \name{WSADataset}
 \alias{WSADataset}
 \title{Trajectories of 147 cells}
-\format{A data frame with 11970 rows and 4 columns}
+\format{
+A data frame with 11970 rows and 4 columns
+}
 \usage{
 data(WSADataset)
 }
