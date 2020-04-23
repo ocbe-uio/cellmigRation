@@ -4,7 +4,9 @@
 \name{TrackCellsDataset}
 \alias{TrackCellsDataset}
 \title{Sample Stack of Fluorescent Cells}
-\format{a \code{trackedCells} object including 10 stacks}
+\format{
+a \code{trackedCells} object including 10 stacks
+}
 \usage{
 data(TrackCellsDataset)
 }

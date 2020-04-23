@@ -6,7 +6,7 @@
 \alias{CellMigRation-package}
 \title{Track And Analyze Cell Migrations}
 \description{
-Track Fluorescent Cells and Analyze their movements. Compute Migration Statistics and advanced 
+Track Fluorescent Cells and Analyze their movements. Compute Migration Statistics and advanced
 metrics to understand motility and movement characteristics of a population of cells.
 }
 \author{

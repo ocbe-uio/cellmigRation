@@ -1,9 +1,9 @@
 #' @title Track And Analyze Cell Migrations
-#' @description Track Fluorescent Cells and Analyze their movements. Compute Migration Statistics and advanced 
+#' @description Track Fluorescent Cells and Analyze their movements. Compute Migration Statistics and advanced
 #' metrics to understand motility and movement characteristics of a population of cells.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}; Damiano Fantini, \email{damiano.fantini@@gmail.com}
-#' 
+#'
 #' @keywords internal
 "_PACKAGE"
 
@@ -14,10 +14,10 @@
 #' @description Sample Stack of Fluorescent Cells to be used for computing cell tracks and stats
 #' @usage data(TrackCellsDataset)
 #' @format a \code{trackedCells} object including 10 stacks
-#' 
-#' @examples 
+#'
+#' @examples
 #' data(TrackCellsDataset)
-#' 
+#'
 #' @keywords internal
 "TrackCellsDataset"
 
@@ -46,6 +46,3 @@
 #' data(TrajectoryDataset)
 #'
 "TrajectoryDataset"
-
-
-
