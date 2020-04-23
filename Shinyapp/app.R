@@ -35,11 +35,21 @@ server <- function(input, output) {
     output$tiff <- renderImage({
         req(input$imported_tiff)
         filename <- normalizePath(file.path(input$imported_tiff$datapath))
+        filepath <- gsub(
+            x=input$imported_tiff$datapath,
+            pattern=".\\.tif$",
+            replacement=""
+        )
+        split_tiff <- readTIFF(filename, all=TRUE)
+        split_png <- list()
+        for (i in seq_along(split_tiff)) {
+            writePNG(split_tiff[[i]], paste0(filepath, i, '.png'))
+        }
+        file_list <- list.files(filepath, pattern="*.png")
         list(
-            src=filename,
+            src=paste0(filepath, file_list[1]),
             alt="there should be an image here",
-            width=400,
-            height=400
+            width="50%"
         )
     })
 }
