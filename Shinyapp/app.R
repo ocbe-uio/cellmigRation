@@ -20,7 +20,8 @@ ui <- fluidPage(
     # --------------------------------------------------------------------------
     mainPanel(
         h1("Cell tracking"),
-        imageOutput("tiff")
+        imageOutput("image_frame"),
+        uiOutput("slider"),
     )
 )
 
@@ -32,7 +33,7 @@ server <- function(input, output) {
     # --------------------------------------------------------------------------
     # Load imported data
     # --------------------------------------------------------------------------
-    output$tiff <- renderImage({
+    image <- reactive({
         req(input$imported_tiff)
         filename <- normalizePath(file.path(input$imported_tiff$datapath))
         filepath <- gsub(
@@ -43,15 +44,41 @@ server <- function(input, output) {
         split_tiff <- readTIFF(filename, all=TRUE)
         split_png <- list()
         for (i in seq_along(split_tiff)) {
-            writePNG(split_tiff[[i]], paste0(filepath, i, '.png'))
+            writePNG(
+                image = split_tiff[[i]],
+                target = paste0(
+                    filepath, formatC(i, flag="0", width=5), '.png'
+                )
+            )
         }
         file_list <- list.files(filepath, pattern="*.png")
+        return(list(path = filepath, name = file_list))
+    })
+
+    # --------------------------------------------------------------------------
+    # Create frame slider
+    # --------------------------------------------------------------------------
+    tot_frames <- reactive(length(image()$name))
+    output$tot_frames <- renderText(tot_frames())
+    output$slider <- renderUI(
+        sliderInput(
+            "frameSelector", "Frame:", min=1, max=max(tot_frames(), 2), value=1
+        )
+    )
+
+    # --------------------------------------------------------------------------
+    # Render imported data
+    # --------------------------------------------------------------------------
+    output$image_frame <- renderImage({
+        req(input$imported_tiff)
         list(
-            src=paste0(filepath, file_list[1]),
-            alt="there should be an image here",
+            src=paste0(image()$path, image()$name[input$frameSelector]),
+            alt="image not found",
             width="50%"
         )
     })
+
+
 }
 
 shinyApp(ui, server)
