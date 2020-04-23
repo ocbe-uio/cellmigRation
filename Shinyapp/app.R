@@ -18,13 +18,12 @@ ui <- pageWithSidebar(
     # Main panel for displaying outputs
     # --------------------------------------------------------------------------
     mainPanel(
-        tabsetPanel(type="tabs",
-            tabPanel(
-                "Data preview",
-                
-                DT::dataTableOutput("data")
-            )
-        )
+        h1("Cell tracking"),
+        sliderInput("frame", "Frame:", min=1, max=10, value=1), # TODO: custom max
+        h1("Data summary"),
+        "Number of images:", textOutput("tot_frames"),
+        "Dimensions of images:", textOutput("dimdata"),
+        "Data structure:", DT::dataTableOutput("data")
     )
 )
 
@@ -33,18 +32,30 @@ ui <- pageWithSidebar(
 # ==============================================================================
 server <- function(input, output) {
     # --------------------------------------------------------------------------
-    # Show imported data
+    # Load imported data
     # --------------------------------------------------------------------------
-    output$data <- DT::renderDataTable({
+    data <- reactive({
         req(input$import)
-        df <- get(load(input$import$datapath))
-        if (!is(df, "trackedCells")) {
+        data <- get(load(input$import$datapath))
+        if (!is(data, "trackedCells")) {
             stop(
                 "Wrong data format.",
                 " Please load a file containing an object",
                 " of class 'trackedCells'.")
         }
-        return(df@images$images[[1]])
+        data <- data@images$images
+        return(data)
+    })
+    tot_frames <- reactive(length(data()))
+    output$tot_frames <- renderText(tot_frames())
+    output$dimdata <- renderText(dim(data()[[1]]))
+    output$data <- DT::renderDataTable(data.frame(data()[[1]]))
+    output$images <- renderPlot({
+        # if (!is(data, "trackedCells")) {
+        #     browser()
+        # } else {
+            plot(rnorm(100), rnorm(100))
+        # }
     })
 }
 
