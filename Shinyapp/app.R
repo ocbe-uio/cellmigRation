@@ -12,7 +12,13 @@ ui <- fluidPage(
     # Sidebar panel for inputs
     # --------------------------------------------------------------------------
     sidebarPanel(
-        fileInput("imported_tiff", "Import TIFF file")
+        fileInput("imported_tiff", "Import TIFF file"),
+        uiOutput("slider"),
+        fixedRow(
+            column(width=2, uiOutput("prev")),
+            column(width=3, uiOutput("play")),
+            column(width=1, uiOutput("nxt"))
+        )
     ),
 
     # --------------------------------------------------------------------------
@@ -20,8 +26,7 @@ ui <- fluidPage(
     # --------------------------------------------------------------------------
     mainPanel(
         h1("Cell tracking"),
-        imageOutput("image_frame"),
-        uiOutput("slider"),
+        imageOutput("image_frame")
     )
 )
 
@@ -30,6 +35,7 @@ ui <- fluidPage(
 # ==============================================================================
 options(shiny.maxRequestSize=500*1024^2)  # file limit: 500 MB
 server <- function(input, output) {
+    frame <- reactiveValues(out = 1)
     # --------------------------------------------------------------------------
     # Load imported data
     # --------------------------------------------------------------------------
@@ -41,7 +47,7 @@ server <- function(input, output) {
             pattern=".\\.tif$",
             replacement=""
         )
-        split_tiff <- readTIFF(filename, all=TRUE)
+        split_tiff <- readTIFF(filename, all=TRUE, convert=TRUE)
         split_png <- list()
         for (i in seq_along(split_tiff)) {
             writePNG(
@@ -56,15 +62,48 @@ server <- function(input, output) {
     })
 
     # --------------------------------------------------------------------------
-    # Create frame slider
+    # Create image controls
     # --------------------------------------------------------------------------
     tot_frames <- reactive(length(image()$name))
     output$tot_frames <- renderText(tot_frames())
     output$slider <- renderUI(
         sliderInput(
-            "frameSelector", "Frame:", min=1, max=max(tot_frames(), 2), value=1
+            "frameSelector", "Frame:", min=1, max=tot_frames(), value=frame$out,
+            step=1
         )
     )
+    output$prev <- renderUI({
+        if (is.null(tot_frames())) return()
+        actionButton("prev", "<")
+    })
+    output$nxt <- renderUI({
+        if (is.null(tot_frames())) return()
+        actionButton("nxt", ">")
+    })
+    output$play <- renderUI({
+        if (is.null(tot_frames())) return()
+        actionButton("play", "Autoplay")
+    })
+
+    # --------------------------------------------------------------------------
+    # Determining slide to show
+    # --------------------------------------------------------------------------
+    observeEvent(input$prev, {
+        frame$out <- max(input$frameSelector - 1, 1)
+    })
+    observeEvent(input$nxt, {
+        frame$out <- min(input$frameSelector + 1, tot_frames())
+    })
+    observeEvent(input$play, {
+        for (i in seq_len(tot_frames())) {
+            frame$out <- min(input$frameSelector + 1, tot_frames())
+        }
+    })
+    src_output <- reactive({
+        filename <- image()$name[input$frameSelector]
+        out <- paste(paste0(image()$path, filename))
+        return(out)
+    })
 
     # --------------------------------------------------------------------------
     # Render imported data
@@ -72,13 +111,11 @@ server <- function(input, output) {
     output$image_frame <- renderImage({
         req(input$imported_tiff)
         list(
-            src=paste0(image()$path, image()$name[input$frameSelector]),
+            src=src_output(),
             alt="image not found",
-            width="50%"
+            width="60%"
         )
-    })
-
-
+    }, deleteFile=FALSE)
 }
 
 shinyApp(ui, server)
