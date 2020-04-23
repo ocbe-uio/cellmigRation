@@ -28,8 +28,8 @@ Example usage:
 ``` r
 library(CellMigRation)
 
-data(Trajectory_dataset)
-df <- CellMig(Trajectory_dataset[1:100, ])
+data(TrajectoryDataset)
+df <- CellMig(TrajectoryDataset[1:100, ])
 preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 100)
 #> This dataset contains:  1 Cells 
 #> The minimum number of steps:  100 
