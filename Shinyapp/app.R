@@ -1,5 +1,6 @@
 library(shiny)
-library(DT)
+library(tiff)
+library(png)
 
 # ==============================================================================
 # User interface
@@ -11,7 +12,7 @@ ui <- fluidPage(
     # Sidebar panel for inputs
     # --------------------------------------------------------------------------
     sidebarPanel(
-        fileInput("import", "Import trackedCells file")
+        fileInput("imported_tiff", "Import TIFF file")
     ),
 
     # --------------------------------------------------------------------------
@@ -19,12 +20,7 @@ ui <- fluidPage(
     # --------------------------------------------------------------------------
     mainPanel(
         h1("Cell tracking"),
-        plotOutput("images"),
-        uiOutput("slider"),
-        h1("Data summary"),
-        "Number of images:", textOutput("tot_frames"),
-        "Dimensions of images:", textOutput("dimdata"),
-        "Data structure:", DT::dataTableOutput("data")
+        imageOutput("tiff")
     )
 )
 
@@ -36,30 +32,15 @@ server <- function(input, output) {
     # --------------------------------------------------------------------------
     # Load imported data
     # --------------------------------------------------------------------------
-    data <- reactive({
-        req(input$import)
-        data <- get(load(input$import$datapath))
-        if (!is(data, "trackedCells")) {
-            stop(
-                "Wrong data format.",
-                " Please load a file containing an object",
-                " of class 'trackedCells'.")
-        }
-        data <- data@images$images
-        return(data)
-    })
-    tot_frames <- reactive(length(data()))
-    output$tot_frames <- renderText(tot_frames())
-    output$slider <- renderUI(
-        sliderInput(
-            "frameSelector", "Frame:", min=1, max=max(tot_frames(), 2), value=1
+    output$tiff <- renderImage({
+        req(input$imported_tiff)
+        filename <- normalizePath(file.path(input$imported_tiff$datapath))
+        list(
+            src=filename,
+            alt="there should be an image here",
+            width=400,
+            height=400
         )
-    )
-    output$dimdata <- renderText(dim(data()[[1]]))
-    output$data <- DT::renderDataTable(data.frame(data()[[1]]))
-    output$images <- renderPlot({
-        data_frames <- data()
-        plot(data_frames[[1]][, 1], data_frames[[1]][, 2])
     })
 }
 
