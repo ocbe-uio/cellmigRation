@@ -10,4 +10,4 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.1.0), methods, foreach
 Imports: tiff, graphics, stats, utils, reshape2, parallel, doParallel, grDevices, matrixStats, FME, SpatialTools, rgl, sp, vioplot, FactoMineR, Hmisc
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
