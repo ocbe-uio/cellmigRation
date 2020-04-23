@@ -42,8 +42,8 @@ Example usage:
 ```{r example}
 library(CellMigRation)
 
-data(Trajectory_dataset)
-df <- CellMig(Trajectory_dataset[1:100, ])
+data(TrajectoryDataset)
+df <- CellMig(TrajectoryDataset[1:100, ])
 preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 100)
 ```
 
