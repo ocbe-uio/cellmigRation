@@ -4,8 +4,8 @@ library(DT)
 # ==============================================================================
 # User interface
 # ==============================================================================
-ui <- pageWithSidebar(
-    headerPanel("CellMigRation"),
+ui <- fluidPage(
+    titlePanel("CellMigRation"),
 
     # --------------------------------------------------------------------------
     # Sidebar panel for inputs
