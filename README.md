@@ -43,17 +43,21 @@ Shiny application
 
 Some CellMigRation features are also available as a standalone web application powered by an R package called Shiny. Once published, the app will run from a remote server which doesn't require the end user to have an R installation. As this app is still under construction, though, it should be run from a local installation of R.
 
-Here are two ways to run the Shiny app. Both assume the user has the `shiny` package installed.
+Here are three ways to run the Shiny app. Both assume the user has the `shiny` package installed.
 
-### Running the GitHub-hosted application from a local R installation
+### Running the Internet-based version
+
+From any web browser, visit <https://ocbe.shinyapps.io/CellMigRation/>.
+
+### Running a local version based on the GitHub version of the package
 
 1.  From an R terminal, execute the following command:
 
     ``` r
-    shiny::runGitHub("CellMigRation", "ocbe-uio", "shiny", "Shinyapp")
+    shiny::runGitHub("CellMigRation", "ocbe-uio", "master", "Shinyapp")
     ```
 
-### Running a 100% locally-hosted application
+### Running a local version based on the CellMigRation version installed on your machine
 
 1.  Download the CellMigRation repository
 2.  From the root folder of the (uncompressed) file, run the following in R:
