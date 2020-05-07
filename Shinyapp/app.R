@@ -16,7 +16,7 @@ ui <- fluidPage(
 		fileInput("imported_tiff", "Import TIFF file"),
 		uiOutput("slider"),
 		fixedRow(
-			column(width=6, uiOutput("prev")),
+			column(width=4, uiOutput("prev")),
 			column(width=1, uiOutput("nxt"))
 		)
 	),
@@ -65,8 +65,13 @@ server <- function(input, output) {
 	output$tot_frames <- renderText(tot_frames())
 	output$slider <- renderUI(
 		sliderInput(
-			"frameSelector", "Frame:", min=1, max=tot_frames(), value=frame$out,
-			step=1, animate=animationOptions(interval=100),
+			inputId="frameSelector", label="Frame select:",
+			min=1, max=tot_frames(), value=frame$out,
+			step=1, animate=animationOptions(
+				interval=200,
+				playButton="Autoplay",
+				pauseButton="Pause"
+			),
 		)
 	)
 	output$prev <- renderUI({
