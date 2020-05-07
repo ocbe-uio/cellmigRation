@@ -32,7 +32,7 @@ ui <- fluidPage(
 # ==============================================================================
 # Defining the server logic
 # ==============================================================================
-options(shiny.maxRequestSize=500*1024^2)  # file limit: 500 MB
+options(shiny.maxRequestSize=1024*1024^2)  # file limit: 1 GB
 server <- function(input, output) {
 	frame <- reactiveValues(out=1, autoplay=FALSE)
 	# --------------------------------------------------------------------------
