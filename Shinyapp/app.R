@@ -4,6 +4,7 @@
 library(shiny)
 library(tiff)
 library(png)
+library(shinycssloaders)
 # ==============================================================================
 # Defining the user interface
 # ==============================================================================
@@ -26,7 +27,7 @@ ui <- fluidPage(
 	# --------------------------------------------------------------------------
 	mainPanel(
 		h1("Cell tracking"),
-		imageOutput("image_frame")
+		withSpinner(imageOutput("image_frame"))
 	)
 )
 # ==============================================================================
