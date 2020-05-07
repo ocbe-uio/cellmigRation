@@ -16,8 +16,7 @@ ui <- fluidPage(
 		fileInput("imported_tiff", "Import TIFF file"),
 		uiOutput("slider"),
 		fixedRow(
-			column(width=2, uiOutput("prev")),
-			column(width=4, uiOutput("play")),
+			column(width=6, uiOutput("prev")),
 			column(width=1, uiOutput("nxt"))
 		)
 	),
@@ -50,37 +49,33 @@ server <- function(input, output) {
 		split_png <- list()
 		for (i in seq_along(split_tiff)) {
 			writePNG(
-				image = split_tiff[[i]],
-				target = paste0(
+				image=split_tiff[[i]],
+				target=paste0(
 					filepath, formatC(i, flag="0", width=5), '.png'
 				)
 			)
 		}
 		file_list <- list.files(filepath, pattern="*.png")
-		return(list(path = filepath, name = file_list))
+		return(list(path=filepath, name=file_list))
 	})
 	# --------------------------------------------------------------------------
-	# Create image controls
+	# Creating image controls
 	# --------------------------------------------------------------------------
 	tot_frames <- reactive(length(image()$name))
 	output$tot_frames <- renderText(tot_frames())
 	output$slider <- renderUI(
 		sliderInput(
 			"frameSelector", "Frame:", min=1, max=tot_frames(), value=frame$out,
-			step=1
+			step=1, animate=animationOptions(interval=100),
 		)
 	)
 	output$prev <- renderUI({
 		if (is.null(tot_frames())) return()
-		actionButton("prev", "<")
+		actionButton("prev", "Previous frame")
 	})
 	output$nxt <- renderUI({
 		if (is.null(tot_frames())) return()
-		actionButton("nxt", ">")
-	})
-	output$play <- renderUI({
-		if (is.null(tot_frames())) return()
-		actionButton("play", "Autoplay")
+		actionButton("nxt", "Next frame")
 	})
 	# --------------------------------------------------------------------------
 	# Determining slide to show
@@ -91,25 +86,25 @@ server <- function(input, output) {
 	observeEvent(input$nxt, {
 		frame$out <- min(input$frameSelector + 1, tot_frames())
 	})
-	observeEvent(input$play, {
-		frame$autoplay <- TRUE
-	})
 	src_output <- reactive({
 		filename <- image()$name[input$frameSelector]
-		out <- paste(paste0(image()$path, filename))
+		out <- paste0(image()$path, filename)
 		return(out)
 	})
 	# --------------------------------------------------------------------------
 	# Render imported data
 	# --------------------------------------------------------------------------
-	output$image_frame <- renderImage({
-		req(input$imported_tiff)
-		list(
-			src=src_output(),
-			alt="image not found",
-			width="60%"
-		)
-	}, deleteFile=FALSE)
+	output$image_frame <- renderImage(
+		expr={
+			req(input$imported_tiff)
+			list(
+				src=src_output(),
+				alt="image not found",
+				width="60%"
+			)
+		},
+		deleteFile=FALSE
+	)
 }
 # ==============================================================================
 # Running the server
