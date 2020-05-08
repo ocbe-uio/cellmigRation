@@ -9,7 +9,7 @@ MakeHypercube(vals, dims)
 \arguments{
 \item{vals}{vector of values used to fill the hyper cube}
 
-\item{dims}{integer indicating the number of dimensions. The resulting molden 
+\item{dims}{integer indicating the number of dimensions. The resulting molden
 data frame will have a number of
 columns equal to dims}
 }
@@ -18,9 +18,9 @@ Matrix corresponding to a molten hyper cube. The number of columns is equal to d
 the number of rows is equal to length(vals) ^ dims
 }
 \description{
-Creates a Molten Hypercube with a user-defined number of dimensions. 
+Creates a Molten Hypercube with a user-defined number of dimensions.
 The values supplied by the user
-are used to fill each dimension. All possible combination of values are included in 
+are used to fill each dimension. All possible combination of values are included in
 the resulting hyper cube.
 }
 \examples{
