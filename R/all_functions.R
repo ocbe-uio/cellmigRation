@@ -1541,7 +1541,7 @@ track <- function(xyzs, maxdisp, params)
         ntrack <- length(wh)
         if (ntrack == 0){
           message('There are no valid particles to track!')
-          break()
+          break
         }
 
         # yma initialization was added
@@ -2298,7 +2298,7 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
     data <- tracks[tracks[,4] == i, ]
 
     if (!"matrix" %in% class(data) ) {
-      next()
+      next
     } else (
       kept[[length(kept) + 1]] <- i
     )
@@ -3600,7 +3600,7 @@ rmPreProcessing = function(object, PixelSize=1.24,
     MM<-length(M[,1])
     MM2<-MM-2
     res <- sapply(1:MM2, function(i){
-      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/T
+      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/T # ASK: what is T?
       return(ID_split[[j]][i,24])
     })
     ID_split[[j]][1:MM2, 24] <- as.data.frame(res)
@@ -3854,7 +3854,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
     MM<-length(M[,1])
     MM2<-MM-2
     res <- sapply(1:MM2, function(i){
-      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/T
+      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/T # ASK: what is T?
       return(ID_split[[j]][i,24])
     })
     ID_split[[j]][1:MM2, 24] <- as.data.frame(res)
@@ -4652,7 +4652,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   grDevices::jpeg(paste0(ExpName,"_Speed_PiolinPlot_of_all_cells.jpg"))
   graphics::plot(1, 1, xlim = c(0, 2), ylim = c(0, MS), type = 'n', xlab = '', ylab = 'Speed(um/h)', xaxt = 'n',las=1)
   graphics::title("Speed of all cells",cex.main = 1)
-  vioplot::vioplot(SPEED, at = 1, add = T, col = "gray")
+  vioplot::vioplot(SPEED, at = 1, add = TRUE, col = "gray")
   grDevices::dev.off()
   SPEED<-as.numeric(PerResultsTable[21,1:length(PerResultsTable[1,])-1])
   PerR<- as.numeric(PerResultsTable[4,1:length(PerResultsTable[1,])-1])
@@ -4959,7 +4959,7 @@ MSD = function(object, TimeInterval=10,
       graphics::par(mar=c(5.1, 5.9, 4.1, 1.1), mgp=c(3.5, 0.5, 0), las=0)
       graphics::plot(Xaxis,Yaxis, type="p",col=color[j],xlab="Lag",ylab=xn,pch=19,las=1,log="xy",cex=2)
       graphics::title(main=paste0("Cell Number  ", j," -  MSD Slope = ",reg1),col.main="black")
-      graphics::abline(reg,untf=T,col="black")
+      graphics::abline(reg,untf=TRUE,col="black")
       grDevices::dev.off()
     }
 
@@ -4978,7 +4978,7 @@ MSD = function(object, TimeInterval=10,
     NewXaxis<-Xaxis[1:(round(LAG*sLAG)+1)]
     reg<-stats::lm(NewrowMeans~ NewXaxis)
     reg1<-round(stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2)
-    graphics::abline(reg,untf=T,col="red")
+    graphics::abline(reg,untf=TRUE,col="red")
     graphics::title(main=paste0("All Cells -  MSD Slope = ",reg1),col.main="black")
     grDevices::dev.off()
   }
@@ -5344,7 +5344,7 @@ VeAutoCor = function(object, TimeInterval=10,
       Object[[j]][,15][is.na(Object[[j]][,15])] <- 0                                # to remove NA and replace it with 0
 
       res1 <- sapply(1:(Step - lag), function(i){                                               # starting from 2 to exclude the first cosine which is always 1.
-        Object[[j]][i,23]=((Object[[j]][i,14]* Object[[j]][i+lag,14])+ (Object[[j]][i,15]* Object[[j]][i+lag,15]))/ ((lag*T)^2)
+        Object[[j]][i,23]=((Object[[j]][i,14]* Object[[j]][i+lag,14])+ (Object[[j]][i,15]* Object[[j]][i+lag,15]))/ ((lag*T)^2) # ASK: what is T?
         return(Object[[j]][i,23])
       })
       Object[[j]][1:(Step - lag),23] <- res1
@@ -5461,58 +5461,72 @@ VeAutoCor = function(object, TimeInterval=10,
 #' @importFrom utils write.csv
 #'
 #' @export
-ForwardMigration = function(object, TimeInterval=10,
-                            ExpName="ExpName",
-                            sfptPLOT =TRUE, afptPLOT =TRUE,
-                            sfpPLOT =TRUE, afpPLOT =TRUE){
+ForwardMigration <- function(
+    object,
+    TimeInterval = 10,
+    ExpName      = "ExpName",
+    sfptPLOT     = TRUE,
+    afptPLOT     = TRUE,
+    sfpPLOT      = TRUE,
+    afpPLOT      = TRUE
+){
+    if (!is.numeric(TimeInterval)) {
+        stop("TimeInterval has to be a positive number")
+    } else if (TimeInterval <= 0) {
+        stop("TimeInterval has to be a positive number")
+    }
+    Object <- object@preprocessedDS
+    UPorDO <- object@cellpos
+    msg    <- NULL
+    if (!is.list(Object)) {
+        msg <- c(
+            msg, "Input data must be a list.",
+            "Please run the PreProcessing step first either ",
+            "rmPreProcessing() or wsaPreProcessing()"
+        )
+    }
+    d     <- getwd()
+    Len   <- length(Object)
+    Step  <- length(Object[[1]][, 1])
+    color <- c()
+    if (Len > 1023) {
+        colnum <- Len-1023
+        color1 <- grDevices::rainbow(1023)
+        colo2  <- grDevices::rainbow(colnum)
+        color  <- c(color1, colo2)
+    } else {
+        color <- grDevices::rainbow(Len)
+    }
+    dir.create(paste0(ExpName, "-ForwardMigrationResults"))
+    setwd(paste0(d, "/", paste0(ExpName,"-ForwardMigrationResults")))
 
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
-  Object<-object@preprocessedDS
-  UPorDO<-object@cellpos
-  msg <- NULL
-  if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
-  }
-  d=getwd()
-  Len<-length(Object)
-  Step<-length(Object[[1]][,1])
-  color <-c()
-  if (Len> 1023){
-    colnum= Len-1023
-    color1 <-grDevices::rainbow(1023)
-    colo2 <-grDevices::rainbow(colnum)
-    color=c(color1 ,colo2)
-  }else{
-    color <- grDevices::rainbow(Len)
-  }
-  dir.create(paste0(ExpName,"-ForwardMigrationResults"))
-  setwd(paste0(d,"/",paste0(ExpName,"-ForwardMigrationResults")))
+    #if ( length(UPorDO) != length(Object))
+    # stop("UPorDO needs to be a vector with same number of elements as cells")
 
-  #if ( length(UPorDO) != length(Object)) stop("UPorDO needs to be a vector with same number of elements as number of cells")
+    # Defining if the cell is ubove (1) the wound or below (0) it
+    for (j in 1:length(Object)) {
+        Object[[j]][, 25] <- UPorDO[j]
+    }
 
-  for(j in 1:length(Object)){                             # Defining if the cell is ubove (1) the wound or below (0) it
-    Object[[j]][,25]<-UPorDO[j]
-  }
+    # creating values for  rel.ang.F  (step to the original)
+    for(j in 1:length(Object)){
+        MM  <- Step
+        MM1 <- MM - 1
+        res <- sapply(1:MM1, function(i) {
 
+        if((Object[[j]][1,25]==0) && (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]<0)){
+            Object[[j]][i,19]= 1.5707963268 - abs(Object[[j]][i,7])
+        }
+        if((Object[[j]][1,25]==0) && (Object[[j]][i,5]<0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]>0)){
+            Object[[j]][i,19]= abs(Object[[j]][i,7])+1.5707963268
 
-  for(j in 1:length(Object)){                            # creating values for  rel.ang.F  (step to the original)
-    MM<-Step
-    MM1<-MM-1
-    res <- sapply(1:MM1, function(i){
-
-      if((Object[[j]][1,25]==0) && (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]<0)){
-        Object[[j]][i,19]= 1.5707963268 - abs(Object[[j]][i,7])
-      }
-      if((Object[[j]][1,25]==0) && (Object[[j]][i,5]<0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]>0)){
-        Object[[j]][i,19]= abs(Object[[j]][i,7])+1.5707963268
-
-      }
-      Object[[j]][i,19]<-ifelse((Object[[j]][i,19])<= (-pi), 2*pi+(Object[[j]][i,19]),(Object[[j]][i,19]))    # adjusting the rel.ang
-      Object[[j]][i,19]<-ifelse((Object[[j]][i,19])>= pi,(Object[[j]][i,19])-2*pi,(Object[[j]][i,19]))
-      return(Object[[j]][i, 19])
-    })
-    Object[[j]][1:MM1, 19] <- as.data.frame(res)
-  }
+        }
+        Object[[j]][i,19]<-ifelse((Object[[j]][i,19])<= (-pi), 2*pi+(Object[[j]][i,19]),(Object[[j]][i,19]))    # adjusting the rel.ang
+        Object[[j]][i,19]<-ifelse((Object[[j]][i,19])>= pi,(Object[[j]][i,19])-2*pi,(Object[[j]][i,19]))
+        return(Object[[j]][i, 19])
+        })
+        Object[[j]][1:MM1, 19] <- as.data.frame(res)
+    }
 
 
   cosine.FP<-data.frame()
@@ -5580,7 +5594,7 @@ ForwardMigration = function(object, TimeInterval=10,
 
   VelFPTable<-data.frame()               # creating a table to store the mean velocity with correspondence with the FP time
   for(j in 1:length(Object)){
-    MM=Step      				    ###########computing the "finalID" to be used for the splitting
+    MM=Step          ###########computing the "finalID" to be used for the splitting
     FPtime<-Object[[j]][1:MM,21]
     FPtime0<-c(0,FPtime)                   #adding a "0" value in the beginning
     FPtime0[FPtime0==TimeInterval]<-NA                #replacing the "5" values with NAs
