@@ -2,10 +2,10 @@
 ##
 ## ~~ All classes ~~
 #
-# 
+#
 
 #' The trackedCells Class.
-#' 
+#'
 #' An S4 class to represent a set of cells whose movements were tracked over time.
 #'
 #' @slot images is a list of imported images
@@ -18,17 +18,18 @@
 #' @slot params is a list of parameters used for the analysis
 #' @slot stats is a list of stats computed for the cell tracks
 #' @slot metadata is a list including labels about the image, and the experiment
-#' 
+#'
 #' @author Damiano Fantini \email{damiano.fantini@@gmail.com}
-#' 
+#'
 #' @name trackedCells-class
 #' @rdname trackedCells-class
 #' @exportClass trackedCells
 #' @export
+#' @return An S4-class object
 trackedCells <- setClass(
   #Name of the class
   "trackedCells",
-  
+
   #define slots
   slots = list(
     images="list",
@@ -42,7 +43,7 @@ trackedCells <- setClass(
     stats = "list",
     metadata = "list"
   ),
-  
+
   # Make a runction to check compatibility
   validity = function(object)
   {
@@ -58,7 +59,7 @@ trackedCells <- setClass(
 
 #' The CellMig Class.
 #'
-#' The CellMig class represents objects storing all information for both 
+#' The CellMig class represents objects storing all information for both
 #' random migration (RM) and wound scratch assay (WSA). It comprises 14 slots.
 #'
 #' @slot trajdata The raw trajectory data matrix organized into four columns: cell ID, X coordinates, Y coordinates and Track number, which is the track's path order.
@@ -77,31 +78,31 @@ trackedCells <- setClass(
 #' @slot parCor A data frame for Parameters Correlation.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
-#' 
+#'
 #' @name CellMig-class
 #' @rdname CellMig-class
 #' @exportClass CellMig
 #' @export
+#' @return An S4-class object
 CellMig <- setClass(
-  
   # Name of your class
-  "CellMig", 
-  
+  "CellMig",
+
   slots = list(trajdata = "data.frame",
                adjDS= "data.frame",
-               cellpos = "vector", 
-               parE= "vector", 
-               preprocessedDS= "list", 
-               DRtable= "data.frame", 
-               MSDtable= "data.frame", 
-               PerAanSpeedtable= "data.frame", 
-               DACtable= "data.frame", 
-               VACtable= "data.frame", 
-               ForMigtable= "data.frame", 
+               cellpos = "vector",
+               parE= "vector",
+               preprocessedDS= "list",
+               DRtable= "data.frame",
+               MSDtable= "data.frame",
+               PerAanSpeedtable= "data.frame",
+               DACtable= "data.frame",
+               VACtable= "data.frame",
+               ForMigtable= "data.frame",
                FMItable= "data.frame",
-               results="data.frame", 
-               parCor="matrix"), 
-  
+               results="data.frame",
+               parCor="matrix"),
+
   # Make a function to check compatibility
   validity = function(object)
   {
@@ -111,8 +112,8 @@ CellMig <- setClass(
     } else if ( ncol(object@trajdata) < 4 ){
       msg <- "input data must have four columns"
     }
-    if (is.null(msg)) { 
-      return(TRUE) 
+    if (is.null(msg)) {
+      return(TRUE)
     } else {
       return(msg)
     }
