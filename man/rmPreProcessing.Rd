@@ -19,7 +19,7 @@ rmPreProcessing(object, PixelSize = 1.24, TimeInterval = 10, FrameN = NULL)
 An CellMig class object with preprocessed data.
 }
 \description{
-This function allows preprocessing of the trajectory data from random 
+This function allows preprocessing of the trajectory data from random
 migration (RM) experiments.
 }
 \examples{
