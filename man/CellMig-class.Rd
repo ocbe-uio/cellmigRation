@@ -19,8 +19,11 @@ CellMig(...)
 
 \item{trajdata}{data frame including trajectory data}
 }
+\value{
+An S4-class object
+}
 \description{
-The CellMig class represents objects storing all information for both 
+The CellMig class represents objects storing all information for both
 random migration (RM) and wound scratch assay (WSA). It comprises 14 slots.
 }
 \section{Slots}{
