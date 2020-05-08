@@ -14,6 +14,9 @@
 
 \item{x}{imported TIFF image data}
 }
+\value{
+An S4-class object
+}
 \description{
 An S4 class to represent a set of cells whose movements were tracked over time.
 }
