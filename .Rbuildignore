@@ -6,4 +6,5 @@
 ^\.travis\.yml$
 Shinyapp
 data/A6dCon.tif
+data/A6dCon-short.tif
 temp
