@@ -13,13 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-# CellMigRation
-
-<img src="CellMigRationLogo.png" width="50%">
+<img src="CellMigRationLogo.png" width="50%", alt="CellMigRation">
 
 An R package for tracking cells and analyzing their trajectories.
 
-## Installation
+# Installation
 
 
 You can install the current version of CellMigRation from [GitHub](https://github.com/) with:
@@ -28,7 +26,8 @@ You can install the current version of CellMigRation from [GitHub](https://githu
 # install.packages("devtools")
 devtools::install_github("ocbe-uio/CellMigRation")
 ```
-## Example
+
+# Example
 
 Example usage:
 
@@ -40,7 +39,7 @@ df <- CellMig(TrajectoryDataset[1:100, ])
 preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 100)
 ```
 
-## Shiny application
+# Shiny application
 
 Some CellMigRation features are also available as a standalone web application powered by an R package called Shiny.
 Once published, the app will run from a remote server which doesn't require the end user to have an R installation.
@@ -48,18 +47,18 @@ As this app is still under construction, though, it should be run from a local i
 
 Here are three ways to run the Shiny app. Both assume the user has the `shiny` package installed.
 
-### Running the Internet-based version
+## Running the Internet-based version
 
 From any web browser, visit https://ocbe.shinyapps.io/CellMigRation/.
 
-### Running a local version based on the GitHub version of the package
+## Running a local version based on the GitHub version of the package
 
 1. From an R terminal, execute the following command:
 ```r
 shiny::runGitHub("CellMigRation", "ocbe-uio", "master", "Shinyapp")
 ```
 
-### Running a local version based on the CellMigRation version installed on your machine
+## Running a local version based on the CellMigRation version installed on your machine
 
 1. Download the CellMigRation repository
 2. From the root folder of the (uncompressed) file, run the following in R:
@@ -69,12 +68,12 @@ shiny::runApp("Shinyapp")
 
 Step 1 can be skipped if you already have a clone of CellMigRation in your machine.
 
-### Running and disconnecting from the Shiny application
+## Running and disconnecting from the Shiny application
 
 Once the Shiny app is called, a browser window should open with the running application.
 After you are done using it, close the browser tab and press <kbd>Ctrl</kbd>+<kbd>C</kbd> in your R terminal to quit the application and regain control of the R prompt.
 
-## Statistics for developers
+# Statistics for developers
 
 <!-- badges: start -->
 [![Build Status](https://travis-ci.org/ocbe-uio/CellMigRation.svg?branch=master)](https://travis-ci.org/ocbe-uio/CellMigRation)
