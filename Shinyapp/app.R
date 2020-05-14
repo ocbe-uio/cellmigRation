@@ -101,7 +101,7 @@ ui <- fluidPage(
 		# Cell tracking
 		# ----------------------------------------------------------------------
 		conditionalPanel(
-			condition = "input.fit_model != 0",
+			condition = "input.fit_model",
 			hr(),
 			h3("3. Cell tracking"),
 			actionButton("track_cells", "Track cells")
@@ -111,7 +111,19 @@ ui <- fluidPage(
 	# Main panel for displaying outputs
 	# --------------------------------------------------------------------------
 	mainPanel(
-		imageOutput("image_frame")
+		imageOutput("image_frame"),
+		br(),br(),br(),br(),br(),br(),br(),br(),
+		conditionalPanel(
+			condition = "input.track_cells",
+			tabsetPanel(
+				tabPanel(
+					"Trajectories"
+				),
+				tabPanel(
+					"Calculations"
+				)
+			)
+		)
 	)
 )
 # ==============================================================================
