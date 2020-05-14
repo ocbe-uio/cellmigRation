@@ -8,11 +8,15 @@ library(png)
 # Defining the user interface
 # ==============================================================================
 ui <- fluidPage(
-	titlePanel("CellMigRation"),
+	titlePanel(title="", windowTitle="CellMigRation Shiny App"),
 	# --------------------------------------------------------------------------
 	# Sidebar panel for inputs
 	# --------------------------------------------------------------------------
 	sidebarPanel(
+		img(
+			src="https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/CellMigRationLogo.png",
+			width="100%"
+		),
 		fileInput("imported_tiff", "Import TIFF file"),
 		uiOutput("slider"),
 		fixedRow(
