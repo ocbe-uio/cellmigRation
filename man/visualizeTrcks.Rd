@@ -4,8 +4,15 @@
 \alias{visualizeTrcks}
 \title{Visualize Cell Tracks}
 \usage{
-visualizeTrcks(tracks, width_px, height_px, i.slice = 1, pnt.cex = 1.2,
-  lwd = 1.2, col = "red")
+visualizeTrcks(
+  tracks,
+  width_px,
+  height_px,
+  i.slice = 1,
+  pnt.cex = 1.2,
+  lwd = 1.2,
+  col = "red"
+)
 }
 \arguments{
 \item{tracks}{cell tracks}
