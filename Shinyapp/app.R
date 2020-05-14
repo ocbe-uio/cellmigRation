@@ -89,8 +89,8 @@ ui <- fluidPage(
 				inputId = "who_estimates_parms",
 				label = "Model parameters",
 				choices = list(
-					"Estimated by CellMigRation" = "auto",
-					"Provided by user" = "user"
+					"Estimate with CellMigRation" = "auto",
+					"Use values below" = "user"
 				)
 			),
 			numericInput("parm1", "Parm1", 0),
@@ -123,7 +123,6 @@ server <- function(input, output) {
 	# Reactive values
 	# --------------------------------------------------------------------------
 	frame <- reactiveValues(out = 1)
-	step <- reactiveValues(completed = 0)
 	# --------------------------------------------------------------------------
 	# Load imported data
 	# --------------------------------------------------------------------------
