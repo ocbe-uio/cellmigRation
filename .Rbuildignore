@@ -6,5 +6,5 @@
 ^\.travis\.yml$
 Shinyapp
 inst
-temp
+aux
 .git
