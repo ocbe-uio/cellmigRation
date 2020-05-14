@@ -8,7 +8,10 @@ library(png)
 # Defining the user interface
 # ==============================================================================
 ui <- fluidPage(
-	titlePanel(title = "", windowTitle = "CellMigRation Shiny App"),
+	titlePanel(
+		title = "CellMigRation Shiny App",
+		windowTitle = "CellMigRation Shiny App"
+	),
 	# --------------------------------------------------------------------------
 	# Sidebar panel for inputs
 	# --------------------------------------------------------------------------
@@ -16,10 +19,6 @@ ui <- fluidPage(
 		# ----------------------------------------------------------------------
 		# Loading TIFF image
 		# ----------------------------------------------------------------------
-		img(
-			src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/CellMigRationLogo.png",
-			width = "100%"
-		),
 		h3("1. Data loading"),
 		fileInput("imported_tiff", "Import TIFF file"),
 		uiOutput("slider"),
@@ -111,7 +110,18 @@ ui <- fluidPage(
 	# Main panel for displaying outputs
 	# --------------------------------------------------------------------------
 	mainPanel(
-		imageOutput("image_frame"),
+
+		conditionalPanel(
+			condition = "!output.slider",
+			img(
+				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/CellMigRationLogo.png",
+				width = "100%"
+			)
+		),
+		conditionalPanel(
+			condition = "output.slider",
+			imageOutput("image_frame")
+		),
 		br(),br(),br(),br(),br(),br(),br(),br(),
 		conditionalPanel(
 			condition = "input.track_cells",
