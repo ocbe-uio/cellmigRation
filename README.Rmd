@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-<img src="CellMigRationLogo.png" width="50%", alt="CellMigRation">
+<img src="CellMigRationLogo.png" width="50%" alt="CellMigRation">
 
 An R package for tracking cells and analyzing their trajectories.
 
