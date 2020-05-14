@@ -19,9 +19,60 @@ ui <- fluidPage(
 		),
 		fileInput("imported_tiff", "Import TIFF file"),
 		uiOutput("slider"),
-		fixedRow(
-			column(width=4, uiOutput("prev")),
-			column(width=1, uiOutput("nxt"))
+		fluidRow(
+			column(width = 4, uiOutput("prev")),
+			column(width = 1, uiOutput("nxt")),
+		),
+		# ----------------------------------------------------------------------
+		# Metadata
+		# ----------------------------------------------------------------------
+		hr(),
+		conditionalPanel(
+			condition = "output.slider",
+			textInput(
+				inputId = "experiment_name",
+				label = "Project name",
+				placeholder = "Unnamed project"
+			),
+			fluidRow(
+				column(
+					width = 6,
+					numericInput(
+						inputId = "pixel_size",
+						label = "Pixel size",
+						value = 1,
+						min = 0
+					)
+				),
+				column(
+					width = 3,
+					selectInput(
+						inputId = "pixel_unit",
+						label = "unit",
+						choices = c("cm", "mm", "µm", "nm")
+					)
+				)
+			),
+			fluidRow(
+				column(
+					width = 6,
+					numericInput(
+						inputId = "frame_duration",
+						label = "Frame duration",
+						value = 1,
+						min = 0
+
+					)
+				),
+				column(
+					width = 3,
+					selectInput(
+						inputId = "frame_unit",
+						label = "unit",
+						choices = c("min", "s", "ms")
+					)
+				)
+			),
 		)
 	),
 	# --------------------------------------------------------------------------
