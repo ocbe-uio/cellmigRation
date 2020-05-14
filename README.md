@@ -3,11 +3,9 @@
 CellMigRation
 =============
 
-![CellMigRation](CellMigRationLogo.png)
-
-<!-- badges: start -->
-[![Build Status](https://travis-ci.org/ocbe-uio/CellMigRation.svg?branch=master)](https://travis-ci.org/ocbe-uio/CellMigRation) <!-- badges: end -->
-
+<p class="aligncenter">
+<img src="CellMigRationLogo.png" width="50%">
+</p>
 An R package for tracking cells and analyzing their trajectories.
 
 Installation
