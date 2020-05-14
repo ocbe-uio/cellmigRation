@@ -20,6 +20,7 @@ ui <- fluidPage(
 			src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/CellMigRationLogo.png",
 			width = "100%"
 		),
+		h3("1. Data loading"),
 		fileInput("imported_tiff", "Import TIFF file"),
 		uiOutput("slider"),
 		fluidRow(
@@ -83,11 +84,12 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "output.slider",
 			hr(),
+			h3("2. Model estimation"),
 			radioButtons(
 				inputId = "who_estimates_parms",
-				label = "Model parameter estimates",
+				label = "Model parameters",
 				choices = list(
-					"Calculated by CellMigRation" = "auto",
+					"Estimated by CellMigRation" = "auto",
 					"Provided by user" = "user"
 				)
 			),
@@ -100,7 +102,6 @@ ui <- fluidPage(
 	# Main panel for displaying outputs
 	# --------------------------------------------------------------------------
 	mainPanel(
-		h1("Cell tracking"),
 		imageOutput("image_frame")
 	)
 )
