@@ -200,6 +200,18 @@ server <- function(input, output) {
 		},
 		deleteFile = FALSE
 	)
+	# --------------------------------------------------------------------------
+	# Fitting model
+	# --------------------------------------------------------------------------
+	eventReactive(input$fit_model, {
+		# TODO: fit model using CellMigRation functions
+	})
+	# --------------------------------------------------------------------------
+	# Tracking cells
+	# --------------------------------------------------------------------------
+	eventReactive(input$track_cells, {
+		# TODO: track cells using CellMigRation functions
+	})
 }
 # ==============================================================================
 # Running the server
