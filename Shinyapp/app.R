@@ -8,20 +8,23 @@ library(png)
 # Defining the user interface
 # ==============================================================================
 ui <- fluidPage(
-	titlePanel(title="", windowTitle="CellMigRation Shiny App"),
+	titlePanel(title = "", windowTitle = "CellMigRation Shiny App"),
 	# --------------------------------------------------------------------------
 	# Sidebar panel for inputs
 	# --------------------------------------------------------------------------
 	sidebarPanel(
+		# ----------------------------------------------------------------------
+		# Loading TIFF image
+		# ----------------------------------------------------------------------
 		img(
-			src="https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/CellMigRationLogo.png",
-			width="100%"
+			src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/CellMigRationLogo.png",
+			width = "100%"
 		),
 		fileInput("imported_tiff", "Import TIFF file"),
 		uiOutput("slider"),
 		fluidRow(
-			column(width = 4, uiOutput("prev")),
-			column(width = 1, uiOutput("nxt")),
+			column(width = 5, uiOutput("prev")),
+			column(width = 5, uiOutput("nxt")),
 		),
 		# ----------------------------------------------------------------------
 		# Metadata
@@ -45,7 +48,7 @@ ui <- fluidPage(
 					)
 				),
 				column(
-					width = 3,
+					width = 4,
 					selectInput(
 						inputId = "pixel_unit",
 						label = "unit",
@@ -65,7 +68,7 @@ ui <- fluidPage(
 					)
 				),
 				column(
-					width = 3,
+					width = 4,
 					selectInput(
 						inputId = "frame_unit",
 						label = "unit",
@@ -86,9 +89,13 @@ ui <- fluidPage(
 # ==============================================================================
 # Defining the server logic
 # ==============================================================================
-options(shiny.maxRequestSize=1024*1024^2)  # file limit: 1 GB
+options(shiny.maxRequestSize = 1024*1024^2)  # file limit: 1 GB
 server <- function(input, output) {
-	frame <- reactiveValues(out=1, autoplay=FALSE)
+	# --------------------------------------------------------------------------
+	# Reactive values
+	# --------------------------------------------------------------------------
+	frame <- reactiveValues(out = 1)
+	step <- reactiveValues(completed = 0)
 	# --------------------------------------------------------------------------
 	# Load imported data
 	# --------------------------------------------------------------------------
@@ -96,22 +103,22 @@ server <- function(input, output) {
 		req(input$imported_tiff)
 		filename <- normalizePath(file.path(input$imported_tiff$datapath))
 		filepath <- gsub(
-			x=input$imported_tiff$datapath,
-			pattern=".\\.tif$",
-			replacement=""
+			x = input$imported_tiff$datapath,
+			pattern = ".\\.tif$",
+			replacement = ""
 		)
-		split_tiff <- readTIFF(filename, all=TRUE, convert=TRUE)
+		split_tiff <- readTIFF(filename, all = TRUE, convert = TRUE)
 		split_png <- list()
 		for (i in seq_along(split_tiff)) {
 			writePNG(
-				image=split_tiff[[i]],
-				target=paste0(
-					filepath, formatC(i, flag="0", width=5), '.png'
+				image = split_tiff[[i]],
+				target = paste0(
+					filepath, formatC(i, flag = "0", width = 5), '.png'
 				)
 			)
 		}
-		file_list <- list.files(filepath, pattern="*.png")
-		return(list(path=filepath, name=file_list))
+		file_list <- list.files(filepath, pattern = "*.png")
+		return(list(path = filepath, name = file_list))
 	})
 	# --------------------------------------------------------------------------
 	# Creating image controls
@@ -120,12 +127,12 @@ server <- function(input, output) {
 	output$tot_frames <- renderText(tot_frames())
 	output$slider <- renderUI(
 		sliderInput(
-			inputId="frameSelector", label="Frame select:",
-			min=1, max=tot_frames(), value=frame$out,
-			step=1, animate=animationOptions(
-				interval=200,
-				playButton="Autoplay",
-				pauseButton="Pause"
+			inputId = "frameSelector", label = "Frame select:",
+			min = 1, max = tot_frames(), value = frame$out, step = 1,
+			animate = animationOptions(
+				interval = 200,
+				playButton = "Autoplay",
+				pauseButton = "Pause"
 			),
 		)
 	)
@@ -155,15 +162,15 @@ server <- function(input, output) {
 	# Render imported data
 	# --------------------------------------------------------------------------
 	output$image_frame <- renderImage(
-		expr={
+		expr = {
 			req(input$imported_tiff)
 			list(
-				src=src_output(),
-				alt="image not found",
-				width="60%"
+				src = src_output(),
+				alt = "image not found",
+				width = "60%"
 			)
 		},
-		deleteFile=FALSE
+		deleteFile = FALSE
 	)
 }
 # ==============================================================================
