@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<img src="CellMigRationLogo.png" width="50%", alt="CellMigRation">
+<img src="CellMigRationLogo.png" width="50%" alt="CellMigRation">
 
 An R package for tracking cells and analyzing their trajectories.
 
