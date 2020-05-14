@@ -370,6 +370,135 @@ VisualizeCntr <- function(centroids, width_px, height_px, pnt.cex = 1.2,
 
 
 
+#' Visualize Cell Tracks originating at an Image Stack
+#'
+#' Visualize Cell Tracks that originated at an Image Stack of interest
+#'
+#' @param tc_obj a trackedCells object
+#' @param stack index of the stack 
+#' @param pnt.cex cex of the point drawn around each cell
+#' @param lwd width of the lines visualizing cell tracks
+#' @param col color of the points and the tracks, e.g.: "red2"
+#' @param col.untracked color of the points that were not tracked further, e.g.: "gray45" 
+#' @param main string used as plot title, can be NULL
+#'
+#' @return None
+#'
+#' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
+#' @references 
+#' \url{https://www.data-pulse.com/dev_site/celltracker/}
+#' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
+#' 
+#'
+#' @importFrom stats setNames
+#'
+#' @export
+visualizeCellTracks <- function(tc_obj, stack = 1, 
+                                  pnt.cex = 1.2, lwd = 1.6, 
+                                  col = "red2", col.untracked = "gray45", 
+                                  main = NULL) {
+  
+  if (is.null(main)) {
+    main <- paste0("Tracks of Cells in Stack num. ", stack)
+  }
+  
+  # Retrieve anr show image  
+  
+  b <- tc_obj@proc_images$images[[stack]]
+  visualize_img(img_mtx = b, las = 1, main = main)
+  
+  # Rerieve tracks / centroids
+  #cnt <- tracked_cells$centroids[[stack]]
+  
+  cnt <- tc_obj@tracks
+  cnt <- cnt[cnt[, 3]>= stack, ]
+  cids_stack <- cnt[cnt[, 3] == stack, 4]
+  
+  cnt_plt <- cnt[cnt[, 4] %in% cids_stack, ]
+  
+  id_2pls <- unique(cnt_plt[duplicated(cnt_plt[,4]), 4])
+  id_1shr <- unique(cnt_plt[!cnt_plt[, 4] %in% id_2pls, 4])
+  
+  if(length(id_1shr) > 0) {
+    tmp_cnt <- cnt_plt[cnt_plt[, 4] %in% id_1shr, ]
+    
+    tmp_cnt <- tmp_cnt[tmp_cnt[, 3] == stack, ]
+    tmp_cnt <- setNames(as.data.frame(tmp_cnt), 
+                        nm = colnames(tc_obj@centroids[[1]]))
+    
+    VisualizeCntr(centroids = tmp_cnt, width_px = ncol(b), height_px = nrow(b), 
+                   pnt.cex = pnt.cex, txt.cex = 0.00001, offset = 0.1, col = col.untracked) 
+    
+  }
+  
+  if(length(id_2pls) > 0) {
+    tmp_cnt <- cnt_plt[cnt_plt[, 4] %in% id_2pls, ]
+    tmp_cnt <- setNames(as.data.frame(tmp_cnt), 
+                        nm = colnames(tc_obj@centroids[[1]]))
+    
+    # Use dedicated f(x)
+    visualizeTrcks(tracks = tmp_cnt, width_px = ncol(b), height_px = nrow(b),
+                     i.slice = stack, pnt.cex = pnt.cex, lwd = lwd, col = col)
+    
+  }
+  
+  # DOne , no return needed
+  # return()
+}
+
+#' Visualize Cell Tracks
+#'
+#' Annotates an image with cell centroids by adding cell ROIs and drawing cell tracks
+#'
+#' @param tracks cell tracks
+#' @param width_px width in pixels
+#' @param height_px height in pixels 
+#' @param i.slice index of the stack slice to use
+#' @param pnt.cex cex for the points (circles) drawn around the cells
+#' @param lwd lwd of cell tracks
+#' @param col color used for the cell tracks, .g. "red"
+#'
+#' @return None
+#'
+#' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
+#' @references 
+#' \url{https://www.data-pulse.com/dev_site/celltracker/}
+#' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
+#' 
+#' @importFrom graphics points lines
+#'
+#' @keywords internal
+visualizeTrcks <- function(tracks, width_px, height_px, i.slice = 1, pnt.cex = 1.2, lwd = 1.2, col = "red")
+{
+  allcnt <- setNames(as.data.frame(tracks),
+                     nm = c("row", "col", "slice", "cell"))
+  cnt <- allcnt[allcnt$slice == i.slice, ]
+  cnt <- cnt[order(cnt$cell),]
+  
+  
+  all_cells_slice <- cnt$cell
+  cKeep <- sapply(all_cells_slice, function(jj) {
+    sum(allcnt$cell == jj) > 1
+  })
+  
+  # Cell outile
+  
+  graphics::points(x = ((cnt$col - 1) / (width_px - 1)),
+                   y = 1-((cnt$row - 1) / (height_px - 1)), 
+                   cex = pnt.cex, col = ifelse(cKeep, col, "gray75"))
+  
+  for(j in sort(unique(cnt$cell))){
+    TMP <- allcnt[allcnt$cell == j,]
+    graphics::lines(x = ((TMP$col - 1) / (width_px - 1)),
+                    y = 1-((TMP$row - 1) / (height_px - 1)), 
+                    lwd = lwd, col = col)
+    
+  }
+  #return()
+}
+
+
+
 
 #' Import Image from TIFF
 #'
