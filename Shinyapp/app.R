@@ -96,6 +96,15 @@ ui <- fluidPage(
 			numericInput("parm1", "Parm1", 0),
 			numericInput("parm2", "Parm2", 0),
 			actionButton("fit_model", "Submit")
+		),
+		# ----------------------------------------------------------------------
+		# Cell tracking
+		# ----------------------------------------------------------------------
+		conditionalPanel(
+			condition = "input.fit_model != 0",
+			hr(),
+			h3("3. Cell tracking"),
+			actionButton("track_cells", "Track cells")
 		)
 	),
 	# --------------------------------------------------------------------------
