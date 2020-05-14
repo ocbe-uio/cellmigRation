@@ -29,9 +29,9 @@ ui <- fluidPage(
 		# ----------------------------------------------------------------------
 		# Metadata
 		# ----------------------------------------------------------------------
-		hr(),
 		conditionalPanel(
 			condition = "output.slider",
+			hr(),
 			textInput(
 				inputId = "experiment_name",
 				label = "Project name",
