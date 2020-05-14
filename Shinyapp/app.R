@@ -76,6 +76,24 @@ ui <- fluidPage(
 					)
 				)
 			),
+		),
+		# ----------------------------------------------------------------------
+		# Model parameters
+		# ----------------------------------------------------------------------
+		conditionalPanel(
+			condition = "output.slider",
+			hr(),
+			radioButtons(
+				inputId = "who_estimates_parms",
+				label = "Model parameter estimates",
+				choices = list(
+					"Calculated by CellMigRation" = "auto",
+					"Provided by user" = "user"
+				)
+			),
+			numericInput("parm1", "Parm1", 0),
+			numericInput("parm2", "Parm2", 0),
+			actionButton("fit_model", "Submit")
 		)
 	),
 	# --------------------------------------------------------------------------
