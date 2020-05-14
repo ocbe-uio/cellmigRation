@@ -69,3 +69,9 @@ Step 1 can be skipped if you already have a clone of CellMigRation in your machi
 ### Running and disconnecting from the Shiny application
 
 Once the Shiny app is called, a browser window should open with the running application. After you are done using it, close the browser tab and press <kbd>Ctrl</kbd>+<kbd>C</kbd> in your R terminal to quit the application and regain control of the R prompt.
+
+Statistics for developers
+-------------------------
+
+<!-- badges: start -->
+[![Build Status](https://travis-ci.org/ocbe-uio/CellMigRation.svg?branch=master)](https://travis-ci.org/ocbe-uio/CellMigRation) <!-- badges: end -->
