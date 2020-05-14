@@ -4,8 +4,15 @@
 \alias{visualizeCellTracks}
 \title{Visualize Cell Tracks originating at an Image Stack}
 \usage{
-visualizeCellTracks(tc_obj, stack = 1, pnt.cex = 1.2, lwd = 1.6,
-  col = "red2", col.untracked = "gray45", main = NULL)
+visualizeCellTracks(
+  tc_obj,
+  stack = 1,
+  pnt.cex = 1.2,
+  lwd = 1.6,
+  col = "red2",
+  col.untracked = "gray45",
+  main = NULL
+)
 }
 \arguments{
 \item{tc_obj}{a trackedCells object}
