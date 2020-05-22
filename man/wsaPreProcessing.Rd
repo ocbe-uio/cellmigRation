@@ -26,9 +26,9 @@ wsaPreProcessing(
 
 \item{FrameN}{A numeric value of the number of frames. Default is NULL}
 
-\item{imageH}{A numeric value of the image hight.}
+\item{imageH}{A numeric value of the image height.}
 
-\item{woundH}{A numeric value of the image hight.}
+\item{woundH}{A numeric value of the image height.}
 
 \item{upperE}{A numeric value of the upper edge of the wound.}
 
