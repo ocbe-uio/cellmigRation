@@ -26,7 +26,7 @@ The data.frame includes the following columns: "new.ID", "frame.ID", "X", "Y", "
 }
 \description{
 Aggregate two or more trackedCells-class objects together. Input objects must carry information of cell
-tracks (oterwise an error will be raised). All tracks form the different experiments/images are returned in a
+tracks (otherwise an error will be raised). All tracks form the different experiments/images are returned in a
 large data.frame. A new unique ID is assigned to specifically identify each cell track from each image/experiment.
 }
 \details{
