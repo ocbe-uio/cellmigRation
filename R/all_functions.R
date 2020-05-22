@@ -405,8 +405,8 @@ visualizeCellTracks <- function(tc_obj, stack = 1,
   # Retrieve anr show image  
   
   b <- tc_obj@proc_images$images[[stack]]
-  visualize_img(img_mtx = b, las = 1, main = main)
-  
+  VisualizeImg(img_mtx = b, las = 1, main = main)
+
   # Rerieve tracks / centroids
   #cnt <- tracked_cells$centroids[[stack]]
   
