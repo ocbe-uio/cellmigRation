@@ -36,7 +36,7 @@ data.frame of centroid positions
 }
 \description{
 Validate parameters used to identify cells in a image stack. A figure containing
-current image frame with identified particles labeled with circles and numberical tags is generated
+current image frame with identified particles labeled with circles and numerical tags is generated
 }
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
