@@ -33,7 +33,7 @@ random migration (RM) and wound scratch assay (WSA). It comprises 14 slots.
 
 \item{\code{adjDS}}{A data frame of the trajectory data passed from the WSAprep function.}
 
-\item{\code{cellpos}}{A binary vector showing on which side of the wound cells are located. "0" reffers to a cell located above the wound whereas "1" reffers to a cell located below the wound.}
+\item{\code{cellpos}}{A binary vector showing on which side of the wound cells are located. "0" refers to a cell located above the wound whereas "1" refers to a cell located below the wound.}
 
 \item{\code{parE}}{A numeric vector contains estimations for the imageH, woundH, upperE and lowerE.}
 

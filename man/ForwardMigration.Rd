@@ -11,7 +11,8 @@ ForwardMigration(
   sfptPLOT = TRUE,
   afptPLOT = TRUE,
   sfpPLOT = TRUE,
-  afpPLOT = TRUE
+  afpPLOT = TRUE,
+  export = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ ForwardMigration(
 \item{sfpPLOT}{A logical vector that allows generating individual plots of angular persistence vs speed per cell. Default is TRUE.}
 
 \item{afpPLOT}{A logical vector that allows generating a plot of angular persistence vs speed of all cells. Default is TRUE.}
+
+\item{export}{if `TRUE` (default), exports function output to CSV file}
 }
 \value{
 An CellMig class Object with a data frame and plots. The data frame is stored in the ForMigtable slot.
@@ -40,7 +43,9 @@ data(WSADataset)
 wasDF=WSADataset[1:1000,]
 wsaTD <- CellMig(wasDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
-wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
+wsaTD <-ForwardMigration(
+   wsaTD, TimeInterval=10, ExpName="ExpName", export=FALSE
+)
 
 }
 \references{
