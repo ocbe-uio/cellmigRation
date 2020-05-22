@@ -110,12 +110,11 @@ ui <- fluidPage(
 	# Main panel for displaying outputs
 	# --------------------------------------------------------------------------
 	mainPanel(
-
 		conditionalPanel(
 			condition = "!output.slider",
 			img(
 				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/CellMigRationLogo.png",
-				width = "60%"
+				width = "30%"
 			)
 		),
 		conditionalPanel(
