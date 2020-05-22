@@ -4,7 +4,7 @@
 \alias{DiRatio.Plot}
 \title{Directionality Ratio plots}
 \usage{
-DiRatio.Plot(object, TimeInterval = 10, ExpName = ExpName)
+DiRatio.Plot(object, TimeInterval = 10, ExpName = ExpName, export = TRUE)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
@@ -12,6 +12,8 @@ DiRatio.Plot(object, TimeInterval = 10, ExpName = ExpName)
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
 \item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+\item{export}{if `TRUE` (default), exports plot to JPG file}
 }
 \value{
 Directionality Ratio plots
@@ -23,13 +25,14 @@ Directionality Ratio is the displacement divided by the total length of the tota
 Directionality Ratio
 }
 \examples{
+\dontrun{
 data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
 rmTD <-DiRatio(rmTD, ExpName="Test.DR")
 DiRatio.Plot(rmTD, ExpName="Test.DR")
-
+}
 }
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}

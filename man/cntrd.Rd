@@ -11,7 +11,7 @@ cntrd(im, mx, sz, interactive = NULL)
 
 \item{mx}{location of local maxima to pixel-levels accuracy}
 
-\item{sz}{diamter of the window over which to average to calculate the centroid. should be big enough.}
+\item{sz}{diameter of the window over which to average to calculate the centroid. should be big enough.}
 
 \item{interactive}{numeric; if set to 1 (or any positive number), an image showing the
 computed centroids will be visualized}
