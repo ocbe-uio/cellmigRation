@@ -4,7 +4,7 @@
 \alias{FMI}
 \title{Forward Migration Index}
 \usage{
-FMI(object, TimeInterval = 10, ExpName = "ExpName")
+FMI(object, TimeInterval = 10, ExpName = "ExpName", export = TRUE)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
@@ -12,6 +12,8 @@ FMI(object, TimeInterval = 10, ExpName = "ExpName")
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
 \item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+\item{export}{if `TRUE` (default), exports function output to CSV file}
 }
 \value{
 An CellMig class Object with a data frame. The data frame is stored in the FMItable slot.
@@ -24,7 +26,7 @@ data(WSADataset)
 wasDF=WSADataset[1:1000,]
 wsaTD <- CellMig(wasDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
-wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName")
+wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName", export=FALSE)
 
 }
 \references{
