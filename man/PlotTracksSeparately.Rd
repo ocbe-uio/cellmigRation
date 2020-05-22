@@ -8,7 +8,8 @@ PlotTracksSeparately(
   object,
   ExpName = "ExpName",
   Type = "l",
-  FixedField = TRUE
+  FixedField = TRUE,
+  export = TRUE
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ PlotTracksSeparately(
 "o": Both "overplotted"}
 
 \item{FixedField}{logical(1) Allows generating individual plots with fixed field. Default is TRUE.}
+
+\item{export}{if `TRUE` (default), exports plot to JPG file}
 }
 \value{
 2D rose-plots of the cells' track Separately.
@@ -39,7 +42,7 @@ rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
 PlotTracksSeparately(rmTD, ExpName="Test",
-                     Type="b", FixedField=FALSE)
+                     Type="b", FixedField=FALSE, export = FALSE)
 
 }
 \references{

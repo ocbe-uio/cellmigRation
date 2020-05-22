@@ -13,7 +13,8 @@ MSD(
   SlopePlot = TRUE,
   AllSlopesPlot = TRUE,
   FurthPlot = TRUE,
-  AllFurthPlot = TRUE
+  AllFurthPlot = TRUE,
+  export = TRUE
 )
 }
 \arguments{
@@ -34,19 +35,21 @@ MSD(
 \item{FurthPlot}{A logical vector that allows generating individual plots fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method per cell. Default is TRUE.}
 
 \item{AllFurthPlot}{A logical vector that allows generating a plot fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method for all cells. Default is TRUE.}
+
+\item{export}{if `TRUE` (default), exports function output}
 }
 \value{
 An CellMig class object with a data frame and plots. The data frame is stored in the MSDtable slot.
 }
 \description{
-The MSD function automatically compute the mean square displacements across several sequantial time intervals. MSD parameters are used to assess the area explored by cells over time.
+The MSD function automatically compute the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
 }
 \examples{
 data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:600,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
-rmTD<-MSD(rmTD,sLAG=0.25, ffLAG=0.25)
+rmTD<-MSD(rmTD,sLAG=0.25, ffLAG=0.25, export=FALSE)
 
 }
 \references{
