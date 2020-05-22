@@ -10,7 +10,8 @@ VeAutoCor(
   ExpName = "ExpName",
   sLAG = 0.25,
   sPLOT = TRUE,
-  aPLOT = TRUE
+  aPLOT = TRUE,
+  export = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ VeAutoCor(
 \item{sPLOT}{A logical vector that allows generating individual plots showing the velocity across several sequantial time intervals. Default is TRUE.}
 
 \item{aPLOT}{A logical vector that allows generating a plot showing the velocity across several sequantial time intervals of all cells. Default is TRUE.}
+
+\item{export}{if `TRUE` (default), exports function output to CSV file}
 }
 \value{
 Plots and a data frame, which contains six rows: "Cell Number", .
@@ -38,7 +41,10 @@ data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
-rmTD <-VeAutoCor(rmTD,TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE)
+rmTD <- VeAutoCor(
+   rmTD, TimeInterval=10, ExpName="ExpName", sLAG=0.25, sPLOT=TRUE,
+   aPLOT=TRUE, export=FALSE
+)
 }
 }
 \references{

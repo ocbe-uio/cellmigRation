@@ -53,7 +53,7 @@ the initial image convolution
   without the background subtraction defined by lobject
 
   \item \strong{threshold} Numeric. By default, after the convolution, any negative pixels are reset
-  to 0.  Threshold changes the threshhold for setting pixels to 0.  Positive values may be useful
+  to 0.  Threshold changes the threshold for setting pixels to 0.  Positive values may be useful
   for removing stray noise or small particles.
 
 }

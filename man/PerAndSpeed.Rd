@@ -11,7 +11,8 @@ PerAndSpeed(
   PtSplot = TRUE,
   AllPtSplot = TRUE,
   ApSplot = TRUE,
-  AllApSplot = TRUE
+  AllApSplot = TRUE,
+  export = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ PerAndSpeed(
 \item{ApSplot}{A logical vector that allows generating individual plots of angular persistence vs speed per cell. Default is TRUE.}
 
 \item{AllApSplot}{A logical vector that allows generating a plot of angular persistence vs speed of all cells. Default is TRUE.}
+
+\item{export}{if `TRUE` (default), exports function output}
 }
 \value{
 An CellMig class object with a data frame and plots. The data frame is stored in the PerAanSpeedtable slot.
@@ -40,7 +43,7 @@ data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
-rmTD <- PerAndSpeed(rmTD,TimeInterval=10,ExpName="ExpName")
+rmTD <- PerAndSpeed(rmTD,TimeInterval=10,ExpName="ExpName", export=FALSE)
 
 }
 \references{
