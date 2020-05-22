@@ -10,7 +10,8 @@ DiAutoCor(
   ExpName = "ExpName",
   sLAG = 0.25,
   sPLOT = TRUE,
-  aPLOT = TRUE
+  aPLOT = TRUE,
+  export = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ DiAutoCor(
 \item{sPLOT}{A logical vector that allows generating individual plots showing the angular persistence across several sequantial time intervals. Default is TRUE.}
 
 \item{aPLOT}{A logical vector that allows generating a plot showing the angular persistence across several sequantial time intervals of all cells. Default is TRUE.}
+
+\item{export}{if `TRUE` (default), exports function output to CSV file}
 }
 \value{
 An CellMig class Object with a data frame and plots. The data frame, which contains six rows: "Cell Number", "Angular Persistence", "Intercept of DA quadratic model","Mean Direction AutoCorrelation (all lags)", "Stable Direction AutoCorrelation through the track" and "Difference between Mean DA and Intercept DA".
@@ -40,7 +43,10 @@ data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
-rmTD <- DiAutoCor(rmTD,TimeInterval=10,ExpName="ExpName",sLAG=0.25,sPLOT=TRUE,aPLOT=TRUE)
+rmTD <- DiAutoCor(
+   rmTD, TimeInterval=10, ExpName="ExpName", sLAG=0.25, sPLOT=TRUE,
+   aPLOT=TRUE, export=FALSE
+)
 }
 
 }
