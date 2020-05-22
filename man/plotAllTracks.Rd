@@ -4,14 +4,16 @@
 \alias{plotAllTracks}
 \title{A 2D rose-plot}
 \usage{
-plotAllTracks(object, ExpName = "ExpName", Type = "l")
+plotAllTracks(object, ExpName = "ExpName", Type = "l", export = TRUE)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
 \item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
 
-\item{Type}{has to be one of the following: c("p", "l", "b", "o")
+\item{Type}{has to be one of the following: c("p", "l", "b", "o")}
+
+\item{export}{if `TRUE` (default), exports plot to JPG file
 "p": Points
 "l": Lines
 "b": Both
@@ -31,7 +33,7 @@ data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
-plotAllTracks(rmTD, ExpName="Test",Type="b")
+plotAllTracks(rmTD, ExpName="Test",Type="b", export=FALSE)
 
 }
 \references{
