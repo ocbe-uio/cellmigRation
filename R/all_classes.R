@@ -64,7 +64,7 @@ trackedCells <- setClass(
 #'
 #' @slot trajdata The raw trajectory data matrix organized into four columns: cell ID, X coordinates, Y coordinates and Track number, which is the track's path order.
 #' @slot adjDS A data frame of the trajectory data passed from the WSAprep function.
-#' @slot cellpos A binary vector showing on which side of the wound cells are located. "0" reffers to a cell located above the wound whereas "1" reffers to a cell located below the wound.
+#' @slot cellpos A binary vector showing on which side of the wound cells are located. "0" refers to a cell located above the wound whereas "1" refers to a cell located below the wound.
 #' @slot parE A numeric vector contains estimations for the imageH, woundH, upperE and lowerE.
 #' @slot preprocessedDS list object of data frames, each data frame shows the trajectories of a single cell.
 #' @slot DRtable A data frame of the results of running the DiRatio() function.
