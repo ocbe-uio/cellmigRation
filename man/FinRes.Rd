@@ -4,7 +4,7 @@
 \alias{FinRes}
 \title{Final Results}
 \usage{
-FinRes(object, ExpName = "ExpName", ParCor = TRUE)
+FinRes(object, ExpName = "ExpName", ParCor = TRUE, export = TRUE)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
@@ -12,6 +12,8 @@ FinRes(object, ExpName = "ExpName", ParCor = TRUE)
 \item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
 
 \item{ParCor}{A logical vector that allows generating a correlation table. Default is TRUE.}
+
+\item{export}{if `TRUE` (default), exports function output to CSV file}
 }
 \value{
 A data frame that contains all the results.
@@ -27,7 +29,7 @@ wsaTD <- CellMig(wasDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName.FNRS")
 wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName.FNRS")
-wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
+wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE, export=FALSE)
 }
 
 }
