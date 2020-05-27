@@ -215,7 +215,7 @@ server <- function(input, output) {
 			list(
 				src = src_output(),
 				alt = "image not found",
-				width = "60%"
+				height = 500
 			)
 		},
 		deleteFile = FALSE
