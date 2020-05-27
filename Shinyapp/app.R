@@ -23,8 +23,8 @@ ui <- fluidPage(
 		fileInput("imported_tiff", "Import TIFF file"),
 		uiOutput("slider"),
 		fluidRow(
-			column(width = 5, uiOutput("prev")),
-			column(width = 5, uiOutput("nxt")),
+			column(width = 6, uiOutput("prev")),
+			column(width = 6, uiOutput("nxt")),
 		),
 		# ----------------------------------------------------------------------
 		# Metadata
@@ -39,7 +39,7 @@ ui <- fluidPage(
 			),
 			fluidRow(
 				column(
-					width = 5,
+					width = 6,
 					textInput(
 						inputId = "project_condition",
 						label = "Condition",
@@ -47,7 +47,7 @@ ui <- fluidPage(
 					)
 				),
 				column(
-					width = 5,
+					width = 6,
 					numericInput(
 						inputId = "replicate",
 						label = "Replicate",
@@ -58,7 +58,7 @@ ui <- fluidPage(
 			),
 			fluidRow(
 				column(
-					width = 6,
+					width = 8,
 					numericInput(
 						inputId = "pixel_size",
 						label = "Pixel size",
