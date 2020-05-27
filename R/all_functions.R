@@ -3729,7 +3729,7 @@ rmPreProcessing = function(object, PixelSize=1.24,
     MM<-length(M[,1])
     MM2<-MM-2
     res <- sapply(1:MM2, function(i){
-      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/T # ASK: what is T?
+      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/TimeInterval
       return(ID_split[[j]][i,24])
     })
     ID_split[[j]][1:MM2, 24] <- as.data.frame(res)
@@ -3983,7 +3983,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
     MM<-length(M[,1])
     MM2<-MM-2
     res <- sapply(1:MM2, function(i){
-      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/T # ASK: what is T?
+      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/TimeInterval
       return(ID_split[[j]][i,24])
     })
     ID_split[[j]][1:MM2, 24] <- as.data.frame(res)
@@ -5555,7 +5555,7 @@ VeAutoCor = function(object, TimeInterval=10,
       Object[[j]][,15][is.na(Object[[j]][,15])] <- 0                                # to remove NA and replace it with 0
 
       res1 <- sapply(1:(Step - lag), function(i){                                               # starting from 2 to exclude the first cosine which is always 1.
-        Object[[j]][i,23]=((Object[[j]][i,14]* Object[[j]][i+lag,14])+ (Object[[j]][i,15]* Object[[j]][i+lag,15]))/ ((lag*T)^2) # ASK: what is T?
+        Object[[j]][i,23]=((Object[[j]][i,14]* Object[[j]][i+lag,14])+ (Object[[j]][i,15]* Object[[j]][i+lag,15]))/ ((lag*TimeInterval)^2)
         return(Object[[j]][i,23])
       })
       Object[[j]][1:(Step - lag),23] <- res1
