@@ -110,12 +110,11 @@ ui <- fluidPage(
 	# Main panel for displaying outputs
 	# --------------------------------------------------------------------------
 	mainPanel(
-
 		conditionalPanel(
 			condition = "!output.slider",
 			img(
 				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/CellMigRationLogo.png",
-				width = "60%"
+				width = "30%"
 			)
 		),
 		conditionalPanel(
@@ -216,7 +215,7 @@ server <- function(input, output) {
 			list(
 				src = src_output(),
 				alt = "image not found",
-				width = "60%"
+				height = 500
 			)
 		},
 		deleteFile = FALSE
