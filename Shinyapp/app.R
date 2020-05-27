@@ -52,7 +52,7 @@ ui <- fluidPage(
 					selectInput(
 						inputId = "pixel_unit",
 						label = "unit",
-						choices = c("cm", "mm", "µm", "nm")
+						choices = c("nm", "µm", "mm", "cm")
 					)
 				)
 			),
@@ -72,7 +72,7 @@ ui <- fluidPage(
 					selectInput(
 						inputId = "frame_unit",
 						label = "unit",
-						choices = c("min", "s", "ms")
+						choices = c("s", "min", "h")
 					)
 				)
 			),
