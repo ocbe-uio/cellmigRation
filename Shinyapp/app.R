@@ -33,9 +33,28 @@ ui <- fluidPage(
 			condition = "output.slider",
 			hr(),
 			textInput(
-				inputId = "experiment_name",
+				inputId = "project_name",
 				label = "Project name",
 				placeholder = "Unnamed project"
+			),
+			fluidRow(
+				column(
+					width = 5,
+					textInput(
+						inputId = "project_condition",
+						label = "Condition",
+						placeholder = "Treated, dose, etc."
+					)
+				),
+				column(
+					width = 5,
+					numericInput(
+						inputId = "replicate",
+						label = "Replicate",
+						value = 1,
+						min = 1
+					)
+				)
 			),
 			fluidRow(
 				column(
