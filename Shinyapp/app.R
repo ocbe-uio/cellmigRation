@@ -32,6 +32,7 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "output.slider",
 			hr(),
+			h4("Metadata"),
 			textInput(
 				inputId = "project_name",
 				label = "Project name",
@@ -39,7 +40,7 @@ ui <- fluidPage(
 			),
 			fluidRow(
 				column(
-					width = 6,
+					width = 7,
 					textInput(
 						inputId = "project_condition",
 						label = "Condition",
@@ -47,7 +48,7 @@ ui <- fluidPage(
 					)
 				),
 				column(
-					width = 6,
+					width = 5,
 					numericInput(
 						inputId = "replicate",
 						label = "Replicate",
@@ -58,26 +59,7 @@ ui <- fluidPage(
 			),
 			fluidRow(
 				column(
-					width = 8,
-					numericInput(
-						inputId = "pixel_size",
-						label = "Pixel size",
-						value = 1,
-						min = 0
-					)
-				),
-				column(
-					width = 4,
-					selectInput(
-						inputId = "pixel_unit",
-						label = "unit",
-						choices = c("nm", "µm", "mm", "cm")
-					)
-				)
-			),
-			fluidRow(
-				column(
-					width = 6,
+					width = 3,
 					numericInput(
 						inputId = "frame_duration",
 						label = "Frame duration",
@@ -87,14 +69,31 @@ ui <- fluidPage(
 					)
 				),
 				column(
-					width = 4,
+					width = 3,
 					selectInput(
 						inputId = "frame_unit",
 						label = "unit",
 						choices = c("s", "min", "h")
 					)
+				),
+				column(
+					width = 3,
+					numericInput(
+						inputId = "pixel_size",
+						label = "Pixel size",
+						value = 1,
+						min = 0
+					)
+				),
+				column(
+					width = 3,
+					selectInput(
+						inputId = "pixel_unit",
+						label = "unit",
+						choices = c("nm", "µm", "mm", "cm")
+					)
 				)
-			),
+			)
 		),
 		# ----------------------------------------------------------------------
 		# Model parameters
@@ -107,12 +106,15 @@ ui <- fluidPage(
 				inputId = "who_estimates_parms",
 				label = "Model parameters",
 				choices = list(
-					"Estimate with CellMigRation" = "auto",
+					"Automated parameter estimation" = "auto",
 					"Use values below" = "user"
 				)
 			),
-			numericInput("parm1", "Parm1", 0),
-			numericInput("parm2", "Parm2", 0),
+			fluidRow(
+				column(4, numericInput("inoise", "Inoise", 0, step = .1)),
+				column(4, numericInput("diamenter", "Diameter", 0, step = .1)),
+				column(4, numericInput("threshold", "Threshold", 0, step = .1))
+			),
 			actionButton("fit_model", "Submit")
 		),
 		# ----------------------------------------------------------------------
@@ -122,7 +124,22 @@ ui <- fluidPage(
 			condition = "input.fit_model",
 			hr(),
 			h3("3. Cell tracking"),
+			numericInput(
+				inputId = "max_disp",
+				label = "Max displacement",
+				value = 16
+			),
 			actionButton("track_cells", "Track cells")
+		),
+		# ----------------------------------------------------------------------
+		# Output data
+		# ----------------------------------------------------------------------
+		conditionalPanel(
+			condition = "input.track_cells",
+			hr(),
+			h4("4. Output data"),
+			actionButton("extract_trajectories", "Extract Trajectories"),
+			actionButton("extract_summary", "Extract Summary")
 		)
 	),
 	# --------------------------------------------------------------------------
@@ -148,7 +165,7 @@ ui <- fluidPage(
 					"Trajectories"
 				),
 				tabPanel(
-					"Calculations"
+					"Summary"
 				)
 			)
 		)
