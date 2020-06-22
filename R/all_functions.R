@@ -6326,8 +6326,11 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
 CellMigPCA = function(object, ExpName="ExpName",
                       parameters=c(1,2,3)){
 
-  if ( ! is.list(object) ){
-    stop("Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+  if (!is.list(object) & !is(object, "CellMig")) {
+    stop(
+      "Input data must be a list. Please run the PreProcessing step first, ",
+      "either rmPreProcessing() or wsaPreProcessing()"
+    )
   }
   if ( length(object@results[,1])<1 ){
     stop("There are no results stored. Please run trajectory analysis first")
