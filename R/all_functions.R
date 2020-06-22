@@ -6277,7 +6277,7 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
   }
   if ( ParCor == TRUE || ParCor == TRUE){
     R=Results
-    R[,]=lapply(R[,], as.numeric)
+    R[,] <- lapply(R[,], function(x) as.numeric(gsub(",", ".", x)))
     Parameters.Correlation<-Hmisc::rcorr(t(R), type="spearman")
     object@parCor<-Parameters.Correlation$r
     if (export) {
