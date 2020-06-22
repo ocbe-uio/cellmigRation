@@ -4998,7 +4998,7 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=TRUE) {
     setwd(paste0(d,"/",paste0(ExpName,"-DRResults")))
 
   } else {
-    stop("Please run the DiRatio() first")
+    stop("Please run DiRatio() first and export the results")
   }
 
   DIR.RATIO.AllCells<-data.frame()
