@@ -4998,7 +4998,7 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=TRUE) {
     setwd(paste0(d,"/",paste0(ExpName,"-DRResults")))
 
   } else {
-    stop("Please run the DiRatio() first")
+    stop("Please run DiRatio() first and export the results")
   }
 
   DIR.RATIO.AllCells<-data.frame()
@@ -6219,6 +6219,7 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
   if (length(object@DRtable)>0){
     cells<-object@DRtable[1,]
     DR<-object@DRtable[-1,]
+    names(DR) <- names(object@results)
     object@results <- rbind(object@results,DR)
   }
 
@@ -6276,7 +6277,7 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
   }
   if ( ParCor == TRUE || ParCor == TRUE){
     R=Results
-    R[,]=lapply(R[,], as.numeric)
+    R[,] <- lapply(R[,], function(x) as.numeric(gsub(",", ".", x)))
     Parameters.Correlation<-Hmisc::rcorr(t(R), type="spearman")
     object@parCor<-Parameters.Correlation$r
     if (export) {
@@ -6325,8 +6326,11 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
 CellMigPCA = function(object, ExpName="ExpName",
                       parameters=c(1,2,3)){
 
-  if ( ! is.list(object) ){
-    stop("Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+  if (!is.list(object) & !is(object, "CellMig")) {
+    stop(
+      "Input data must be a list. Please run the PreProcessing step first, ",
+      "either rmPreProcessing() or wsaPreProcessing()"
+    )
   }
   if ( length(object@results[,1])<1 ){
     stop("There are no results stored. Please run trajectory analysis first")
