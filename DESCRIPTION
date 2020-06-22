@@ -11,3 +11,5 @@ LazyData: true
 Depends: R (>= 4.0), methods, foreach
 Imports: tiff, graphics, stats, utils, reshape2, parallel, doParallel, grDevices, matrixStats, FME, SpatialTools, rgl, sp, vioplot, FactoMineR, Hmisc
 RoxygenNote: 7.1.0
+Suggests: 
+    testthat
