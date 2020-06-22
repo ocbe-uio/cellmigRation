@@ -6219,6 +6219,7 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
   if (length(object@DRtable)>0){
     cells<-object@DRtable[1,]
     DR<-object@DRtable[-1,]
+    names(DR) <- names(object@results)
     object@results <- rbind(object@results,DR)
   }
 
