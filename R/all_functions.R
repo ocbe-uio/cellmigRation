@@ -3384,6 +3384,34 @@ getImageStacks <- function(tc_obj)
   return(tmp)
 }
 
+                     
+                     
+#' Get Auto Optimized Parameters
+#'
+#' Extract Parameters that were automatically optimized
+#'
+#' @param tc_obj a \code{trackedCells} object
+#'
+#' @return a list including optimized parameter values (lnoise, diameter, and threshold)
+#'
+#' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
+#' @references
+#' \url{https://www.data-pulse.com/dev_site/cellmigration/}
+#' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
+#'
+#'
+#' @export
+getOptimizedParams <- function(tc_obj)
+{
+  chk1 <- tc_obj@ops$optimized_params
+  y <- list()
+  if (!is.null(chk1) && chk1 == 1) {
+    y <- tc_obj@optimized$auto_params
+  } else {
+    message("There were NO optimized params to return")
+  }
+  return(y)
+}
 
 
 #' Set MetaData
