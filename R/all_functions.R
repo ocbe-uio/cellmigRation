@@ -1638,7 +1638,9 @@ track <- function(xyzs, maxdisp, params)
 
 
         if (ngood != 0) {
-          ww <- which(coltot( which1[w] ) == 1);
+          #ww <- which(coltot( which1[w] ) == 1);
+          ww <- which(coltot[which1[w]] == 1)
+          
           ngood <- length(ww)
           if (ngood != 0){
             # %disp(size(w(ww)))
