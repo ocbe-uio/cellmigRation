@@ -265,6 +265,7 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 #' @importFrom graphics image
 #'
 #' @keywords internal
+#' @export
 VisualizeImg <- function(img_mtx, col = NULL, ...)
 {
 
@@ -1640,7 +1641,7 @@ track <- function(xyzs, maxdisp, params)
         if (ngood != 0) {
           #ww <- which(coltot( which1[w] ) == 1);
           ww <- which(coltot[which1[w]] == 1)
-          
+
           ngood <- length(ww)
           if (ngood != 0){
             # %disp(size(w(ww)))
@@ -3384,8 +3385,8 @@ getImageStacks <- function(tc_obj)
   return(tmp)
 }
 
-                     
-                     
+
+
 #' Get Auto Optimized Parameters
 #'
 #' Extract Parameters that were automatically optimized
