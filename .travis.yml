@@ -11,3 +11,4 @@ addons:
   apt:
     packages:
     - libglu1-mesa-dev
+bioc_check: true
