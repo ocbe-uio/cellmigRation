@@ -31,6 +31,7 @@ ui <- fluidPage(
 		# ----------------------------------------------------------------------
 		conditionalPanel(
 			condition = "output.slider",
+			checkboxInput("invert_background", "Invert background"),
 			hr(),
 			h4("Metadata"),
 			textInput(
@@ -149,13 +150,17 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "!output.slider",
 			img(
-				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/CellMigRationLogo.png",
+				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
 				width = "30%"
 			)
 		),
 		conditionalPanel(
 			condition = "output.slider",
-			imageOutput("image_frame")
+			tabsetPanel(
+				tabPanel("Original image", imageOutput("image_frame")),
+				tabPanel("Processed image", plotOutput("processed_image"))
+			)
+
 		),
 		br(),br(),br(),br(),br(),br(),br(),br(),
 		conditionalPanel(
@@ -257,9 +262,29 @@ server <- function(input, output) {
 		deleteFile = FALSE
 	)
 	# --------------------------------------------------------------------------
+	# Displaying data
+	# --------------------------------------------------------------------------
+	output$processed_image <- renderPlot({
+		req(input$imported_tiff)
+		filename <- normalizePath(file.path(input$imported_tiff$datapath))
+		x1 <- CellMigRation::LoadTiff(
+			tiff_file  = filename,
+			experiment = input$project_name,
+			condition  = input$project_condition,
+			replicate  = input$replicate
+		)
+		# X1 <- readRDS(...) # ASK: what is this about?
+		# Store in variables for now
+		time_var <- input$frame_duration
+		res_var <- input$pixel_size
+		invert_background <- input$invert_background
+		VisualizeImg(x1@images$images[[frame$out]], las = 1, main = paste("Stack num.", frame$out))
+		# browser()
+	})
+	# --------------------------------------------------------------------------
 	# Fitting model
 	# --------------------------------------------------------------------------
-	eventReactive(input$fit_model, {
+	observeEvent(input$fit_model, {
 		# TODO: fit model using CellMigRation functions
 	})
 	# --------------------------------------------------------------------------
