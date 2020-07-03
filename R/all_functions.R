@@ -1137,6 +1137,14 @@ EstimateDiameterRange <- function(x, px.margin = 2, quantile.val = 0.99, plot = 
 
   QNTS <- as.numeric(quantile(x, probs = quantile.val[1]))
 
+  # Adjust if quantile.val is too low (few cells)
+  tmp.xx <- as.numeric(x)
+  max.sig <- max(tmp.xx, na.rm = TRUE)
+  min.sig <- min(tmp.xx, na.rm = TRUE)
+  if (QNTS == min.sig && max.sig > min.sig) {
+    QNTS <- mean(c(min.sig, min(tmp.xx[tmp.xx > min.sig], na.rm = TRUE)), na.rm = TRUE)
+  }
+
   B <- x
   B[B < QNTS] <- 0
   B[B >= QNTS] <- 1
