@@ -2749,8 +2749,8 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   
   # diam range
   if(is.null(diameter_range) && !is.null(estRDI)) {
-    diameter_range <- c(floor(estRDI$q50.diam - 1), ceiling(estRDI$q95.diam + 5))
-    diameter_range[diameter_range < 2] <- 2
+    diameter_range <- c(floor(estRDI$q75.diam - 1), ceiling(1.25 * as.numeric(estRDI$q95.diam)))
+    diameter_range[diameter_range < min.px.diam] <- min.px.diam
     diameter_range <- unique(as.integer(diameter_range))
     diameter_range <- unique(as.integer(
       seq(min(diameter_range), max(diameter_range), length.out = 3)))
@@ -2768,8 +2768,9 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   
   # Define param ranges
   if(is.null(lnoise_range))
-    lnoise_range <- c(2, 8, 16)
-  
+    lnoise_range <- unique(as.integer(seq(from = min.px.diam, 
+                                          to = quantile(estRDI$raw$LEN, probs = 0.25), 
+                                          length.out = 3)))
   
   if(is.null(threshold_range)) {
     threshold_range <- seq(max(0, (min(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], na.rm = TRUE) - 1)),
