@@ -3076,7 +3076,7 @@ CellTracker <- function(tc_obj,
   track_params <- list(lnoise = lnoise,
                        diameter = diameter,
                        threshold = threshold,
-                       maxDisp = maxDisp,
+                       maxDisp = 0,
                        goodenough = goodenough,
                        memory_b = memory_b,
                        force_exec = force_exec,
@@ -3089,6 +3089,9 @@ CellTracker <- function(tc_obj,
     message("Make sure to set all params for the analysis, or run OptimizeParams()")
     return(tc_obj)
   }
+  
+  if(!is.null(maxDisp))
+    track_params$maxDisp <- maxDisp
 
   ## ----- debugging -----
   #bpass = CellMigRation:::bpass
