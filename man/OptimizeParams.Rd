@@ -7,6 +7,7 @@
 OptimizeParams(
   tc_obj,
   lnoise_range = NULL,
+  min.px.diam = 5,
   diameter_range = NULL,
   threshold_range = NULL,
   target_cell_num = NULL,
@@ -19,6 +20,8 @@ OptimizeParams(
 \item{tc_obj}{a \code{trackedCells} object}
 
 \item{lnoise_range}{numeric vector of lnoise values to be used in the optimization step. Can be NULL}
+
+\item{min.px.diam}{integer, minimum diameter of a particle (cell). Particles with a diameter smaller than min.px.diam are discarded}
 
 \item{diameter_range}{numeric vector of diameter values to be used in the optimization step. Can be NULL}
 
@@ -53,7 +56,7 @@ the initial image convolution
   without the background subtraction defined by lobject
 
   \item \strong{threshold} Numeric. By default, after the convolution, any negative pixels are reset
-  to 0.  Threshold changes the threshold for setting pixels to 0.  Positive values may be useful
+  to 0.  Threshold changes the threshhold for setting pixels to 0.  Positive values may be useful
   for removing stray noise or small particles.
 
 }
