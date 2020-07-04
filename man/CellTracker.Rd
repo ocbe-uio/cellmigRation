@@ -9,7 +9,7 @@ CellTracker(
   lnoise = NULL,
   diameter = NULL,
   threshold = NULL,
-  maxDisp = 25,
+  maxDisp = NULL,
   memory_b = 0,
   goodenough = 0,
   threads = 1,
