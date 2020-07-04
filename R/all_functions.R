@@ -1099,7 +1099,6 @@ DetectRadii <- function(x) {
 }
 
 
-
 #' Detect Paricle Diameters in a Numeric matrix
 #'
 #' Estimates the diameters of particles in a numeric matrix
@@ -1107,6 +1106,8 @@ DetectRadii <- function(x) {
 #'
 #' @param x numeric matrix corresponding to a digital image
 #' @param px.margin integer, number of pixels used as margin while searching/filtering for neighboring particles
+#' @param min.px.diam integer, minimum diameter of a particle (cell). 
+#' Particles with a diameter smaller than min.px.diam are discarded
 #' @param quantile.val numeric, must be bigger than 0 and smaller than 1.
 #' Quantile for discriminating signal and background; only pixels with intensity higher than the corresponding
 #' quantile will count as signal while estimating particle diameters
@@ -1126,17 +1127,20 @@ DetectRadii <- function(x) {
 #'            c(0, 0, 0, 0, 1, 1, 0, 0, 0, 0),
 #'            c(0, 0, 0, 1, 1, 1, 0, 0, 0, 0))
 #' graphics::image(a)
-#' b <- EstimateDiameterRange(a)
+#' b <- EstimateDiameterRange(a, min.px.diam = 2)
 #' print(b$estim.cell.num)
 #' print(b$raw)
 #'
 #' @importFrom graphics image hist
 #'
 #' @export
-EstimateDiameterRange <- function(x, px.margin = 2, quantile.val = 0.99, plot = TRUE) {
-
+EstimateDiameterRange <- function(x, px.margin = 2, 
+                                  min.px.diam = 5, 
+                                  quantile.val = 0.99, 
+                                  plot = TRUE) {
+  
   QNTS <- as.numeric(quantile(x, probs = quantile.val[1]))
-
+  
   # Adjust if quantile.val is too low (few cells)
   tmp.xx <- as.numeric(x)
   max.sig <- max(tmp.xx, na.rm = TRUE)
@@ -1144,29 +1148,29 @@ EstimateDiameterRange <- function(x, px.margin = 2, quantile.val = 0.99, plot = 
   if (QNTS == min.sig && max.sig > min.sig) {
     QNTS <- mean(c(min.sig, min(tmp.xx[tmp.xx > min.sig], na.rm = TRUE)), na.rm = TRUE)
   }
-
+  
   B <- x
   B[B < QNTS] <- 0
   B[B >= QNTS] <- 1
-
+  
   rdds <- do.call(rbind, lapply(1:ncol(B), function(ii) {
-
+    
     out <- DetectRadii(B[,ii])
     if (!is.null(out)) {
       data.frame(RPOS = out$MPOS, CPOS = ii, LEN = out$LEN)
     }
   }))
   rdds$KEEP <- TRUE
-
+  
   for (j in 1:nrow(rdds)) {
     if (rdds$KEEP[j]){
-
+      
       tdm <- ( 2 * px.margin)  + rdds$LEN[j]
       ROWmin <- rdds$RPOS[j] - (0.5 * tdm)
       ROWmax <- rdds$RPOS[j] + (0.5 * tdm)
       COLmin <- rdds$CPOS[j] - (0.5 * tdm)
       COLmax <- rdds$CPOS[j] + (0.5 * tdm)
-
+      
       keep <- rdds$RPOS >= ROWmin & rdds$RPOS <= ROWmax &
         rdds$CPOS >= COLmin & rdds$CPOS <= COLmax & rdds$KEEP
       keep <- which(keep)
@@ -1174,7 +1178,7 @@ EstimateDiameterRange <- function(x, px.margin = 2, quantile.val = 0.99, plot = 
       if (length(keep) > 0) {
         curVal <- rdds$LEN[j]
         allValz <- rdds$LEN[keep]
-
+        
         if (sum(curVal > allValz) == length(allValz)) {
           rdds$KEEP[keep] <- FALSE
         } else {
@@ -1183,27 +1187,26 @@ EstimateDiameterRange <- function(x, px.margin = 2, quantile.val = 0.99, plot = 
       }
     }
   }
-
+  
   FINL <- rdds[rdds$KEEP,]
-
+  FINL <- FINL[FINL[, "LEN"] >= min.px.diam, ]
+  
   yy <- list(estim.cell.num = sum(FINL$KEEP),
              q50.diam = median(FINL$LEN, na.rm = TRUE),
              q75.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.75)),
              q90.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.90)),
              q95.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.95)),
              raw = FINL)
-
+  
   if (plot) {
     try(hist(FINL$LEN, breaks = seq(min(FINL$LEN, na.rm = TRUE),
                                     max(FINL$LEN, na.rm = TRUE), length.out = 20),
              xlab = "Particle Diameter", las = 1, main = "Diam. Distribution",
              col = "aquamarine3"), silent = TRUE); box()
   }
-
+  
   return(yy)
 }
-
-
 
 
 #' Track cells
@@ -2648,7 +2651,7 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #'   without the background subtraction defined by lobject
 #'
 #'   \item \strong{threshold} Numeric. By default, after the convolution, any negative pixels are reset
-#'   to 0.  Threshold changes the threshold for setting pixels to 0.  Positive values may be useful
+#'   to 0.  Threshold changes the threshhold for setting pixels to 0.  Positive values may be useful
 #'   for removing stray noise or small particles.
 #'
 #' }
@@ -2657,6 +2660,8 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #'
 #' @param tc_obj a \code{trackedCells} object
 #' @param lnoise_range numeric vector of lnoise values to be used in the optimization step. Can be NULL
+#' @param min.px.diam integer, minimum diameter of a particle (cell). 
+#' Particles with a diameter smaller than min.px.diam are discarded
 #' @param diameter_range numeric vector of diameter values to be used in the optimization step. Can be NULL
 #' @param threshold_range numeric vector of threshold values to be used in the optimization step. Can be NULL
 #' @param target_cell_num integer, the expected (optimal) number of cells to be detected in each frame
@@ -2679,24 +2684,24 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #' @import foreach
 #'
 #' @export
-OptimizeParams <- function(tc_obj, lnoise_range = NULL,
-                            diameter_range = NULL, threshold_range = NULL,
-                            target_cell_num = NULL, threads = 1,
-                            quantile.val = NULL, px.margin= NULL)
-
+OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,  
+                           diameter_range = NULL, threshold_range = NULL,
+                           target_cell_num = NULL, threads = 1,
+                           quantile.val = NULL, px.margin= NULL)
+  
 {
   # do
   stack_img <- tc_obj@images
-
+  
   # Nested f(x)
   all_combos <- function(...){
     xx <- list(...)
     zz <- names(xx)
-
+    
     # Init
     out <- data.frame(xx[[1]], stringsAsFactors = FALSE)
     colnames(out) <- zz[1]
-
+    
     # Keep attaching
     for (j in 2:length(xx)) {
       TMP <- xx[[j]]
@@ -2710,7 +2715,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL,
     }
     return(out)
   }
-
+  
   ## ----- debugging -----
   #bpass = CellMigRation:::bpass
   #pkfnd = CellMigRation:::pkfnd
@@ -2720,14 +2725,14 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL,
   #VisualizeCntr = CellMigRation:::VisualizeCntr
   #track = CellMigRation:::track
   ## ----- endo of debugging -----
-
+  
   # select mid signal image
   imgSums <- sapply(stack_img$images, sum, na.rm = TRUE)
   med.i <- ifelse(length(imgSums) %% 2 == 0, length(imgSums) / 2, (0.5 * length(imgSums) + 0.5))
   r.i <- order(imgSums)[med.i]
-
+  
   tmp_img <- stack_img$images[[r.i]]
-
+  
   # Define param ranges
   if (is.null(px.margin)) {
     px.margin <- 2
@@ -2735,12 +2740,13 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL,
   if (is.null(quantile.val)) {
     quantile.val <- 0.99
   }
-
+  
   estRDI <- tryCatch({
-    EstimateDiameterRange(x = tmp_img, px.margin = px.margin,
-                            quantile.val = quantile.val, plot = FALSE)},
+    EstimateDiameterRange(x = tmp_img, px.margin = px.margin, 
+                          min.px.diam = min.px.diam,
+                          quantile.val = quantile.val, plot = FALSE)},
     error = function(e) NULL)
-
+  
   # diam range
   if(is.null(diameter_range) && !is.null(estRDI)) {
     diameter_range <- c(floor(estRDI$q50.diam - 1), ceiling(estRDI$q95.diam + 5))
@@ -2748,149 +2754,149 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL,
     diameter_range <- unique(as.integer(diameter_range))
     diameter_range <- unique(as.integer(
       seq(min(diameter_range), max(diameter_range), length.out = 3)))
-
+    
   } else if (is.null(diameter_range)) {
     diameter_range <- c(10, 50, 100)
   }
-
+  
   # num cell
   if(is.null(target_cell_num) && !is.null(estRDI)) {
     target_cell_num <- estRDI$estim.cell.num
   } else if (is.null(target_cell_num)) {
     target_cell_num <- 100
   }
-
+  
   # Define param ranges
   if(is.null(lnoise_range))
     lnoise_range <- c(2, 8, 16)
-
-
+  
+  
   if(is.null(threshold_range)) {
     threshold_range <- seq(max(0, (min(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], na.rm = TRUE) - 1)),
                            (1 + quantile(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], probs = 0.75)),
                            length.out = 4)
     threshold_range <- unique(as.integer(threshold_range))
   }
-
+  
   # Al params
   all_params <- all_combos(image.i = med.i,
                            lnoise = lnoise_range,
                            diameter = diameter_range,
                            threshold = threshold_range)
-
+  
   all_params <- all_params[all_params$diameter > (4 + all_params$lnoise), ]
   rownames(all_params) <- NULL
-
+  
   if(nrow(all_params) < 1) {
     message("There is a problem with the param ranges that were submitted")
     message("Please, try again with different param ranges")
     return(tc_obj)
   }
-
+  
   # Verbose
   message(paste0("Testing ", nrow(all_params), " combination(s) of params."), appendLF = TRUE)
   message("This may take some time.", appendLF = TRUE)
-
+  
   message("Processing ", appendLF = FALSE)
-
+  
   ##
   ## Parallelize please
   j <- NULL
-
+  
   # how many cores can we use?
   num_parallelCores <- threads
   debugging <- TRUE
-
+  
   max.cores <- parallel::detectCores()
   max.cores <- max.cores - 1
   max.cores <- ifelse(max.cores < 1, 1, max.cores)
   my.test <- 1 <= num_parallelCores & num_parallelCores <= max.cores
   use.cores <- ifelse(my.test, num_parallelCores, max.cores)
-
+  
   # cores = 1, do not parallelize
   if (use.cores == 1) {
-
+    
     # Initialize collector (list)
     all_results <- list()
-
+    
     for (i in 1:nrow(all_params)){
-
+      
       # Verbose
       message(".", appendLF = FALSE)
-
+      
       #VisualizeImg(tmp_img)
       b <- bpass(image_array = tmp_img,
                  lnoise = all_params$lnoise[i],
                  lobject = all_params$diameter[i],
                  threshold = all_params$threshold[i])
       tmpOUT <- list(img = b)
-
+      
       tryCatch({
         pk <- suppressMessages(
           pkfnd(im = b,
                 th = all_params$threshold[i],
                 sz = NextOdd(all_params$diameter[i])))
-
+        
         cnt <- suppressMessages(
           cntrd(im = b, mx = pk,
                 sz = NextOdd(all_params$diameter[i])))
-
+        
         tmpOUT[["count"]] <- nrow(cnt)
-
+        
       }, error = function(e) {
         tmpOUT[["count"]] <- 0
-
+        
       })
       all_results[[i]] <- tmpOUT
     }
-
+    
     # cores > 1, DO parallelize!
   } else {
-
+    
     if (debugging) {
       cl <- suppressMessages(parallel::makeCluster(use.cores, outfile = ""))
     } else {
       cl <- suppressMessages(parallel::makeCluster(use.cores))
     }
-
+    
     suppressMessages(doParallel::registerDoParallel(cl))
-
+    
     # Nothing to export! "tmp_img", "all_params" automatically exported
     #stuffToExp <- c("tmp_img", "all_params")
     stuffToExp <- c()
     suppressMessages(parallel::clusterExport(cl, stuffToExp))
-
+    
     ## %dopar%
     all_results <-
       tryCatch(foreach::foreach(j = (1:nrow(all_params)),
                                 .verbose = TRUE,
                                 .packages = "CellMigRation") %dopar% {
-
+                                  
                                   # Verbose
                                   message(".", appendLF = FALSE)
-
+                                  
                                   #VisualizeImg(tmp_img)
                                   b <- bpass(image_array = tmp_img,
                                              lnoise = all_params$lnoise[j],
                                              lobject = all_params$diameter[j],
                                              threshold = all_params$threshold[j])
                                   tmpOUT <- list(img = b)
-
+                                  
                                   tryCatch({
                                     pk <- suppressMessages(
                                       pkfnd(im = b,
                                             th = all_params$threshold[j],
                                             sz = NextOdd(all_params$diameter[j])))
-
+                                    
                                     cnt <- suppressMessages(
                                       cntrd(im = b, mx = pk,
                                             sz = NextOdd(all_params$diameter[j])))
-
+                                    
                                     tmpOUT[["count"]] <- nrow(cnt)
-
+                                    
                                   }, error = function(e) {
                                     tmpOUT[["count"]] <- 0
-
+                                    
                                   })
                                   tmpOUT
                                 }, error = (function(e) {
@@ -2901,54 +2907,54 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL,
     message("Done!", appendLF = TRUE)
     try({suppressWarnings(parallel::stopCluster(cl))}, silent = TRUE)
   }
-
+  
   # Attach counts
   all_params$counts <- do.call(c, lapply(all_results, function(x) {
     tmp <- x$count
     ifelse(is.null(tmp), 0, tmp)}))
   all_params$i <- 1:nrow(all_params)
-
+  
   # Return
   all_params$diff100 <- abs(target_cell_num - all_params$counts)
   ord_params <- all_params[order(all_params$diff100), ]
   ret.i <- head(ord_params$i, n = 9)
   best_params <- list()
-
+  
   curPAR <- par(no.readonly = TRUE)
   par(mfrow = c(3, 3))
   top.i <- 1
   for (ri in ret.i) {
-
+    
     if (top.i == 1) {
       best_params[["lnoise"]] <- ord_params$lnoise[ord_params$i == ri]
       best_params[["diameter"]] <- ord_params$diameter[ord_params$i == ri]
       best_params[["threshold"]] <- ord_params$threshold[ord_params$i == ri]
     }
-
+    
     myLAB <- paste0("Pick #", top.i, "; Cell_count=", ord_params$counts[ord_params$i == ri], "\n")
     myLAB <- paste0(myLAB, "lnoise=", ord_params$lnoise[ord_params$i == ri], "; ",
                     "diameter=", ord_params$diameter[ord_params$i == ri], "; ",
                     "threshold=", ord_params$threshold[ord_params$i == ri])
-
+    
     VisualizeImg(img_mtx = all_results[[ri]]$img,
-                  main = myLAB)
-
+                 main = myLAB)
+    
     top.i <- top.i + 1
   }
   par(curPAR)
-
+  
   # Extract_all_img
   allIMG <- lapply(all_results, function(x) {x$img})
-
+  
   #return(list(auto_params = best_params,
   #            results = all_params,
   #            images = allIMG))
-
-
+  
+  
   tc_obj@ops$optimized_params <- 1
   tc_obj@optimized <- list(auto_params = best_params,
                            results = all_params)
-
+  
   return(tc_obj)
 }
 
