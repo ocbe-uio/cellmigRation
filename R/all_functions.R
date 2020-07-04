@@ -3009,11 +3009,11 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 #'
 #' @export
 CellTracker <- function(tc_obj,
-                         lnoise = NULL, diameter = NULL,
-                         threshold = NULL, maxDisp = 25,
-                         memory_b = 0, goodenough = 0,
-                         threads = 1,
-                         show_plots = TRUE, verbose = TRUE)
+                        lnoise = NULL, diameter = NULL,
+                        threshold = NULL, maxDisp = NULL,
+                        memory_b = 0, goodenough = 0,
+                        threads = 1,
+                        show_plots = TRUE, verbose = TRUE)
 {
   # get stuff
   stack_img <- tc_obj@images
@@ -3050,7 +3050,7 @@ CellTracker <- function(tc_obj,
   if(!is.null(maxDisp) && is.numeric(maxDisp)) {
     maxDisp <- maxDisp[1]
   } else {
-    maxDisp <- 20
+    maxDisp <- NULL
   }
 
   # Other params
@@ -3238,18 +3238,60 @@ CellTracker <- function(tc_obj,
   # Remove columns that contain brightness and sqare of radius of gyration
   # this is the equivalent of position.m function
   # Also, create a frame(tau)label for each array of centroid data
+  #for (ti in 1:length(all_centroids)) {
+  #
+  #    # retain only positional data by removing columns 3 and 4
+  #    all_centroids[[ti]] <- all_centroids[[ti]] [, 1:2]
+  #    all_centroids[[ti]]$tau <- ti
+  #  }
+  
+  # Updated to avoid NO cells frames
+  all_centroids2 <- list()
   for (ti in 1:length(all_centroids)) {
-
-    # retain only positional data by removing columns 3 and 4
-    all_centroids[[ti]] <- all_centroids[[ti]] [, 1:2]
-    all_centroids[[ti]]$tau <- ti
+    ttmp <- all_centroids[[ti]]
+    if (nrow(ttmp) > 0) {
+      ttmp <- ttmp[, 1:2]
+      ttmp$tau <- (length(all_centroids2) + 1)
+      all_centroids2[[length(all_centroids2) + 1]] <- ttmp
+    }
   }
 
   # create a matrix that contains centroid data in sequential order by frame(tau)
-  pos <- do.call(rbind, all_centroids)
+  #pos <- do.call(rbind, all_centroids)
+  pos <- do.call(rbind, all_centroids2)
+  
+  tracks2 <- NULL
+  if (!is.null(maxDisp)) {
+    tracks2 <- tryCatch(track(xyzs = pos, maxdisp = maxDisp, params = track_params), error = function(e) NULL)
+  } 
 
-  ## generate tracks
-  tracks <- track(xyzs = pos, maxdisp = maxDisp, params = track_params)
+  if (is.null(tracks2)) {
+    tmp.Area <- tc_obj@images$dim$width_m * tc_obj@images$dim$height_n
+    max.disp <- as.integer(as.numeric(sqrt(tmp.Area)) / 5)
+    allDisp <- seq(from=max.disp, to = 5, by = -10)
+    jj0 <- 1
+    while(is.null(tracks2) && jj0 < length(allDisp) ) {
+      tracks2 <- tryCatch(
+        suppressMessages(track(xyzs = pos, maxdisp = allDisp[jj0], params = track_params)), error = function(e) NULL) 
+      jj0 <- jj0 + 1
+    }
+    if (!is.null(tracks2)) {
+      track_params$maxDisp <- allDisp[jj0]
+      message(paste0("The following maxDisp value was used for this analysis: ", allDisp[jj0]))
+    
+    } else {
+      message("a reasonable MaxDisp value couldn't be found! Sorry!")
+      return(NULL)
+    
+    }
+  }
+
+  #tracks <- track(xyzs = pos, maxdisp = maxDisp, params = track_params)
+  tracks <- tracks2
+
+
+  ### generate tracks
+  #tracks <- track(xyzs = pos, maxdisp = maxDisp, params = track_params)
 
   # pack and return
   #OUT <- list(images = all_b,
