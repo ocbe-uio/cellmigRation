@@ -3533,10 +3533,10 @@ setCellsMeta <- function(tc_obj, experiment = NULL,
 #' large data.frame. A new unique ID is assigned to specifically identify each cell track from each image/experiment.
 #'
 #' @param x a \code{trackedCells}-class object where cells have already been tracked
-#' @param ... one or more trackedCells-class object(s) where cells have already been tracked
 #' @param meta_id_field string, can take one of the following values, c("tiff_file", "experiment",
 #' "condition", "replicate"). Indicates the meta-data column used as unique ID for the image/experiment.
 #' Can be abbreviated. Defaults to "tiff_file".
+#' @param ... one or more trackedCells-class object(s) where cells have already been tracked
 #' @param min_frames_per_cell numeric (of length=1), the minimum number of frames in which each cell is found. Cells/particles
 #' appearing in a number of frames smaller than min_frames_per_cell are excluded from the output. Defaults to 1, 
 #' which means that all cells are returned in the output data.frame.
@@ -3556,10 +3556,9 @@ setCellsMeta <- function(tc_obj, experiment = NULL,
 #' @importFrom graphics par image
 #'
 #' @export
-aggregateTrackedCells <- function(x, ..., 
+aggregateTrackedCells <- function(x, min_frames_per_cell = 1, ..., 
                                   meta_id_field = c("tiff_file", "experiment",
-                                                    "condition", "replicate"),
-                                  min_frames_per_cell = 1)
+                                                    "condition", "replicate"))
 {
   # Inner fxs
   check_trobj <- function(xx) {
