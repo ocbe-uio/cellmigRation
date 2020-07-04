@@ -3293,6 +3293,9 @@ getTracks <- function(tc_obj, attach_meta = FALSE)
   tmp <- as.data.frame(tmp)
   colnames(tmp) <- c("Y", "X", "frame.ID", "cell.ID")
   TMP <- tmp[, c("frame.ID", "X", "Y", "cell.ID")]
+  # Adjust as per S request
+  TMP <- TMP[, c(4, 2, 3, 1)]
+  rownames(TMP) <- NULL
   if(attach_meta && nrow(TMP) > 0) {
 
     TMP$tiff_file = tc_obj@metadata$tiff_file
@@ -3492,7 +3495,10 @@ setCellsMeta <- function(tc_obj, experiment = NULL,
 #' @param meta_id_field string, can take one of the following values, c("tiff_file", "experiment",
 #' "condition", "replicate"). Indicates the meta-data column used as unique ID for the image/experiment.
 #' Can be abbreviated. Defaults to "tiff_file".
-#'
+#' @param min_frames_per_cell numeric (of length=1), the minimum number of frames in which each cell is found. Cells/particles
+#' appearing in a number of frames smaller than min_frames_per_cell are excluded from the output. Defaults to 1, 
+#' which means that all cells are returned in the output data.frame.
+#'                          
 #' @return An aggregate data.frame including all cells that were tracked over two or more images/experiments.
 #' The data.frame includes the following columns: "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name",
 #' "experiment", "condition", "replicate". The "new.ID" uniquely identifies a cell in a given image/experiment.
@@ -3508,8 +3514,10 @@ setCellsMeta <- function(tc_obj, experiment = NULL,
 #' @importFrom graphics par image
 #'
 #' @export
-aggregateTrackedCells <- function(x, ..., meta_id_field = c("tiff_file", "experiment",
-                                                             "condition", "replicate"))
+aggregateTrackedCells <- function(x, ..., 
+                                  meta_id_field = c("tiff_file", "experiment",
+                                                    "condition", "replicate"),
+                                  min_frames_per_cell = 1)
 {
   # Inner fxs
   check_trobj <- function(xx) {
@@ -3558,13 +3566,18 @@ aggregateTrackedCells <- function(x, ..., meta_id_field = c("tiff_file", "experi
 
   # Adjust
   my_tracks <- lapply(big.list, getTracks, attach_meta = TRUE)
+  # add new param / filtering
+  min_frames_per_cell
+  
   my_tracks <- do.call(rbind, my_tracks)
   my_tracks[,"new.ID"] <- factor(my_tracks[,meta_id_field], levels = unq_ids)
   my_tracks[,"new.ID"] <- as.numeric(my_tracks[,"new.ID"])
   my.mult <- compute_mult(max(my_tracks[, "cell.ID"], na.rm = TRUE))
   my_tracks[,"new.ID"] <- (my.mult * my_tracks[,"new.ID"]) + my_tracks[, "cell.ID"]
 
-  keep.colz <- c('new.ID', 'frame.ID', 'X', 'Y', 'cell.ID', 'tiff_file', 'experiment', 'condition', 'replicate')
+  # Adjust as per S request
+  #keep.colz <- c('new.ID', 'frame.ID', 'X', 'Y', 'cell.ID', 'tiff_file', 'experiment', 'condition', 'replicate')
+  keep.colz <- c('new.ID', 'X', 'Y', 'frame.ID', 'cell.ID', 'tiff_file', 'experiment', 'condition', 'replicate')
   out <- my_tracks[, keep.colz]
   rownames(out) <- NULL
 
