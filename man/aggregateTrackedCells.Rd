@@ -7,7 +7,8 @@
 aggregateTrackedCells(
   x,
   ...,
-  meta_id_field = c("tiff_file", "experiment", "condition", "replicate")
+  meta_id_field = c("tiff_file", "experiment", "condition", "replicate"),
+  min_frames_per_cell = 1
 )
 }
 \arguments{
@@ -18,10 +19,14 @@ aggregateTrackedCells(
 \item{meta_id_field}{string, can take one of the following values, c("tiff_file", "experiment",
 "condition", "replicate"). Indicates the meta-data column used as unique ID for the image/experiment.
 Can be abbreviated. Defaults to "tiff_file".}
+\item{min_frames_per_cell}{numeric (of length=1), the minimum number of frames in which each cell is found. 
+                           Cells/particles appearing in a number of frames smaller than min_frames_per_cell 
+                           are excluded from the output. Defaults to 1, which means that all cells are 
+                           returned in the output data.frame.}
 }
 \value{
 An aggregate data.frame including all cells that were tracked over two or more images/experiments.
-The data.frame includes the following columns: "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name",
+The data.frame includes the following columns: "new.ID", "X", "Y", "frame.ID", "cell.ID", "tiff_name",
 "experiment", "condition", "replicate". The "new.ID" uniquely identifies a cell in a given image/experiment.
 }
 \description{
