@@ -3714,6 +3714,8 @@ rmPreProcessing = function(object, PixelSize=1.24,
   df<-object@adjDS
   df<-df[,1:3]                                        # Removing the unnecessary columns
   spl<-split(df,df[,1])
+  cat("This dataset contains: ",length(spl),"Cells","\n")
+
   tbd<-c()
   LENspl<-length(spl)
   for (i in 1: LENspl){
@@ -3729,7 +3731,7 @@ rmPreProcessing = function(object, PixelSize=1.24,
   df[,27]<-rep(NA,L)                                  # to be used for migration type
   colnames(df)<-c("ID","x","y","X","Y","dx","dy","dis","abs.ang","rel.ang.P","Cos.P","Persist.Time","Square Speed","cumDis","Dir.R","NewDX","NewDY","New.Abs.ang","Ang.Diff","New.Cos.diff","rel.ang.F","Cos.F","Forward.Persist.Time","MSD(lag)","VAC(lag)","Acceleration","M-type")
   ID_split <- split(df, df$ID)                        #Splitting the data frame based on the ID
-  cat("This dataset contains: ",length(ID_split),"Cells","\n")
+  cat("This dataset contains: ",length(ID_split),"Cells with more than three steps in their tracks","\n")
 
   for(j in 1:length(ID_split)){                        # Having the ID =group order
     ID_split[[j]][1]=j
@@ -3979,6 +3981,8 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   df<-object@adjDS
   df<-df[,1:3]                                        # Removing the unnecessary columns
   spl<-split(df,df[,1])
+  cat("This dataset contains: ",length(spl),"Cells","\n")
+
   tbd<-c()
   LENspl<-length(spl)
   for (i in 1: LENspl){
@@ -3994,7 +3998,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   df[,27]<-rep(NA,L)                                  # to be used for migration type
   colnames(df)<-c("ID","x","y","X","Y","dx","dy","dis","abs.ang","rel.ang.P","Cos.P","Persist.Time","Square Speed","cumDis","Dir.R","NewDX","NewDY","New.Abs.ang","Ang.Diff","New.Cos.diff","rel.ang.F","Cos.F","Forward.Persist.Time","MSD(lag)","VAC(lag)","Acceleration","M-type")
   ID_split <- split(df, df$ID)                        #Splitting the data frame based on the ID
-  cat("This dataset contains: ",length(ID_split),"Cells","\n")
+  cat("This dataset contains: ",length(ID_split),"Cells with more than three steps in their tracks","\n")
 
   for(j in 1:length(ID_split)){                        # Having the ID =group order
     ID_split[[j]][1]=j
