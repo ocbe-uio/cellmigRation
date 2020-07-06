@@ -3721,7 +3721,7 @@ rmPreProcessing = function(object, PixelSize=1.24,
 		  tbd<-c(tbd,i)
 	  }
   }
-  spl<-spl[!tbd]
+  spl[tbd]<-NULL
   df<-do.call(rbind.data.frame, spl)
  
   L<-length(df[,1])
@@ -3986,7 +3986,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 		  tbd<-c(tbd,i)
 	  }
   }
-  spl<-spl[!tbd]
+  spl[tbd]<-NULL
   df<-do.call(rbind.data.frame, spl)
  
   L<-length(df[,1])
