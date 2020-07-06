@@ -3713,6 +3713,17 @@ rmPreProcessing = function(object, PixelSize=1.24,
   object@adjDS <- object@trajdata
   df<-object@adjDS
   df<-df[,1:3]                                        # Removing the unnecessary columns
+  spl<-split(df,df[,1])
+  tbd<-c()
+  LENspl<-length(spl)
+  for (i in 1: LENspl){
+	  if (length(spl[[i]][,1])<4){                     # Removing cells with less than 4 tracked frames
+		  tbd<-c(tbd,i)
+	  }
+  }
+  spl<-spl[-tbd]
+  df<-do.call(rbind.data.frame, spl)
+ 
   L<-length(df[,1])
   df[,4:26]<-rep(0,L)
   df[,27]<-rep(NA,L)                                  # to be used for migration type
@@ -3967,6 +3978,17 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 
   df<-object@adjDS
   df<-df[,1:3]                                        # Removing the unnecessary columns
+  spl<-split(df,df[,1])
+  tbd<-c()
+  LENspl<-length(spl)
+  for (i in 1: LENspl){
+	  if (length(spl[[i]][,1])<4){                     # Removing cells with less than 4 tracked frames
+		  tbd<-c(tbd,i)
+	  }
+  }
+  spl<-spl[-tbd]
+  df<-do.call(rbind.data.frame, spl)
+ 
   L<-length(df[,1])
   df[,4:26]<-rep(0,L)
   df[,27]<-rep(NA,L)                                  # to be used for migration type
