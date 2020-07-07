@@ -3203,9 +3203,11 @@ CellTracker <- function(tc_obj,
                                     tmpOUT <- list(cnt = cnt, b = b, j = j)
 
                                   } else {
-                                    message(paste0('No centroids detectd in frame ', i, ' in the current stack'))
-                                    message('Please, check nuclei validation settings for this image stack.')
-                                    tmpOUT <- list(cnt = NA, b = b, j = j)
+                                    #message(paste0("No centroids detectd in frame ", 
+                                    #               i, " in the current stack"))
+                                    #message("Please, check nuclei validation settings for this image stack.")
+                                    errCNT <- data.frame(row = 1, col = 1, norm = 1, rg = 1)
+                                    tmpOUT <- list(cnt = errCNT[-1, ], b = b, j = j)
 
                                   }
                                   tmpOUT
@@ -3221,6 +3223,7 @@ CellTracker <- function(tc_obj,
 
     re.idx <- order(do.call(c, lapply(all_results, function(x) {x$j})))
     all_results <- all_results[re.idx]
+    skpd.frames <- list()
     all_centroids <- lapply(all_results, function(x) {x$cnt})
     all_b <- lapply(all_results, function(x) {x$b})
 
