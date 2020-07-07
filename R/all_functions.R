@@ -3610,9 +3610,7 @@ aggregateTrackedCells <- function(x, ...,
 
   # Adjust
   my_tracks <- lapply(big.list, getTracks, attach_meta = TRUE)
-  # add new param / filtering
-  min_frames_per_cell
-  
+ 
   my_tracks <- do.call(rbind, my_tracks)
   my_tracks[,"new.ID"] <- factor(my_tracks[,meta_id_field], levels = unq_ids)
   my_tracks[,"new.ID"] <- as.numeric(my_tracks[,"new.ID"])
