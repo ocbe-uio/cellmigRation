@@ -6353,12 +6353,14 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
   if (length(object@MSDtable)>0){
     cells<-object@MSDtable[1,]
     MSD<-object@MSDtable[-1,]
+    names(MSD) <- names(object@results)
     object@results <- rbind(object@results,MSD)
   }
 
   if (length(object@PerAanSpeedtable)>0){
     cells<-object@PerAanSpeedtable[1,]
     per<-object@PerAanSpeedtable[-1,]
+    names(per) <- names(object@results)
     object@results <- rbind(object@results,per)
   }
 
@@ -6366,18 +6368,21 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
   if (length(object@DACtable)>0){
     cells<-object@DACtable[1,]
     DAC<-object@DACtable[-1,]
+    names(DAC) <- names(object@results)
     object@results <- rbind(object@results,DAC)
   }
 
   if (length(object@VACtable)>0){
     cells<-object@VACtable[1,]
     VAC<-object@VACtable[-1,]
+    names(VAC) <- names(object@results)
     object@results <- rbind(object@results,VAC)
   }
 
   if (length(object@ForMigtable)>0){
     cells<-object@ForMigtable[1,]
     FM<-object@ForMigtable[-1,]
+    names(FM) <- names(object@results)
     object@results <- rbind(object@results,FM)
   }
 
@@ -6385,6 +6390,7 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
   if (length(object@FMItable)>0){
     cells<-object@FMItable[1,]
     FMI<-object@FMItable[-1,]
+    names(FMI) <- names(object@results)
     object@results <- rbind(object@results,FMI)
   }
 
