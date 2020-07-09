@@ -1,6 +1,5 @@
-
 CellMigRation
-=============
+=======
 
 <!--
 ###############################################################################
@@ -10,6 +9,7 @@ CellMigRation
 README.md is generated from README.Rmd. Please edit the Rmd file and regenerate
 this one by running `rmarkdown::render("README.Rmd)` in R.
 -->
+
 <img src="cell_migration_logo.png" width="50%" alt="CellMigRation">
 
 An R package for tracking cells and analyzing their trajectories.
@@ -35,11 +35,11 @@ library(CellMigRation)
 data(TrajectoryDataset)
 df <- CellMig(TrajectoryDataset[1:100, ])
 preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 100)
-#> This dataset contains:  1 Cells 
-#> This dataset contains:  1 Cells with more than three steps in their tracks 
-#> The minimum number of steps:  100 
-#> The maximum number of steps:  100 
-#> Number of cells with a total number of steps less than  100 steps : 0 
+#> This dataset contains:  1 Cells
+#> This dataset contains:  1 Cells with more than three steps in their tracks
+#> The minimum number of steps:  100
+#> The maximum number of steps:  100
+#> Number of cells with a total number of steps less than  100 steps : 0
 #> All the tracks are adjusted to have only  100  steps
 ```
 
