@@ -4260,7 +4260,7 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", export=TRUE) {
   for(n in 2:Len){
     graphics::points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
     end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
-    graphics::points(end,pch=16,col=color[n], cex = 1)
+    graphics::points(end,pch=16,col=color[n], cex = 0.6)
   }
   x=c(min(RangeX)-100,max(RangeX)+100)
   y=c(0,0)
@@ -4508,7 +4508,7 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
     for(n in 1:Len){
       RangeX= Object[[n]][1:Step,2]
       RangeY= Object[[n]][1:Step,3]
-      if (export) grDevices::jpeg(paste0(ExpName,"_Track_Plot_",n,".jpg"))
+      if (export) grDevices::jpeg(paste0(ExpName,"_Track_Plot_",n,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       graphics::plot(Object[[n]][1:Step,2],Object[[n]][1:Step,3],type=Type,xlab="x (um)",ylab="y (um)",col=color[n],las=1,xlim=range(RangeX),ylim=range(RangeY))
       x=c(min(RangeX)-100,max(RangeX)+100)
       y=c(0,0)
