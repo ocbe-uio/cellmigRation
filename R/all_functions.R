@@ -4180,7 +4180,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 #' "l": Lines
 #' "b": Both
 #' "o": Both "overplotted"
-#'
+#' @param FixedField logical(1) Allows generating a plot with fixed field 800um x 800um. Default is TRUE.
 #' @return A 2D rose-plot showing the tracks of all cells.
 #' @details  The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
 #'
@@ -4199,7 +4199,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 #' @importFrom grDevices rainbow jpeg dev.off
 #' @importFrom graphics plot points lines
 #' @export
-plotAllTracks= function(object, ExpName="ExpName", Type="l", export=TRUE) {
+plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, export=TRUE) {
 
   if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
   Object<-object@preprocessedDS
@@ -4221,54 +4221,87 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", export=TRUE) {
     color <- grDevices::rainbow(Len)
   }
 
-  MinX<-c()
-  MaxX<-c()
-  MinY<-c()
-  MaxY<-c()
-  for(j in 1:Len){
-    minX=min(Object[[j]][1:Step,2])
-    minY=min(Object[[j]][1:Step,3])
-    maxX=max(Object[[j]][1:Step,2])
-    maxY=max(Object[[j]][1:Step,3])
-    MinX[j]<-c(minX)
-    MaxX[j]<-c(maxX)
-    MinY[j]<-c(minY)
-    MaxY[j]<-c(maxY)
-  }
-  RangeX=c(MinX,MaxX)
-  RangeY=c(MinY,MaxY)
-  graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3],
+  if ( FixedField == TRUE){     
+	graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3],
+                 type=Type, xlab="X (um)", ylab="Y (um)",
+                 col=color[1], las=1, xlim=c(-400,400),cex.lab=0.7,
+                 ylim=c(-400,400), main=ExpName)
+  	for(n in 2:Len){
+    		points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+    		graphics::points(end,pch=16,col=color[n], cex = 1)
+  	}
+  	x=c(-400,400)
+  	y=c(0,0)
+  	graphics::lines(x, y, type='l', col="black")
+  	x=c(0,0)
+  	y=c(-400,400)
+  	graphics::lines(x, y, type='l', col="black")
+	if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
+  		graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3], type=Type,
+                 xlab="X (um)", ylab="Y (um)", col=color[1],
+                 las=1, xlim=c(-400,400), ylim=c(-400,400), main=ExpName)
+  	for(n in 2:Len){
+    		graphics::points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+    		graphics::points(end,pch=16,col=color[n], cex = 0.6)
+  	}
+  	x=c(-400,400)
+  	y=c(0,0)
+  	graphics::lines(x, y, type='l', col="black")
+  	x=c(0,0)
+  	y=c(-400,400)
+  	graphics::lines(x, y, type='l', col="black")
+  }else{
+	MinX<-c()
+  	MaxX<-c()
+  	MinY<-c()
+  	MaxY<-c()
+  	for(j in 1:Len){
+    		minX=min(Object[[j]][1:Step,2])
+    		minY=min(Object[[j]][1:Step,3])
+    		maxX=max(Object[[j]][1:Step,2])
+    		maxY=max(Object[[j]][1:Step,3])
+    		MinX[j]<-c(minX)
+    		MaxX[j]<-c(maxX)
+    		MinY[j]<-c(minY)
+    		MaxY[j]<-c(maxY)
+  	}
+ 	RangeX=c(MinX,MaxX)
+  	RangeY=c(MinY,MaxY)
+  	graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3],
                  type=Type, xlab="X (um)", ylab="Y (um)",
                  col=color[1], las=1, xlim=range(RangeX),cex.lab=0.7,
                  ylim=range(RangeY), main=ExpName)
-  for(n in 2:Len){
-    points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
-    end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
-    graphics::points(end,pch=16,col=color[n], cex = 1)
-  }
-  x=c(min(RangeX)-100,max(RangeX)+100)
-  y=c(0,0)
-  graphics::lines(x, y, type='l', col="black")
-  x=c(0,0)
-  y=c(min(RangeY)-100,max(RangeY)+100)
-  graphics::lines(x, y, type='l', col="black")
+  	for(n in 2:Len){
+    		points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+    		graphics::points(end,pch=16,col=color[n], cex = 1)
+  	}
+  	x=c(min(RangeX)-100,max(RangeX)+100)
+  	y=c(0,0)
+  	graphics::lines(x, y, type='l', col="black")
+  	x=c(0,0)
+  	y=c(min(RangeY)-100,max(RangeY)+100)
+  	graphics::lines(x, y, type='l', col="black")
 
-  if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
-  graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3], type=Type,
+  	if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
+  	graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3], type=Type,
                  xlab="X (um)", ylab="Y (um)", col=color[1],
                  las=1, xlim=range(RangeX), ylim=range(RangeY), main=ExpName)
-  for(n in 2:Len){
-    graphics::points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
-    end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
-    graphics::points(end,pch=16,col=color[n], cex = 0.6)
-  }
-  x=c(min(RangeX)-100,max(RangeX)+100)
-  y=c(0,0)
-  graphics::lines(x, y, type='l', col="black")
-  x=c(0,0)
-  y=c(min(RangeY)-100,max(RangeY)+100)
-  graphics::lines(x, y, type='l', col="black")
-  if (export) {
+  	for(n in 2:Len){
+    		graphics::points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+    		graphics::points(end,pch=16,col=color[n], cex = 0.6)
+  	}
+  	x=c(min(RangeX)-100,max(RangeX)+100)
+  	y=c(0,0)
+  	graphics::lines(x, y, type='l', col="black")
+  	x=c(0,0)
+  	y=c(min(RangeY)-100,max(RangeY)+100)
+  	graphics::lines(x, y, type='l', col="black")
+    }
+    if (export) {
     grDevices::dev.off()
     cat("The plot is saved in your directory [use getwd()]","\n")
   }
