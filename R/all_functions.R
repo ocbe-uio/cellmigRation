@@ -4231,11 +4231,11 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
     		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
     		graphics::points(end,pch=16,col=color[n], cex = 1)
   	}
-  	x=c(-400,400)
+  	x=c(-500,500)
   	y=c(0,0)
   	graphics::lines(x, y, type='l', col="black")
   	x=c(0,0)
-  	y=c(-400,400)
+  	y=c(-500,500)
   	graphics::lines(x, y, type='l', col="black")
 	if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
   		graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3], type=Type,
@@ -4246,11 +4246,11 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
     		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
     		graphics::points(end,pch=16,col=color[n], cex = 0.6)
   	}
-  	x=c(-300,500)
+  	x=c(-500,500)
   	y=c(0,0)
   	graphics::lines(x, y, type='l', col="black")
   	x=c(0,0)
-  	y=c(-300,500)
+  	y=c(-500,500)
   	graphics::lines(x, y, type='l', col="black")
   }else{
 	MinX<-c()
