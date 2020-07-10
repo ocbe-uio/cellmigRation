@@ -4518,7 +4518,7 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
       graphics::lines(x, y, type='l', col="black")
       end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
       graphics::points(end,pch=16,col=color[n], cex = 1)
-      graphics::title(main=paste0("Cell Number  ", n),col.main="black"
+      graphics::title(main=paste0("Cell Number  ", n),col.main="black")
       if (export) grDevices::dev.off()
     }
 
