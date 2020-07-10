@@ -4253,7 +4253,7 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", export=TRUE) {
   y=c(min(RangeY)-100,max(RangeY)+100)
   graphics::lines(x, y, type='l', col="black")
 
-  if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"))
+  if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
   graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3], type=Type,
                  xlab="X (um)", ylab="Y (um)", col=color[1],
                  las=1, xlim=range(RangeX), ylim=range(RangeY), main=ExpName)
@@ -4489,7 +4489,7 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
     RangeX=c(MinX,MaxX)
     RangeY=c(MinY,MaxY)
     for(n in 1:Len){
-      if (export) grDevices::jpeg(paste0(ExpName,"_Track_Plot_",n,".jpg"))
+      if (export) grDevices::jpeg(paste0(ExpName,"_Track_Plot_",n,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       graphics::plot(Object[[n]][1:Step,2], Object[[n]][1:Step,3],
                      type=Type, xlab="x (um)", ylab="y (um)",
                      col=color[n], las=1, xlim=range(RangeX), ylim=range(RangeY))
@@ -4715,7 +4715,7 @@ PerAndSpeed= function(object, TimeInterval=10,
 
     if ( PtSplot == TRUE || PtSplot == TRUE){
       if (export) {
-        grDevices::jpeg(paste0(ExpName," Persist Time vs Speed",j,".jpg"))
+        grDevices::jpeg(paste0(ExpName," Persist Time vs Speed",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       }
       graphics::plot(VelPerTable[,j+j],VelPerTable[,j+j-1],
                      pch=16,type="p",ylab="Persistence Time (min)",
@@ -4748,7 +4748,7 @@ PerAndSpeed= function(object, TimeInterval=10,
 
   if ( AllPtSplot == TRUE || AllPtSplot == TRUE){
     if (export) {
-      grDevices::jpeg(paste0(ExpName,"_Persist_Time_vs_Speed-All_Cells.jpg"))
+      grDevices::jpeg(paste0(ExpName,"_Persist_Time_vs_Speed-All_Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
     graphics::plot(allvel,allper,type="p",pch=16,ylab="Persist_Time (min)",xlab=" Mean Speed during persistence time (um/h)",col="black",las=1)
     graphics::abline(reg,untf=FALSE,col="red")
@@ -4816,7 +4816,7 @@ PerAndSpeed= function(object, TimeInterval=10,
     if ( ApSplot == TRUE || ApSplot == TRUE){
       if (export) {
         grDevices::jpeg(
-          paste0(ExpName,"_Angular_Persistence_vs_Speed",j,".jpg")
+          paste0(ExpName,"_Angular_Persistence_vs_Speed",j,".jpg",width = 4, height = 4, units = 'in', res = 300)
         )
       }
       Speed=(sqrt(Object[[j]][1:MM2,11])/TimeInterval)*60
@@ -4874,8 +4874,7 @@ PerAndSpeed= function(object, TimeInterval=10,
         paste0(
           ExpName,
           " All_Cells_Average_Angular_Persistence_vs_Average_Speed.jpg"
-        )
-      )
+        ),width = 4, height = 4, units = 'in', res = 300)
     }
     MS<-max(RowmeanSpeed)*60
     graphics::plot(RowmeanSpeed*60,RM,pch=16,type="p",ylab="Average Instantaneous Angular Persistence (cosine)",xlab=" Average Instantaneous Speed (um/h)",col="black",las=1,xlim=c(0,MS))
@@ -4899,7 +4898,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   PerResultsTable[c(2:5,7:10,12:22),(length(Object)+1)]<-RM1[c(2:5,7:10,12:22)]
 
   RMSS<-as.numeric(PerResultsTable[7,1:length(PerResultsTable[1,])-1])
-  if (export) grDevices::jpeg(paste0(ExpName,"_RMSS_profile_of_all_cells.jpg"))
+  if (export) grDevices::jpeg(paste0(ExpName,"_RMSS_profile_of_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
   cells<-c(1:(length(PerResultsTable[1,])-1))
   MS<-max(RMSS)
   graphics::plot(cells,RMSS,pch=16,type="o",ylab = 'RMSS(um/h)',xlab = 'Cells',las=1,ylim = c(0, MS))
@@ -4910,7 +4909,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   if (export) grDevices::dev.off()
 
   if (export) {
-    grDevices::jpeg(paste0(ExpName,"_RMSS_PiolinPlot_of_all_cells.jpg"))
+    grDevices::jpeg(paste0(ExpName,"_RMSS_ViolinPlot_of_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
   }
   graphics::plot(1, 1, xlim = c(0, 2), ylim = c(0, MS), type = 'n', xlab = '', ylab = 'RMSS(um/h)', xaxt = 'n',las=1)
   graphics::title("RMSS of all cells",cex.main = 1)
@@ -4919,7 +4918,7 @@ PerAndSpeed= function(object, TimeInterval=10,
 
 
   SPEED<-as.numeric(PerResultsTable[19,1:length(PerResultsTable[1,])-1])
-  if (export) grDevices::jpeg(paste0(ExpName,"_Speed_profile_of_all_cells.jpg"))
+  if (export) grDevices::jpeg(paste0(ExpName,"_Speed_profile_of_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
   cells<-c(1:(length(PerResultsTable[1,])-1))
   MS<-max(SPEED)
   graphics::plot(cells,SPEED,pch=16,type="o",ylab = 'Speed(um/h)',xlab = 'Cells',las=1,ylim = c(0, MS))
@@ -4929,11 +4928,13 @@ PerAndSpeed= function(object, TimeInterval=10,
   graphics::legend(1, y=200, legend=c("Mean Speed","Median Speed"), col=c("blue","red"),lty=1, cex=0.8)
   if (export) grDevices::dev.off()
 
-  if (export) grDevices::jpeg(paste0(ExpName,"_Speed_PiolinPlot_of_all_cells.jpg"))
+  if (export) grDevices::jpeg(paste0(ExpName,"_Speed_ViolinPlot_of_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
   graphics::plot(1, 1, xlim = c(0, 2), ylim = c(0, MS), type = 'n', xlab = '', ylab = 'Speed(um/h)', xaxt = 'n',las=1)
   graphics::title("Speed of all cells",cex.main = 1)
   vioplot::vioplot(SPEED, at = 1, add = TRUE, col = "gray")
   if (export) grDevices::dev.off()
+	
+  if (export) grDevices::jpeg(paste0(ExpName,"_Instantaneous_Speed_VS_Persistence Ratio_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
   SPEED<-as.numeric(PerResultsTable[21,1:length(PerResultsTable[1,])-1])
   PerR<- as.numeric(PerResultsTable[4,1:length(PerResultsTable[1,])-1])
   MS<-max(SPEED)
@@ -4945,6 +4946,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   ss<-unlist(s[4])
   SCC<-round(ss, digits = 3)
   graphics::title(main=paste0("All Cells Average Speed vs Persistence Ratio "),cex.main = 1,sub=paste0("Spearman's rank correlation coefficient = ",SCC),col.sub="red")
+  if (export) grDevices::dev.off()
 
   PerResultsTable[1,(length(Object)+1)]<-"All Cells"
   object@PerAanSpeedtable <-PerResultsTable
@@ -5139,7 +5141,7 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=TRUE) {
     xMMM<-c(0:xMM)
     xMMM1<-(c(0:xMM)*(60/TimeInterval))
     Xaxis<-c(1:MM2)
-    if (export) grDevices::jpeg(paste0(ExpName,"-D.R.plot-",j,".jpg"))
+    if (export) grDevices::jpeg(paste0(ExpName,"-D.R.plot-",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
     p<-graphics::plot(Time,Object[[j]][1:MM2,13], type="l",col=color[j],xlab="Time (hours)",xaxt="n",ylab="Directionality Ratio",lwd=2,las=1)
     graphics::axis(1, at=xMMM1, cex.axis=0.8,labels=xMMM)
     graphics::title(main=paste0("Cell Number  ", j),col.main=color[j])
@@ -5155,7 +5157,7 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=TRUE) {
   meanSDpn<-c(meanSDp,meanSDn)
 
   if (export) {
-    grDevices::jpeg(paste0(ExpName,"directionality ratio for all cells.jpg"))
+    grDevices::jpeg(paste0(ExpName,"directionality ratio for all cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
   }
   p<-graphics::plot(Time,mean.DIR.RATIO.AllCells, type="l",col="black",xlab="Time (hours)",xaxt="n",ylab="Directionality Ratio",lwd=2,las=1)
   graphics::axis(1, at=xMMM1, cex.axis=0.8,labels=xMMM)
@@ -5262,7 +5264,7 @@ MSD = function(object, TimeInterval=10,
     reg1<-round(stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2)
     MSDResultsTable[3,j]<-reg1
     if ( SlopePlot == TRUE || SlopePlot == TRUE){
-      if (export) grDevices::jpeg(paste0(ExpName,"-MSD.plot.Cell",j,".jpg"))
+      if (export) grDevices::jpeg(paste0(ExpName,"-MSD.plot.Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       xn <- expression(paste("MSD (um"^2, ")"))
       graphics::par(mar=c(5.1, 5.9, 4.1, 1.1), mgp=c(3.5, 0.5, 0), las=0)
       graphics::plot(Xaxis,Yaxis, type="p",col=color[j],xlab="Lag",ylab=xn,pch=19,las=1,log="xy",cex=2)
@@ -5278,7 +5280,7 @@ MSD = function(object, TimeInterval=10,
     xn <- expression(paste("MSD (um"^2, ")"))
     LAG<-round(Step*sLAG)
     Xaxis<-c(1:LAG)
-    if (export) jpeg(paste0(ExpName,"-MSD.plot All Cells.jpg"))
+    if (export) jpeg(paste0(ExpName,"-MSD.plot All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     xn <- expression(paste("MSD (um"^2, ")"))
     graphics::par(mar=c(5.1, 5.5, 4.1, 0.9), mgp=c(3.5, .5, 0), las=0)
     graphics::plot(Xaxis,RM1, type="p",col="black",xlab="Lag",ylab=xn,pch=19,las=1,cex=1.5,log="xy")
@@ -5315,7 +5317,7 @@ MSD = function(object, TimeInterval=10,
 
     if ( FurthPlot == TRUE || FurthPlot == TRUE){
       if (export) {
-        grDevices::jpeg(paste0(ExpName,"-MSD N-M bestfit Cell",j,".jpg"))
+        grDevices::jpeg(paste0(ExpName,"-MSD N-M bestfit Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       }
       graphics::plot(Data, pch = 16,col=color[j], cex = 1.5, xlab = "Lags", ylab = "MSD")
       x<-seq(0,LAG,1)
@@ -5362,7 +5364,7 @@ MSD = function(object, TimeInterval=10,
 
   if ( AllFurthPlot == TRUE || AllFurthPlot == TRUE){
     if (export) {
-      grDevices::jpeg(paste0(ExpName,"-MSD N-M bestfit All Cells.jpg"))
+      grDevices::jpeg(paste0(ExpName,"-MSD N-M bestfit All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
     graphics::plot(Data, pch = 16,col="black", cex = 1.5, xlab = "Lags", ylab = "MSD")
     x<-seq(0,LAG,1)
@@ -5531,8 +5533,7 @@ DiAutoCor= function(object, TimeInterval=10,
       Yaxis<-cos.diff
       if (export) {
         grDevices::jpeg(
-          paste0(ExpName,"Direction Autocorrelation.plot.Cell",j,".jpg")
-        )
+          paste0(ExpName,"Direction Autocorrelation.plot.Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       }
       graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Cosine",pch=19,las=1,cex=2)
       xx<-c(0,1)
@@ -5571,8 +5572,7 @@ DiAutoCor= function(object, TimeInterval=10,
 
     if (export) {
       grDevices::jpeg(
-        paste0(ExpName,"-Direction Autocorrelation All Cells.jpg")
-      )
+        paste0(ExpName,"-Direction Autocorrelation All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
     graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Cosine",pch=19,las=1,cex=2)
     xx<-c(0,1)
@@ -5719,8 +5719,7 @@ VeAutoCor = function(object, TimeInterval=10,
       Yaxis<-meanVAC
       if (export) {
         grDevices::jpeg(
-          paste0(ExpName,"Velocity Autocorrelation.plot.Cell",j,".jpg")
-        )
+          paste0(ExpName,"Velocity Autocorrelation.plot.Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       }
       graphics::plot(Xaxis,Yaxis, type="o",ylim=range(meanVAC),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=2)
       graphics::lines(timevalues, predictedcounts, col = "black", lwd = 3)
@@ -5755,7 +5754,7 @@ VeAutoCor = function(object, TimeInterval=10,
     Xaxis<-c(1:LAG)
     Yaxis<-RM1
     if (export) {
-      grDevices::jpeg(paste0(ExpName,"-Velocity Autocorrelation All Cells.jpg"))
+      grDevices::jpeg(paste0(ExpName,"-Velocity Autocorrelation All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
     graphics::plot(Xaxis,Yaxis, type="o",ylim=range(RM1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=2)
     graphics::lines(timevalues, predictedcounts, col = "darkgreen", lwd = 3)
@@ -5766,7 +5765,8 @@ VeAutoCor = function(object, TimeInterval=10,
     if (export) grDevices::dev.off()
   }
 
-  rownames(VA.ResultsTable)<-c("Cell Number","Velocity AutoCorrelation (lag=1)","2nd normalized Velocity AutoCorrelation","Intercept of VA quadratic model","Mean Velocity AutoCorrelation (all lags)")
+  rownames(VA.ResultsTable)<-c("Cell Number","Velocity AutoCorrelation (lag=1)","2nd normalized Velocity AutoCorrelation",
+			       "Intercept of VA quadratic model","Mean Velocity AutoCorrelation (all lags)")
   object@VACtable<-VA.ResultsTable
   setwd(d)
   if (export) {
@@ -6052,7 +6052,7 @@ ForwardMigration <- function(
 
 
     if ( sfptPLOT == TRUE || sfptPLOT == TRUE){
-      if (export) grDevices::jpeg(paste0(ExpName," FP Time vs Speed",j,".jpg"))
+      if (export) grDevices::jpeg(paste0(ExpName," FP Time vs Speed",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       graphics::plot(VelFPTable[,j+j],VelFPTable[,j+j-1],pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Mean Speed during FP time (um/min)",col=color[j],las=1)
       reg<-stats::lm(VelFPTable[,j+j]~VelFPTable[,j+j-1])
       #abline(reg,untf=FALSE,col="red")
@@ -6081,7 +6081,7 @@ ForwardMigration <- function(
 
   if ( afptPLOT == TRUE || afptPLOT == TRUE){
     if (export) {
-      grDevices::jpeg(paste0(ExpName," FP Time vs Speed - All Cells.jpg"))
+      grDevices::jpeg(paste0(ExpName," FP Time vs Speed - All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
     graphics::plot(allvel,allper,type="p",pch=16,ylab="FP Time (min)",xlab=" Mean Speed during FP time (um/min)",col="black",las=1)
     graphics::abline(reg,untf=FALSE,col="red")
@@ -6104,7 +6104,7 @@ ForwardMigration <- function(
     FMResultsTable[9,j]<-VEvsCOSP
 
     if ( sfpPLOT == TRUE || sfpPLOT == TRUE){
-      if (export) grDevices::jpeg(paste0(ExpName," FP vs Speed",j,".jpg"))
+      if (export) grDevices::jpeg(paste0(ExpName," FP vs Speed",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       graphics::plot(sqrt(Object[[j]][1:MM2,11]),Object[[j]][1:MM2,20],pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Instantaneous Speed (um/min)",col="black",las=1)
       reg<-stats::lm(Object[[j]][1:MM2,20]~sqrt(Object[[j]][1:MM2,11]))
       graphics::abline(reg,untf=FALSE,col="red")
@@ -6128,7 +6128,7 @@ ForwardMigration <- function(
   FMResultsTable[9,(length(Object)+1)]<-VEvsCOSP
 
   if ( afpPLOT == TRUE || afpPLOT == TRUE){
-    if (export) grDevices::jpeg(paste0(ExpName," All Cells FP vs Speed.jpg"))
+    if (export) grDevices::jpeg(paste0(ExpName," All Cells FP vs Speed.jpg"),width = 4, height = 4, units = 'in', res = 300)
     graphics::plot(RowmeanSpeed,RM,pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Instantaneous Speed (um/min)",col="black",las=1)
     reg<-stats::lm(RM~RowmeanSpeed)
     graphics::abline(reg,untf=FALSE,col="red")
