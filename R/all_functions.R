@@ -4239,7 +4239,7 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", export=TRUE) {
   RangeY=c(MinY,MaxY)
   graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3],
                  type=Type, xlab="X (um)", ylab="Y (um)",
-                 col=color[1], las=1, xlim=range(RangeX),
+                 col=color[1], las=1, xlim=range(RangeX),cex.lab=0.7,
                  ylim=range(RangeY), main=ExpName)
   for(n in 2:Len){
     points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
@@ -4518,6 +4518,7 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
       graphics::lines(x, y, type='l', col="black")
       end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
       graphics::points(end,pch=16,col=color[n], cex = 1)
+      graphics::title(main=paste0("Cell Number  ", n),col.main="black"
       if (export) grDevices::dev.off()
     }
 
