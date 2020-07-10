@@ -3982,7 +3982,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   df<-object@adjDS
   df<-df[,1:3]                                        # Removing the unnecessary columns
   spl<-split(df,df[,1])
-  cat("This dataset contains: ",length(spl),"Cells","\n")
+  cat("This dataset contains:", length(spl), "cell(s) in total\n")
 
   tbd<-c()
   LENspl<-length(spl)
