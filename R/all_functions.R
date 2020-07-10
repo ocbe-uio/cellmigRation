@@ -4246,11 +4246,11 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
     		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
     		graphics::points(end,pch=16,col=color[n], cex = 0.6)
   	}
-  	x=c(-400,400)
+  	x=c(-300,500)
   	y=c(0,0)
   	graphics::lines(x, y, type='l', col="black")
   	x=c(0,0)
-  	y=c(-400,400)
+  	y=c(-300,500)
   	graphics::lines(x, y, type='l', col="black")
   }else{
 	MinX<-c()
