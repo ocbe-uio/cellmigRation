@@ -7,7 +7,8 @@
 aggregateTrackedCells(
   x,
   ...,
-  meta_id_field = c("tiff_file", "experiment", "condition", "replicate"))
+  meta_id_field = c("tiff_file", "experiment", "condition", "replicate")
+)
 }
 \arguments{
 \item{x}{a \code{trackedCells}-class object where cells have already been tracked}
@@ -20,7 +21,7 @@ Can be abbreviated. Defaults to "tiff_file".}
 }
 \value{
 An aggregate data.frame including all cells that were tracked over two or more images/experiments.
-The data.frame includes the following columns: "new.ID", "X", "Y", "frame.ID", "cell.ID", "tiff_name",
+The data.frame includes the following columns: "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name",
 "experiment", "condition", "replicate". The "new.ID" uniquely identifies a cell in a given image/experiment.
 }
 \description{
