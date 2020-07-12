@@ -4194,7 +4194,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 #' rmDF=TrajectoryDataset[1:1000,]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
-#' plotAllTracks(rmTD, ExpName="Test",Type="b", export=FALSE)
+#' plotAllTracks(rmTD, ExpName="Test",Type="l", FixedField=TRUE,export=FALSE)
 #'
 #' @importFrom grDevices rainbow jpeg dev.off
 #' @importFrom graphics plot points lines
