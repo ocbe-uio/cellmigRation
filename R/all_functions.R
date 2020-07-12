@@ -4320,7 +4320,7 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
 #' "b": Both
 #' "o": Both "overplotted"
 #' @param FixedField logical(1) Allows generating a plot with fixed field 800um x 800um. Default is TRUE.
-#' @param cells A numeric value showing the desired number of cells to be plotted.
+#' @param celNum A numeric value showing the desired number of cells to be plotted.
 #' @return A 2D rose-plot showing the tracks of sample cells selected randomly based on the desired number of cells selected by the user.
 #' @details  The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
 #'
