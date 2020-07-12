@@ -4307,7 +4307,7 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
   }
 }
 
-#' @title A 2D rose-plot
+#' @title A 2D rose-plot of sample cells
 #'
 #' @description Plotting the trajectory data of some cells.
 #'
