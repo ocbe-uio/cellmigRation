@@ -4229,7 +4229,7 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
   	for(n in 2:Len){
     		points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
     		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
-    		graphics::points(end,pch=16,col=color[n], cex = 1)
+    		graphics::points(end,pch=16,col=color[n], cex = 0.6)
   	}
   	x=c(-500,500)
   	y=c(0,0)
@@ -4276,7 +4276,7 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
   	for(n in 2:Len){
     		points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
     		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
-    		graphics::points(end,pch=16,col=color[n], cex = 1)
+    		graphics::points(end,pch=16,col=color[n], cex = 0.6)
   	}
   	x=c(min(RangeX)-100,max(RangeX)+100)
   	y=c(0,0)
@@ -4307,6 +4307,154 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
   }
 }
 
+#' @title A 2D rose-plot
+#'
+#' @description Plotting the trajectory data of some cells.
+#'
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
+#' @param Type has to be one of the following: c("p", "l", "b", "o")
+#' @param export if `TRUE` (default), exports plot to JPG file
+#' "p": Points
+#' "l": Lines
+#' "b": Both
+#' "o": Both "overplotted"
+#' @param FixedField logical(1) Allows generating a plot with fixed field 800um x 800um. Default is TRUE.
+#' @param cells A numeric value showing the desired number of cells to be plotted.
+#' @return A 2D rose-plot showing the tracks of sample cells selected randomly based on the desired number of cells selected by the user.
+#' @details  The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+#'
+#' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
+#' @references
+#' \url{https://www.data-pulse.com/dev_site/cellmigration/}
+#'
+#'
+#' @examples
+#' data(TrajectoryDataset)
+#' rmDF=TrajectoryDataset[1:1000,]
+#' rmTD <- CellMig(rmDF)
+#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
+#' plotSampleTracks(rmTD, ExpName="Test",Type="l", FixedField=TRUE, celNum=5, export = TRUE)
+#'
+#' @importFrom grDevices rainbow jpeg dev.off
+#' @importFrom graphics plot points lines
+#' @export
+plotSampleTracks= function(object, ExpName="ExpName", Type="l", celNum=35,FixedField=TRUE,export=TRUE) {
+ if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
+ 
+  Object<-object@preprocessedDS
+  msg <- NULL
+  if ( ! is.list(Object) ){
+    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+  }
+  Len<-length(Object)
+  if ( ! is.numeric(celNum) ) stop( "celNum has to be a positive number" ) else if ( celNum > Len ) stop( "The cellNum should be less than the total number of cells" )
+  Step<-length(Object[[1]][,1])
+
+  color <-c()
+  if (Len> 1023){
+     	colnum= Len-1023
+ 	color1 <- grDevices::rainbow(1023)
+  	colo2 <- grDevices::rainbow(colnum)
+  	color=c(color1 ,colo2)
+  }else{
+  	color <- grDevices::rainbow(Len)
+  }
+  OBJ<-c(1:Len)
+  cells=sample(OBJ,celNum)
+  cells=sort(cells)
+  cat(paste0("The plot contains the following cells: "),"\n")
+  cat(cells,"\n")
+
+  if ( FixedField == TRUE){     
+	graphics::plot(Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3],
+                 type=Type, xlab="X (um)", ylab="Y (um)",
+                 col=color[1], las=1, xlim=c(-400,400),cex.lab=0.7,
+                 ylim=c(-400,400), main=ExpName)
+      CELLS<-cells[-1]
+  	for(n in CELLS){
+    		points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+    		graphics::points(end,pch=16,col=color[n], cex = 0.6)
+  	}
+  	x=c(-500,500)
+  	y=c(0,0)
+  	graphics::lines(x, y, type='l', col="black")
+  	x=c(0,0)
+  	y=c(-500,500)
+  	graphics::lines(x, y, type='l', col="black")
+	if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
+  		graphics::plot(Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3],type=Type,
+                 xlab="X (um)", ylab="Y (um)", col=color[1],
+                 las=1, xlim=c(-400,400), ylim=c(-400,400), main=ExpName)
+      CELLS<-cells[-1]
+  	for(n in CELLS){
+    		graphics::points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+    		graphics::points(end,pch=16,col=color[n], cex = 0.6)
+  	}
+  	x=c(-500,500)
+  	y=c(0,0)
+  	graphics::lines(x, y, type='l', col="black")
+  	x=c(0,0)
+  	y=c(-500,500)
+  	graphics::lines(x, y, type='l', col="black")
+  }else{
+	MinX<-c()
+  	MaxX<-c()
+  	MinY<-c()
+  	MaxY<-c()
+  	for(j in cells){
+    		minX=min(Object[[j]][1:Step,2])
+    		minY=min(Object[[j]][1:Step,3])
+    		maxX=max(Object[[j]][1:Step,2])
+    		maxY=max(Object[[j]][1:Step,3])
+    		MinX<-c(MinX,minX)
+    		MaxX<-c(MaxX,maxX)
+    		MinY<-c(MinY,minY)
+    		MaxY<-c(MaxY,maxY)
+  	}
+ 	RangeX=c(MinX,MaxX)
+  	RangeY=c(MinY,MaxY)
+  	graphics::plot(Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3],
+                 type=Type, xlab="X (um)", ylab="Y (um)",
+                 col=color[1], las=1, xlim=range(RangeX),cex.lab=0.7,
+                 ylim=range(RangeY), main=ExpName)
+      CELLS<-cells[-1]
+ 	for(n in CELLS){
+    		points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+    		graphics::points(end,pch=16,col=color[n], cex = 0.6)
+  	}
+  	x=c(min(RangeX)-100,max(RangeX)+100)
+  	y=c(0,0)
+  	graphics::lines(x, y, type='l', col="black")
+  	x=c(0,0)
+  	y=c(min(RangeY)-100,max(RangeY)+100)
+  	graphics::lines(x, y, type='l', col="black")
+
+  	if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
+  	graphics::plot(Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3], type=Type,
+                 xlab="X (um)", ylab="Y (um)", col=color[1],
+                 las=1, xlim=range(RangeX), ylim=range(RangeY), main=ExpName)
+      CELLS<-cells[-1]
+  	for(n in CELLS){
+    		graphics::points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
+    		end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+    		graphics::points(end,pch=16,col=color[n], cex = 0.6)
+  	}
+  	x=c(min(RangeX)-100,max(RangeX)+100)
+  	y=c(0,0)
+  	graphics::lines(x, y, type='l', col="black")
+  	x=c(0,0)
+  	y=c(min(RangeY)-100,max(RangeY)+100)
+  	graphics::lines(x, y, type='l', col="black")
+    }
+    if (export) {
+    grDevices::dev.off()
+    cat("The plot is saved in your directory [use getwd()]","\n")
+  }
+}
 
 
 #' @title A 3D rose-plot of all cells
@@ -5124,14 +5272,13 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=TRUE) {
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' \dontrun{
 #' data(TrajectoryDataset)
 #' rmDF=TrajectoryDataset[1:1000,]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD <-DiRatio(rmTD, ExpName="Test.DR")
-#' DiRatio.Plot(rmTD, ExpName="Test.DR")
-#' }
+#' DiRatio.Plot(rmTD, ExpName="Test.DR",export=FALSE)
+#' 
 #' @importFrom grDevices rainbow jpeg dev.off rgb
 #' @importFrom graphics plot axis title lines polygon
 #' @importFrom matrixStats rowMedians rowSds
@@ -5443,17 +5590,14 @@ MSD = function(object, TimeInterval=10,
 #'
 #' @examples
 #'
-#' \dontrun{
-#'
 #' data(TrajectoryDataset)
 #' rmDF=TrajectoryDataset[1:1000,]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD <- DiAutoCor(
-#'    rmTD, TimeInterval=10, ExpName="ExpName", sLAG=0.25, sPLOT=TRUE,
-#'    aPLOT=TRUE, export=FALSE
+#'    rmTD, TimeInterval=10, ExpName="ExpName", sLAG=0.25, sPLOT=FALSE,
+#'    aPLOT=FALSE, export=FALSE
 #' )
-#' }
 #'
 #' @importFrom grDevices rainbow
 #' @importFrom stats lm predict median
@@ -5653,16 +5797,14 @@ DiAutoCor= function(object, TimeInterval=10,
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' \dontrun{
 #' data(TrajectoryDataset)
 #' rmDF=TrajectoryDataset[1:1000,]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD <- VeAutoCor(
-#'    rmTD, TimeInterval=10, ExpName="ExpName", sLAG=0.25, sPLOT=TRUE,
-#'    aPLOT=TRUE, export=FALSE
+#'    rmTD, TimeInterval=10, ExpName="ExpName", sLAG=0.25, sPLOT=FALSE,
+#'    aPLOT=FALSE, export=FALSE
 #' )
-#' }
 #' @importFrom grDevices rainbow jpeg dev.off
 #' @importFrom stats lm predict median
 #' @importFrom graphics plot lines title abline
