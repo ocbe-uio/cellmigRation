@@ -4175,12 +4175,12 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 #' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
 #' @param Type has to be one of the following: c("p", "l", "b", "o")
-#' @param export if `TRUE` (default), exports plot to JPG file
 #' "p": Points
 #' "l": Lines
 #' "b": Both
 #' "o": Both "overplotted"
 #' @param FixedField logical(1) Allows generating a plot with fixed field 800um x 800um. Default is TRUE.
+#' @param export if `TRUE` (default), exports plot to JPG file
 #' @return A 2D rose-plot showing the tracks of all cells.
 #' @details  The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
 #'
