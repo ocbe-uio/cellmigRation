@@ -36,16 +36,14 @@ Plots and a data frame, which contains six rows: "Cell Number", .
 The VeAutoCor function automatically compute the changes in both speed and direction across several sequantial time intervals.
 }
 \examples{
-\dontrun{
 data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
 rmTD <- VeAutoCor(
-   rmTD, TimeInterval=10, ExpName="ExpName", sLAG=0.25, sPLOT=TRUE,
-   aPLOT=TRUE, export=FALSE
+   rmTD, TimeInterval=10, ExpName="ExpName", sLAG=0.25, sPLOT=FALSE,
+   aPLOT=FALSE, export=FALSE
 )
-}
 }
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
