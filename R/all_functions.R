@@ -3973,7 +3973,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 
   if (clearW == TRUE){
     dff<-object@trajdata
-    dff<-dff[,1:3]                                        # Removing the unnecessary columns
+    dff<-dff[,1:4]                                        # Removing the unnecessary columns
     splitFORu<-split(dff,dff[,1])
     for (i in 1:length(splitFORu)){
       if ((splitFORu[[i]][1,3]>= (upperE + mar) & splitFORu[[i]][1,3]<= (lowerE -mar)) & (splitFORu[[i]][1,4]<=20 )){   # to remove cells within the wound
