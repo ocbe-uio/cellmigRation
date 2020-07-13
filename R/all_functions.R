@@ -3131,6 +3131,9 @@ CellTracker <- function(tc_obj,
   my.test <- 1 <= num_parallelCores & num_parallelCores <= max.cores
   use.cores <- ifelse(my.test, num_parallelCores, max.cores)
 
+  # fix for NA cores
+  if (is.na(use.cores)) {use.cores <- 1}
+
   # cores = 1, do not parallelize
   if (use.cores == 1) {
 
@@ -3146,9 +3149,16 @@ CellTracker <- function(tc_obj,
       # generate an 1xP array with each column containing centroid output for
       # individual frames
       a <- FinalImage[[i]]
-      b <- bpass(image_array = a, lnoise = lnoise, lobject = diameter, threshold = threshold)
-      pk <- pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
-      cnt <- cntrd(im = b, mx = pk, sz = NextOdd(diameter))
+      b <- tryCatch({bpass(image_array = a, lnoise = lnoise, 
+                           lobject = diameter, threshold = threshold)},
+        error = function(e) {NULL})
+      pk <- tryCatch({pkfnd(im = b, th = threshold, sz = NextOdd(diameter))},
+                     error = function(e) {NULL})
+      cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))}, 
+                      error = function(e) {NULL})
+      #b <- bpass(image_array = a, lnoise = lnoise, lobject = diameter, threshold = threshold)
+      #pk <- pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
+      #cnt <- cntrd(im = b, mx = pk, sz = NextOdd(diameter))
 
       if (show_plots) {
         VisualizeImg(img_mtx = b, las = 1, main = paste0("Stack num. ", i))
@@ -3194,9 +3204,16 @@ CellTracker <- function(tc_obj,
                                   # generate an 1xP array with each column containing centroid output for
                                   # individual frames
                                   a <- FinalImage[[j]]
-                                  b <- bpass(image_array = a, lnoise = lnoise, lobject = diameter, threshold = threshold)
-                                  pk <- pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
-                                  cnt <- cntrd(im = b, mx = pk, sz = NextOdd(diameter))
+                                  #b <- bpass(image_array = a, lnoise = lnoise, lobject = diameter, threshold = threshold)
+                                  #pk <- pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
+                                  #cnt <- cntrd(im = b, mx = pk, sz = NextOdd(diameter))
+                                  b <- tryCatch({bpass(image_array = a, lnoise = lnoise, 
+                                                       lobject = diameter, threshold = threshold)},
+                                                error = function(e) {NULL})
+                                  pk <- tryCatch({pkfnd(im = b, th = threshold, sz = NextOdd(diameter))},
+                                                 error = function(e) {NULL})
+                                  cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))}, 
+                                                  error = function(e) {NULL})
 
                                   # determine that frame s has at least 1 valid centroid
                                   if(! is.null(cnt) && is.data.frame(cnt) && nrow(cnt) > 0) {
@@ -3250,7 +3267,14 @@ CellTracker <- function(tc_obj,
   #    all_centroids[[ti]] <- all_centroids[[ti]] [, 1:2]
   #    all_centroids[[ti]]$tau <- ti
   #  }
-  
+  med.celln.perfr <- tryCatch({median(do.call(c, lapply(all_centroids, nrow)), na.rm = TRUE)}, 
+                              error = function(e) {100})
+  max.celln <- med.celln.perfr * 1.55
+  min.celln <- med.celln.perfr * 0.45
+  keepXX <- do.call(c, lapply(all_centroids, function(xx){
+    nrow(xx) >= min.celln && nrow(xx) <= max.celln}))
+  all_centroids <- all_centroids[keepXX]
+	
   # Updated to avoid NO cells frames
   all_centroids2 <- list()
   for (ti in 1:length(all_centroids)) {
@@ -3274,7 +3298,7 @@ CellTracker <- function(tc_obj,
   if (is.null(tracks2)) {
     tmp.Area <- tc_obj@images$dim$width_m * tc_obj@images$dim$height_n
     max.disp <- as.integer(as.numeric(sqrt(tmp.Area)) / 5)
-    allDisp <- seq(from=max.disp, to = 5, by = -10)
+    allDisp <- seq(from=max.disp, to = 5, by = -3)
     jj0 <- 1
     while(is.null(tracks2) && jj0 < length(allDisp) ) {
       tracks2 <- tryCatch(
