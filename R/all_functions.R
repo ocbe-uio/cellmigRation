@@ -3971,11 +3971,13 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   if ( ! is.numeric(mar)) stop( "mar has to be a positive number" ) else if ( mar<= 0 ) stop( "mar has to be a positive number" )
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
 
-  if (clearW == TRUE || clearW == TRUE){
-    splitFORu<-split(object@trajdata,object@trajdata[,1])
+  if (clearW == TRUE){
+    dff<-object@trajdata
+    dff<-dff[,1:3]                                        # Removing the unnecessary columns
+    splitFORu<-split(dff,dff[,1])
     for (i in 1:length(splitFORu)){
       if ((splitFORu[[i]][1,3]>= (upperE + mar) & splitFORu[[i]][1,3]<= (lowerE -mar)) & (splitFORu[[i]][1,4]<=20 )){   # to remove cells within the wound
-        splitFORu[[i]]<-NA
+         splitFORu[[i]]<-NA
       }
     }
     deletedCells<-splitFORu[is.na(splitFORu)]   ########## To get the deleted cells
