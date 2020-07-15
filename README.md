@@ -1,4 +1,4 @@
-CellMigRation
+cellmigRation
 =======
 
 <!--
@@ -17,7 +17,7 @@ An R package for tracking cells and analyzing their trajectories.
 Installation
 ============
 
-CellMigRation is under active development and a stable version is yet to be released. However, you can install the current development version of CellMigRation from [GitHub](https://github.com/) with:
+The cellmigRation package is under active development and a stable version is yet to be released. However, you can install the current development version of CellMigRation from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("remotes")
