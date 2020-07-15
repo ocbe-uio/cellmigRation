@@ -4678,7 +4678,7 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
   d=getwd()
   if (export) setwd(paste0(d,"/",paste0(ExpName,"_Tracks")))
 
-  if ( FixedField == TRUE || FixedField == TRUE){
+  if ( FixedField == TRUE){
     MinX<-c()
     MaxX<-c()
     MinY<-c()
