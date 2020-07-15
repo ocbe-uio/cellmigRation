@@ -4921,7 +4921,7 @@ PerAndSpeed= function(object, TimeInterval=10,
     PerResultsTable[6,j]<-ccPV               # Speed vs  persistence time  Spearman correlation
 
 
-    if ( PtSplot == TRUE || PtSplot == TRUE){
+    if ( PtSplot == TRUE){
       if (export) {
         grDevices::jpeg(paste0(ExpName," Persist Time vs Speed",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       }
@@ -4954,7 +4954,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   ccP<-round(cc, digits = 3)
   PerResultsTable[6,(length(Object)+1)]<-ccP                                          # Speed vs  persistence time  Spearman correlation
 
-  if ( AllPtSplot == TRUE || AllPtSplot == TRUE){
+  if ( AllPtSplot == TRUE){
     if (export) {
       grDevices::jpeg(paste0(ExpName,"_Persist_Time_vs_Speed-All_Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
@@ -5021,7 +5021,7 @@ PerAndSpeed= function(object, TimeInterval=10,
     PerResultsTable[16,j]=round(sum(abs(Object[[j]][,8]))/6.28,digits=3) - abs(round(sum(Object[[j]][,8])/6.28,digits=3))
 
 
-    if ( ApSplot == TRUE || ApSplot == TRUE){
+    if ( ApSplot == TRUE){
       if (export) {
         grDevices::jpeg(
           paste0(ExpName,"_Angular_Persistence_vs_Speed",j,".jpg",width = 4, height = 4, units = 'in', res = 300)
@@ -5076,7 +5076,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   VEvsCOSP<-round(ss, digits = 3)
   PerResultsTable[11,(length(Object)+1)]<-VEvsCOSP
 
-  if ( AllApSplot == TRUE || AllApSplot == TRUE){
+  if ( AllApSplot == TRUE){
     if (export) {
       grDevices::jpeg(
         paste0(
@@ -5470,7 +5470,7 @@ MSD = function(object, TimeInterval=10,
     reg<-stats::lm(NewrowMeans~ NewXaxis)
     reg1<-round(stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2)
     MSDResultsTable[3,j]<-reg1
-    if ( SlopePlot == TRUE || SlopePlot == TRUE){
+    if ( SlopePlot == TRUE){
       if (export) grDevices::jpeg(paste0(ExpName,"-MSD.plot.Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       xn <- expression(paste("MSD (um"^2, ")"))
       graphics::par(mar=c(5.1, 5.9, 4.1, 1.1), mgp=c(3.5, 0.5, 0), las=0)
@@ -5481,7 +5481,7 @@ MSD = function(object, TimeInterval=10,
     }
 
   }
-  if ( AllSlopesPlot == TRUE || AllSlopesPlot == TRUE){
+  if ( AllSlopesPlot == TRUE){
     RM1<-matrixStats::rowMedians(as.matrix(MSD.table),na.rm = TRUE)
     RSD<-matrixStats::rowSds(as.matrix(MSD.table),na.rm = TRUE)
     xn <- expression(paste("MSD (um"^2, ")"))
@@ -5522,7 +5522,7 @@ MSD = function(object, TimeInterval=10,
     MSDResultsTable[6,j]<-round(Summary$par[1,4],digits=3)
     MSDResultsTable[7,j]<-round(Summary$par[2,4],digits=3)
 
-    if ( FurthPlot == TRUE || FurthPlot == TRUE){
+    if ( FurthPlot == TRUE){
       if (export) {
         grDevices::jpeg(paste0(ExpName,"-MSD N-M bestfit Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       }
@@ -5569,7 +5569,7 @@ MSD = function(object, TimeInterval=10,
   MSDResultsTable[6,(length(Object)+1)]<-round(Summary$par[1,4],digits=3)
   MSDResultsTable[7,(length(Object)+1)]<-round(Summary$par[2,4],digits=3)
 
-  if ( AllFurthPlot == TRUE || AllFurthPlot == TRUE){
+  if ( AllFurthPlot == TRUE){
     if (export) {
       grDevices::jpeg(paste0(ExpName,"-MSD N-M bestfit All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
@@ -5732,7 +5732,7 @@ DiAutoCor= function(object, TimeInterval=10,
     timevalues <- seq(1, length(lags), 1)
     predictedcounts <- stats::predict(quadratic.m,list(Time=timevalues, Time2=timevalues^2))
 
-    if ( sPLOT == TRUE || sPLOT == TRUE){
+    if ( sPLOT == TRUE){
       Xaxis<-c(1:LAG)
       Yaxis<-cos.diff
       if (export) {
@@ -5770,7 +5770,7 @@ DiAutoCor= function(object, TimeInterval=10,
   timevalues <- seq(1, length(lags), 1)
   predictedcounts <- stats::predict(quadratic.m,list(Time=timevalues, Time2=timevalues^2))
 
-  if ( aPLOT == TRUE || aPLOT == TRUE){
+  if ( aPLOT == TRUE){
     Xaxis<-c(1:LAG)
     Yaxis<-RM1
 
@@ -5916,7 +5916,7 @@ VeAutoCor = function(object, TimeInterval=10,
     timevalues <- seq(1, length(lags), 1)
     predictedcounts <- stats::predict(quadratic.m,list(Time=timevalues, Time2=timevalues^2))
 
-    if (sPLOT == TRUE || sPLOT == TRUE){
+    if (sPLOT == TRUE){
       Xaxis<-c(1:LAG)
       Yaxis<-meanVAC
       if (export) {
@@ -5952,7 +5952,7 @@ VeAutoCor = function(object, TimeInterval=10,
   timevalues <- seq(1, length(lags), 1)
   predictedcounts <- predict(quadratic.m,list(Time=timevalues, Time2=timevalues^2))
 
-  if ( aPLOT == TRUE || aPLOT == TRUE){
+  if ( aPLOT == TRUE){
     Xaxis<-c(1:LAG)
     Yaxis<-RM1
     if (export) {
@@ -6253,7 +6253,7 @@ ForwardMigration <- function(
 
 
 
-    if ( sfptPLOT == TRUE || sfptPLOT == TRUE){
+    if ( sfptPLOT == TRUE){
       if (export) grDevices::jpeg(paste0(ExpName," FP Time vs Speed",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       graphics::plot(VelFPTable[,j+j],VelFPTable[,j+j-1],pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Mean Speed during FP time (um/min)",col=color[j],las=1)
       reg<-stats::lm(VelFPTable[,j+j]~VelFPTable[,j+j-1])
@@ -6281,7 +6281,7 @@ ForwardMigration <- function(
   ccP<-round(cc, digits = 3)
   FMResultsTable[6,(length(Object)+1)]<-ccP                                          # Speed vs  persistence time  Spearman correlation
 
-  if ( afptPLOT == TRUE || afptPLOT == TRUE){
+  if ( afptPLOT == TRUE){
     if (export) {
       grDevices::jpeg(paste0(ExpName," FP Time vs Speed - All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
@@ -6305,7 +6305,7 @@ ForwardMigration <- function(
     VEvsCOSP<-round(ss, digits = 3)
     FMResultsTable[9,j]<-VEvsCOSP
 
-    if ( sfpPLOT == TRUE || sfpPLOT == TRUE){
+    if ( sfpPLOT == TRUE){
       if (export) grDevices::jpeg(paste0(ExpName," FP vs Speed",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       graphics::plot(sqrt(Object[[j]][1:MM2,11]),Object[[j]][1:MM2,20],pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Instantaneous Speed (um/min)",col="black",las=1)
       reg<-stats::lm(Object[[j]][1:MM2,20]~sqrt(Object[[j]][1:MM2,11]))
@@ -6329,7 +6329,7 @@ ForwardMigration <- function(
   VEvsCOSP<-round(ss, digits = 3)
   FMResultsTable[9,(length(Object)+1)]<-VEvsCOSP
 
-  if ( afpPLOT == TRUE || afpPLOT == TRUE){
+  if ( afpPLOT == TRUE){
     if (export) grDevices::jpeg(paste0(ExpName," All Cells FP vs Speed.jpg"),width = 4, height = 4, units = 'in', res = 300)
     graphics::plot(RowmeanSpeed,RM,pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Instantaneous Speed (um/min)",col="black",las=1)
     reg<-stats::lm(RM~RowmeanSpeed)
@@ -6610,7 +6610,7 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
       " in your directory [use getwd()]\n"
     )
   }
-  if ( ParCor == TRUE || ParCor == TRUE){
+  if ( ParCor == TRUE){
     R=Results
     R[,] <- lapply(R[,], function(x) as.numeric(gsub(",", ".", x)))
     Parameters.Correlation<-Hmisc::rcorr(t(R), type="spearman")
