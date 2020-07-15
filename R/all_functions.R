@@ -5302,7 +5302,7 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=TRUE) {
 #' rmDF=TrajectoryDataset[1:1000,]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
-#' rmTD <-DiRatio(rmTD, ExpName="Test",export=FALSE)
+#' rmTD <-DiRatio(rmTD, ExpName="Test")
 #' DiRatio.Plot(rmTD, ExpName="Test",export=FALSE)
 #' 
 #' @importFrom grDevices rainbow jpeg dev.off rgb
