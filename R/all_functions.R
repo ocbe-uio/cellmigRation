@@ -5302,8 +5302,8 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=TRUE) {
 #' rmDF=TrajectoryDataset[1:1000,]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
-#' rmTD <-DiRatio(rmTD, ExpName="Test.DR")
-#' DiRatio.Plot(rmTD, ExpName="Test.DR",export=FALSE)
+#' rmTD <-DiRatio(rmTD, ExpName="Test",export=FALSE)
+#' DiRatio.Plot(rmTD, ExpName="Test",export=FALSE)
 #' 
 #' @importFrom grDevices rainbow jpeg dev.off rgb
 #' @importFrom graphics plot axis title lines polygon
