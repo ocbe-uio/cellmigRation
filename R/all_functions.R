@@ -2922,7 +2922,6 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   best_params <- list()
 
   curPAR <- par(no.readonly = TRUE)
-  par(mfrow = c(3, 3))
   top.i <- 1
   for (ri in ret.i) {
 
@@ -2938,6 +2937,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
                     "threshold=", ord_params$threshold[ord_params$i == ri])
 
     if (plot) {
+      par(mfrow = c(3, 3))
       VisualizeImg(img_mtx = all_results[[ri]]$img, main = myLAB)
     }
 
