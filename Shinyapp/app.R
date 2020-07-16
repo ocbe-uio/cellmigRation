@@ -327,7 +327,7 @@ server <- function(input, output) {
 			lobject = diameter,
 			threshold = threshold
 		)
-		pk <- CellMigRation:::pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
+		pk <- CellMigRation:::pkfnd(im = b, th = threshold, sz = NextOdd(diameter)) # FIXME: calls NextOdd, which is also internal
 		cnt <- CellMigRation:::cntrd(im = b, mx = pk, sz = NextOdd(diameter))
 		# TODO: return the output of the following to the user
 		# VisualizeImg(img_mtx = b, las = 1, main = paste0("Stack num. ", i))
