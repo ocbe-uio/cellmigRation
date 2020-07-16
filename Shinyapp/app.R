@@ -4,7 +4,7 @@
 library(shiny)
 library(tiff)
 library(png)
-library(CellMigRation)
+library(cellmigRation)
 # ==============================================================================
 # Defining the user interface
 # ==============================================================================
@@ -172,8 +172,9 @@ ui <- fluidPage(
 				tabPanel("Original image", imageOutput("image_frame")),
 				tabPanel("Processed image", plotOutput("processed_image")),
 				tabPanel("Model estimation", {
-					plotOutput("optimized_parms")
-					# plotOutput("bpass_pk_cnt")
+					h1("Matrix image")
+					plotOutput("VisualizeImg")
+					# plotOutput("VisualizeCntr")
 				}),
 				tabPanel("Help!",
 					img(
@@ -316,38 +317,53 @@ server <- function(input, output, session) {
 			inputId = "post_load",
 			selected = "Model estimation"
 		)
+		# FIXME: text below not printing to UI
 		h1("Estimating parameters. This often takes some minutes. Please wait.")
 		# Automated parameter optimization
-		x1 <- CellMigRation::LoadTiff(
+		x1 <- LoadTiff(
 			tiff_file  =  input$imported_tiff$datapath,
 			experiment = input$project_name,
 			condition  = input$project_condition,
 			replicate  = input$replicate
-		) # TODO: move this and L:291 to one reactive function
-		output$optimized_parms <- renderPlot(
-			# TODO: add UI feedback (R output)
-			x1 <- OptimizeParams(tc_obj = x1, threads = input$num_threads)
-		)
+		) # TODO: DRY: move this and L:291 to one reactive function
+		x1 <- OptimizeParams(tc_obj = x1, threads = input$num_threads)
 		# Retrieve optimized values
 		lnoise    <- x1@optimized$auto_params$lnoise
 		diameter  <- x1@optimized$auto_params$diameter
 		threshold <- x1@optimized$auto_params$threshold
-		# output$bpass_pk_cnt <- renderPlot(
-		# 	# Visualize Centroids
-		# 	b <- CellMigRation:::bpass(
-		# 		image_array = x1@images$images[[frame$out]],
-		# 		lnoise = lnoise,
-		# 		lobject = diameter,
-		# 		threshold = threshold
-		# 	)
+	# 	# Visualize Centroids
+		# TODO: add UI feedback (R output or message)
+		b <- CellMigRation:::bpass(
+			image_array = x1@images$images[[frame$out]],
+			lnoise = lnoise,
+			lobject = diameter,
+			threshold = threshold
+		)
+		pk <- cellmigRation:::pkfnd(
+			im = b,
+			th = threshold,
+			sz = cellmigRation:::NextOdd(diameter)
+		)
+		cnt <- cellmigRation:::cntrd(
+			im = b,
+			mx = pk,
+			sz = cellmigRation:::NextOdd(diameter)
+		)
+		# # TODO: return the output of the following to the user
+		output$VisualizeImg <- renderPlot({
+			VisualizeImg(
+				img_mtx = b, las = 1, main = paste0("Stack num. ", frame$out)
+			)
+			# cellmigRation:::VisualizeCntr(
+			# 	centroids = x2@centroids[[frame$out]],
+			# 	width_px = ncol(x2@proc_images$images[[frame$out]]),
+			# 	height_px = nrow(x2@proc_images$images[[frame$out]])
+			# )
+		})
+		# browser()#TEMP
+		# output$VisualizeCntr <- renderPlot(
 		# )
 	})
-		# TODO: fit model using CellMigRation functions
-		# pk <- CellMigRation:::pkfnd(im = b, th = threshold, sz = NextOdd(diameter)) # FIXME: calls NextOdd, which is also internal
-		# cnt <- CellMigRation:::cntrd(im = b, mx = pk, sz = NextOdd(diameter))
-		# # TODO: return the output of the following to the user
-		# # VisualizeImg(img_mtx = b, las = 1, main = paste0("Stack num. ", i))
-		# # VisualizeCntr(centroids = cnt, width_px = ncol(b), height_px = nrow(b))
 	# --------------------------------------------------------------------------
 	# Tracking cells
 	# --------------------------------------------------------------------------
