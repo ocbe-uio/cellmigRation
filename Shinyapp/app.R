@@ -4,13 +4,20 @@
 library(shiny)
 library(tiff)
 library(png)
+library(cellmigRation)
 # ==============================================================================
 # Defining the user interface
 # ==============================================================================
 ui <- fluidPage(
 	titlePanel(
-		title = "cellmigRation Shiny App",
-		windowTitle = "cellmigRation Shiny App"
+		title = div(
+			img(
+				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+				width = "5%"
+			),
+			"cellmigRation"
+		),
+		windowTitle = "cellmigRation Shiny"
 	),
 	# --------------------------------------------------------------------------
 	# Sidebar panel for inputs
@@ -112,10 +119,11 @@ ui <- fluidPage(
 				)
 			),
 			fluidRow(
-				column(4, numericInput("inoise", "Inoise", 0, step = .1)),
+				column(4, numericInput("lnoise", "L-noise", 0, step = .1)),
 				column(4, numericInput("diamenter", "Diameter", 0, step = .1)),
 				column(4, numericInput("threshold", "Threshold", 0, step = .1))
 			),
+			numericInput("num_threads", "Number of CPU threads to use", 2, 1),
 			actionButton("fit_model", "Submit")
 		),
 		# ----------------------------------------------------------------------
@@ -138,7 +146,7 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "input.track_cells",
 			hr(),
-			h4("4. Output data"),
+			h3("4. Output data"),
 			actionButton("extract_trajectories", "Extract Trajectories"),
 			actionButton("extract_summary", "Extract Summary")
 		)
@@ -150,15 +158,39 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "!output.slider",
 			img(
-				src = "https://raw.githubusercontent.com/ocbe-uio/cellmigRation/master/cell_migration_logo.png",
-				width = "30%"
-			)
+				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+				width = "50%"
+			),
+			h4("Welcome to the CellMigRation Shiny app!"), p(),
+			"Please load a proper TIFF file using the 'Browse' button on the",
+			"left. After the file is loaded, you will be presented with more",
+			"options and a help page."
 		),
 		conditionalPanel(
 			condition = "output.slider",
 			tabsetPanel(
 				tabPanel("Original image", imageOutput("image_frame")),
-				tabPanel("Processed image", plotOutput("processed_image"))
+				tabPanel("Processed image", plotOutput("processed_image")),
+				tabPanel("Model estimation",
+					"Estimating parameters usually takes several minutes.",
+					"Please click the 'Submit' button on the left and wait",
+					"for the centroid plot to appear below."
+					h1("Matrix image"),
+					p(),
+					plotOutput("VisualizeImg"),
+				),
+				tabPanel("Help!",
+					img(
+						src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+						width = "30%"
+					),
+					h4("Welcome to the CellMigRation Shiny app!"), p(),
+					"- Frame selection on the slider and autoplay is disabled", "for the processed image for performance purposes.",
+					"Use the 'Previous/Next frame' buttons instead.",
+					"You can also select a frame on the slider and then press",
+					"one of the aforementioned buttons to load a slide."
+				),
+				id = "post_load"
 			)
 
 		),
@@ -180,7 +212,7 @@ ui <- fluidPage(
 # Defining the server logic
 # ==============================================================================
 options(shiny.maxRequestSize = 1024*1024^2)  # file limit: 1 GB
-server <- function(input, output) {
+server <- function(input, output, session) {
 	# --------------------------------------------------------------------------
 	# Reactive values
 	# --------------------------------------------------------------------------
@@ -266,9 +298,8 @@ server <- function(input, output) {
 	# --------------------------------------------------------------------------
 	output$processed_image <- renderPlot({
 		req(input$imported_tiff)
-		filename <- normalizePath(file.path(input$imported_tiff$datapath))
-		x1 <- cellmigRation::LoadTiff(
-			tiff_file  = filename,
+		x1 <- CellMigRation::LoadTiff(
+			tiff_file  = input$imported_tiff$datapath,
 			experiment = input$project_name,
 			condition  = input$project_condition,
 			replicate  = input$replicate
@@ -279,13 +310,56 @@ server <- function(input, output) {
 		res_var <- input$pixel_size
 		invert_background <- input$invert_background
 		VisualizeImg(x1@images$images[[frame$out]], las = 1, main = paste("Stack num.", frame$out))
-		# browser()
 	})
 	# --------------------------------------------------------------------------
 	# Fitting model
 	# --------------------------------------------------------------------------
 	observeEvent(input$fit_model, {
-		# TODO: fit model using cellmigRation functions
+		updateTabsetPanel(
+			session,
+			inputId = "post_load",
+			selected = "Model estimation"
+		) # FIXME: tab selection works sporadically?
+		# Automated parameter optimization
+		x1 <- LoadTiff(
+			tiff_file  =  input$imported_tiff$datapath,
+			experiment = input$project_name,
+			condition  = input$project_condition,
+			replicate  = input$replicate
+		) # TODO: DRY: move this and L:291 to one reactive function
+		x1 <- OptimizeParams(tc_obj = x1, threads = input$num_threads)
+		output$VisualizeImg <- renderPlot({
+			if (length(x1@optimized) > 0) {
+				lnoise    <- x1@optimized$auto_params$lnoise
+				diameter  <- x1@optimized$auto_params$diameter
+				threshold <- x1@optimized$auto_params$threshold
+				b <- CellMigRation:::bpass(
+					image_array = x1@images$images[[frame$out]],
+					lnoise = lnoise,
+					lobject = diameter,
+					threshold = threshold
+				)
+				pk <- cellmigRation:::pkfnd(
+					im = b,
+					th = threshold,
+					sz = cellmigRation:::NextOdd(diameter)
+				)
+				cnt <- cellmigRation:::cntrd(
+					im = b,
+					mx = pk,
+					sz = cellmigRation:::NextOdd(diameter)
+				)
+				# Visualize Centroids
+				VisualizeImg(
+					img_mtx = b,
+					las = 1,
+					main = paste0("Stack num. ", frame$out)
+				)
+				cellmigRation:::VisualizeCntr(
+					centroids = cnt, width_px = ncol(b), height_px = nrow(b)
+				)
+			}
+		})
 	})
 	# --------------------------------------------------------------------------
 	# Tracking cells
