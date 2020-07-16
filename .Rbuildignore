@@ -1,6 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^CellMigRationLogo\.png$
+^cell_migration_logo\.png$
 ^LICENSE
 ^README\.Rmd$
 ^\.travis\.yml$
