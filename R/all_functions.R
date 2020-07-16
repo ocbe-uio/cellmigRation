@@ -4225,7 +4225,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 #' @importFrom grDevices rainbow jpeg dev.off
 #' @importFrom graphics plot points lines
 #' @export
-plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, export=TRUE) {
+plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, export=FALSE) {
 
   if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
   Object<-object@preprocessedDS
@@ -4360,12 +4360,12 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
 #' rmDF=TrajectoryDataset[1:1000,]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
-#' plotSampleTracks(rmTD, ExpName="Test",Type="l", FixedField=TRUE, celNum=5, export = TRUE)
+#' plotSampleTracks(rmTD, ExpName="Test",Type="l", FixedField=TRUE, celNum=5, export=FALSE)
 #'
 #' @importFrom grDevices rainbow jpeg dev.off
 #' @importFrom graphics plot points lines
 #' @export
-plotSampleTracks= function(object, ExpName="ExpName", Type="l", celNum=35,FixedField=TRUE,export=TRUE) {
+plotSampleTracks= function(object, ExpName="ExpName", Type="l", celNum=35,FixedField=TRUE,export=FALSE) {
  if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
 
   Object<-object@preprocessedDS
@@ -4654,7 +4654,7 @@ plot3DTracks= function(object, VS=3, size=2, cells) {
 #'
 #'@export
 PlotTracksSeparately= function(object, ExpName="ExpName",
-                               Type="l", FixedField=TRUE, export=TRUE) {
+                               Type="l", FixedField=TRUE, export=FALSE) {
 
   if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
   Object<-object@preprocessedDS
@@ -4771,7 +4771,7 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
 PerAndSpeed= function(object, TimeInterval=10,
                       ExpName="ExpName", PtSplot=TRUE,
                       AllPtSplot=TRUE, ApSplot=TRUE,
-                      AllApSplot=TRUE, export=TRUE) {
+                      AllApSplot=TRUE, export=FALSE) {
 
   Object<-object@preprocessedDS
   msg <- NULL
@@ -5199,7 +5199,7 @@ PerAndSpeed= function(object, TimeInterval=10,
 #' @importFrom utils write.csv
 #'
 #' @export
-DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=TRUE) {
+DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=FALSE) {
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
@@ -5310,7 +5310,7 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=TRUE) {
 #' @importFrom matrixStats rowMedians rowSds
 #'
 #' @export
-DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=TRUE) {
+DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   Object<-object@preprocessedDS
   msg <- NULL
@@ -5418,7 +5418,7 @@ MSD = function(object, TimeInterval=10,
                ExpName="ExpName",
                sLAG=0.25, ffLAG=0.25,
                SlopePlot=TRUE, AllSlopesPlot=TRUE,
-               FurthPlot=TRUE, AllFurthPlot=TRUE, export=TRUE) {
+               FurthPlot=TRUE, AllFurthPlot=TRUE, export=FALSE) {
 
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   if ( ! is.numeric(sLAG) ) stop( "sLAG has to be a positive number" ) else if ( sLAG<= 0 ) stop( "sLAG has to be a positive number" )
@@ -5635,7 +5635,7 @@ MSD = function(object, TimeInterval=10,
 #' @export
 DiAutoCor= function(object, TimeInterval=10,
                     ExpName="ExpName", sLAG=0.25,
-                    sPLOT=TRUE, aPLOT=TRUE, export=TRUE) {
+                    sPLOT=TRUE, aPLOT=TRUE, export=FALSE) {
 
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   if ( ! is.numeric(sLAG) ) stop( "sLAG has to be a positive number" ) else if ( sLAG<= 0 ) stop( "sLAG has to be a positive number" )
@@ -6027,7 +6027,7 @@ ForwardMigration <- function(
     afptPLOT     = TRUE,
     sfpPLOT      = TRUE,
     afpPLOT      = TRUE,
-    export       = TRUE
+    export       = FALSE
 ){
     if (!is.numeric(TimeInterval)) {
         stop("TimeInterval has to be a positive number")
@@ -6392,7 +6392,7 @@ ForwardMigration <- function(
 #' @importFrom utils write.csv
 #'
 #' @export
-FMI= function(object, TimeInterval=10, ExpName="ExpName", export=TRUE){
+FMI= function(object, TimeInterval=10, ExpName="ExpName", export=FALSE){
 
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   Object<-object@preprocessedDS
@@ -6543,7 +6543,7 @@ FMI= function(object, TimeInterval=10, ExpName="ExpName", export=TRUE){
 #' @importFrom Hmisc rcorr
 #'
 #' @export
-FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=TRUE){
+FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=FALSE){
   msg <- NULL
   if ( ! is.list(object) ){
     msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")

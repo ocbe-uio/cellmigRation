@@ -4,7 +4,7 @@
 \alias{FinRes}
 \title{Final Results}
 \usage{
-FinRes(object, ExpName = "ExpName", ParCor = TRUE, export = TRUE)
+FinRes(object, ExpName = "ExpName", ParCor = TRUE, export = FALSE)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
