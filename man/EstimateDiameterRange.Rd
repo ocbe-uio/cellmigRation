@@ -17,7 +17,7 @@ EstimateDiameterRange(
 
 \item{px.margin}{integer, number of pixels used as margin while searching/filtering for neighboring particles}
 
-\item{min.px.diam}{integer, minimum diameter of a particle (cell). 
+\item{min.px.diam}{integer, minimum diameter of a particle (cell).
 Particles with a diameter smaller than min.px.diam are discarded}
 
 \item{quantile.val}{numeric, must be bigger than 0 and smaller than 1.

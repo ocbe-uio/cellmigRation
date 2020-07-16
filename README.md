@@ -10,18 +10,18 @@ README.md is generated from README.Rmd. Please edit the Rmd file and regenerate
 this one by running `rmarkdown::render("README.Rmd)` in R.
 -->
 
-<img src="cell_migration_logo.png" width="50%" alt="CellMigRation">
+<img src="cell_migration_logo.png" width="50%" alt="cellmigRation">
 
 An R package for tracking cells and analyzing their trajectories.
 
 Installation
 ============
 
-The cellmigRation package is under active development and a stable version is yet to be released. However, you can install the current development version of CellMigRation from [GitHub](https://github.com/) with:
+The cellmigRation package is under active development and a stable version is yet to be released. However, you can install the current development version of cellmigRation from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("ocbe-uio/CellMigRation")
+remotes::install_github("ocbe-uio/cellmigRation")
 ```
 
 Example
@@ -30,7 +30,7 @@ Example
 Example usage:
 
 ``` r
-library(CellMigRation)
+library(cellmigRation)
 
 data(TrajectoryDataset)
 df <- CellMig(TrajectoryDataset[1:100, ])
@@ -46,12 +46,12 @@ preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 10)
 Shiny application
 =================
 
-Some CellMigRation features are also available as a standalone web application powered by an R package called Shiny. **The Shiny app is still under construction**, so it is not feature-complete and is not guaranteed to perform as expected. Until release, we advise you to use the R package directly.
+Some cellmigRation features are also available as a standalone web application powered by an R package called Shiny. **The Shiny app is still under construction**, so it is not feature-complete and is not guaranteed to perform as expected. Until release, we advise you to use the R package directly.
 
-To access the CellMigRation Shiny app, visit <https://ocbe.shinyapps.io/CellMigRation/>.
+To access the cellmigRation Shiny app, visit <https://ocbe.shinyapps.io/cellmigRation/>.
 
 Statistics for developers
 =========================
 
 <!-- badges: start -->
-[![Build Status](https://travis-ci.org/ocbe-uio/CellMigRation.svg?branch=master)](https://travis-ci.org/ocbe-uio/CellMigRation) <!-- badges: end -->
+[![Build Status](https://travis-ci.org/ocbe-uio/cellmigRation.svg?branch=master)](https://travis-ci.org/ocbe-uio/cellmigRation) <!-- badges: end -->

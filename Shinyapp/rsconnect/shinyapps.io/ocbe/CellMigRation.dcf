@@ -1,4 +1,4 @@
-name: CellMigRation
+name: cellmigRation
 title:
 username:
 account: ocbe
@@ -6,5 +6,5 @@ server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2258205
 bundleId: 3194519
-url: https://ocbe.shinyapps.io/CellMigRation/
+url: https://ocbe.shinyapps.io/cellmigRation/
 when: 1590570588.96754

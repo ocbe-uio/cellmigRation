@@ -24,7 +24,7 @@ are used to fill each dimension. All possible combination of values are included
 the resulting hyper cube.
 }
 \examples{
-CellMigRation:::MakeHypercube(1:3, 3)
+cellmigRation:::MakeHypercube(1:3, 3)
 
 }
 \references{
