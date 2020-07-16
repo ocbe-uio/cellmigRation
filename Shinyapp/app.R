@@ -171,11 +171,10 @@ ui <- fluidPage(
 			tabsetPanel(
 				tabPanel("Original image", imageOutput("image_frame")),
 				tabPanel("Processed image", plotOutput("processed_image")),
-				tabPanel("Model estimation", {
-					h1("Matrix image")
+				tabPanel("Model estimation",
+					h1("Matrix image"), p(),
 					plotOutput("VisualizeImg")
-					# plotOutput("VisualizeCntr")
-				}),
+				),
 				tabPanel("Help!",
 					img(
 						src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
@@ -316,7 +315,7 @@ server <- function(input, output, session) {
 			session,
 			inputId = "post_load",
 			selected = "Model estimation"
-		)
+		) #FIXME: not selecting anymore
 		# FIXME: text below not printing to UI
 		h1("Estimating parameters. This often takes some minutes. Please wait.")
 		# Automated parameter optimization
@@ -326,6 +325,7 @@ server <- function(input, output, session) {
 			condition  = input$project_condition,
 			replicate  = input$replicate
 		) # TODO: DRY: move this and L:291 to one reactive function
+		# TODO: move x1, b, pk and cnt to renderText?
 		x1 <- OptimizeParams(tc_obj = x1, threads = input$num_threads)
 		# Retrieve optimized values
 		lnoise    <- x1@optimized$auto_params$lnoise
@@ -349,20 +349,15 @@ server <- function(input, output, session) {
 			mx = pk,
 			sz = cellmigRation:::NextOdd(diameter)
 		)
-		# # TODO: return the output of the following to the user
+		# TODO: return the output of the following to the user
 		output$VisualizeImg <- renderPlot({
 			VisualizeImg(
 				img_mtx = b, las = 1, main = paste0("Stack num. ", frame$out)
 			)
-			# cellmigRation:::VisualizeCntr(
-			# 	centroids = x2@centroids[[frame$out]],
-			# 	width_px = ncol(x2@proc_images$images[[frame$out]]),
-			# 	height_px = nrow(x2@proc_images$images[[frame$out]])
-			# )
+			cellmigRation:::VisualizeCntr(
+				centroids = cnt, width_px = ncol(b), height_px = nrow(b)
+			)
 		})
-		# browser()#TEMP
-		# output$VisualizeCntr <- renderPlot(
-		# )
 	})
 	# --------------------------------------------------------------------------
 	# Tracking cells
