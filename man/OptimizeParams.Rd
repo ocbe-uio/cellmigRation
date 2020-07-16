@@ -21,7 +21,7 @@ OptimizeParams(
 
 \item{lnoise_range}{numeric vector of lnoise values to be used in the optimization step. Can be NULL}
 
-\item{min.px.diam}{integer, minimum diameter of a particle (cell). 
+\item{min.px.diam}{integer, minimum diameter of a particle (cell).
 Particles with a diameter smaller than min.px.diam are discarded}
 
 \item{diameter_range}{numeric vector of diameter values to be used in the optimization step. Can be NULL}
