@@ -5297,14 +5297,6 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=FALSE) {
 #' @references
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
-#' @examples
-#' data(TrajectoryDataset)
-#' rmDF=TrajectoryDataset[1:1000,]
-#' rmTD <- CellMig(rmDF)
-#' rmTD <- rmPreProcessing(rmTD,FrameN=100)
-#' rmTD <-DiRatio(rmTD, ExpName="Test")
-#' DiRatio.Plot(rmTD, ExpName="Test",export=FALSE)
-#'
 #' @importFrom grDevices rainbow jpeg dev.off rgb
 #' @importFrom graphics plot axis title lines polygon
 #' @importFrom matrixStats rowMedians rowSds
