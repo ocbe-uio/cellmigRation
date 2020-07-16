@@ -11,7 +11,7 @@ DiAutoCor(
   sLAG = 0.25,
   sPLOT = TRUE,
   aPLOT = TRUE,
-  export = TRUE
+  export = FALSE
 )
 }
 \arguments{

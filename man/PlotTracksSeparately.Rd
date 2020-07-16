@@ -9,7 +9,7 @@ PlotTracksSeparately(
   ExpName = "ExpName",
   Type = "l",
   FixedField = TRUE,
-  export = TRUE
+  export = FALSE
 )
 }
 \arguments{
