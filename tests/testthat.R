@@ -1,4 +1,4 @@
 library(testthat)
-library(CellMigRation)
+library(cellmigRation)
 
-test_check("CellMigRation")
+test_check("cellmigRation")
