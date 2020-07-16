@@ -2668,7 +2668,7 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #' @param threads integer, number of cores to use for parallelization
 #' @param quantile.val numeric, argument passed to EstimateDiameterRange(). If NULL, it is defaulted to 0.99
 #' @param px.margin numeric, argument passed to EstimateDiameterRange(). If NULL, it ia defaulted to 2
-
+#' @param plot if `TRUE`, plots results in the end
 #'
 #' @return a trackedCells object
 #'
@@ -2687,7 +2687,7 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
                            diameter_range = NULL, threshold_range = NULL,
                            target_cell_num = NULL, threads = 1,
-                           quantile.val = NULL, px.margin= NULL)
+                           quantile.val = NULL, px.margin= NULL, plot=FALSE)
 
 {
   # do
@@ -2937,8 +2937,9 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
                     "diameter=", ord_params$diameter[ord_params$i == ri], "; ",
                     "threshold=", ord_params$threshold[ord_params$i == ri])
 
-    VisualizeImg(img_mtx = all_results[[ri]]$img,
-                 main = myLAB)
+    if (plot) {
+      VisualizeImg(img_mtx = all_results[[ri]]$img, main = myLAB)
+    }
 
     top.i <- top.i + 1
   }
