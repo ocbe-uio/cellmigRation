@@ -4,6 +4,7 @@
 library(shiny)
 library(tiff)
 library(png)
+library(CellMigRation)
 # ==============================================================================
 # Defining the user interface
 # ==============================================================================
@@ -122,6 +123,7 @@ ui <- fluidPage(
 				column(4, numericInput("diamenter", "Diameter", 0, step = .1)),
 				column(4, numericInput("threshold", "Threshold", 0, step = .1))
 			),
+			numericInput("num_threads", "Number of CPU threads to use", 2, 1),
 			actionButton("fit_model", "Submit")
 		),
 		# ----------------------------------------------------------------------
@@ -304,7 +306,32 @@ server <- function(input, output) {
 	# Fitting model
 	# --------------------------------------------------------------------------
 	observeEvent(input$fit_model, {
-		# TODO: fit model using cellmigRation functions
+		# TODO: fit model using CellMigRation functions
+		# Automated parameter optimization
+		x1 <- CellMigRation::LoadTiff(
+			tiff_file  =  input$imported_tiff$datapath,
+			experiment = input$project_name,
+			condition  = input$project_condition,
+			replicate  = input$replicate
+		) # TODO: move this and L:291 to one reactive function
+		x1 <- OptimizeParams(tc_obj = x1, threads = input$num_threads)
+		# TODO: add UI feedback
+		# Retrieve optimized values
+		lnoise    <- x1@optimized$auto_params$lnoise
+		diameter  <- x1@optimized$auto_params$diameter
+		threshold <- x1@optimized$auto_params$threshold
+		# Visualize Centroids
+		b <- CellMigRation:::bpass(
+			image_array = x1@images$images[[frame$out]],
+			lnoise = lnoise,
+			lobject = diameter,
+			threshold = threshold
+		)
+		pk <- CellMigRation:::pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
+		cnt <- CellMigRation:::cntrd(im = b, mx = pk, sz = NextOdd(diameter))
+		# TODO: return the output of the following to the user
+		# VisualizeImg(img_mtx = b, las = 1, main = paste0("Stack num. ", i))
+		# VisualizeCntr(centroids = cnt, width_px = ncol(b), height_px = nrow(b))
 	})
 	# --------------------------------------------------------------------------
 	# Tracking cells
