@@ -4,7 +4,7 @@
 \alias{FMI}
 \title{Forward Migration Index}
 \usage{
-FMI(object, TimeInterval = 10, ExpName = "ExpName", export = TRUE)
+FMI(object, TimeInterval = 10, ExpName = "ExpName", export = FALSE)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}

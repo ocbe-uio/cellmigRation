@@ -12,7 +12,7 @@ PerAndSpeed(
   AllPtSplot = TRUE,
   ApSplot = TRUE,
   AllApSplot = TRUE,
-  export = TRUE
+  export = FALSE
 )
 }
 \arguments{

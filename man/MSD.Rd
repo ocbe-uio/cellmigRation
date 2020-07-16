@@ -14,7 +14,7 @@ MSD(
   AllSlopesPlot = TRUE,
   FurthPlot = TRUE,
   AllFurthPlot = TRUE,
-  export = TRUE
+  export = FALSE
 )
 }
 \arguments{
