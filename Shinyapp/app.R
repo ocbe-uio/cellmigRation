@@ -118,7 +118,7 @@ ui <- fluidPage(
 				)
 			),
 			fluidRow(
-				column(4, numericInput("inoise", "Inoise", 0, step = .1)),
+				column(4, numericInput("lnoise", "L-noise", 0, step = .1)),
 				column(4, numericInput("diamenter", "Diameter", 0, step = .1)),
 				column(4, numericInput("threshold", "Threshold", 0, step = .1))
 			),
