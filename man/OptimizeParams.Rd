@@ -13,7 +13,8 @@ OptimizeParams(
   target_cell_num = NULL,
   threads = 1,
   quantile.val = NULL,
-  px.margin = NULL
+  px.margin = NULL,
+  plot = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,8 @@ Particles with a diameter smaller than min.px.diam are discarded}
 \item{quantile.val}{numeric, argument passed to EstimateDiameterRange(). If NULL, it is defaulted to 0.99}
 
 \item{px.margin}{numeric, argument passed to EstimateDiameterRange(). If NULL, it ia defaulted to 2}
+
+\item{plot}{if `TRUE`, plots results in the end}
 }
 \value{
 a trackedCells object
