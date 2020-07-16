@@ -17,7 +17,7 @@
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' CellMigRation:::NextOdd(2:5)
+#' cellmigRation:::NextOdd(2:5)
 #'
 #' @keywords internal
 NextOdd <- function(x) {
@@ -42,7 +42,7 @@ NextOdd <- function(x) {
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' CellMigRation:::circshift(1:10, -2)
+#' cellmigRation:::circshift(1:10, -2)
 #'
 #' @keywords internal
 circshift <- function(x, n = 1) {
@@ -94,7 +94,7 @@ circshift <- function(x, n = 1) {
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' CellMigRation:::AddDimension(x = cbind(1:4, 4:1), y = c(9, 7))
+#' cellmigRation:::AddDimension(x = cbind(1:4, 4:1), y = c(9, 7))
 #'
 #' @keywords internal
 AddDimension <- function(x, y) {
@@ -133,7 +133,7 @@ AddDimension <- function(x, y) {
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' CellMigRation:::MakeHypercube(1:3, 3)
+#' cellmigRation:::MakeHypercube(1:3, 3)
 #'
 #' @keywords internal
 MakeHypercube <- function(vals, dims) {
@@ -165,7 +165,7 @@ MakeHypercube <- function(vals, dims) {
 #'
 #' @examples
 #' tmp <- data.frame(A = 1:4, B=c(3.1, 2.8, 3.3, 9.1), C = FALSE)
-#' CellMigRation:::matfix(tmp)
+#' cellmigRation:::matfix(tmp)
 #'
 #' @keywords internal
 matfix <- function(x) {
@@ -204,7 +204,7 @@ matfix <- function(x) {
 #' @examples
 #' graphics::par(mfrow = c(1, 2))
 #' tmp <- sapply(1:12, function(i) { (6 + abs(i - 6)) * c(1:10, 10:1) })
-#' cnv.tmp <- CellMigRation:::LinearConv2(tmp, c(-3, 0, 3))
+#' cnv.tmp <- cellmigRation:::LinearConv2(tmp, c(-3, 0, 3))
 #' graphics::image(tmp); graphics::image(cnv.tmp)
 #' @importFrom graphics par image
 #'
@@ -1043,7 +1043,7 @@ CentroidArray <- function(stack, lobject, threshold)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' CellMigRation:::DetectRadii(c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1))
+#' cellmigRation:::DetectRadii(c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1))
 #'
 #' @keywords internal
 DetectRadii <- function(x) {
@@ -1106,7 +1106,7 @@ DetectRadii <- function(x) {
 #'
 #' @param x numeric matrix corresponding to a digital image
 #' @param px.margin integer, number of pixels used as margin while searching/filtering for neighboring particles
-#' @param min.px.diam integer, minimum diameter of a particle (cell). 
+#' @param min.px.diam integer, minimum diameter of a particle (cell).
 #' Particles with a diameter smaller than min.px.diam are discarded
 #' @param quantile.val numeric, must be bigger than 0 and smaller than 1.
 #' Quantile for discriminating signal and background; only pixels with intensity higher than the corresponding
@@ -1134,13 +1134,13 @@ DetectRadii <- function(x) {
 #' @importFrom graphics image hist
 #'
 #' @export
-EstimateDiameterRange <- function(x, px.margin = 2, 
-                                  min.px.diam = 5, 
-                                  quantile.val = 0.99, 
+EstimateDiameterRange <- function(x, px.margin = 2,
+                                  min.px.diam = 5,
+                                  quantile.val = 0.99,
                                   plot = TRUE) {
-  
+
   QNTS <- as.numeric(quantile(x, probs = quantile.val[1]))
-  
+
   # Adjust if quantile.val is too low (few cells)
   tmp.xx <- as.numeric(x)
   max.sig <- max(tmp.xx, na.rm = TRUE)
@@ -1148,29 +1148,29 @@ EstimateDiameterRange <- function(x, px.margin = 2,
   if (QNTS == min.sig && max.sig > min.sig) {
     QNTS <- mean(c(min.sig, min(tmp.xx[tmp.xx > min.sig], na.rm = TRUE)), na.rm = TRUE)
   }
-  
+
   B <- x
   B[B < QNTS] <- 0
   B[B >= QNTS] <- 1
-  
+
   rdds <- do.call(rbind, lapply(1:ncol(B), function(ii) {
-    
+
     out <- DetectRadii(B[,ii])
     if (!is.null(out)) {
       data.frame(RPOS = out$MPOS, CPOS = ii, LEN = out$LEN)
     }
   }))
   rdds$KEEP <- TRUE
-  
+
   for (j in 1:nrow(rdds)) {
     if (rdds$KEEP[j]){
-      
+
       tdm <- ( 2 * px.margin)  + rdds$LEN[j]
       ROWmin <- rdds$RPOS[j] - (0.5 * tdm)
       ROWmax <- rdds$RPOS[j] + (0.5 * tdm)
       COLmin <- rdds$CPOS[j] - (0.5 * tdm)
       COLmax <- rdds$CPOS[j] + (0.5 * tdm)
-      
+
       keep <- rdds$RPOS >= ROWmin & rdds$RPOS <= ROWmax &
         rdds$CPOS >= COLmin & rdds$CPOS <= COLmax & rdds$KEEP
       keep <- which(keep)
@@ -1178,7 +1178,7 @@ EstimateDiameterRange <- function(x, px.margin = 2,
       if (length(keep) > 0) {
         curVal <- rdds$LEN[j]
         allValz <- rdds$LEN[keep]
-        
+
         if (sum(curVal > allValz) == length(allValz)) {
           rdds$KEEP[keep] <- FALSE
         } else {
@@ -1187,24 +1187,24 @@ EstimateDiameterRange <- function(x, px.margin = 2,
       }
     }
   }
-  
+
   FINL <- rdds[rdds$KEEP,]
   FINL <- FINL[FINL[, "LEN"] >= min.px.diam, ]
-  
+
   yy <- list(estim.cell.num = sum(FINL$KEEP),
              q50.diam = median(FINL$LEN, na.rm = TRUE),
              q75.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.75)),
              q90.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.90)),
              q95.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.95)),
              raw = FINL)
-  
+
   if (plot) {
     try(hist(FINL$LEN, breaks = seq(min(FINL$LEN, na.rm = TRUE),
                                     max(FINL$LEN, na.rm = TRUE), length.out = 20),
              xlab = "Particle Diameter", las = 1, main = "Diam. Distribution",
              col = "aquamarine3"), silent = TRUE); box()
   }
-  
+
   return(yy)
 }
 
@@ -2660,7 +2660,7 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #'
 #' @param tc_obj a \code{trackedCells} object
 #' @param lnoise_range numeric vector of lnoise values to be used in the optimization step. Can be NULL
-#' @param min.px.diam integer, minimum diameter of a particle (cell). 
+#' @param min.px.diam integer, minimum diameter of a particle (cell).
 #' Particles with a diameter smaller than min.px.diam are discarded
 #' @param diameter_range numeric vector of diameter values to be used in the optimization step. Can be NULL
 #' @param threshold_range numeric vector of threshold values to be used in the optimization step. Can be NULL
@@ -2684,24 +2684,24 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #' @import foreach
 #'
 #' @export
-OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,  
+OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
                            diameter_range = NULL, threshold_range = NULL,
                            target_cell_num = NULL, threads = 1,
                            quantile.val = NULL, px.margin= NULL)
-  
+
 {
   # do
   stack_img <- tc_obj@images
-  
+
   # Nested f(x)
   all_combos <- function(...){
     xx <- list(...)
     zz <- names(xx)
-    
+
     # Init
     out <- data.frame(xx[[1]], stringsAsFactors = FALSE)
     colnames(out) <- zz[1]
-    
+
     # Keep attaching
     for (j in 2:length(xx)) {
       TMP <- xx[[j]]
@@ -2715,24 +2715,24 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     }
     return(out)
   }
-  
+
   ## ----- debugging -----
-  #bpass = CellMigRation:::bpass
-  #pkfnd = CellMigRation:::pkfnd
-  #VisualizeImg = CellMigRation:::VisualizeImg
-  #cntrd = CellMigRation:::cntrd
-  #NextOdd = CellMigRation:::NextOdd
-  #VisualizeCntr = CellMigRation:::VisualizeCntr
-  #track = CellMigRation:::track
+  #bpass = cellmigRation:::bpass
+  #pkfnd = cellmigRation:::pkfnd
+  #VisualizeImg = cellmigRation:::VisualizeImg
+  #cntrd = cellmigRation:::cntrd
+  #NextOdd = cellmigRation:::NextOdd
+  #VisualizeCntr = cellmigRation:::VisualizeCntr
+  #track = cellmigRation:::track
   ## ----- endo of debugging -----
-  
+
   # select mid signal image
   imgSums <- sapply(stack_img$images, sum, na.rm = TRUE)
   med.i <- ifelse(length(imgSums) %% 2 == 0, length(imgSums) / 2, (0.5 * length(imgSums) + 0.5))
   r.i <- order(imgSums)[med.i]
-  
+
   tmp_img <- stack_img$images[[r.i]]
-  
+
   # Define param ranges
   if (is.null(px.margin)) {
     px.margin <- 2
@@ -2740,13 +2740,13 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   if (is.null(quantile.val)) {
     quantile.val <- 0.99
   }
-  
+
   estRDI <- tryCatch({
-    EstimateDiameterRange(x = tmp_img, px.margin = px.margin, 
+    EstimateDiameterRange(x = tmp_img, px.margin = px.margin,
                           min.px.diam = min.px.diam,
                           quantile.val = quantile.val, plot = FALSE)},
     error = function(e) NULL)
-  
+
   # diam range
   if(is.null(diameter_range) && !is.null(estRDI)) {
     diameter_range <- c(floor(estRDI$q75.diam - 1), ceiling(1.25 * as.numeric(estRDI$q95.diam)))
@@ -2754,150 +2754,150 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     diameter_range <- unique(as.integer(diameter_range))
     diameter_range <- unique(as.integer(
       seq(min(diameter_range), max(diameter_range), length.out = 3)))
-    
+
   } else if (is.null(diameter_range)) {
     diameter_range <- c(10, 50, 100)
   }
-  
+
   # num cell
   if(is.null(target_cell_num) && !is.null(estRDI)) {
     target_cell_num <- estRDI$estim.cell.num
   } else if (is.null(target_cell_num)) {
     target_cell_num <- 100
   }
-  
+
   # Define param ranges
   if(is.null(lnoise_range))
-    lnoise_range <- unique(as.integer(seq(from = min.px.diam, 
-                                          to = quantile(estRDI$raw$LEN, probs = 0.25), 
+    lnoise_range <- unique(as.integer(seq(from = min.px.diam,
+                                          to = quantile(estRDI$raw$LEN, probs = 0.25),
                                           length.out = 3)))
-  
+
   if(is.null(threshold_range)) {
     threshold_range <- seq(max(0, (min(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], na.rm = TRUE) - 1)),
                            (1 + quantile(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], probs = 0.75)),
                            length.out = 4)
     threshold_range <- unique(as.integer(threshold_range))
   }
-  
+
   # Al params
   all_params <- all_combos(image.i = med.i,
                            lnoise = lnoise_range,
                            diameter = diameter_range,
                            threshold = threshold_range)
-  
+
   all_params <- all_params[all_params$diameter > (4 + all_params$lnoise), ]
   rownames(all_params) <- NULL
-  
+
   if(nrow(all_params) < 1) {
     message("There is a problem with the param ranges that were submitted")
     message("Please, try again with different param ranges")
     return(tc_obj)
   }
-  
+
   # Verbose
   message(paste0("Testing ", nrow(all_params), " combination(s) of params."), appendLF = TRUE)
   message("This may take some time.", appendLF = TRUE)
-  
+
   message("Processing ", appendLF = FALSE)
-  
+
   ##
   ## Parallelize please
   j <- NULL
-  
+
   # how many cores can we use?
   num_parallelCores <- threads
   debugging <- TRUE
-  
+
   max.cores <- parallel::detectCores()
   max.cores <- max.cores - 1
   max.cores <- ifelse(max.cores < 1, 1, max.cores)
   my.test <- 1 <= num_parallelCores & num_parallelCores <= max.cores
   use.cores <- ifelse(my.test, num_parallelCores, max.cores)
-  
+
   # cores = 1, do not parallelize
   if (use.cores == 1) {
-    
+
     # Initialize collector (list)
     all_results <- list()
-    
+
     for (i in 1:nrow(all_params)){
-      
+
       # Verbose
       message(".", appendLF = FALSE)
-      
+
       #VisualizeImg(tmp_img)
       b <- bpass(image_array = tmp_img,
                  lnoise = all_params$lnoise[i],
                  lobject = all_params$diameter[i],
                  threshold = all_params$threshold[i])
       tmpOUT <- list(img = b)
-      
+
       tryCatch({
         pk <- suppressMessages(
           pkfnd(im = b,
                 th = all_params$threshold[i],
                 sz = NextOdd(all_params$diameter[i])))
-        
+
         cnt <- suppressMessages(
           cntrd(im = b, mx = pk,
                 sz = NextOdd(all_params$diameter[i])))
-        
+
         tmpOUT[["count"]] <- nrow(cnt)
-        
+
       }, error = function(e) {
         tmpOUT[["count"]] <- 0
-        
+
       })
       all_results[[i]] <- tmpOUT
     }
-    
+
     # cores > 1, DO parallelize!
   } else {
-    
+
     if (debugging) {
       cl <- suppressMessages(parallel::makeCluster(use.cores, outfile = ""))
     } else {
       cl <- suppressMessages(parallel::makeCluster(use.cores))
     }
-    
+
     suppressMessages(doParallel::registerDoParallel(cl))
-    
+
     # Nothing to export! "tmp_img", "all_params" automatically exported
     #stuffToExp <- c("tmp_img", "all_params")
     stuffToExp <- c()
     suppressMessages(parallel::clusterExport(cl, stuffToExp))
-    
+
     ## %dopar%
     all_results <-
       tryCatch(foreach::foreach(j = (1:nrow(all_params)),
                                 .verbose = TRUE,
-                                .packages = "CellMigRation") %dopar% {
-                                  
+                                .packages = "cellmigRation") %dopar% {
+
                                   # Verbose
                                   message(".", appendLF = FALSE)
-                                  
+
                                   #VisualizeImg(tmp_img)
                                   b <- bpass(image_array = tmp_img,
                                              lnoise = all_params$lnoise[j],
                                              lobject = all_params$diameter[j],
                                              threshold = all_params$threshold[j])
                                   tmpOUT <- list(img = b)
-                                  
+
                                   tryCatch({
                                     pk <- suppressMessages(
                                       pkfnd(im = b,
                                             th = all_params$threshold[j],
                                             sz = NextOdd(all_params$diameter[j])))
-                                    
+
                                     cnt <- suppressMessages(
                                       cntrd(im = b, mx = pk,
                                             sz = NextOdd(all_params$diameter[j])))
-                                    
+
                                     tmpOUT[["count"]] <- nrow(cnt)
-                                    
+
                                   }, error = function(e) {
                                     tmpOUT[["count"]] <- 0
-                                    
+
                                   })
                                   tmpOUT
                                 }, error = (function(e) {
@@ -2908,54 +2908,54 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     message("Done!", appendLF = TRUE)
     try({suppressWarnings(parallel::stopCluster(cl))}, silent = TRUE)
   }
-  
+
   # Attach counts
   all_params$counts <- do.call(c, lapply(all_results, function(x) {
     tmp <- x$count
     ifelse(is.null(tmp), 0, tmp)}))
   all_params$i <- 1:nrow(all_params)
-  
+
   # Return
   all_params$diff100 <- abs(target_cell_num - all_params$counts)
   ord_params <- all_params[order(all_params$diff100), ]
   ret.i <- head(ord_params$i, n = 9)
   best_params <- list()
-  
+
   curPAR <- par(no.readonly = TRUE)
   par(mfrow = c(3, 3))
   top.i <- 1
   for (ri in ret.i) {
-    
+
     if (top.i == 1) {
       best_params[["lnoise"]] <- ord_params$lnoise[ord_params$i == ri]
       best_params[["diameter"]] <- ord_params$diameter[ord_params$i == ri]
       best_params[["threshold"]] <- ord_params$threshold[ord_params$i == ri]
     }
-    
+
     myLAB <- paste0("Pick #", top.i, "; Cell_count=", ord_params$counts[ord_params$i == ri], "\n")
     myLAB <- paste0(myLAB, "lnoise=", ord_params$lnoise[ord_params$i == ri], "; ",
                     "diameter=", ord_params$diameter[ord_params$i == ri], "; ",
                     "threshold=", ord_params$threshold[ord_params$i == ri])
-    
+
     VisualizeImg(img_mtx = all_results[[ri]]$img,
                  main = myLAB)
-    
+
     top.i <- top.i + 1
   }
   par(curPAR)
-  
+
   # Extract_all_img
   allIMG <- lapply(all_results, function(x) {x$img})
-  
+
   #return(list(auto_params = best_params,
   #            results = all_params,
   #            images = allIMG))
-  
-  
+
+
   tc_obj@ops$optimized_params <- 1
   tc_obj@optimized <- list(auto_params = best_params,
                            results = all_params)
-  
+
   return(tc_obj)
 }
 
@@ -3089,18 +3089,18 @@ CellTracker <- function(tc_obj,
     message("Make sure to set all params for the analysis, or run OptimizeParams()")
     return(tc_obj)
   }
-  
+
   if(!is.null(maxDisp))
     track_params$maxDisp <- maxDisp
 
   ## ----- debugging -----
-  #bpass = CellMigRation:::bpass
-  #pkfnd = CellMigRation:::pkfnd
-  #VisualizeImg = CellMigRation:::VisualizeImg
-  #cntrd = CellMigRation:::cntrd
-  #NextOdd = CellMigRation:::NextOdd
-  #VisualizeCntr = CellMigRation:::VisualizeCntr
-  #track = CellMigRation:::track
+  #bpass = cellmigRation:::bpass
+  #pkfnd = cellmigRation:::pkfnd
+  #VisualizeImg = cellmigRation:::VisualizeImg
+  #cntrd = cellmigRation:::cntrd
+  #NextOdd = cellmigRation:::NextOdd
+  #VisualizeCntr = cellmigRation:::VisualizeCntr
+  #track = cellmigRation:::track
   ## ----- endo of debugging -----
 
   # Load stack
@@ -3149,12 +3149,12 @@ CellTracker <- function(tc_obj,
       # generate an 1xP array with each column containing centroid output for
       # individual frames
       a <- FinalImage[[i]]
-      b <- tryCatch({bpass(image_array = a, lnoise = lnoise, 
+      b <- tryCatch({bpass(image_array = a, lnoise = lnoise,
                            lobject = diameter, threshold = threshold)},
         error = function(e) {NULL})
       pk <- tryCatch({pkfnd(im = b, th = threshold, sz = NextOdd(diameter))},
                      error = function(e) {NULL})
-      cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))}, 
+      cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))},
                       error = function(e) {NULL})
       #b <- bpass(image_array = a, lnoise = lnoise, lobject = diameter, threshold = threshold)
       #pk <- pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
@@ -3196,7 +3196,7 @@ CellTracker <- function(tc_obj,
     all_results <-
       tryCatch(foreach::foreach(j = (1:NumberImages),
                                 .verbose = TRUE,
-                                .packages = "CellMigRation") %dopar% {
+                                .packages = "cellmigRation") %dopar% {
 
                                   # Verbose
                                   message(".", appendLF = FALSE)
@@ -3207,12 +3207,12 @@ CellTracker <- function(tc_obj,
                                   #b <- bpass(image_array = a, lnoise = lnoise, lobject = diameter, threshold = threshold)
                                   #pk <- pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
                                   #cnt <- cntrd(im = b, mx = pk, sz = NextOdd(diameter))
-                                  b <- tryCatch({bpass(image_array = a, lnoise = lnoise, 
+                                  b <- tryCatch({bpass(image_array = a, lnoise = lnoise,
                                                        lobject = diameter, threshold = threshold)},
                                                 error = function(e) {NULL})
                                   pk <- tryCatch({pkfnd(im = b, th = threshold, sz = NextOdd(diameter))},
                                                  error = function(e) {NULL})
-                                  cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))}, 
+                                  cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))},
                                                   error = function(e) {NULL})
 
                                   # determine that frame s has at least 1 valid centroid
@@ -3220,7 +3220,7 @@ CellTracker <- function(tc_obj,
                                     tmpOUT <- list(cnt = cnt, b = b, j = j)
 
                                   } else {
-                                    #message(paste0("No centroids detectd in frame ", 
+                                    #message(paste0("No centroids detectd in frame ",
                                     #               i, " in the current stack"))
                                     #message("Please, check nuclei validation settings for this image stack.")
                                     errCNT <- data.frame(row = 1, col = 1, norm = 1, rg = 1)
@@ -3267,14 +3267,14 @@ CellTracker <- function(tc_obj,
   #    all_centroids[[ti]] <- all_centroids[[ti]] [, 1:2]
   #    all_centroids[[ti]]$tau <- ti
   #  }
-  med.celln.perfr <- tryCatch({median(do.call(c, lapply(all_centroids, nrow)), na.rm = TRUE)}, 
+  med.celln.perfr <- tryCatch({median(do.call(c, lapply(all_centroids, nrow)), na.rm = TRUE)},
                               error = function(e) {100})
   max.celln <- med.celln.perfr * 1.55
   min.celln <- med.celln.perfr * 0.45
   keepXX <- do.call(c, lapply(all_centroids, function(xx){
     nrow(xx) >= min.celln && nrow(xx) <= max.celln}))
   all_centroids <- all_centroids[keepXX]
-	
+
   # Updated to avoid NO cells frames
   all_centroids2 <- list()
   for (ti in 1:length(all_centroids)) {
@@ -3289,11 +3289,11 @@ CellTracker <- function(tc_obj,
   # create a matrix that contains centroid data in sequential order by frame(tau)
   #pos <- do.call(rbind, all_centroids)
   pos <- do.call(rbind, all_centroids2)
-  
+
   tracks2 <- NULL
   if (!is.null(maxDisp)) {
     tracks2 <- tryCatch(track(xyzs = pos, maxdisp = maxDisp, params = track_params), error = function(e) NULL)
-  } 
+  }
 
   if (is.null(tracks2)) {
     tmp.Area <- tc_obj@images$dim$width_m * tc_obj@images$dim$height_n
@@ -3302,17 +3302,17 @@ CellTracker <- function(tc_obj,
     jj0 <- 1
     while(is.null(tracks2) && jj0 < length(allDisp) ) {
       tracks2 <- tryCatch(
-        suppressMessages(track(xyzs = pos, maxdisp = allDisp[jj0], params = track_params)), error = function(e) NULL) 
+        suppressMessages(track(xyzs = pos, maxdisp = allDisp[jj0], params = track_params)), error = function(e) NULL)
       jj0 <- jj0 + 1
     }
     if (!is.null(tracks2)) {
       track_params$maxDisp <- allDisp[jj0]
       message(paste0("The following maxDisp value was used for this analysis: ", allDisp[jj0]))
-    
+
     } else {
       message("a reasonable MaxDisp value couldn't be found! Sorry!")
       return(NULL)
-    
+
     }
   }
 
@@ -3567,7 +3567,7 @@ setCellsMeta <- function(tc_obj, experiment = NULL,
 #' @param meta_id_field string, can take one of the following values, c("tiff_file", "experiment",
 #' "condition", "replicate"). Indicates the meta-data column used as unique ID for the image/experiment.
 #' Can be abbreviated. Defaults to "tiff_file".
-#'                          
+#'
 #' @return An aggregate data.frame including all cells that were tracked over two or more images/experiments.
 #' The data.frame includes the following columns: "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name",
 #' "experiment", "condition", "replicate". The "new.ID" uniquely identifies a cell in a given image/experiment.
@@ -3583,7 +3583,7 @@ setCellsMeta <- function(tc_obj, experiment = NULL,
 #' @importFrom graphics par image
 #'
 #' @export
-aggregateTrackedCells <- function(x, ..., 
+aggregateTrackedCells <- function(x, ...,
                                   meta_id_field = c("tiff_file", "experiment",
                                                     "condition", "replicate"))
 {
@@ -3634,7 +3634,7 @@ aggregateTrackedCells <- function(x, ...,
 
   # Adjust
   my_tracks <- lapply(big.list, getTracks, attach_meta = TRUE)
- 
+
   my_tracks <- do.call(rbind, my_tracks)
   my_tracks[,"new.ID"] <- factor(my_tracks[,meta_id_field], levels = unq_ids)
   my_tracks[,"new.ID"] <- as.numeric(my_tracks[,"new.ID"])
@@ -3750,7 +3750,7 @@ rmPreProcessing = function(object, PixelSize=1.24,
   }
   spl[tbd]<-NULL
   df<-do.call(rbind.data.frame, spl)
- 
+
   L<-length(df[,1])
   df[,4:26]<-rep(0,L)
   df[,27]<-rep(NA,L)                                  # to be used for migration type
@@ -4019,7 +4019,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   }
   spl[tbd]<-NULL
   df<-do.call(rbind.data.frame, spl)
- 
+
   L<-length(df[,1])
   df[,4:26]<-rep(0,L)
   df[,27]<-rep(NA,L)                                  # to be used for migration type
@@ -4247,7 +4247,7 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
     color <- grDevices::rainbow(Len)
   }
 
-  if ( FixedField == TRUE){     
+  if ( FixedField == TRUE){
 	graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3],
                  type=Type, xlab="X (um)", ylab="Y (um)",
                  col=color[1], las=1, xlim=c(-400,400),cex.lab=0.7,
@@ -4367,7 +4367,7 @@ plotAllTracks= function(object, ExpName="ExpName", Type="l", FixedField=TRUE, ex
 #' @export
 plotSampleTracks= function(object, ExpName="ExpName", Type="l", celNum=35,FixedField=TRUE,export=TRUE) {
  if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
- 
+
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
@@ -4392,7 +4392,7 @@ plotSampleTracks= function(object, ExpName="ExpName", Type="l", celNum=35,FixedF
   cat(paste0("The plot contains the following cells: "),"\n")
   cat(cells,"\n")
 
-  if ( FixedField == TRUE){     
+  if ( FixedField == TRUE){
 	graphics::plot(Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3],
                  type=Type, xlab="X (um)", ylab="Y (um)",
                  col=color[1], las=1, xlim=c(-400,400),cex.lab=0.7,
@@ -5141,7 +5141,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   graphics::title("Speed of all cells",cex.main = 1)
   vioplot::vioplot(SPEED, at = 1, add = TRUE, col = "gray")
   if (export) grDevices::dev.off()
-	
+
   if (export) grDevices::jpeg(paste0(ExpName,"_Instantaneous_Speed_VS_Persistence Ratio_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
   SPEED<-as.numeric(PerResultsTable[21,1:length(PerResultsTable[1,])-1])
   PerR<- as.numeric(PerResultsTable[4,1:length(PerResultsTable[1,])-1])
@@ -5304,7 +5304,7 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=TRUE) {
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' rmTD <-DiRatio(rmTD, ExpName="Test")
 #' DiRatio.Plot(rmTD, ExpName="Test",export=FALSE)
-#' 
+#'
 #' @importFrom grDevices rainbow jpeg dev.off rgb
 #' @importFrom graphics plot axis title lines polygon
 #' @importFrom matrixStats rowMedians rowSds

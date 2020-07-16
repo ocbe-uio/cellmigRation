@@ -9,8 +9,8 @@ library(png)
 # ==============================================================================
 ui <- fluidPage(
 	titlePanel(
-		title = "CellMigRation Shiny App",
-		windowTitle = "CellMigRation Shiny App"
+		title = "cellmigRation Shiny App",
+		windowTitle = "cellmigRation Shiny App"
 	),
 	# --------------------------------------------------------------------------
 	# Sidebar panel for inputs
@@ -150,7 +150,7 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "!output.slider",
 			img(
-				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+				src = "https://raw.githubusercontent.com/ocbe-uio/cellmigRation/master/cell_migration_logo.png",
 				width = "30%"
 			)
 		),
@@ -267,7 +267,7 @@ server <- function(input, output) {
 	output$processed_image <- renderPlot({
 		req(input$imported_tiff)
 		filename <- normalizePath(file.path(input$imported_tiff$datapath))
-		x1 <- CellMigRation::LoadTiff(
+		x1 <- cellmigRation::LoadTiff(
 			tiff_file  = filename,
 			experiment = input$project_name,
 			condition  = input$project_condition,
@@ -285,13 +285,13 @@ server <- function(input, output) {
 	# Fitting model
 	# --------------------------------------------------------------------------
 	observeEvent(input$fit_model, {
-		# TODO: fit model using CellMigRation functions
+		# TODO: fit model using cellmigRation functions
 	})
 	# --------------------------------------------------------------------------
 	# Tracking cells
 	# --------------------------------------------------------------------------
 	eventReactive(input$track_cells, {
-		# TODO: track cells using CellMigRation functions
+		# TODO: track cells using cellmigRation functions
 	})
 }
 # ==============================================================================
