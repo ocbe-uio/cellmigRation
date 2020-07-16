@@ -144,7 +144,7 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "input.track_cells",
 			hr(),
-			h4("4. Output data"),
+			h3("4. Output data"),
 			actionButton("extract_trajectories", "Extract Trajectories"),
 			actionButton("extract_summary", "Extract Summary")
 		)
@@ -287,9 +287,8 @@ server <- function(input, output) {
 	# --------------------------------------------------------------------------
 	output$processed_image <- renderPlot({
 		req(input$imported_tiff)
-		filename <- normalizePath(file.path(input$imported_tiff$datapath))
-		x1 <- cellmigRation::LoadTiff(
-			tiff_file  = filename,
+		x1 <- CellMigRation::LoadTiff(
+			tiff_file  = input$imported_tiff$datapath,
 			experiment = input$project_name,
 			condition  = input$project_condition,
 			replicate  = input$replicate
@@ -300,7 +299,6 @@ server <- function(input, output) {
 		res_var <- input$pixel_size
 		invert_background <- input$invert_background
 		VisualizeImg(x1@images$images[[frame$out]], las = 1, main = paste("Stack num.", frame$out))
-		# browser()
 	})
 	# --------------------------------------------------------------------------
 	# Fitting model
