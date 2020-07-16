@@ -5645,8 +5645,10 @@ DiAutoCor= function(object, TimeInterval=10,
     stop("Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
   d=getwd()
-  dir.create(paste0(ExpName,"-DIAutoCorResults"))
-  setwd(paste0(d,"/",paste0(ExpName,"-DIAutoCorResults")))
+  if (export) {
+    dir.create(paste0(ExpName,"-DIAutoCorResults"))
+    setwd(paste0(d,"/",paste0(ExpName,"-DIAutoCorResults")))
+  }
 
   Len<-length(Object)
   Step<-length(Object[[1]][,1])
@@ -5849,8 +5851,10 @@ VeAutoCor = function(object, TimeInterval=10,
     msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
   d=getwd()
-  dir.create(paste0(ExpName,"-VeAutoCorResults"))
-  setwd(paste0(d,"/",paste0(ExpName,"-VeAutoCorResults")))
+  if (export) {
+    dir.create(paste0(ExpName,"-VeAutoCorResults"))
+    setwd(paste0(d,"/",paste0(ExpName,"-VeAutoCorResults")))
+  }
 
   Len<-length(Object)
   Step<-length(Object[[1]][,1])
