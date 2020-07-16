@@ -9,8 +9,14 @@ library(png)
 # ==============================================================================
 ui <- fluidPage(
 	titlePanel(
-		title = "cellmigRation Shiny App",
-		windowTitle = "cellmigRation Shiny App"
+		title = div(
+			img(
+				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+				width = "5%"
+			),
+			"cellmigRation"
+		),
+		windowTitle = "cellmigRation Shiny"
 	),
 	# --------------------------------------------------------------------------
 	# Sidebar panel for inputs
@@ -150,15 +156,30 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "!output.slider",
 			img(
-				src = "https://raw.githubusercontent.com/ocbe-uio/cellmigRation/master/cell_migration_logo.png",
-				width = "30%"
-			)
+				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+				width = "50%"
+			),
+			h4("Welcome to the CellMigRation Shiny app!"), p(),
+			"Please load a proper TIFF file using the 'Browse' button on the",
+			"left. After the file is loaded, you will be presented with more",
+			"options and a help page."
 		),
 		conditionalPanel(
 			condition = "output.slider",
 			tabsetPanel(
 				tabPanel("Original image", imageOutput("image_frame")),
-				tabPanel("Processed image", plotOutput("processed_image"))
+				tabPanel("Processed image", plotOutput("processed_image")),
+				tabPanel("Help!",
+					img(
+						src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+						width = "30%"
+					),
+					h4("Welcome to the CellMigRation Shiny app!"), p(),
+					"- Frame selection on the slider and autoplay is disabled", "for the processed image for performance purposes.",
+					"Use the 'Previous/Next frame' buttons instead.",
+					"You can also select a frame on the slider and then press",
+					"one of the aforementioned buttons to load a slide."
+				)
 			)
 
 		),
