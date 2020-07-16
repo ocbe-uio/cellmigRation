@@ -171,6 +171,10 @@ ui <- fluidPage(
 			tabsetPanel(
 				tabPanel("Original image", imageOutput("image_frame")),
 				tabPanel("Processed image", plotOutput("processed_image")),
+				tabPanel("Model estimation", {
+					plotOutput("optimized_parms")
+					# plotOutput("bpass_pk_cnt")
+				}),
 				tabPanel("Help!",
 					img(
 						src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
@@ -181,7 +185,8 @@ ui <- fluidPage(
 					"Use the 'Previous/Next frame' buttons instead.",
 					"You can also select a frame on the slider and then press",
 					"one of the aforementioned buttons to load a slide."
-				)
+				),
+				id = "post_load"
 			)
 
 		),
@@ -203,7 +208,7 @@ ui <- fluidPage(
 # Defining the server logic
 # ==============================================================================
 options(shiny.maxRequestSize = 1024*1024^2)  # file limit: 1 GB
-server <- function(input, output) {
+server <- function(input, output, session) {
 	# --------------------------------------------------------------------------
 	# Reactive values
 	# --------------------------------------------------------------------------
@@ -306,7 +311,12 @@ server <- function(input, output) {
 	# Fitting model
 	# --------------------------------------------------------------------------
 	observeEvent(input$fit_model, {
-		# TODO: fit model using CellMigRation functions
+		updateTabsetPanel(
+			session,
+			inputId = "post_load",
+			selected = "Model estimation"
+		)
+		h1("Estimating parameters. This often takes some minutes. Please wait.")
 		# Automated parameter optimization
 		x1 <- CellMigRation::LoadTiff(
 			tiff_file  =  input$imported_tiff$datapath,
@@ -314,25 +324,30 @@ server <- function(input, output) {
 			condition  = input$project_condition,
 			replicate  = input$replicate
 		) # TODO: move this and L:291 to one reactive function
-		x1 <- OptimizeParams(tc_obj = x1, threads = input$num_threads)
-		# TODO: add UI feedback
+		output$optimized_parms <- renderPlot(
+			# TODO: add UI feedback (R output)
+			x1 <- OptimizeParams(tc_obj = x1, threads = input$num_threads)
+		)
 		# Retrieve optimized values
 		lnoise    <- x1@optimized$auto_params$lnoise
 		diameter  <- x1@optimized$auto_params$diameter
 		threshold <- x1@optimized$auto_params$threshold
-		# Visualize Centroids
-		b <- CellMigRation:::bpass(
-			image_array = x1@images$images[[frame$out]],
-			lnoise = lnoise,
-			lobject = diameter,
-			threshold = threshold
-		)
-		pk <- CellMigRation:::pkfnd(im = b, th = threshold, sz = NextOdd(diameter)) # FIXME: calls NextOdd, which is also internal
-		cnt <- CellMigRation:::cntrd(im = b, mx = pk, sz = NextOdd(diameter))
-		# TODO: return the output of the following to the user
-		# VisualizeImg(img_mtx = b, las = 1, main = paste0("Stack num. ", i))
-		# VisualizeCntr(centroids = cnt, width_px = ncol(b), height_px = nrow(b))
+		# output$bpass_pk_cnt <- renderPlot(
+		# 	# Visualize Centroids
+		# 	b <- CellMigRation:::bpass(
+		# 		image_array = x1@images$images[[frame$out]],
+		# 		lnoise = lnoise,
+		# 		lobject = diameter,
+		# 		threshold = threshold
+		# 	)
+		# )
 	})
+		# TODO: fit model using CellMigRation functions
+		# pk <- CellMigRation:::pkfnd(im = b, th = threshold, sz = NextOdd(diameter)) # FIXME: calls NextOdd, which is also internal
+		# cnt <- CellMigRation:::cntrd(im = b, mx = pk, sz = NextOdd(diameter))
+		# # TODO: return the output of the following to the user
+		# # VisualizeImg(img_mtx = b, las = 1, main = paste0("Stack num. ", i))
+		# # VisualizeCntr(centroids = cnt, width_px = ncol(b), height_px = nrow(b))
 	# --------------------------------------------------------------------------
 	# Tracking cells
 	# --------------------------------------------------------------------------
