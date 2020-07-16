@@ -173,7 +173,8 @@ ui <- fluidPage(
 				tabPanel("Processed image", plotOutput("processed_image")),
 				tabPanel("Model estimation",
 					"Estimating parameters usually takes several minutes.",
-					"Please click the 'Submit' button on the left and wait.",
+					"Please click the 'Submit' button on the left and wait",
+					"for the centroid plot to appear below."
 					h1("Matrix image"),
 					p(),
 					plotOutput("VisualizeImg"),
@@ -318,7 +319,7 @@ server <- function(input, output, session) {
 			session,
 			inputId = "post_load",
 			selected = "Model estimation"
-		)
+		) # FIXME: tab selection works sporadically?
 		# Automated parameter optimization
 		x1 <- LoadTiff(
 			tiff_file  =  input$imported_tiff$datapath,
