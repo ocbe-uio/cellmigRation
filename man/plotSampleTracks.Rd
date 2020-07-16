@@ -10,7 +10,7 @@ plotSampleTracks(
   Type = "l",
   celNum = 35,
   FixedField = TRUE,
-  export = TRUE
+  export = FALSE
 )
 }
 \arguments{
@@ -44,7 +44,7 @@ data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
-plotSampleTracks(rmTD, ExpName="Test",Type="l", FixedField=TRUE, celNum=5, export = TRUE)
+plotSampleTracks(rmTD, ExpName="Test",Type="l", FixedField=TRUE, celNum=5, export=FALSE)
 
 }
 \references{
