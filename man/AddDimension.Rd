@@ -20,7 +20,7 @@ Each row in x is recycled for each element in y. Elements in y are added as
 the first column in the returned matrix.
 }
 \examples{
-CellMigRation:::AddDimension(x = cbind(1:4, 4:1), y = c(9, 7))
+cellmigRation:::AddDimension(x = cbind(1:4, 4:1), y = c(9, 7))
 
 }
 \references{
