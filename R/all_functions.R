@@ -3031,7 +3031,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     ## %dopar%
     all_results <-
       tryCatch(foreach::foreach(j = (1:nrow(all_params)),
-                                .verbose = TRUE,
+                                .verbose = verbose,
                                 .packages = "cellmigRation") %dopar% {
                                   
                                   # Verbose
@@ -3400,7 +3400,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
     ## %dopar%
     all_results <-
       tryCatch(foreach::foreach(j = (1:NumberImages),
-                                .verbose = TRUE,
+                                .verbose = verbose,
                                 .packages = "cellmigRation") %dopar% {
                                   
                                   # Verbose
