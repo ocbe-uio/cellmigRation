@@ -2859,6 +2859,16 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   #track = cellmigRation:::track
   ## ----- endo of debugging -----
   
+  if (!verbose) {
+    tryCatch(sink(file = "/dev/null", type = "message"), error = function(e) {NULL})
+    tryCatch(sink(file = "/dev/null", type = "output"), error = function(e) {NULL})
+  
+    on.exit(expr = {
+      tryCatch(sink(file = NULL, type = "message"), error = function(e) {NULL});
+      tryCatch(sink(file = NULL, type = "output"), error = function(e) {NULL})})
+  }  
+
+  
   # select mid signal image
   imgSums <- sapply(stack_img$images, sum, na.rm = TRUE)
   med.i <- ifelse(length(imgSums) %% 2 == 0, length(imgSums) / 2, (0.5 * length(imgSums) + 0.5))
@@ -3306,7 +3316,16 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
   
   ##
   ## Parallelize please
+  if (!verbose) {
+    tryCatch(sink(file = "/dev/null", type = "message"), error = function(e) {NULL})
+    tryCatch(sink(file = "/dev/null", type = "output"), error = function(e) {NULL})
   
+    on.exit(expr = {
+      tryCatch(sink(file = NULL, type = "message"), error = function(e) {NULL});
+      tryCatch(sink(file = NULL, type = "output"), error = function(e) {NULL})})
+  }  
+
+	
   # how many cores can we use?
   num_parallelCores <- threads
   debugging <- TRUE
