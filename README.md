@@ -38,7 +38,7 @@ library(cellmigRation)
 
 data(TrajectoryDataset)
 df <- CellMig(TrajectoryDataset[1:100, ])
-preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 100)
+preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 10)
 #> This dataset contains: 1 cell(s) in total
 #> This dataset contains: 1 cell(s) with more than three steps in their tracks
 #> The minimum number of steps:  100 
