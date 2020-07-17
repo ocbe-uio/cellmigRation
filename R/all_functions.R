@@ -3206,7 +3206,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
   }
   
   # if a `import_optiParam_from` is specified, and 
-  if (!is.null(class(import_optiParam_from))) {
+  if (!is.null(import_optiParam_from)) {
     chk.tco <- 0
     if ("trackedCells" %in% class(import_optiParam_from)) {
       if(import_optiParam_from@ops$optimized_params == 1) {
