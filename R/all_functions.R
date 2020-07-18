@@ -4410,7 +4410,7 @@ plotSampleTracks= function(object, ExpName="ExpName", Type="l", celNum=35,FixedF
   	x=c(0,0)
   	y=c(-500,500)
   	graphics::lines(x, y, type='l', col="black")
-	if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
+	if (export) grDevices::jpeg(paste0(ExpName,"_Sample_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
   		graphics::plot(Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3],type=Type,
                  xlab="X (um)", ylab="Y (um)", col=color[1],
                  las=1, xlim=c(-400,400), ylim=c(-400,400), main=ExpName)
@@ -4460,7 +4460,7 @@ plotSampleTracks= function(object, ExpName="ExpName", Type="l", celNum=35,FixedF
   	y=c(min(RangeY)-100,max(RangeY)+100)
   	graphics::lines(x, y, type='l', col="black")
 
-  	if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
+  	if (export) grDevices::jpeg(paste0(ExpName,"_Sample_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
   	graphics::plot(Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3], type=Type,
                  xlab="X (um)", ylab="Y (um)", col=color[1],
                  las=1, xlim=range(RangeX), ylim=range(RangeY), main=ExpName)
