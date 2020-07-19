@@ -15,8 +15,8 @@ CellTracker(
   memory_b = 0,
   goodenough = 0,
   threads = 1,
-  show_plots = TRUE,
-  verbose = TRUE
+  show_plots = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
