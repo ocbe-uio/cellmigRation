@@ -807,7 +807,7 @@ bpass <- function(image_array, lnoise, lobject = NULL, threshold)
 #'
 #' @examples 
 #' message("the following example may take up to one minute to run")
-#'\dontrun{
+#' \dontrun{
 #' x0 <- cellmigRation::TrackCellsDataset@@images$images[[1]][100:500, 200:600]
 #' b <- cellmigRation:::bpass(image_array = x0,
 #'                            lnoise = 1, 
@@ -2681,7 +2681,7 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
 #' 
 #' @examples 
 #' message("this example may take up to several mins to complete")
-#'\dontrun{
+#' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
 #' x <- CellTracker(tc_obj = x, lnoise = 6, diameter = 16, threshold = 10)
 #' x <- ComputeTracksStats(x, time_between_frames = 10, resolution_pixel_per_micron = 20)
@@ -2801,7 +2801,7 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #'
 #' @examples 
 #' message("this example may take up to several mins to complete")
-#'\dontrun{
+#' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
 #' x <- OptimizeParams(tc_obj = x)
 #' getOptimizedParams(x)
@@ -2862,12 +2862,12 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   if (!verbose) {
     tryCatch(sink(file = "/dev/null", type = "message"), error = function(e) {NULL})
     tryCatch(sink(file = "/dev/null", type = "output"), error = function(e) {NULL})
-  
+    
     on.exit(expr = {
       tryCatch(sink(file = NULL, type = "message"), error = function(e) {NULL});
       tryCatch(sink(file = NULL, type = "output"), error = function(e) {NULL})})
   }  
-
+  
   
   # select mid signal image
   imgSums <- sapply(stack_img$images, sum, na.rm = TRUE)
@@ -2951,7 +2951,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     
     message(paste0("Testing ", nrow(all_params), " combination(s) of params."), appendLF = TRUE)
     message("This may take some time.", appendLF = TRUE)
-  
+    
     message("Processing ", appendLF = FALSE)
   }
   
@@ -3171,7 +3171,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' 
+#' @examples 
 #' message("this example may take up to several mins to complete")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
@@ -3188,8 +3188,8 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
                         lnoise = NULL, diameter = NULL,
                         threshold = NULL, maxDisp = NULL,
                         memory_b = 0, goodenough = 0,
-                        threads = 1,
-                        show_plots = TRUE, verbose = TRUE)
+                        threads = 1, show_plots = TRUE, 
+                        verbose = TRUE)
 {
   # get stuff
   stack_img <- tc_obj@images
@@ -3319,13 +3319,13 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
   if (!verbose) {
     tryCatch(sink(file = "/dev/null", type = "message"), error = function(e) {NULL})
     tryCatch(sink(file = "/dev/null", type = "output"), error = function(e) {NULL})
-  
+    
     on.exit(expr = {
       tryCatch(sink(file = NULL, type = "message"), error = function(e) {NULL});
       tryCatch(sink(file = NULL, type = "output"), error = function(e) {NULL})})
   }  
-
-	
+  
+  
   # how many cores can we use?
   num_parallelCores <- threads
   debugging <- TRUE
@@ -3539,7 +3539,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
     keep.cid <- all.cids$cell.id
     
     tracks <- tracks[ tracks[,4] %in% unique(keep.cid), ]
-      
+    
   } else {
     min_frames_per_cell <- 1
   }
@@ -3975,8 +3975,10 @@ FilterTrackedCells <- function(x, id_list,
   return(xx)
 }
 
-
-
+#
+## --- !!! --- DF part ends here --- !!! ---
+#
+			  
 #' @title Data preprocessing for random migration (RM)
 #'
 #' @description This function allows preprocessing of the trajectory data from random
