@@ -3099,12 +3099,12 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     if (plot) {
       curPAR <- par(no.readonly = TRUE)
       par(mfrow = c(3, 3))
+      on.exit(expr = {par(curPAR)})
       VisualizeImg(img_mtx = all_results[[ri]]$img, main = myLAB)
     }
     
     top.i <- top.i + 1
   }
-  if (plot) par(curPAR)
   
   # Extract_all_img
   allIMG <- lapply(all_results, function(x) {x$img})
