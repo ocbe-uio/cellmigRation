@@ -20,6 +20,16 @@ a trackedCells object, including cell track statistics
 Wrapper for the MigrationStats() function. It computes statistics for a
 trackedCells object where cells have already been tracked.
 }
+\examples{
+message("this example may take up to several mins to complete")
+\dontrun{
+x <- cellmigRation::TrackCellsDataset
+x <- CellTracker(tc_obj = x, lnoise = 6, diameter = 16, threshold = 10)
+x <- ComputeTracksStats(x, time_between_frames = 10, resolution_pixel_per_micron = 20)
+getCellsStats(x)[1:10,]
+} 
+
+}
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

@@ -35,6 +35,16 @@ None
 \description{
 Visualize Cell Tracks that originated at an Image Stack of interest
 }
+\examples{
+message("The following example will take few min to complete")
+\dontrun{
+  x <- cellmigRation::TrackCellsDataset
+  x <- CellTracker(x, lnoise = 5, diameter = 16, threshold = 10)
+  visualizeCellTracks(tc_obj = x, stack = 2)
+}
+
+
+}
 \references{
 \url{https://www.data-pulse.com/dev_site/celltracker/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

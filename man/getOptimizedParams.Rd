@@ -15,6 +15,16 @@ a list including optimized parameter values (lnoise, diameter, and threshold)
 \description{
 Extract Parameters that were automatically optimized
 }
+\examples{
+message("this example may take up to several mins to complete")
+\dontrun{
+x <- cellmigRation::TrackCellsDataset
+x <- OptimizeParams(x)
+getOptimizedParams(x)
+}
+
+
+}
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

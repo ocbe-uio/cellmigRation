@@ -36,7 +36,20 @@ data.frame of centroid positions
 }
 \description{
 Validate parameters used to identify cells in a image stack. A figure containing
-current image frame with identified particles labeled with circles and numerical tags is generated
+current image frame with identified particles labeled with circles and numerical tags is generated.
+This function is included for consistency and compatibility reasons 
+with the original fastTracks software (Matlab). Also, consider using  
+VisualizeStackCentroids() or visualizeCellTracks() instead.
+}
+\examples{
+message("the following example may take up to one minute to run")
+\dontrun{
+x <- cellmigRation::TrackCellsDataset
+y <- cellmigRation:::CentroidValidation(stack = x@images, slice = 1, 
+                                        lobject = 6, threshold = 20)
+y[1:10,]
+}
+
 }
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}

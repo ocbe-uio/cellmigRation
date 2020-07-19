@@ -20,6 +20,11 @@ None
 Shows an image representation of a numeric matrix. Typically, this is a non-negative numeric matrix,
 where signal (high values) corresponds to the presence of cells, or cell-like particles
 }
+\examples{
+x <- sapply(1:20, function(i) {runif(n = 20, min = 0, max = 10)})
+cellmigRation:::VisualizeImg(x)
+
+}
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

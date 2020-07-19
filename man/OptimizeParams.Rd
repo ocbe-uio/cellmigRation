@@ -14,7 +14,8 @@ OptimizeParams(
   threads = 1,
   quantile.val = NULL,
   px.margin = NULL,
-  plot = FALSE
+  plot = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -38,6 +39,8 @@ Particles with a diameter smaller than min.px.diam are discarded}
 \item{px.margin}{numeric, argument passed to EstimateDiameterRange(). If NULL, it ia defaulted to 2}
 
 \item{plot}{if `TRUE`, plots results in the end}
+
+\item{verbose}{shall information about the progress of the operation be printed to screen/console}
 }
 \value{
 a trackedCells object
@@ -64,6 +67,16 @@ the initial image convolution
   for removing stray noise or small particles.
 
 }
+}
+\examples{
+message("this example may take up to several mins to complete")
+\dontrun{
+x <- cellmigRation::TrackCellsDataset
+x <- OptimizeParams(tc_obj = x)
+getOptimizedParams(x)
+} 
+
+
 }
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}

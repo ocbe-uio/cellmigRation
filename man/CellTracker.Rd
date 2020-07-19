@@ -6,6 +6,8 @@
 \usage{
 CellTracker(
   tc_obj,
+  import_optiParam_from = NULL,
+  min_frames_per_cell = 1,
   lnoise = NULL,
   diameter = NULL,
   threshold = NULL,
@@ -18,7 +20,13 @@ CellTracker(
 )
 }
 \arguments{
-\item{tc_obj}{a \code{trackedCells} object}
+\item{tc_obj}{a \code{trackedCells} object.}
+
+\item{import_optiParam_from}{a \code{trackedCells} object (optional) used to 
+import optimized parameters; can be NULL.}
+
+\item{min_frames_per_cell}{numeric, minimum number of consecutive frames in which 
+a cell shall be found in order to retain that cell in the final cell tracks data.frame. Defaults to 1.}
 
 \item{lnoise}{numeric, lnoise parameter; can be NULL if OptimizeParams() has already been run}
 
@@ -66,6 +74,16 @@ the initial image convolution
   for removing stray noise or small particles.
 
 }
+}
+\examples{
+message("this example may take up to several mins to complete")
+\dontrun{
+x <- cellmigRation::TrackCellsDataset
+x <- OptimizeParams(x)
+x <- CellTracker(x)
+getTracks(x)[1:10,]
+}
+
 }
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}

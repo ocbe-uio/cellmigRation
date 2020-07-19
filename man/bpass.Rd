@@ -31,6 +31,14 @@ This code 'bpass.pro' is copyright 1997, John C. Crocker and
 David G. Grier.  It should be considered 'freeware'- and may be
 distributed freely in its original form when properly attributed.
 }
+\examples{
+x0 <- cellmigRation::TrackCellsDataset@images$images[[1]][380:480, 300:400]
+y0 <- cellmigRation:::bpass(x0, lnoise = 5, lobject = 16, threshold = 10)
+par(mfrow = c(1, 2))
+image(x0); title("original")
+image(y0); title("after bpass")
+
+}
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

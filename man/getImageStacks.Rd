@@ -15,6 +15,12 @@ a list including stack images (formatted as numeric matrices)
 \description{
 Extract Images Stacks from a trackedCells object
 }
+\examples{
+x0 <- cellmigRation::TrackCellsDataset
+y0 <- getImageStacks(x0)
+graphics::image(y0[[1]][200:400, 100:300])
+
+}
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

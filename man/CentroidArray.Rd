@@ -21,6 +21,17 @@ y-postion of centroid, brightness, and square of the radius of gyration
 Create an array containing centroid data for particles identified in each frame
 of the imported TIFF image stack
 }
+\examples{
+message("the following example may take up to several minutes to run")
+\dontrun{
+x0 <- cellmigRation::TrackCellsDataset@images
+y0 <- cellmigRation:::CentroidArray(x0, 16, 10)
+class(y0)
+y0[[1]][1:10,]
+}
+
+
+}
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

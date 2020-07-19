@@ -15,6 +15,11 @@ a list including four items: tiff filename, experiment name, condition label, an
 \description{
 Extract MetaData from a trackedCells object
 }
+\examples{
+x0 <- cellmigRation::TrackCellsDataset
+getCellsMeta(x0)
+
+}
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

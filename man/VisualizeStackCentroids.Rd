@@ -32,6 +32,16 @@ None
 \description{
 Visualize objects that were identified as cells in a given image stack
 }
+\examples{
+message("The following example will take few min to complete")
+\dontrun{
+  x <- cellmigRation::TrackCellsDataset
+  x <- CellTracker(x, lnoise = 5, diameter = 16, threshold = 10)
+  VisualizeStackCentroids(tc_obj = x, stack = 2)
+}
+
+
+}
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
