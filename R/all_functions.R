@@ -3189,7 +3189,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
                         threshold = NULL, maxDisp = NULL,
                         memory_b = 0, goodenough = 0,
                         threads = 1, show_plots = TRUE, 
-                        verbose = TRUE)
+                        verbose = FALSE)
 {
   # get stuff
   stack_img <- tc_obj@images
@@ -3524,7 +3524,9 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
   #tracks <- track(xyzs = pos, maxdisp = maxDisp, params = track_params)
   tracks <- tracks2
   
-  
+  # init num of cells 
+  init.cell.n <- length(unique(tracks[,4]))
+	      
   if (!is.null(min_frames_per_cell) &&
       is.numeric(min_frames_per_cell) &&
       length(min_frames_per_cell) == 1 &&
@@ -3545,6 +3547,12 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
   }
   track_params$min_frames_per_cell <- min_frames_per_cell
   
+  # end num of cells 
+  end.cell.n <- length(unique(tracks[,4]))
+	      
+  # message
+  message(paste0("Tot num of cells detected in the image stack: ", init.cell.n, "; Cells retained after filtering: ", end.cell.n))
+
   ### generate tracks
   #tracks <- track(xyzs = pos, maxdisp = maxDisp, params = track_params)
   
