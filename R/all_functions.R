@@ -7012,13 +7012,13 @@ CellMigPCAclust = function(object, ExpName="ExpName",
   tt<-t(df1)
   tt1=tt[,parameters]
   res <- FactoMineR::PCA(tt1)
-  res.hcpc <- HCPC(res)
+  res.hcpc <- FactoMineR::HCPC(res)
   results<-res.hcpc$data
   results<-results[order(results$clust),]
   print(results)
   if (export) {
     utils::write.csv(
-      Results,
+      results,
       file = paste0(ExpName,"-Clusters.csv")
     )
     cat(
