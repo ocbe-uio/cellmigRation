@@ -6932,7 +6932,7 @@ FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=FALSE){
 #' wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName")
 #' wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
 #' wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
-#' PCAplot<-CellMigPCA(wsaTD,,parameters=c(1,2))
+#' PCAplot<-CellMigPCA(wsaTD,parameters=c(1,2))
 #' }
 #'
 #' @importFrom FactoMineR PCA
@@ -6959,4 +6959,73 @@ CellMigPCA = function(object, ExpName="ExpName",
   tt<-t(df1)
   tt1=tt[,parameters]
   res <- FactoMineR::PCA(tt1)
+}
+
+
+#' @title PCA Clusters
+#'
+#' @description The CellMigPCAclust function automatically generates clusters based on the Principal Component Analysis.
+#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data.
+#' @param parameters A numeric vector contains the parameters to be included in the Principal Component Analysis. These numbers can be obtained from the outcome of the FinRes() function.
+#' @param export if `TRUE` (default), exports function output to CSV file
+#'
+#' @return  PCA Graph of cells and PCA Graph of variables.
+#'
+#' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
+#' @references
+#' \url{https://www.data-pulse.com/dev_site/cellmigration/}
+#'
+#' @examples
+#' \dontrun{
+#' data(WSADataset)
+#' wasDF=WSADataset[1:1000,]
+#' wsaTD <- CellMig(wasDF)
+#' wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
+#' wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName")
+#' wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
+#' wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
+#' PCAclust<-CellMigPCAclust(wsaTD,parameters=c(1,2))
+#' }
+#'
+#' @importFrom FactoMineR PCA
+#'
+#' @export
+CellMigPCAclust = function(object, ExpName="ExpName",
+                           parameters=c(1,2,3), export=FALSE){
+  
+  if (!is.list(object) & !is(object, "CellMig")) {
+    stop(
+      "Input data must be a list. Please run the PreProcessing step first, ",
+      "either rmPreProcessing() or wsaPreProcessing()"
+    )
+  }
+  if ( length(object@results[,1])<1 ){
+    stop("There are no results stored. Please run trajectory analysis first")
+  }
+  
+  if ( length(parameters)<2){
+    stop("At least two parameters are required to run the PCA")
+  }
+  df1<- object@results
+  df1=df1[,-length(object@results[1,])]    #### excluding the last column since it is the avarage of all the cells
+  tt<-t(df1)
+  tt1=tt[,parameters]
+  res <- FactoMineR::PCA(tt1)
+  res.hcpc <- HCPC(res)
+  results<-res.hcpc$data
+  results<-results[order(results$clust),]
+  print(results)
+  if (export) {
+    utils::write.csv(
+      Results,
+      file = paste0(ExpName,"-Clusters.csv")
+    )
+    cat(
+      "The table of the clusters is saved as: ",
+      paste0(ExpName,"-Clusters.csv"),
+      " in your directory [use getwd()]\n"
+    )
+  }
+  
 }
