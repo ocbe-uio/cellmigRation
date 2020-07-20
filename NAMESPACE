@@ -2,6 +2,7 @@
 
 export(CellMig)
 export(CellMigPCA)
+export(CellMigPCAclust)
 export(CellTracker)
 export(ComputeTracksStats)
 export(DiAutoCor)
