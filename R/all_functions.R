@@ -5214,7 +5214,7 @@ PerAndSpeed= function(object, TimeInterval=10,
                      xlab=" Mean Speed during persistence time  (um/min)",col=color[j],las=1)
       reg<-stats::lm(PT~VelPerTable[,j+j-1])
       #abline(reg,untf=FALSE,col="black")
-      graphics::title(main=paste0("Cell Number  ", j,"   Speed vs Persistence Time"),cex.main = 1,sub=paste0("Spearman's rank correlation coefficient = ",ccPV),col.sub="red")
+      graphics::title(main=paste0("Cell Number  ", j,"   Speed vs Persistence Time"),cex.main =0.7 ,sub=paste0("Spearman's rank correlation coefficient = ",ccPV),col.sub="red")
       if (export) grDevices::dev.off()
 
     }
@@ -5244,7 +5244,7 @@ PerAndSpeed= function(object, TimeInterval=10,
     }
     graphics::plot(allvel,allper,type="p",pch=16,ylab="Persist_Time (min)",xlab=" Mean Speed during persistence time (um/h)",col="black",las=1)
     graphics::abline(reg,untf=FALSE,col="red")
-    graphics::title("Speed vs Persist Time (All cells)",cex.main = 1,sub=paste0("Spearman's rank correlation coefficient = ",ccP),col.sub="red")
+    graphics::title("Speed vs Persist Time (All cells)",cex.main = 0.7,sub=paste0("Spearman's rank correlation coefficient = ",ccP),col.sub="red")
     if (export) grDevices::dev.off()
 
   }
@@ -5315,7 +5315,7 @@ PerAndSpeed= function(object, TimeInterval=10,
       graphics::plot(Speed,Object[[j]][1:MM2,9],pch=16,type="p",ylab="Angular Persistence (cosine)",xlab=" Instantaneous Speed (um/h)",col=color[j],las=1, xlim=c(0,3))
       reg<-stats::lm(Object[[j]][1:MM2,9]~Speed)
       graphics::abline(reg,untf=FALSE,col="black")
-      graphics::title(main=paste0("Cell Number  ", j," Instantaneous Speeds vs Angular Persistence "),cex.main = 1,sub=paste0("Spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
+      graphics::title(main=paste0("Cell Number  ", j," Instantaneous Speeds vs Angular Persistence "),cex.main = 0.7,sub=paste0("Spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
       if (export) grDevices::dev.off()
     }
 
@@ -5369,11 +5369,11 @@ PerAndSpeed= function(object, TimeInterval=10,
         ),width = 4, height = 4, units = 'in', res = 300)
     }
     MS<-max(RowmeanSpeed)*60
-    graphics::plot(RowmeanSpeed*60,RM,pch=16,type="p",ylab="Average Instantaneous Angular Persistence (cosine)",xlab=" Average Instantaneous Speed (um/h)",col="black",las=1,xlim=c(0,MS))
+    graphics::plot(RowmeanSpeed*60,RM,pch=16,type="p",ylab="Average Angular Persistence (cosine)",xlab=" Average Instantaneous Speed (um/h)",col="black",las=1,xlim=c(0,MS))
     NewSpeed=RowmeanSpeed*60
     reg<-stats::lm(RM~NewSpeed)
     graphics::abline(reg,untf=FALSE,col="red")
-    graphics::title(main=paste0("All Cells Instantaneous Speed vs Angular Persistence "),cex.main = 1,
+    graphics::title(main=paste0("All Cells Instantaneous Speed vs Angular Persistence "),cex.main = 0.7,
                     sub=paste0("Spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
     if (export) grDevices::dev.off()
   }
@@ -5414,7 +5414,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   cells<-c(1:(length(PerResultsTable[1,])-1))
   MS<-max(SPEED)
   graphics::plot(cells,SPEED,pch=16,type="o",ylab = 'Speed(um/h)',xlab = 'Cells',las=1,ylim = c(0, MS))
-  graphics::title(main="Speed Profile of all cells",cex.main = 1)
+  graphics::title(main="Speed Profile of all cells",cex.main = 0.7)
   graphics::abline(h=stats::median(SPEED[which(!is.na(SPEED))]),col="red")
   graphics::abline(h=mean(SPEED[which(!is.na(SPEED))]),col="blue")
   graphics::legend(1, y=200, legend=c("Mean Speed","Median Speed"), col=c("blue","red"),lty=1, cex=0.8)
@@ -5437,7 +5437,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   s<-cor.test( ~ SPEED+ PerR, method = "spearman",exact=FALSE)                 # testing the correlation
   ss<-unlist(s[4])
   SCC<-round(ss, digits = 3)
-  graphics::title(main=paste0("All Cells Average Speed vs Persistence Ratio "),cex.main = 1,sub=paste0("Spearman's rank correlation coefficient = ",SCC),col.sub="red")
+  graphics::title(main=paste0("All Cells Average Speed vs Persistence Ratio "),cex.main =0.7,sub=paste0("Spearman's rank correlation coefficient = ",SCC),col.sub="red")
   if (export) grDevices::dev.off()
 
   PerResultsTable[1,(length(Object)+1)]<-"All Cells"
@@ -6017,7 +6017,7 @@ DiAutoCor= function(object, TimeInterval=10,
         grDevices::jpeg(
           paste0(ExpName,"Direction Autocorrelation.plot.Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       }
-      graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Cosine",pch=19,las=1,cex=2)
+      graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Cosine",pch=19,las=1,cex=1.2)
       xx<-c(0,1)
       yy<-c(1,cos.diff[1])
       graphics::lines(xx,yy, type='l',col=color[j])
@@ -6056,7 +6056,7 @@ DiAutoCor= function(object, TimeInterval=10,
       grDevices::jpeg(
         paste0(ExpName,"-Direction Autocorrelation All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
-    graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Cosine",pch=19,las=1,cex=2)
+    graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Cosine",pch=19,las=1,cex=1.2)
     xx<-c(0,1)
     yy<-c(1,RM1[1])
     graphics::lines(xx,yy, type='l',col="black")
@@ -6203,7 +6203,7 @@ VeAutoCor = function(object, TimeInterval=10,
         grDevices::jpeg(
           paste0(ExpName,"Velocity Autocorrelation.plot.Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
       }
-      graphics::plot(Xaxis,Yaxis, type="o",ylim=range(meanVAC),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=2)
+      graphics::plot(Xaxis,Yaxis, type="o",ylim=range(meanVAC),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=1.2)
       graphics::lines(timevalues, predictedcounts, col = "black", lwd = 3)
       graphics::title(main=paste0("Cell Number  ", j, "   VA quadratic model"),col.main="darkgreen",
             sub=paste0(" Intercept of VA quadratic model = ",round(ccc, digits=3)),col.sub="red")
@@ -6238,7 +6238,7 @@ VeAutoCor = function(object, TimeInterval=10,
     if (export) {
       grDevices::jpeg(paste0(ExpName,"-Velocity Autocorrelation All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
-    graphics::plot(Xaxis,Yaxis, type="o",ylim=range(RM1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=2)
+    graphics::plot(Xaxis,Yaxis, type="o",ylim=range(RM1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=1.2)
     graphics::lines(timevalues, predictedcounts, col = "darkgreen", lwd = 3)
     MVA<-round(stats::median(as.numeric(VA.ResultsTable[5,1:length(Object)])),digits=2)
     graphics::abline(h=MVA,col="blue",lwd = 2)
