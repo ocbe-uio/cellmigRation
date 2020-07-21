@@ -6830,6 +6830,7 @@ FinRes <- function(
   # ============================================================================
   # Writing results
   # ============================================================================
+  if (length(object@results) > 0) object@results <- data.frame() # reset results
   juxtaposeResults <- function(slt, obj=object) {
     # rbinds slt to object@results, removing the first row of slt
     new_results <- slot(obj, slt)
