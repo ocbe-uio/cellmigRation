@@ -24,7 +24,7 @@ The FinRes function automatically generates a data frame that contains all the r
 \examples{
 \dontrun{
 data(WSADataset)
-wasDF=WSADataset[1:1000,]
+wasDF <- WSADataset[1:1000, ]
 wsaTD <- CellMig(wasDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName.FNRS")

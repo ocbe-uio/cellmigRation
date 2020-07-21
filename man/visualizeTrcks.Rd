@@ -38,7 +38,7 @@ Annotates an image with cell centroids by adding cell ROIs and drawing cell trac
 \examples{
 x1 <- data.frame(c(10, 30, 25, 55, 43, 39, 75, 72),
                  c(22, 28, 35, 24, 31, 39, 65, 73),
-                 c( 1,  2,  3,  4,  5,  6,  7,  8), 
+                 c( 1,  2,  3,  4,  5,  6,  7,  8),
                  c( 1,  1,  1,  1,  1,  1,  1,  1))
 plot(2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "", las = 2)
 cellmigRation:::visualizeTrcks(x1, width_px = 100, height_px = 100)

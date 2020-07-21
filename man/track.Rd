@@ -24,7 +24,7 @@ Constructs n-dimensional trajectories from a scrambled list of particle
 coordinates determined at discrete times (e.g. in consecutive image frames)
 }
 \examples{
-x0 <- data.frame(row = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58), 
+x0 <- data.frame(row = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
                  col = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
                  tau = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4))
 cellmigRation:::track(x0, maxdisp = 10, params = NULL)

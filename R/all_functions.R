@@ -46,29 +46,29 @@ NextOdd <- function(x) {
 #'
 #' @keywords internal
 circshift <- function(x, n = 1) {
-  
+
   n <- as.integer(n[1])
   nn <- abs(n)
-  
+
   if(is.vector(x) || is.list(x)) {
     len <- length(x)
   } else if (is.data.frame(x) || is.matrix(x)) {
     len <- nrow(x)
   }
-  
+
   if (len == 1)
     return(x)
-  
+
   if (nn >= len)
     stop("Bad n!")
-  
+
   nu_idx <- 1:len
   if(n > 0) {
     nu_idx <- c((length(nu_idx) - nn + 1):length(nu_idx), 1:(length(nu_idx) - nn))
   } else if (n < 0) {
     nu_idx <- c((nn + 1):length(nu_idx), 1:nn)
   }
-  
+
   if(is.vector(x) || is.list(x)) {
     y <- x[nu_idx]
   } else if (is.data.frame(x) || is.matrix(x)) {
@@ -211,20 +211,20 @@ matfix <- function(x) {
 #' @keywords internal
 LinearConv2 <- function(x, krnl, col.wise = TRUE)
 {
-  
+
   # Adjust based on col.wise
   if (col.wise) {
     xx <- t(x)
   } else {
     xx <- x
   }
-  
+
   # Enlarge x based on kernel size
   ncl <- ncol(xx)
   tmp.i <- sapply(1:floor(length(krnl)/2), function(w) {xx[,1]})
   tmp.f <- sapply(1:floor(length(krnl)/2), function(w) {xx[,ncl]})
   X <- cbind(tmp.i, xx, tmp.f)
-  
+
   # Proceed with convolution
   Y <- do.call(rbind, lapply(1:nrow(X), function(ri) {
     sapply(1:(ncol(X) - length(krnl) + 1), function(ci) {
@@ -233,10 +233,10 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
       as.numeric(rbind(tmp) %*% cbind(krnl))
     })
   }))
-  
+
   if (col.wise)
     Y <- t(Y)
-  
+
   return(Y)
 }
 
@@ -259,8 +259,8 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @keywords cellTracker
-#' 
-#' @examples 
+#'
+#' @examples
 #' x <- sapply(1:20, function(i) {runif(n = 20, min = 0, max = 10)})
 #' cellmigRation:::VisualizeImg(x)
 #'
@@ -271,18 +271,18 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 #' @export
 VisualizeImg <- function(img_mtx, col = NULL, ...)
 {
-  
+
   if(is.list(img_mtx)) {
     img_mtx <- img_mtx[[1]]
   }
-  
+
   if (is.null(col)) {
     col <- grDevices::colorRampPalette(c("white", "blue4"))(100)
   }
-  
+
   if(!is.matrix(img_mtx))
     stop("The IMG is not a matrix!")
-  
+
   m <- nrow(img_mtx)
   n <- ncol(img_mtx)
   xx <- t(img_mtx[m:1, ])
@@ -310,7 +310,7 @@ VisualizeImg <- function(img_mtx, col = NULL, ...)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("The following example will take few min to complete")
 #' \dontrun{
 #'   x <- cellmigRation::TrackCellsDataset
@@ -323,18 +323,18 @@ VisualizeImg <- function(img_mtx, col = NULL, ...)
 VisualizeStackCentroids <- function(tc_obj, stack = 1,
                                     pnt.cex = 1.2, txt.cex = 0.9,
                                     offset = 0.18, main = NULL) {
-  
+
   b <- tc_obj@proc_images$images[[stack]]
   cnt <- tc_obj@centroids[[stack]]
-  
+
   if(is.null(main)){
     main <- paste0("Stack num. ", stack)
   }
-  
+
   VisualizeImg(img_mtx = b, las = 1, main = main)
   VisualizeCntr(centroids = cnt, width_px = ncol(b), height_px = nrow(b),
                 pnt.cex = pnt.cex, txt.cex = txt.cex, offset = offset)
-  
+
 }
 
 #' Visualize Centroids
@@ -356,8 +356,8 @@ VisualizeStackCentroids <- function(tc_obj, stack = 1,
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
-#' x1 <- data.frame(row = c(50, 80, 20, 65, 99), 
+#' @examples
+#' x1 <- data.frame(row = c(50, 80, 20, 65, 99),
 #'                  col = c(15, 25, 50, 65, 86))
 #' plot(2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "", las = 2)
 #' cellmigRation:::VisualizeCntr(x1, width_px = 100, height_px = 100)
@@ -373,17 +373,17 @@ VisualizeCntr <- function(centroids, width_px, height_px, pnt.cex = 1.2,
   points(x = ((cnt$col - 1) / (width_px - 1)),
          y = 1-((cnt$row - 1) / (height_px - 1)),
          cex = pnt.cex, col = col)
-  
+
   points(x = ((cnt$col - 1) / (width_px - 1)),
          y = 1-((cnt$row - 1) / (height_px - 1)),
          cex = 1.2, col = col)
-  
+
   text(x = ((cnt$col - 1) / (width_px - 1)),
        y = 1-((cnt$row - 1) / (height_px - 1)),
        labels = 1:nrow(cnt), font = 4,
        cex = txt.cex, col = col,
        pos = 4, offset = offset)
-  
+
   #return()
 }
 
@@ -408,7 +408,7 @@ VisualizeCntr <- function(centroids, width_px, height_px, pnt.cex = 1.2,
 #' \url{https://www.data-pulse.com/dev_site/celltracker/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("The following example will take few min to complete")
 #' \dontrun{
 #'   x <- cellmigRation::TrackCellsDataset
@@ -424,51 +424,51 @@ visualizeCellTracks <- function(tc_obj, stack = 1,
                                 pnt.cex = 1.2, lwd = 1.6,
                                 col = "red2", col.untracked = "gray45",
                                 main = NULL) {
-  
+
   if (is.null(main)) {
     main <- paste0("Tracks of Cells in Stack num. ", stack)
   }
-  
+
   # Retrieve anr show image
-  
+
   b <- tc_obj@proc_images$images[[stack]]
   VisualizeImg(img_mtx = b, las = 1, main = main)
-  
+
   # Rerieve tracks / centroids
   #cnt <- tracked_cells$centroids[[stack]]
-  
+
   cnt <- tc_obj@tracks
   cnt <- cnt[cnt[, 3]>= stack, ]
   cids_stack <- cnt[cnt[, 3] == stack, 4]
-  
+
   cnt_plt <- cnt[cnt[, 4] %in% cids_stack, ]
-  
+
   id_2pls <- unique(cnt_plt[duplicated(cnt_plt[,4]), 4])
   id_1shr <- unique(cnt_plt[!cnt_plt[, 4] %in% id_2pls, 4])
-  
+
   if(length(id_1shr) > 0) {
     tmp_cnt <- cnt_plt[cnt_plt[, 4] %in% id_1shr, ]
-    
+
     tmp_cnt <- tmp_cnt[tmp_cnt[, 3] == stack, ]
     tmp_cnt <- setNames(as.data.frame(tmp_cnt),
                         nm = colnames(tc_obj@centroids[[1]]))
-    
+
     VisualizeCntr(centroids = tmp_cnt, width_px = ncol(b), height_px = nrow(b),
                   pnt.cex = pnt.cex, txt.cex = 0.00001, offset = 0.1, col = col.untracked)
-    
+
   }
-  
+
   if(length(id_2pls) > 0) {
     tmp_cnt <- cnt_plt[cnt_plt[, 4] %in% id_2pls, ]
     tmp_cnt <- setNames(as.data.frame(tmp_cnt),
                         nm = colnames(tc_obj@centroids[[1]]))
-    
+
     # Use dedicated f(x)
     visualizeTrcks(tracks = tmp_cnt, width_px = ncol(b), height_px = nrow(b),
                    i.slice = stack, pnt.cex = pnt.cex, lwd = lwd, col = col)
-    
+
   }
-  
+
   # DOne , no return needed
   # return()
 }
@@ -492,10 +492,10 @@ visualizeCellTracks <- function(tc_obj, stack = 1,
 #' \url{https://www.data-pulse.com/dev_site/celltracker/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' x1 <- data.frame(c(10, 30, 25, 55, 43, 39, 75, 72),
 #'                  c(22, 28, 35, 24, 31, 39, 65, 73),
-#'                  c( 1,  2,  3,  4,  5,  6,  7,  8), 
+#'                  c( 1,  2,  3,  4,  5,  6,  7,  8),
 #'                  c( 1,  1,  1,  1,  1,  1,  1,  1))
 #' plot(2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "", las = 2)
 #' cellmigRation:::visualizeTrcks(x1, width_px = 100, height_px = 100)
@@ -510,25 +510,25 @@ visualizeTrcks <- function(tracks, width_px, height_px, i.slice = 1, pnt.cex = 1
                      nm = c("row", "col", "slice", "cell"))
   cnt <- allcnt[allcnt$slice == i.slice, ]
   cnt <- cnt[order(cnt$cell),]
-  
-  
+
+
   all_cells_slice <- cnt$cell
   cKeep <- sapply(all_cells_slice, function(jj) {
     sum(allcnt$cell == jj) > 1
   })
-  
+
   # Cell outile
-  
+
   graphics::points(x = ((cnt$col - 1) / (width_px - 1)),
                    y = 1-((cnt$row - 1) / (height_px - 1)),
                    cex = pnt.cex, col = ifelse(cKeep, col, "gray75"))
-  
+
   for(j in sort(unique(cnt$cell))){
     TMP <- allcnt[allcnt$cell == j,]
     graphics::lines(x = ((TMP$col - 1) / (width_px - 1)),
                     y = 1-((TMP$row - 1) / (height_px - 1)),
                     lwd = lwd, col = col)
-    
+
   }
   #return()
 }
@@ -552,7 +552,7 @@ visualizeTrcks <- function(tracks, width_px, height_px, i.slice = 1, pnt.cex = 1
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' \dontrun{
 #' # Let `path/to/tiff_file.tiff` be the path to tiff file we want to import
 #' x <- LoadTiff(tiff_file = "path/to/tiff_file.tiff")
@@ -569,63 +569,63 @@ LoadTiff <- function(tiff_file, experiment = NULL, condition = NULL, replicate =
                      native = FALSE,
                      all = TRUE,
                      info = TRUE,
-                     as.is = TRUE)  
+                     as.is = TRUE)
     )
-  ) 
-  
+  )
+
   if (!is.list(myIMG))
     myIMG <- list(myIMG)
-  
+
   if (is.null(experiment)) {
     experiment <- NA
   } else {
     experiment <- tryCatch(as.character(experiment[1]), error = function(e) NA)
   }
-  
+
   if (is.null(replicate)) {
     replicate <- NA
   } else {
     replicate <- tryCatch(as.character(replicate[1]), error = function(e) NA)
   }
-  
+
   if (is.null(condition)) {
     condition <- NA
   } else {
     condition <- tryCatch(as.character(condition[1]), error = function(e) NA)
   }
-  
+
   # num of images
   NumberImages <- length(myIMG)
-  
+
   # m means width... should be n of cols
   mImage <- ncol(myIMG[[1]])
-  
+
   # n means height... should be n of rows
   nImage <- nrow(myIMG[[1]])
-  
+
   # Get image INFO
   InfoImage <- try({lapply(myIMG, attributes)}, silent = TRUE)
-  
+
   # Get image matrices
   FinalImage <- try({lapply(myIMG, function(x) {
     sapply(1:ncol(x), function(ii) {as.numeric(x[,ii])})
   })}, silent = TRUE)
-  
+
   #return(list(images = FinalImage,
   #            dim = list(NumberImages  = NumberImages , width_m = mImage, height_n = nImage),
   #            attributes = InfoImage))
   img_list <-   list(images = FinalImage,
                      dim = list(NumberImages  = NumberImages , width_m = mImage, height_n = nImage),
                      attributes = InfoImage)
-  
+
   Y <- new(Class = "trackedCells", img_list)
-  
+
   # Attach labels
   Y@metadata <- list(tiff_file = sub("^.*[/]([^/]+$)", "\\1", tiff_file),
                      experiment = experiment,
                      condition = condition,
                      replicate = replicate)
-  
+
   return(Y)
 }
 
@@ -635,8 +635,8 @@ LoadTiff <- function(tiff_file, experiment = NULL, condition = NULL, replicate =
 #'
 #' Validate parameters used to identify cells in a image stack. A figure containing
 #' current image frame with identified particles labeled with circles and numerical tags is generated.
-#' This function is included for consistency and compatibility reasons 
-#' with the original fastTracks software (Matlab). Also, consider using  
+#' This function is included for consistency and compatibility reasons
+#' with the original fastTracks software (Matlab). Also, consider using
 #' VisualizeStackCentroids() or visualizeCellTracks() instead.
 #'
 #' @param stack stack of images to be evaluated
@@ -656,11 +656,11 @@ LoadTiff <- function(tiff_file, experiment = NULL, condition = NULL, replicate =
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("the following example may take up to one minute to run")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
-#' y <- cellmigRation:::CentroidValidation(stack = x@@images, slice = 1, 
+#' y <- cellmigRation:::CentroidValidation(stack = x@@images, slice = 1,
 #'                                         lobject = 6, threshold = 20)
 #' y[1:10,]
 #' }
@@ -675,33 +675,33 @@ CentroidValidation <- function(stack, slice, lobject, threshold,
   b <- bpass(image_array = a, lnoise = 1, lobject = lobject, threshold = threshold)
   pk = pkfnd(im = b, th = threshold, sz = lobject+1)
   cnt = cntrd(im = b, mx = pk, sz = lobject+1)
-  
+
   VisualizeImg(b, axes = FALSE)
   graphics::box()
   my_xax <- ncol(b)
   my_yax <- nrow(b)
-  
+
   my_xax <- unique(c(seq(1, my_xax, by = 100), my_xax))
   my_yax <- unique(c(seq(1, my_yax, by = 100), my_yax))
-  
+
   axis(side = 1,at = ((my_xax - 1) / max(my_xax)), labels = my_xax)
   axis(side = 2,at = 1-((my_yax - 1) / max(my_yax)), labels = my_yax, las = 1)
-  
-  
+
+
   points(x = ((cnt$col - 1) / (ncol(b) - 1)),
          y = 1-((cnt$row - 1) / (nrow(b) - 1)),
          cex = pnt.cex, col = "red2")
-  
+
   points(x = ((cnt$col - 1) / (ncol(b) - 1)),
          y = 1-((cnt$row - 1) / (nrow(b) - 1)),
          cex = 1.2, col = "red2")
-  
+
   text(x = ((cnt$col - 1) / (ncol(b) - 1)),
        y = 1-((cnt$row - 1) / (nrow(b) - 1)),
        labels = 1:nrow(cnt), font = 4,
        cex = txt.cex, col = "red2",
        pos = 4, offset = offset)
-  
+
   return(cnt)
 }
 
@@ -732,8 +732,8 @@ CentroidValidation <- function(stack, slice, lobject, threshold,
 #' @references
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
-#' 
-#' @examples 
+#'
+#' @examples
 #' x0 <- cellmigRation::TrackCellsDataset@@images$images[[1]][380:480, 300:400]
 #' y0 <- cellmigRation:::bpass(x0, lnoise = 5, lobject = 16, threshold = 10)
 #' par(mfrow = c(1, 2))
@@ -743,22 +743,22 @@ CentroidValidation <- function(stack, slice, lobject, threshold,
 #' @keywords internal
 bpass <- function(image_array, lnoise, lobject = NULL, threshold)
 {
-  
+
   cstm_normalize <- function(x) { x/sum(x) }
-  
+
   # Make kernel (linear)
   gaussian_kernel <- cstm_normalize(exp(-(seq(-2.5, 2.5, length.out = ((10 * lnoise) + 1))^2)))
-  
+
   if (!is.null(lobject))
     boxcar_kernel <- cstm_normalize(rep(1, times = (2 * lobject) + 1))
-  
-  
+
+
   gconv <- LinearConv2(t(image_array), gaussian_kernel)
   gconv <- LinearConv2(t(gconv), gaussian_kernel)
-  
+
   #VisualizeImg(image_array, col = colorRampPalette(c("white", "red2"))(100))
   #VisualizeImg(gconv)
-  
+
   if (!is.null(lobject)) {
     bconv <- LinearConv2(t(image_array), boxcar_kernel)
     bconv <- LinearConv2(t(bconv), boxcar_kernel)
@@ -766,19 +766,19 @@ bpass <- function(image_array, lnoise, lobject = NULL, threshold)
   } else {
     filtered <- gconv
   }
-  
+
   # Zero out the values on the edges to signal that they're not useful.
   lzero <- max(lobject, ceiling(5*lnoise))
-  
+
   filtered[1:(round(lzero)),] <- 0
   filtered[(nrow(filtered) - round(lzero) + 1):nrow(filtered),] <- 0
-  
+
   filtered[, 1:(round(lzero))] <- 0
   filtered[, (ncol(filtered) - round(lzero) + 1):ncol(filtered)] <- 0
-  
+
   # Zero all values below threshold
   filtered[filtered < threshold] <- 0
-  
+
   return(filtered)
 }
 
@@ -805,14 +805,14 @@ bpass <- function(image_array, lnoise, lobject = NULL, threshold)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("the following example may take up to one minute to run")
 #' \dontrun{
 #' x0 <- cellmigRation::TrackCellsDataset@@images$images[[1]][100:500, 200:600]
 #' b <- cellmigRation:::bpass(image_array = x0,
-#'                            lnoise = 1, 
+#'                            lnoise = 1,
 #'                            lobject = 15,
-#'                            threshold = 10) 
+#'                            threshold = 10)
 #' pk <- cellmigRation:::pkfnd(b, 10, 17)
 #' cnt <- cellmigRation:::cntrd(im = b, mx = pk, sz = 17)
 #' cnt[1:10,]
@@ -826,23 +826,23 @@ cntrd <- function(im, mx, sz, interactive = NULL)
   # check interactive
   if(is.null(interactive))
     interactive <- 0
-  
+
   # check sz
   if ((sz/2) == (floor(sz/2))) {
     sz <- sz + 1
     message("sz must be odd, like bpass")
     message(paste0("sz set to ", sz))
   }
-  
+
   # check mx
   if (is.null(mx) || (!is.data.frame(mx)) || nrow(mx) == 0) {
     message('there were no positions inputted into cntrd. check your pkfnd theshold')
     return(NULL)
   }
-  
+
   # Compute
   r <- (sz+1)/2
-  
+
   # Create mask - window around trial location over which to calculate the centroid
   m <- 2*r
   x <- 0:(m-1)
@@ -851,50 +851,50 @@ cntrd <- function(im, mx, sz, interactive = NULL)
   dst <- do.call(rbind, lapply(1:m, function(i){
     sqrt((i-1-cent)^2+x2)
   }))
-  
+
   ind <- dst < r
-  
+
   msk <- sapply(1:ncol(ind), function(j) {as.numeric(ind[,j])})
   dst2 <- msk * (dst^2)
   ndst2 <- sum(dst2, na.rm = TRUE)
-  
+
   nr <- nrow(im)
   nc <- ncol(im)
-  
+
   # remove all potential locations within distance sz from edges of image
   ind <- mx$col > 1.5 * sz & mx$col < nc - 1.5*sz
   mx <- mx[ind, ]
   ind <- mx$row > (1.5*sz) & mx$row < nr - 1.5*sz
   mx <- mx[ind, ]
-  
+
   nmx <- nrow(mx)
-  
+
   # inside of the window, assign an x and y coordinate for each pixel
   xl <- do.call(rbind, lapply(1:(2*r), function(j) {
     (1:(2*r))
   }))
   yl <- t(xl)
-  
+
   #loop through all of the candidate positions
   pts <- list()
   for (i in 1:nmx) {
     #create a small working array around each candidate location, and apply the window function
     tmp <- msk * im[(mx$row[i] - floor(r) + 1):(mx$row[i] + floor(r)),
                     (mx$col[i] - floor(r) + 1):(mx$col[i] + floor(r))]
-    
+
     #calculate the total brightness
     norm <- sum(tmp, na.rm = TRUE)
-    
+
     #calculate the weigthed average x location
     xavg <- sum(tmp * xl) / norm
-    
+
     #calculate the weighted average y location
     yavg <- sum(tmp * yl) / norm
-    
+
     #calculate the radius of gyration^2
     #rg=(sum(sum(tmp.*dst2))/ndst2);
     rg <- sum(tmp * dst2)/norm
-    
+
     #concatenate it up
     pts[[length(pts) +1 ]] <- data.frame(row = mx$row[i]+yavg-r,
                                          col = mx$col[i] + xavg - r,
@@ -909,7 +909,7 @@ cntrd <- function(im, mx, sz, interactive = NULL)
            labels = (mx$col[i] + floor(r)):(mx$col[i] - floor(r) + 1), las = 1)
       title(main = paste0("Cell number #", i), ylab = "y_pixel",
             xlab = "x_pixel", font = 2, cex = 0.9)
-      
+
       # Wait for user input from keyboard
       readline("Press Enter for Next Cell...")
     }
@@ -947,14 +947,14 @@ cntrd <- function(im, mx, sz, interactive = NULL)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("the following example may take up to one minute to run")
 #' \dontrun{
 #' x0 <- cellmigRation::TrackCellsDataset@@images$images[[1]][100:500, 200:600]
 #' b <- cellmigRation:::bpass(image_array = x0,
-#'                            lnoise = 1, 
+#'                            lnoise = 1,
 #'                            lobject = 15,
-#'                            threshold = 10) 
+#'                            threshold = 10)
 #' pk <- cellmigRation:::pkfnd(b, 10, 17)
 #' cnt <- cellmigRation:::cntrd(im = b, mx = pk, sz = 17)
 #' cnt[1:10,]
@@ -963,7 +963,7 @@ cntrd <- function(im, mx, sz, interactive = NULL)
 #' @keywords internal
 pkfnd <- function(im, th, sz=NULL)
 {
-  
+
   # # nested f(x)
   #my_melt <- function(data, varnames = NULL) {
   #
@@ -982,16 +982,16 @@ pkfnd <- function(im, th, sz=NULL)
   #  }
   #  return(OUT)
   #}
-  
+
   # find all the pixels above threshold
   ind <- im > th
   nr <- nrow(im)
   nc <- ncol(im)
-  
+
   # melt to have a list of points above threshold
   ind2 <- reshape2::melt(data = ind, varnames = c("row", "col"))
   ind2 <- ind2[ind2$value, ]
-  
+
   # check each pixel above threshold to see if it's brighter than it's neighbors
   # THERE'S GOT TO BE A FASTER WAY OF DOING THIS.  I'M CHECKING SOME MULTIPLE TIMES,
   # BUT THIS DOESN'T SEEM THAT SLOW COMPARED TO THE OTHER ROUTINES, ANYWAY.
@@ -999,17 +999,17 @@ pkfnd <- function(im, th, sz=NULL)
   for(i in 1:nrow(ind2)) {
     ri <- ind2$row[i]
     ci <- ind2$col[i]
-    
+
     if (ri>1 & ri<nr & ci>1 & ci<nc) {
       z1 <- im[ri, ci]
       z2 <- as.numeric(im[(ri-1):(ri+1), (ci-1):(ci+1)])
-      
+
       if (sum(z1 < z2, na.rm = TRUE) == 0) {
         keep[[length(keep) + 1]] <- i
       }
     }
   }
-  
+
   # Next step
   npks <- length(keep)
   if(npks > 0) {
@@ -1018,14 +1018,14 @@ pkfnd <- function(im, th, sz=NULL)
   } else {
     return(NULL)
   }
-  
+
   # if size is specified, then get ride of pks within size of boundary (i.e., a margin from image edges)
   if (!is.null(sz) & npks>0) {
     # throw out all pks within sz of boundary;
     keep <- mx$row > sz & mx$row < (nr - sz + 1) & mx$col > sz & mx$col < (nc - sz + 1)
     mx<-mx[keep,]
   }
-  
+
   # prevent from finding peaks within size of each other
   npks <- nrow(mx)
   if (!is.null(sz) & npks > 1) {
@@ -1034,10 +1034,10 @@ pkfnd <- function(im, th, sz=NULL)
     for(i in 1:nrow(mx)) {
       mask[mx$row[i], mx$col[i]] <- TRUE
     }
-    
+
     tmp <- matrix(0, nrow=nrow(im), ncol = ncol(im))
     tmp[mask] <- im[mask]
-    
+
     # LOOK IN NEIGHBORHOOD AROUND EACH PEAK, PICK THE BRIGHTEST
     for (i in 1:nrow(mx)) {
       astep <- floor(sz/2)
@@ -1047,20 +1047,20 @@ pkfnd <- function(im, th, sz=NULL)
       myrow <- ifelse(chkrow == 0, nrow(roi), chkrow)
       mycol <- ifelse(chkrow == 0, floor(imax/nrow(roi)), floor(imax/nrow(roi)) + 1)
       mv <- roi[myrow, mycol]
-      
+
       tmp[(mx$row[i] - astep):(mx$row[i] + astep), (mx$col[i] - astep):(mx$col[i] + astep)] <- 0
       tmp[(mx$row[i] - astep + myrow - 1), (mx$col[i] - astep + mycol - 1)] <- mv
     }
-    
+
     ind <- tmp > th
     nr <- nrow(tmp)
     nc <- ncol(tmp)
-    
+
     # melt to have a list of points above threshold
     ind.f <- reshape2::melt(data = ind, varnames = c("row", "col"))
     ind.f <- ind.f[ind.f$value, 1:2]
     rownames(ind.f) <- NULL
-    
+
     return(ind.f)
   } else {
     return(NULL)
@@ -1094,7 +1094,7 @@ pkfnd <- function(im, th, sz=NULL)
 #' class(y0)
 #' y0[[1]][1:10,]
 #' }
-#' 
+#'
 #'
 #' @keywords internal
 CentroidArray <- function(stack, lobject, threshold)
@@ -1103,7 +1103,7 @@ CentroidArray <- function(stack, lobject, threshold)
   m <- stack$dim$width_m
   n <- stack$dim$height_n
   p <- stack$dim$NumberImages
-  
+
   centroid <- list()
   for(i in 1:p) {
     a <-  stack$images[[i]]
@@ -1111,10 +1111,10 @@ CentroidArray <- function(stack, lobject, threshold)
                lnoise = 1,
                lobject = lobject,
                threshold = quantile(a, 0.25)) # maybe set to 0 or to threshold
-    
+
     pk <- pkfnd(b, threshold, lobject+1)
     cnt <- cntrd(im = b, mx = pk, sz = lobject + 1)
-    
+
     if(is.null(cnt) || nrow(cnt) < 1) {
       message(paste0('No centroids detectd in frame ', i, '...
                      \nCheck nuclei validation settings for this frame.'))
@@ -1144,24 +1144,24 @@ CentroidArray <- function(stack, lobject, threshold)
 #'
 #' @keywords internal
 DetectRadii <- function(x) {
-  
+
   x <- suppressWarnings(as.numeric(x))
   x <- x[!is.na(x)]
-  
+
   if(length(table(x)) > 2) {
     my.mean <- mean(x, na.rm = TRUE)
     x[x >= my.mean] <- 1
     x[x < my.mean] <- 0
   }
-  
+
   radii <- list()
   xx <- which(x == 1)
-  
+
   if (length(xx) > 1) {
     LN <- 1
     p0 <- xx[1]
     p1 <- xx[1]
-    
+
     for (j in 2:length(xx)) {
       if (xx[j] == (xx[(j-1)] + 1)) {
         LN <- LN + 1
@@ -1178,20 +1178,20 @@ DetectRadii <- function(x) {
         LN <- 1
       }
     }
-    
+
   } else if (length(xx) == 1) {
-    
+
     yy <- data.frame(MPOS = xx, LEN = 1)
     radii[[length(radii) + 1]]  <- yy
   }
-  
-  
+
+
   if (length(radii) > 0 ) {
     radii <- do.call(rbind, radii)
   } else {
     radii <- NULL
   }
-  
+
   return(radii)
 }
 
@@ -1235,9 +1235,9 @@ EstimateDiameterRange <- function(x, px.margin = 2,
                                   min.px.diam = 5,
                                   quantile.val = 0.99,
                                   plot = TRUE) {
-  
+
   QNTS <- as.numeric(quantile(x, probs = quantile.val[1]))
-  
+
   # Adjust if quantile.val is too low (few cells)
   tmp.xx <- as.numeric(x)
   max.sig <- max(tmp.xx, na.rm = TRUE)
@@ -1245,29 +1245,29 @@ EstimateDiameterRange <- function(x, px.margin = 2,
   if (QNTS == min.sig && max.sig > min.sig) {
     QNTS <- mean(c(min.sig, min(tmp.xx[tmp.xx > min.sig], na.rm = TRUE)), na.rm = TRUE)
   }
-  
+
   B <- x
   B[B < QNTS] <- 0
   B[B >= QNTS] <- 1
-  
+
   rdds <- do.call(rbind, lapply(1:ncol(B), function(ii) {
-    
+
     out <- DetectRadii(B[,ii])
     if (!is.null(out)) {
       data.frame(RPOS = out$MPOS, CPOS = ii, LEN = out$LEN)
     }
   }))
   rdds$KEEP <- TRUE
-  
+
   for (j in 1:nrow(rdds)) {
     if (rdds$KEEP[j]){
-      
+
       tdm <- ( 2 * px.margin)  + rdds$LEN[j]
       ROWmin <- rdds$RPOS[j] - (0.5 * tdm)
       ROWmax <- rdds$RPOS[j] + (0.5 * tdm)
       COLmin <- rdds$CPOS[j] - (0.5 * tdm)
       COLmax <- rdds$CPOS[j] + (0.5 * tdm)
-      
+
       keep <- rdds$RPOS >= ROWmin & rdds$RPOS <= ROWmax &
         rdds$CPOS >= COLmin & rdds$CPOS <= COLmax & rdds$KEEP
       keep <- which(keep)
@@ -1275,7 +1275,7 @@ EstimateDiameterRange <- function(x, px.margin = 2,
       if (length(keep) > 0) {
         curVal <- rdds$LEN[j]
         allValz <- rdds$LEN[keep]
-        
+
         if (sum(curVal > allValz) == length(allValz)) {
           rdds$KEEP[keep] <- FALSE
         } else {
@@ -1284,24 +1284,24 @@ EstimateDiameterRange <- function(x, px.margin = 2,
       }
     }
   }
-  
+
   FINL <- rdds[rdds$KEEP,]
   FINL <- FINL[FINL[, "LEN"] >= min.px.diam, ]
-  
+
   yy <- list(estim.cell.num = sum(FINL$KEEP),
              q50.diam = median(FINL$LEN, na.rm = TRUE),
              q75.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.75)),
              q90.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.90)),
              q95.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.95)),
              raw = FINL)
-  
+
   if (plot) {
     try(hist(FINL$LEN, breaks = seq(min(FINL$LEN, na.rm = TRUE),
                                     max(FINL$LEN, na.rm = TRUE), length.out = 20),
              xlab = "Particle Diameter", las = 1, main = "Diam. Distribution",
              col = "aquamarine3"), silent = TRUE); box()
   }
-  
+
   return(yy)
 }
 
@@ -1327,8 +1327,8 @@ EstimateDiameterRange <- function(x, px.margin = 2,
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
-#' x0 <- data.frame(row = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58), 
+#' @examples
+#' x0 <- data.frame(row = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
 #'                  col = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
 #'                  tau = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4))
 #' cellmigRation:::track(x0, maxdisp = 10, params = NULL)
@@ -1428,18 +1428,18 @@ track <- function(xyzs, maxdisp, params)
   #% ; user to have a comparable or smaller (measurement) variance than
   #% ; the spatial displacements.
   #% ;
-  
+
   # Initialize and stuff
   warn_log <- list()
-  
+
   warn_message <- function(warn_log, quiet = FALSE) {
-    
+
     warn_cycles <- NULL
-    
+
     if (is.list(warn_log) && length(warn_log) > 0) {
-      
+
       warn_cycles <- sort(unique(do.call(c, warn_log)))
-      
+
       if (!quiet) {
         message(paste0("Difficult combinatorics encountered while processing slide(s): ",
                        paste(warn_cycles, collapse = ", "), "."))
@@ -1447,11 +1447,11 @@ track <- function(xyzs, maxdisp, params)
     }
     return(warn_cycles)
   }
-  
-  
-  
+
+
+
   dd <- ncol(xyzs)
-  
+
   # use default parameters if none given
   # if nargin==2
   # default values
@@ -1460,92 +1460,92 @@ track <- function(xyzs, maxdisp, params)
   dim <- dd - 1
   quiet <- FALSE
   force_exec <- FALSE
-  
-  
+
+
   if(!is.null(params)) {
     if(is.list(params)) {
-      
+
       if(!is.null(params$memory_b) && is.numeric(params$memory_b)) {
         memory_b <- params$memory_b
       }
-      
+
       if(!is.null(params$goodenough) && is.numeric(params$goodenough)) {
         goodenough <- params$goodenough
       }
-      
+
       if(!is.null(params$dim) && is.numeric(params$dim)) {
         dim <- params$dim
       }
-      
+
       if(!is.null(params$quiet) && is.logical(params$quiet)) {
         quiet <- params$quiet
       }
-      
-      
+
+
       if(!is.null(params$force_exec) && is.logical(params$force_exec)) {
         force_exec <- params$force_exec
       }
-      
+
     }
   }
-  
+
   # % checking the input time vector
   # THis should be monotonically not-decreasing and not identical
   tau <- xyzs[, dd]
   st <- tau[2:length(tau)] - tau[1:(length(tau) - 1)]
-  
+
   if (sum(st < 0) > 0) {
     message("", appendLF = TRUE)
     message("The time vector (tau) is not ordered")
     return(NULL)
   }
-  
+
   if (length(unique(tau)) == 1) {
     message("", appendLF = TRUE)
     message('All positions are at the same time... go back!')
     return(NULL)
   }
-  
+
   #--remove if useless
   info <- 1
   w <- which(st > 0)
   z <- length(w)
   z <- z + 1
-  
+
   # % partitioning the data with unique times
   # the first two lines were skipped in the original file
   # they are included here for completeness
   #res = unq(t);
   # implanting unq directly
-  
+
   indices <- which(tau - circshift(tau, -1) != 0)
   count <- length(indices)
-  
+
   if (count > 0) {
     res <- indices
   } else{
     res = length(tau)-1
   }
-  
+
   res <- c(1, res, length(tau))
   ngood <- res[2] - res[1] + 1
   eyes <- 1:ngood
   pos <- xyzs[eyes, 1:dim]
   istart <- 2
   n <- ngood;
-  
+
   zspan <- 50;
   if (n > 200) {
     zspan <- 20
   }
-  
+
   if (n > 500){
     zspan <- 10
   }
-  
+
   # initialize a matrix with -1
   resx <- matrix((-1), nrow = zspan, ncol = n)
-  
+
   # initialize a second matrix with -1
   bigresx <- matrix((-1), nrow = z, ncol = n)
   mem <- matrix(0, nrow = n, ncol = 1)
@@ -1553,33 +1553,33 @@ track <- function(xyzs, maxdisp, params)
   #%  whos bigresx
   uniqid <- 1:n;
   maxid <- n;
-  
+
   # initialize olis
   #olist <- data.frame(x= 0, y = 0)
   #olist <- c(0,0)
   olist <- list()
-  
+
   if (goodenough > 0) {
     dumphash <- matrix(0, nrow = n, ncol = 1)
     nvalid <- matrix(1, nrow = n, ncol = 1)
   }
-  
+
   #%  whos eyes;
   resx[1,] <- eyes
-  
+
   #% setting up constants
   maxdisq <- maxdisp^2
-  
+
   #% (Little) John calls this the setup for "fancy code" ???
   # Robin replies: Fancy? Where? You got to be kidding, man!!!
-  
+
   notnsqrd <- (sqrt(n*ngood) > 200) && (dim < 7)
-  
+
   if (notnsqrd) {
     #%;   construct the vertices of a 3x3x3... d-dimensional hypercube
     numbs <- 0:2
     cube <- MakeHypercube(vals = numbs, dims = dim)
-    
+
     #%   calculate a blocksize which may be greater than maxdisp, but which
     #%   keeps nblocks reasonably small.
     volume <- 1
@@ -1588,15 +1588,15 @@ track <- function(xyzs, maxdisp, params)
       maxx = max(xyzs[w, (d+1)])
       volume <- volume * (maxx-minn)
     }
-    
+
     # volume;
     blocksize <- max( c(maxdisp,((volume)/(20*ngood))^(1.0/dim)) )
   }
-  
-  
+
+
   ### %   Start the main loop over the frames.
   for (i in istart:z){
-    
+
     #message(paste0("i=", i))
     ispan <- ((i-1) %% zspan) + 1
     # %disp(ispan)
@@ -1605,26 +1605,26 @@ track <- function(xyzs, maxdisp, params)
     # res[i]
     eyes <- 1:m
     eyes <- eyes + res[i]
-    
+
     if (m > 0) {
       xyi <- xyzs[eyes, 1:dim]
       found <- matrix(0, nrow = m, ncol = 1)
-      
+
       # % THE TRIVIAL BOND CODE BEGINS
       if (notnsqrd) {
-        
+
         # %Use the raster metric code to do trivial bonds
-        
+
         #% construct "s", a one dimensional parameterization of the space
         #% which consists of the d-dimensional raster scan of the volume.)
-        
+
         abi <- matfix(xyi/blocksize)
         abpos <- matfix(pos/blocksize)
         si <- matrix(0, nrow = m, ncol = 1)
         spos <- matrix(0, nrow = n, ncol = 1)
         dimm <- matrix(0, nrow=dim, ncol=1)
         coff <- 1
-        
+
         for (j in 1:dim){
           minn <- min(c(as.numeric(abi[,j]),
                         as.numeric(abpos[, j])), na.rm = TRUE)
@@ -1640,7 +1640,7 @@ track <- function(xyzs, maxdisp, params)
         nblocks <- coff
         #% trim down (intersect) the hypercube if its too big to fit in the
         #% particle volume. (i.e. if dimm(j) lt 3)
-        
+
         cub <- cube
         deg <- which(dimm[,1] < 3)
         if (length(deg) > 0) {
@@ -1648,7 +1648,7 @@ track <- function(xyzs, maxdisp, params)
             cub <- cub[which(cub[, deg[j+1]] < dimm[deg[j+1],1]) ,]
           }
         }
-        
+
         # % calculate the "s" coordinates of hypercube (with a corner @ the origin)
         scube <- matrix(0, nrow = nrow(cub), ncol=1)
         coff <- 1
@@ -1656,7 +1656,7 @@ track <- function(xyzs, maxdisp, params)
           scube <- scube + (cub[,j] * coff)
           coff <- coff*dimm[j, 1]
         }
-        
+
         # % shift the hypercube "s" coordinates to be centered around the origin
         coff <- 1
         for (j in 1:dim){
@@ -1666,11 +1666,11 @@ track <- function(xyzs, maxdisp, params)
           coff <- dimm[j, 1] * coff
         }
         scube <- (scube + nblocks) %% nblocks
-        
+
         # get the sorting for the particles by their "s" positions.
         ed <- sort(si)
         isort <- order(si)
-        
+
         #% make a hash table which will allow us to know which new particles
         #% are at a given si.
         strt <- matrix((-1), nrow = nblocks, ncol = 1)
@@ -1680,7 +1680,7 @@ track <- function(xyzs, maxdisp, params)
         if (lh > 0) {
           si[h] <- 1
         }
-        
+
         for (j in 1:m){
           if (strt[si[isort[j]], 1] == (-1)){
             strt[si[isort[j]],1] <- j
@@ -1692,16 +1692,16 @@ track <- function(xyzs, maxdisp, params)
         if (lh > 0) {
           si[h] <- 0
         }
-        
-        
+
+
         coltot <- matrix(0, nrow = m, ncol = 1)
         rowtot <- matrix(0, nrow = n, ncol = 1)
         which1 <- matrix(0, nrow = n, ncol = 1)
-        
+
         for (j in 1:n){
-          
+
           map <- matfix(-1)
-          
+
           scub_spos <- scube + spos[j];
           s <- scub_spos %% nblocks
           whzero <- which(s == 0 )
@@ -1709,13 +1709,13 @@ track <- function(xyzs, maxdisp, params)
             nfk <- which(s !=0 )
             s <- s[nfk]
           }
-          
+
           w <- which(strt[s, 1] != (-1))
-          
+
           ngood <- length(w)
           ltmax <- 0
           if (ngood != 0){
-            
+
             s <- s[w]
             for (k in 1:ngood){
               map = c(map, isort[strt[s[k]]:fnsh[s[k]]])
@@ -1734,9 +1734,9 @@ track <- function(xyzs, maxdisp, params)
               distq <- distq + (xyi[map,d] - pos[j,d])^2
             }
             ltmax <- distq < maxdisq
-            
+
             rowtot[j, 1] <- sum(ltmax)
-            
+
             if (rowtot[j] >= 1){
               w <- which(ltmax == 1)
               coltot[map[w], 1] <- coltot[ map[w], 1] +1
@@ -1744,18 +1744,18 @@ track <- function(xyzs, maxdisp, params)
             }
           }
         }
-        
-        
+
+
         ntrk <- matfix(n - sum(rowtot == 0))
-        
+
         w <- which(rowtot == 1)
         ngood <- length(w)
-        
-        
+
+
         if (ngood != 0) {
           #ww <- which(coltot( which1[w] ) == 1);
           ww <- which(coltot[which1[w]] == 1)
-          
+
           ngood <- length(ww)
           if (ngood != 0){
             # %disp(size(w(ww)))
@@ -1765,22 +1765,22 @@ track <- function(xyzs, maxdisp, params)
             coltot[which1[w[ww]]] <- 0
           }
         }
-        
+
         labely <- which(rowtot > 0)
         ngood <- length(labely)
         if (ngood != 0){
           labelx <- which(coltot > 0)
-          
+
           nontrivial <- 1
         } else {
           nontrivial <- 0
         }
-        
+
       } else {
-        
+
         # % THE TRIVIAL BOND {else} block CODE BEGINS
         #%   or: Use simple N^2 time routine to calculate trivial bonds
-        
+
         #% let's try a nice, loopless way!
         #% don't bother tracking perm. lost guys.
         wh <- which(pos[,1] >= 0)
@@ -1789,11 +1789,11 @@ track <- function(xyzs, maxdisp, params)
           message('There are no valid particles to track!')
           break
         }
-        
+
         # yma initialization was added
         xmat <- matrix(0, nrow = ntrack, ncol = m)
         ymat <- matrix(0, nrow = ntrack, ncol = m)
-        
+
         count <- 0
         for (kk in 1:ntrack) {
           for (ll in 1:m) {
@@ -1802,7 +1802,7 @@ track <- function(xyzs, maxdisp, params)
           }
         }
         count <- 0
-        
+
         # if there are not enough cols or rows, add them and set to 0
         if (nrow(ymat) < m) {
           TMP <- matrix(0, nrow = (m - nrow(ymat)), ncol = ncol(ymat))
@@ -1812,14 +1812,14 @@ track <- function(xyzs, maxdisp, params)
           TMP <- matrix(0, nrow = nrow(ymat), ncol = (ntrack - ncol(ymat)))
           ymat <- cbind(ymat, TMP)
         }
-        
+
         for (kk in 1:m) {
           for (ll in 1:ntrack) {
             ymat[kk,ll] <- count
             count <- count+1
           }
         }
-        
+
         xmat <- (xmat %% m) + 1
         ymat <- t((ymat %% ntrack) +1)
         lenxn <- nrow(xmat)
@@ -1827,27 +1827,27 @@ track <- function(xyzs, maxdisp, params)
         #%            whos ymat
         #%            whos xmat
         #%            disp(m)
-        
+
         for (d in 1:dim) {
           x <- xyi[,d]
           y <- pos[wh,d]
-          
+
           xm <- sapply(1:ncol(xmat), function(jj) {
             tcljj <- xmat[, jj]
             x[tcljj]
           })
-          
+
           #ym <- y[ymat[1:lenxn, 1:lenxm]]
           tmpymat <- ymat[1:lenxn, 1:lenxm]
           ym <- sapply(1:ncol(tmpymat), function(jj) {
             tcljj <- tmpymat[, jj]
             y[tcljj]
           })
-          
+
           if (nrow(xm) != nrow(ym) || ncol(xm) != ncol(ym)) {
             xm <- t(xm)
           }
-          
+
           if (d == 1) {
             dq <- (xm -ym)^2
             #%dq = (x(xmat)-y(ymat(1:lenxn,1:lenxm))).^2;
@@ -1856,14 +1856,14 @@ track <- function(xyzs, maxdisp, params)
             #%dq = dq + (x(xmat)-y(ymat(1:lenxn,1:lenxm)) ).^2;
           }
         }
-        
+
         ltmax <- 1 * (dq < maxdisq)
-        
+
         #% figure out which trivial bonds go with which
-        
+
         rowtot <- matrix(0, nrow = n, ncol = 1)
         rowtot[wh, 1] <- apply(ltmax, 1, sum)
-        
+
         if (ntrack > 1) {
           coltot <- apply(ltmax, 2, sum, na.rm = TRUE)
         } else {
@@ -1875,7 +1875,7 @@ track <- function(xyzs, maxdisp, params)
           w <- which.max(ltmax[j, ])
           which1[wh[j]] <- w
         }
-        
+
         ntrk <- matfix( n - sum(rowtot == 0))
         w <- which( rowtot == 1)
         ngood <- length(w)
@@ -1889,10 +1889,10 @@ track <- function(xyzs, maxdisp, params)
             coltot[which1[w[ww]]] <- 0
           }
         }
-        
+
         labely <- which(rowtot > 0)
         ngood <- length(labely)
-        
+
         if (ngood != 0) {
           labelx <- which(coltot > 0)
           nontrivial <- 1
@@ -1900,68 +1900,68 @@ track <- function(xyzs, maxdisp, params)
           nontrivial <- 0
         }
       }
-      
+
       # %THE TRIVIAL BOND CODE ENDS
-      
+
       if (nontrivial == 1){
-        
+
         xdim <- length(labelx)
         ydim <- length(labely)
-        
+
         #%  make a list of the non-trivial bonds
-        
+
         bonds <- list()
         bondlen <- list()
-        
+
         for (j in 1:ydim) {
           distq <- matrix(0, nrow = xdim, ncol = 1)
-          
+
           for (d in 1:dim) {
             #%distq
             distq <- distq + cbind((xyi[labelx,d] - pos[labely[j],d])^2)
             #%distq
           }
-          
+
           w <- which(distq < maxdisq) - 1
           ngood <- length(w)
           newb <- rbind(w, rep(j, times = ngood))
-          
+
           bonds[[(length(bonds) + 1)]] <- t(newb)
           bondlen[[(length(bondlen) + 1)]] = distq[w + 1]
         }
-        
+
         bonds <- do.call(rbind, bonds)
         bondlen <- do.call(c, bondlen)
-        
+
         numbonds <- length(bonds[,1])
         mbonds <- bonds;
         #max([xdim,ydim]);
-        
-        
+
+
         if (max(c(xdim,ydim)) < 4){
           nclust <- 1
           maxsz <- 0
           mxsz <- xdim
           mysz <- ydim
           bmap <- matrix((-1), nrow = length(bonds[,1]) + 1, 1)
-          
+
         } else {
-          
+
           #  %   THE SUBNETWORK CODE BEGINS
           lista <- matrix(0, nrow = numbonds, ncol = 1)
           listb <- matrix(0, nrow = numbonds, ncol = 1)
           nclust <- 0
           maxsz <- 0
           thru <- xdim
-          
+
           while (thru != 0) {
             #%  the following code extracts connected
             #%   sub-networks of the non-trivial
             #%   bonds.  NB: lista/b can have redundant entries due to
             #%   multiple-connected subnetworks
-            
+
             w <- which(bonds[, 2] >= 0)
-            
+
             lista[1] = bonds[w[1],2]
             listb[1] = bonds[w[1],1]
             bonds[w[1], ] <- (-1) * (nclust+1)
@@ -1975,9 +1975,9 @@ track <- function(xyzs, maxdisp, params)
             } else {
               true <- TRUE
             }
-            
+
             while (!true){
-              
+
               if (donea != adda) {
                 w <- which(bonds[,2] == lista[donea+1])
                 ngood <- length(w)
@@ -2004,7 +2004,7 @@ track <- function(xyzs, maxdisp, params)
                 true = TRUE
               }
             }
-            
+
             pp <- sort(listb[1:doneb])
             pqx <- order(listb[1:doneb])
             #%unx =  unq(listb(1:doneb),pqx);
@@ -2018,14 +2018,14 @@ track <- function(xyzs, maxdisp, params)
             } else {
               unx <- length(q) -1
             }
-            
+
             # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            
+
             xsz <- length(unx)
-            
+
             pp <- sort(lista[1:donea])
             pqy <- order(lista[1:donea])
-            
+
             #%uny =  unq(lista(1:donea),pqy);
             #%implanting unq directly
             arr <- lista[1:donea]
@@ -2037,39 +2037,39 @@ track <- function(xyzs, maxdisp, params)
             } else {
               uny <- length(q) -1
             }
-            
+
             # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            
+
             ysz <- length(uny)
             if ((xsz*ysz) > maxsz){
               maxsz <- xsz*ysz
               mxsz <- xsz
               mysz <- ysz
             }
-            
+
             thru <- thru - xsz
             nclust <- nclust + 1
           }
           bmap <- bonds[,2]
         }
-        
+
         #% THE SUBNETWORK CODE ENDS
         #% put verbose in for Jaci
-        
+
         ## Adjusting nclust
         all_clusts <- unique(abs(bmap))
         nclust <- length(all_clusts)
-        
+
         #%   THE PERMUTATION CODE BEGINS
         for (nc in 1:nclust){
-          
+
           #message(paste0("nc=", nc))
           w <- which(bmap == (-1)*(nc))
-          
+
           nbonds <- length(w)
           bonds <- mbonds[w,]
           lensq <- bondlen[w]
-          
+
           pq <- sort(bonds[,1])
           st <- order(bonds[,1])
           #%un = unq(bonds(:,1),st);
@@ -2083,12 +2083,12 @@ track <- function(xyzs, maxdisp, params)
           } else {
             un <- length(q) - 1
           }
-          
+
           # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          
+
           uold <- bonds[un,1]
           nold <- length(uold)
-          
+
           #%un = unq(bonds(:,2));
           #%implanting unq directly
           indices <- which(bonds[, 2] != circshift(bonds[, 2], -1))
@@ -2098,55 +2098,55 @@ track <- function(xyzs, maxdisp, params)
           } else {
             un <- length(bonds[,2]) -1
           }
-          
+
           # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          
+
           unew <- bonds[un,2]
           nnew <- length(unew)
-          
+
           if (nnew > 5){
             rnsteps <- 1
             for (ii in 1:nnew){
               rnsteps <- rnsteps * length(which(bonds[,2] == unew[ii]))
               if (rnsteps >= 50000 && rnsteps < 200000){
-                
+
                 warn_log[[length(warn_log) + 1]]  <- i
                 #message('Warning: difficult combinatorics encountered')
               } else if (rnsteps >= 200000 && !force_exec){
-                
+
                 #message(paste0("i=", i, "... nc=", nc))
                 #message('Excessive Combinitorics LOOK WHAT YOU HAVE DONE TO ME!!!')
                 #close(uniquevar);
-                
+
                 warn_message(warn_log = warn_log, quiet = quiet)
                 message(paste0("Excessive Combinitorics encountered while processing slide ", i,
                                ". Quitting now... Try using a smaller maxdisp."))
-                
+
                 return(NULL)
-                
+
               } else if (rnsteps < 5000000 && force_exec) {
-                
+
                 warn_log[[length(warn_log) + 1]]  <- i
-                
+
               } else if (rnsteps >= 200000) {
-                
+
                 warn_message(warn_log = warn_log, quiet = quiet)
                 message(paste0("Excessive Combinitorics encountered while processing slide ", i,
                                ". Quitting now... Try using a smaller maxdisp."))
-                
+
                 return(NULL)
               }
             }
           }
-          
+
           st <- rep(0, times = nnew)
           fi <- rep(0, times = nnew)
-          
+
           h <- rep(0, times = nbonds)
           ok <- rep(1, times = nold)
           nlost <- (nnew - nold) > 0
-          
-          
+
+
           for (ii in 1:nold) {
             h[which(bonds[,1] == uold[ii])] <- ii
           }
@@ -2162,23 +2162,23 @@ track <- function(xyzs, maxdisp, params)
           #%                if i-1 == 13
           #%                    hi
           #%                end
-          
-          
+
+
           checkflag <- 0
           while (checkflag != 2){
-            
+
             pt <- st - 1
             lost <- matrix(0, nrow = nnew, ncol = 1)
             who <- 0
             losttot <- 0
             mndisq <- nnew*maxdisq
-            
-            
+
+
             while (who != (-1)){
-              
+
               if (pt[(who+1)] != fi[(who+1)]){
-                
-                
+
+
                 w <- which(ok[h[(pt[(who+1)]+1):(fi[(who+1)])]]!=0) ###---------------% check this -1
                 ngood <- length(w)
                 if (ngood > 0){
@@ -2190,7 +2190,7 @@ track <- function(xyzs, maxdisp, params)
                   if (who == (nnew - 1)){
                     ww <- which(lost == 0)
                     dsq <- sum(lensq[pt[ww]]) + (losttot * maxdisq)
-                    
+
                     if (dsq < mndisq){
                       minbonds <- pt[ww]
                       mndisq <- dsq
@@ -2215,7 +2215,7 @@ track <- function(xyzs, maxdisp, params)
                     } else {
                       who <- who + 1
                     }
-                    
+
                   } else {
                     if (pt[(who+1)] != (st[(who+1)] - 1)){
                       ok[h[pt[(who+1)]]] <- 1
@@ -2228,7 +2228,7 @@ track <- function(xyzs, maxdisp, params)
                     who <- who - 1
                   }
                 }
-                
+
               } else {
                 if (!lost[(who+1)] && (losttot != nlost)){
                   lost[(who+1)] <- 1
@@ -2239,7 +2239,7 @@ track <- function(xyzs, maxdisp, params)
                   if (who == (nnew - 1)) {
                     ww <- which(lost == 0)
                     dsq <- sum(lensq[pt[ww]]) + (losttot * maxdisq)
-                    
+
                     if (dsq < mndisq){
                       minbonds <- pt[ww]
                       mndisq <- dsq
@@ -2260,7 +2260,7 @@ track <- function(xyzs, maxdisp, params)
                 }
               }
             }
-            
+
             checkflag <- checkflag + 1
             if (checkflag == 1){
               plost <- min(c(matfix(mndisq/maxdisq) , (nnew -1)))
@@ -2272,18 +2272,18 @@ track <- function(xyzs, maxdisp, params)
             }
           }
           #%   update resx using the minimum bond configuration
-          
+
           resx[ispan, labely[bonds[minbonds, 2]]] <- eyes[labelx[(bonds[minbonds,1] + 1)]]
           found[labelx[(bonds[minbonds,1] + 1)], 1] <- 1
-          
+
         }
-        
+
         #%   THE PERMUTATION CODE ENDS
       }
-      
+
       w <- which(resx[ispan,] >= 0)
       nww <- length(w)
-      
+
       if (nww > 0){
         pos[w,] <- xyzs[resx[ispan,w], (1:dim)]
         if (goodenough > 0){
@@ -2292,13 +2292,13 @@ track <- function(xyzs, maxdisp, params)
       }  #-----------------------  %go back and add goodenough keyword thing
       newguys <- which(found == 0)
       nnew <- length(newguys)
-      
+
       if (nnew > 0) {             ##% & another keyword to workout inipos
         newarr <- matrix(-1, nrow = zspan, ncol = nnew)
-        
+
         # cbind?
         resx <- cbind(resx, newarr)
-        
+
         resx[ispan, ((n+1):ncol(resx))] <- eyes[newguys]
         pos <- rbind(pos, xyzs[eyes[newguys],(1:dim)])
         nmem <- matrix(0, nrow = nnew, ncol = 1)
@@ -2310,28 +2310,28 @@ track <- function(xyzs, maxdisp, params)
           dumphash <- c(dumphash, t(matrix(0, nrow = 1, ncol = nnew)))
           nvalid <- c(nvalid, t(matrix(1, nrow = 1, ncol = nnew)))
         }
-        
+
         #% put in goodenough
         n <- n + nnew
-        
+
       }
-      
+
     } else {
       #' Warning- No positions found for t='
       message("@@", appendLF = FALSE)
     }
-    
+
     w <- which(resx[ispan,] != (-1))
     nok <- length(w)
     if (nok != 0){
       mem[w] <- 0
     }
-    
+
     #---------------------------------------------------
     mem <- mem + (0 + (cbind(resx[ispan,]) == -1))
     wlost <- which(mem == memory_b+1)
     nlost <- length(wlost)
-    
+
     if (nlost > 0){
       pos[wlost, ] <- (-maxdisp)
       if (goodenough > 0){
@@ -2343,14 +2343,14 @@ track <- function(xyzs, maxdisp, params)
       }
       #% put in goodenough keyword stuff if
     }
-    
+
     if ((ispan == zspan) | (i == z)){
       nold <- length(bigresx[1,])
       nnew <- n - nold;
       if (nnew > 0){
-        
+
         newarr <- matrix(-1, nrow = z, ncol = nnew)
-        
+
         ## bigresx <- c(bigresx, newarr)
         bigresx <- cbind(bigresx, newarr)
       }
@@ -2368,48 +2368,48 @@ track <- function(xyzs, maxdisp, params)
           dumphash <- matrix(0, nrow = nkeep, ncol = 1)
         }
       }
-      
+
       #% again goodenough keyword
       if (!quiet) {
-        
+
         message(paste0(i, ' of ' , z, ' done. Tracking ', ntrk, ' particles. ', n, ' tracks total.'))
-        
+
       }
-      
+
       if (!is.matrix(bigresx) || nrow(resx) > nrow(bigresx)) {
         bigresx <- rbind(bigresx)
         bigresx <- rbind(bigresx,
                          matrix(-1, nrow = (nrow(resx) - nrow(bigresx)),
                                 ncol = ncol(bigresx)))
       }
-      
+
       bigresx[(i-(ispan)+1):i,]  <- resx[1:ispan,]
       resx <- matrix((-1), nrow = zspan, ncol = n)
-      
+
       wpull <- which(pos[ ,1] == (-1 * maxdisp))
       npull <- length(wpull)
-      
+
       if (npull > 0){
         lillist <- list()
         for (ipull in 1:npull){
           wpull2 <- which(bigresx[, wpull[ipull]] != (-1))
           npull2 <- length(wpull2)
-          
-          
+
+
           thing = cbind(bigresx[wpull2,wpull[ipull]],
                         rep(x = uniqid[wpull[ipull]], times = npull2))
-          
+
           #thing <- c(bigresx[wpull2, wpull[ipull]], ),zeros(npull2,1)+uniqid(wpull(ipull))];
           #lillist = [lillist;thing];
           lillist[[length(lillist) + 1]] <- thing
-          
+
         }
         olist[[length(olist) + 1]] <- do.call(rbind, lillist)
-        
+
       }
-      
-      
-      
+
+
+
       wkeep <- which(pos[, 1] >= 0)
       nkeep <- length(wkeep)
       if (nkeep == 0) {
@@ -2428,7 +2428,7 @@ track <- function(xyzs, maxdisp, params)
     }
     #waitbar(i / z)
   }
-  
+
   if (goodenough > 0){
     nvalid <- apply(bigresx >= 0 , 2, sum)
     wkeep <- which(nvalid >= goodenough)
@@ -2447,7 +2447,7 @@ track <- function(xyzs, maxdisp, params)
       pos <- pos[wkeep, ]
     }
   }
-  
+
   wpull <- which(pos[, 1] != ((-2) * maxdisp))
   npull <- length(wpull);
   if (npull > 0) {
@@ -2459,29 +2459,29 @@ track <- function(xyzs, maxdisp, params)
                      rep(uniqid[wpull[ipull]], times = npull2))
       lillist[[length(lillist) + 1]] <- thing
     }
-    
+
     olist[[length(olist) + 1]] <- do.call(rbind, lillist)
   }
-  
+
   olist <- do.call(rbind, olist)
   #%bigresx = 0;
   #%resx = 0;
-  
+
   nolist <- nrow(olist)
   res <- matrix(0, nrow = nolist, ncol = (dd+1))
   for (j in 1:dd){
     res[, j] <- xyzs[olist[, 1], j]
   }
   res[, dd+1] <- olist[,2]
-  
+
   #% this is uberize included for simplicity of a single monolithic code
-  
+
   ndat <- ncol(res)
   newtracks <- res
-  
-  
+
+
   #%u=unq(newtracks(:,ndat));
-  
+
   #% inserting unq
   indices <- which(newtracks[, ndat] != circshift(newtracks[, ndat], -1))
   count <- length(indices)
@@ -2490,14 +2490,14 @@ track <- function(xyzs, maxdisp, params)
   } else {
     u <- nrow(newtracks) - 1
   }
-  
-  
+
+
   ntracks <- length(u)
   u <- c(0, u)
   for (i in 2: (ntracks + 1)){
     newtracks[(u[(i-1)]+1):u[i], ndat] = (i - 1)
   }
-  
+
   #% end of uberize code
   warn_message(warn_log = warn_log, quiet = quiet)
   return(newtracks)
@@ -2523,16 +2523,16 @@ track <- function(xyzs, maxdisp, params)
 #'
 #' @examples
 #' x0 <- cbind(
-#'   c(30, 35, 1, 5, 6, 7, 50, 55, 56, 58), 
-#'   c(29, 37, 2, 7, 4, 9, 40, 50, 59, 49), 
-#'   c( 1,  2,  1, 2, 3, 4, 1, 2, 3, 4), 
+#'   c(30, 35, 1, 5, 6, 7, 50, 55, 56, 58),
+#'   c(29, 37, 2, 7, 4, 9, 40, 50, 59, 49),
+#'   c( 1,  2,  1, 2, 3, 4, 1, 2, 3, 4),
 #'   c(1, 1, 2, 2, 2, 2, 3, 3, 3, 3))
 #' cellmigRation:::MigrationStats(x0, 10, 10)
-#' 
+#'
 #'
 #' @keywords internal
 MigrationStats <- function(tracks, interval_time, pixel_micron) {
-  
+
   #
   speed <- list()
   distance <- list()
@@ -2543,30 +2543,30 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
   final <- list()
   deltaX = list()
   deltaY = list()
-  
+
   # Keep track
   kept <- list()
-  
+
   cell_number <- sort(unique(tracks[,4]))
-  
+
   for (i in cell_number){
     data <- tracks[tracks[,4] == i, ]
-    
+
     if (!"matrix" %in% class(data) ) {
       next
     } else (
       kept[[length(kept) + 1]] <- i
     )
-    
+
     # obtain X-axis and Y-axis positional data for the specified track
     X <- data[,1]
     Y <- data[,2]
-    
+
     x1 <- X[1]
     xEnd <- X[length(X)]
     y1 <- Y[1]
     yEnd <- Y[length(Y)]
-    
+
     initial[[length(initial) + 1]] <- c(x=x1, y=y1)
     final[[length(final) + 1]] <- c(x=xEnd, y=yEnd)
     delX <- as.numeric(xEnd - x1)
@@ -2576,32 +2576,32 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
     # calculate euclidean distance (vector displacement of the cell)
     E <- as.numeric(sqrt((delX)^2 + (delY)^2))
     euclid[[length(euclid) + 1]] <- E
-    
+
     # add subsequent displacements of the cell
     cumulative_displacements <- as.numeric(cumsum(sqrt(diff(X)^2 + diff(Y)^2)) )
-    
+
     # sum of the displacements between each cell centroid for the given
     # track
-    
+
     distance[[length(distance) + 1]] <- max(cumulative_displacements)
-    
+
     # calculate cell persistence
     persistence[[length(persistence) + 1]] = E/max(cumulative_displacements)
-    
+
     # total number of frames that cell centroid was tracked ( can be
     # greater than number of frames where centroid was identified given the
     # param.mem parameter
     # total number of time intervals through which the cell has been tracked
     totalframes = data[nrow(data), 3] - data[1, 3]
-    
+
     # sum of all individual displacemnts divided by the time that cell
     # centroid was tracked
     ds_dt <- max(cumulative_displacements)/(totalframes*interval_time)
     speed[[length(speed) + 1]] <- ds_dt
-    
+
     frames[[length(frames) + 1]] <- totalframes
   }
-  
+
   # Expand resulting lists
   speed <- do.call(c, speed)
   distance <- do.call(c, distance)
@@ -2613,22 +2613,22 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
   kept <- do.call(c, kept)
   deltaX <- do.call(c, deltaX)
   deltaY <- do.call(c, deltaY)
-  
-  
+
+
   # calculate angular displacement of cells trajectory
   arccos <- deltaX/euclid
   theta <- acos(arccos)
-  
+
   for (j in 1:length(arccos)){
     if  (arccos[j] < 0 & deltaY[j] > 0) {
       theta[j] <- 2*pi - theta[j]
     }
-    
+
     if (arccos[j] > 0 & deltaY[j] > 0) {
       theta[j] <- 2*pi - theta[j]
     }
   }
-  
+
   #theta = theta.*((2*pi)/360);
   deltaY <-  deltaY * (-1)
   yfmi <- deltaY / distance
@@ -2638,7 +2638,7 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
   speed <- speed * pixel_micron;
   distance <- distance * pixel_micron
   euclid <- euclid * pixel_micron
-  
+
   OUT <- list(
     speed = speed,
     distance = distance,
@@ -2677,35 +2677,35 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
 #' @references
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
-#' 
-#' 
-#' @examples 
+#'
+#'
+#' @examples
 #' message("this example may take up to several mins to complete")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
 #' x <- CellTracker(tc_obj = x, lnoise = 6, diameter = 16, threshold = 10)
 #' x <- ComputeTracksStats(x, time_between_frames = 10, resolution_pixel_per_micron = 20)
 #' getCellsStats(x)[1:10,]
-#' } 
-#' 
+#' }
+#'
 #' @export
 ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per_micron)
 {
-  
+
   if(tc_obj@ops$track == 0)
     stop("You need to run CellTracker() before computing stats")
-  
+
   # RETRIEVE
   my_tracks <- tc_obj@tracks
-  
+
   # DO
   handles <- MigrationStats(tracks = my_tracks, interval_time = time_between_frames,
                             pixel_micron = resolution_pixel_per_micron);
-  
-  
+
+
   sz <- length(handles$speed)
   handles$cell_number <- 1:sz
-  
+
   cell_stats <- data.frame(Cell_Number = handles$cell_number,
                            Speed = handles$speed,
                            Distance = handles$distance,
@@ -2718,11 +2718,11 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
                            X_displacement = handles$deltaX,
                            Frames = handles$frames,
                            stringsAsFactors = FALSE)
-  
+
   # to organize population stats
   my_colz <- c("Speed", "Distance", "Displacement", "Persistence", "YFMI",
                "XFMI", "Y_displacement", "X_displacement")
-  
+
   my_rows <- lapply(my_colz, function(cl) {
     tmp <- cell_stats[, cl]
     data.frame(mean = mean(tmp, na.rm = TRUE),
@@ -2733,10 +2733,10 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
   })
   my_rows <- do.call(rbind, my_rows)
   rownames(my_rows) <- my_colz
-  
+
   # compute sum of cos and sin of angles
   r <- sum(exp(1i*handles$theta))
-  
+
   # obtain mean angle
   meanTheta <- Arg(r)
   degrees <- meanTheta/pi*180
@@ -2744,12 +2744,12 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
                    Angle = data.frame(mean = sz, SD = degrees, median = NA, min = NA, max = NA))
   rownames(my_rows)[c(2,3)] <- c("Total_displacement", "Euclidean_displacement")
   pop_stats <- my_rows
-  
+
   # Attach, return
   tc_obj@ops$stats <- 1
   tc_obj@stats <- list(population = pop_stats,
                        cells = cell_stats)
-  
+
   return(tc_obj)
 }
 
@@ -2799,13 +2799,13 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("this example may take up to several mins to complete")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
 #' x <- OptimizeParams(tc_obj = x)
 #' getOptimizedParams(x)
-#' } 
+#' }
 #'
 #'
 #' @importFrom stats quantile
@@ -2813,28 +2813,28 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #' @importFrom graphics par
 #' @importFrom parallel detectCores makeCluster clusterExport stopCluster
 #' @import foreach
-#' 
+#'
 #'
 #' @export
 OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
                            diameter_range = NULL, threshold_range = NULL,
                            target_cell_num = NULL, threads = 1,
-                           quantile.val = NULL, px.margin= NULL, 
+                           quantile.val = NULL, px.margin= NULL,
                            plot=FALSE, verbose = FALSE)
-  
+
 {
   # do
   stack_img <- tc_obj@images
-  
+
   # Nested f(x)
   all_combos <- function(...){
     xx <- list(...)
     zz <- names(xx)
-    
+
     # Init
     out <- data.frame(xx[[1]], stringsAsFactors = FALSE)
     colnames(out) <- zz[1]
-    
+
     # Keep attaching
     for (j in 2:length(xx)) {
       TMP <- xx[[j]]
@@ -2848,7 +2848,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     }
     return(out)
   }
-  
+
   ## ----- debugging -----
   #bpass = cellmigRation:::bpass
   #pkfnd = cellmigRation:::pkfnd
@@ -2858,24 +2858,24 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   #VisualizeCntr = cellmigRation:::VisualizeCntr
   #track = cellmigRation:::track
   ## ----- endo of debugging -----
-  
+
   if (!verbose) {
     tryCatch(sink(file = "/dev/null", type = "message"), error = function(e) {NULL})
     tryCatch(sink(file = "/dev/null", type = "output"), error = function(e) {NULL})
-    
+
     on.exit(expr = {
       tryCatch(sink(file = NULL, type = "message"), error = function(e) {NULL});
       tryCatch(sink(file = NULL, type = "output"), error = function(e) {NULL})})
-  }  
-  
-  
+  }
+
+
   # select mid signal image
   imgSums <- sapply(stack_img$images, sum, na.rm = TRUE)
   med.i <- ifelse(length(imgSums) %% 2 == 0, length(imgSums) / 2, (0.5 * length(imgSums) + 0.5))
   r.i <- order(imgSums)[med.i]
-  
+
   tmp_img <- stack_img$images[[r.i]]
-  
+
   # Define param ranges
   if (is.null(px.margin)) {
     px.margin <- 2
@@ -2883,13 +2883,13 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   if (is.null(quantile.val)) {
     quantile.val <- 0.99
   }
-  
+
   estRDI <- tryCatch({
     EstimateDiameterRange(x = tmp_img, px.margin = px.margin,
                           min.px.diam = min.px.diam,
                           quantile.val = quantile.val, plot = FALSE)},
     error = function(e) NULL)
-  
+
   # diam range
   if(is.null(diameter_range) && !is.null(estRDI)) {
     diameter_range <- c(floor(estRDI$q75.diam - 1), ceiling(1.25 * as.numeric(estRDI$q95.diam)))
@@ -2897,168 +2897,168 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     diameter_range <- unique(as.integer(diameter_range))
     diameter_range <- unique(as.integer(
       seq(min(diameter_range), max(diameter_range), length.out = 3)))
-    
+
   } else if (is.null(diameter_range)) {
     diameter_range <- c(10, 30, 90)
   }
-  
+
   # num cell
   if(is.null(target_cell_num) && !is.null(estRDI)) {
     target_cell_num <- estRDI$estim.cell.num
   } else if (is.null(target_cell_num)) {
     target_cell_num <- 100
   }
-  
+
   # Define param ranges
   if(is.null(lnoise_range))
     lnoise_range <- unique(as.integer(seq(from = min.px.diam,
                                           to = quantile(estRDI$raw$LEN, probs = 0.25),
                                           length.out = 3)))
-  
+
   if(is.null(threshold_range)) {
     threshold_range <- seq(max(0, (min(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], na.rm = TRUE) - 1)),
                            (1 + quantile(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], probs = 0.75)),
                            length.out = 4)
     threshold_range <- unique(as.integer(threshold_range))
   }
-  
+
   # Al params
   all_params <- all_combos(image.i = med.i,
                            lnoise = lnoise_range,
                            diameter = diameter_range,
                            threshold = threshold_range)
-  
+
   all_params <- all_params[all_params$diameter > (4 + all_params$lnoise), ]
   rownames(all_params) <- NULL
-  
+
   if(nrow(all_params) < 4) {
     message("There is a problem with the param ranges that were submitted")
     message("Please, try again with different param ranges")
     return(tc_obj)
   }
-  
+
   if(nrow(all_params) > 20) {
-    
+
     all_params$TMPdiff <- all_params$diameter - all_params$lnoise
     all_params <- all_params[order(all_params$TMPdiff, decreasing = TRUE),]
     rownames(all_params) <- NULL
     all_params <- all_params[1:20,]
   }
-  
-  
+
+
   # Verbose
   if (verbose) {
-    
+
     message(paste0("Testing ", nrow(all_params), " combination(s) of params."), appendLF = TRUE)
     message("This may take some time.", appendLF = TRUE)
-    
+
     message("Processing ", appendLF = FALSE)
   }
-  
+
   ##
   ## Parallelize please
   j <- NULL
-  
+
   # how many cores can we use?
   num_parallelCores <- threads
   debugging <- TRUE
-  
+
   max.cores <- parallel::detectCores()
   max.cores <- max.cores - 1
   max.cores <- ifelse(max.cores < 1, 1, max.cores)
   my.test <- 1 <= num_parallelCores & num_parallelCores <= max.cores
   use.cores <- ifelse(my.test, num_parallelCores, max.cores)
-  
+
   # Adjust if NA
   if (is.na(use.cores)) {
     use.cores <- 1
   }
-  
+
   # cores = 1, do not parallelize
   if (use.cores == 1) {
-    
+
     # Initialize collector (list)
     all_results <- list()
-    
+
     for (i in 1:nrow(all_params)){
-      
+
       # Verbose
       if (verbose)
         message(".", appendLF = FALSE)
-      
+
       #VisualizeImg(tmp_img)
       b <- bpass(image_array = tmp_img,
                  lnoise = all_params$lnoise[i],
                  lobject = all_params$diameter[i],
                  threshold = all_params$threshold[i])
       tmpOUT <- list(img = b)
-      
+
       tryCatch({
         pk <- suppressMessages(
           pkfnd(im = b,
                 th = all_params$threshold[i],
                 sz = NextOdd(all_params$diameter[i])))
-        
+
         cnt <- suppressMessages(
           cntrd(im = b, mx = pk,
                 sz = NextOdd(all_params$diameter[i])))
-        
+
         tmpOUT[["count"]] <- nrow(cnt)
-        
+
       }, error = function(e) {
         tmpOUT[["count"]] <- 0
-        
+
       })
       all_results[[i]] <- tmpOUT
     }
-    
+
     # cores > 1, DO parallelize!
   } else {
-    
+
     if (verbose) {
       cl <- suppressMessages(parallel::makeCluster(use.cores, outfile = ""))
     } else {
       cl <- suppressMessages(parallel::makeCluster(use.cores))
     }
-    
+
     suppressMessages(doParallel::registerDoParallel(cl))
-    
+
     # Nothing to export! "tmp_img", "all_params" automatically exported
     #stuffToExp <- c("tmp_img", "all_params")
     stuffToExp <- c()
     suppressMessages(parallel::clusterExport(cl, stuffToExp))
-    
+
     ## %dopar%
     all_results <-
       tryCatch(foreach::foreach(j = (1:nrow(all_params)),
                                 .verbose = verbose,
                                 .packages = "cellmigRation") %dopar% {
-                                  
+
                                   # Verbose
                                   message(".", appendLF = FALSE)
-                                  
+
                                   #VisualizeImg(tmp_img)
                                   b <- bpass(image_array = tmp_img,
                                              lnoise = all_params$lnoise[j],
                                              lobject = all_params$diameter[j],
                                              threshold = all_params$threshold[j])
                                   tmpOUT <- list(img = b)
-                                  
+
                                   tryCatch({
                                     pk <- suppressMessages(
                                       pkfnd(im = b,
                                             th = all_params$threshold[j],
                                             sz = NextOdd(all_params$diameter[j])))
-                                    
+
                                     cnt <- suppressMessages(
                                       cntrd(im = b, mx = pk,
                                             sz = NextOdd(all_params$diameter[j])))
-                                    
+
                                     tmpOUT[["count"]] <- nrow(cnt)
-                                    
+
                                   }, error = function(e) {
                                     tmpOUT[["count"]] <- 0
-                                    
+
                                   })
                                   tmpOUT
                                 }, error = (function(e) {
@@ -3069,55 +3069,55 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     message("Done!", appendLF = TRUE)
     try({suppressWarnings(parallel::stopCluster(cl))}, silent = TRUE)
   }
-  
+
   # Attach counts
   all_params$counts <- do.call(c, lapply(all_results, function(x) {
     tmp <- x$count
     ifelse(is.null(tmp), 0, tmp)}))
   all_params$i <- 1:nrow(all_params)
-  
+
   # Return
   all_params$diff100 <- abs(target_cell_num - all_params$counts)
   ord_params <- all_params[order(all_params$diff100), ]
   ret.i <- head(ord_params$i, n = 9)
   best_params <- list()
-  
+
   top.i <- 1
   for (ri in ret.i) {
-    
+
     if (top.i == 1) {
       best_params[["lnoise"]] <- ord_params$lnoise[ord_params$i == ri]
       best_params[["diameter"]] <- ord_params$diameter[ord_params$i == ri]
       best_params[["threshold"]] <- ord_params$threshold[ord_params$i == ri]
     }
-    
+
     myLAB <- paste0("Pick #", top.i, "; Cell_count=", ord_params$counts[ord_params$i == ri], "\n")
     myLAB <- paste0(myLAB, "lnoise=", ord_params$lnoise[ord_params$i == ri], "; ",
                     "diameter=", ord_params$diameter[ord_params$i == ri], "; ",
                     "threshold=", ord_params$threshold[ord_params$i == ri])
-    
+
     if (plot) {
       curPAR <- par(no.readonly = TRUE)
       par(mfrow = c(3, 3))
       on.exit(expr = {par(curPAR)})
       VisualizeImg(img_mtx = all_results[[ri]]$img, main = myLAB)
     }
-    
+
     top.i <- top.i + 1
   }
-  
+
   # Extract_all_img
   allIMG <- lapply(all_results, function(x) {x$img})
-  
+
   #return(list(auto_params = best_params,
   #            results = all_params,
   #            images = allIMG))
-  
-  
+
+
   tc_obj@ops$optimized_params <- 1
   tc_obj@optimized <- list(auto_params = best_params,
                            results = all_params)
-  
+
   return(tc_obj)
 }
 
@@ -3147,9 +3147,9 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 #'
 #'
 #' @param tc_obj a \code{trackedCells} object.
-#' @param import_optiParam_from a \code{trackedCells} object (optional) used to 
+#' @param import_optiParam_from a \code{trackedCells} object (optional) used to
 #' import optimized parameters; can be NULL.
-#' @param min_frames_per_cell numeric, minimum number of consecutive frames in which 
+#' @param min_frames_per_cell numeric, minimum number of consecutive frames in which
 #' a cell shall be found in order to retain that cell in the final cell tracks data.frame. Defaults to 1.
 #' @param lnoise numeric, lnoise parameter; can be NULL if OptimizeParams() has already been run
 #' @param diameter numeric, diameter parameter; can be NULL if OptimizeParams() has already been run
@@ -3171,7 +3171,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("this example may take up to several mins to complete")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
@@ -3188,13 +3188,13 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
                         lnoise = NULL, diameter = NULL,
                         threshold = NULL, maxDisp = NULL,
                         memory_b = 0, goodenough = 0,
-                        threads = 1, show_plots = FALSE, 
+                        threads = 1, show_plots = FALSE,
                         verbose = FALSE)
 {
   # get stuff
   stack_img <- tc_obj@images
   optimal_params <- tc_obj@optimized
-  
+
   if (length(optimal_params) > 0) {
     my.lnoise <- optimal_params$auto_params$lnoise
     my.diameter <- optimal_params$auto_params$diameter
@@ -3204,19 +3204,19 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
     my.diameter <- NA
     my.threshold <- NA
   }
-  
-  # if a `import_optiParam_from` is specified, and 
+
+  # if a `import_optiParam_from` is specified, and
   if (!is.null(import_optiParam_from)) {
     chk.tco <- 0
     if ("trackedCells" %in% class(import_optiParam_from)) {
       if(import_optiParam_from@ops$optimized_params == 1) {
-        
+
         # import
         my.lnoise <- import_optiParam_from@optimized$auto_params$lnoise
         my.diameter <- import_optiParam_from@optimized$auto_params$diameter
         my.threshold <- import_optiParam_from@optimized$auto_params$threshold
         chk.tco <- 1
-        
+
       }
     }
     if (chk.tco == 0) {
@@ -3224,51 +3224,51 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
       message("Is it a 'trackedCells'-class object? Did you run `OptimizeParams()`?")
     }
   }
-  
+
   custom_params_flag <- 0
-  
+
   if(!is.null(lnoise) && is.numeric(lnoise)){
     my.lnoise <- lnoise[1]
     custom_params_flag <- 1
   }
-  
+
   if(!is.null(diameter) && is.numeric(diameter)){
     my.diameter <- diameter[1]
     custom_params_flag <- 1
   }
-  
+
   if(!is.null(threshold) && is.numeric(threshold)){
     my.threshold <- threshold[1]
     custom_params_flag <- 1
   }
-  
+
   # Max Disp
   if(!is.null(maxDisp) && is.numeric(maxDisp)) {
     maxDisp <- maxDisp[1]
   } else {
     maxDisp <- NULL
   }
-  
+
   # Other params
   quiet <- verbose
   force_exec <- FALSE
   j <- NULL
-  
+
   # At this moment, let's play safe!
   # Impose the following
   if (memory_b != 0)
     message("Currently, only memory_b=0 is supported... Resetting.")
   memory_b <- 0
-  
+
   if (goodenough != 0)
     message("Currently, only goodenough=0 is supported... Resetting.")
   goodenough <- 0
-  
+
   # In the end, my params are:
   lnoise <- my.lnoise
   diameter <- my.diameter
   threshold <- my.threshold
-  
+
   track_params <- list(lnoise = lnoise,
                        diameter = diameter,
                        threshold = threshold,
@@ -3279,16 +3279,16 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
                        quiet = quiet,
                        verbose = verbose,
                        show_plots = show_plots)
-  
+
   # Final check
   if (sum(sapply(track_params, is.na)) > 0) {
     message("Make sure to set all params for the analysis, or run OptimizeParams()")
     return(tc_obj)
   }
-  
+
   if(!is.null(maxDisp))
     track_params$maxDisp <- maxDisp
-  
+
   ## ----- debugging -----
   #bpass = cellmigRation:::bpass
   #pkfnd = cellmigRation:::pkfnd
@@ -3298,59 +3298,59 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
   #VisualizeCntr = cellmigRation:::VisualizeCntr
   #track = cellmigRation:::track
   ## ----- endo of debugging -----
-  
+
   # Load stack
   stack <- stack_img
-  
+
   InfoImage <- stack$attributes[[1]]
   mImage <- stack$dim$width_m
   nImage <- stack$dim$height_n
   NumberImages <- stack$dim$NumberImages
   FinalImage <- stack$images
-  
+
   ## ----------- Evaluate centroids ---------------------
-  
+
   # locate centroids, via CentroidArray
   if (verbose)
     message("Computing centroid positions", appendLF = FALSE)
-  
+
   ##
   ## Parallelize please
   if (!verbose) {
     tryCatch(sink(file = "/dev/null", type = "message"), error = function(e) {NULL})
     tryCatch(sink(file = "/dev/null", type = "output"), error = function(e) {NULL})
-    
+
     on.exit(expr = {
       tryCatch(sink(file = NULL, type = "message"), error = function(e) {NULL});
       tryCatch(sink(file = NULL, type = "output"), error = function(e) {NULL})})
-  }  
-  
-  
+  }
+
+
   # how many cores can we use?
   num_parallelCores <- threads
   debugging <- TRUE
-  
+
   max.cores <- parallel::detectCores()
   max.cores <- max.cores - 1
   max.cores <- ifelse(max.cores < 1, 1, max.cores)
   my.test <- 1 <= num_parallelCores & num_parallelCores <= max.cores
   use.cores <- ifelse(my.test, num_parallelCores, max.cores)
-  
+
   # fix for NA cores
   if (is.na(use.cores)) {use.cores <- 1}
-  
+
   # cores = 1, do not parallelize
   if (use.cores == 1) {
-    
+
     # Init collectors
     all_centroids <- list()
     all_b <- list()
-    
+
     for (i in 1:NumberImages) {
-      
+
       if (verbose)
         message(".", appendLF = FALSE)
-      
+
       # generate an 1xP array with each column containing centroid output for
       # individual frames
       a <- FinalImage[[i]]
@@ -3364,17 +3364,17 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
       #b <- bpass(image_array = a, lnoise = lnoise, lobject = diameter, threshold = threshold)
       #pk <- pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
       #cnt <- cntrd(im = b, mx = pk, sz = NextOdd(diameter))
-      
+
       if (show_plots) {
         VisualizeImg(img_mtx = b, las = 1, main = paste0("Stack num. ", i))
         VisualizeCntr(centroids = cnt, width_px = ncol(b), height_px = nrow(b))
       }
-      
+
       # determine that frame s has at least 1 valid centroid
       if(! is.null(cnt) && is.data.frame(cnt) && nrow(cnt) > 0) {
         all_centroids[[length(all_centroids) + 1]] <- cnt
         all_b[[length(all_b) + 1]] <- b
-        
+
       } else {
         message(paste0('No centroids detectd in frame ', i, ' in the current stack'))
         message('Please, check nuclei validation settings for this image stack.')
@@ -3382,30 +3382,30 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
     }
     if (verbose)
       message("", appendLF = TRUE)
-    
+
   } else {
-    
+
     if (verbose) {
       cl <- suppressMessages(parallel::makeCluster(use.cores, outfile = ""))
     } else {
       cl <- suppressMessages(parallel::makeCluster(use.cores))
     }
-    
+
     suppressMessages(doParallel::registerDoParallel(cl))
     # Nothing to export! ""FinalImage", "all_params" automatically exported
     #stuffToExp <- c("FinalImage", "all_params")
     stuffToExp <- c()
     suppressMessages(parallel::clusterExport(cl, stuffToExp))
-    
+
     ## %dopar%
     all_results <-
       tryCatch(foreach::foreach(j = (1:NumberImages),
                                 .verbose = verbose,
                                 .packages = "cellmigRation") %dopar% {
-                                  
+
                                   # Verbose
                                   message(".", appendLF = FALSE)
-                                  
+
                                   # generate an 1xP array with each column containing centroid output for
                                   # individual frames
                                   a <- FinalImage[[j]]
@@ -3419,36 +3419,36 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
                                                  error = function(e) {NULL})
                                   cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))},
                                                   error = function(e) {NULL})
-                                  
+
                                   # determine that frame s has at least 1 valid centroid
                                   if(! is.null(cnt) && is.data.frame(cnt) && nrow(cnt) > 0) {
                                     tmpOUT <- list(cnt = cnt, b = b, j = j)
-                                    
+
                                   } else {
                                     #message(paste0("No centroids detectd in frame ",
                                     #               i, " in the current stack"))
                                     #message("Please, check nuclei validation settings for this image stack.")
                                     errCNT <- data.frame(row = 1, col = 1, norm = 1, rg = 1)
                                     tmpOUT <- list(cnt = errCNT[-1, ], b = b, j = j)
-                                    
+
                                   }
                                   tmpOUT
-                                  
+
                                 }, error = (function(e) {
                                   print(e)
                                   try(parallel::stopCluster(cl), silent = TRUE)
                                   return(NULL)
                                 }))
-    
+
     message("Done!", appendLF = TRUE)
     try({suppressWarnings(parallel::stopCluster(cl))}, silent = TRUE)
-    
+
     re.idx <- order(do.call(c, lapply(all_results, function(x) {x$j})))
     all_results <- all_results[re.idx]
     skpd.frames <- list()
     all_centroids <- lapply(all_results, function(x) {x$cnt})
     all_b <- lapply(all_results, function(x) {x$b})
-    
+
     # Visualize if needed
     if (show_plots) {
       for (ii in 1:length(all_results)){
@@ -3460,7 +3460,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
       }
     }
   }
-  
+
   # Position list (reformated centroid data for track.m input)
   OUT_centroids <- all_centroids
   # Remove columns that contain brightness and sqare of radius of gyration
@@ -3479,7 +3479,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
   keepXX <- do.call(c, lapply(all_centroids, function(xx){
     nrow(xx) >= min.celln && nrow(xx) <= max.celln}))
   all_centroids <- all_centroids[keepXX]
-  
+
   # Updated to avoid NO cells frames
   all_centroids2 <- list()
   for (ti in 1:length(all_centroids)) {
@@ -3490,16 +3490,16 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
       all_centroids2[[length(all_centroids2) + 1]] <- ttmp
     }
   }
-  
+
   # create a matrix that contains centroid data in sequential order by frame(tau)
   #pos <- do.call(rbind, all_centroids)
   pos <- do.call(rbind, all_centroids2)
-  
+
   tracks2 <- NULL
   if (!is.null(maxDisp)) {
     tracks2 <- tryCatch(track(xyzs = pos, maxdisp = maxDisp, params = track_params), error = function(e) NULL)
   }
-  
+
   if (is.null(tracks2)) {
     tmp.Area <- tc_obj@images$dim$width_m * tc_obj@images$dim$height_n
     max.disp <- as.integer(as.numeric(sqrt(tmp.Area)) / 5)
@@ -3513,65 +3513,65 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
     if (!is.null(tracks2)) {
       track_params$maxDisp <- allDisp[jj0]
       message(paste0("The following maxDisp value was used for this analysis: ", allDisp[jj0]))
-      
+
     } else {
       message("a reasonable MaxDisp value couldn't be found! Sorry!")
       return(NULL)
-      
+
     }
   }
-  
+
   #tracks <- track(xyzs = pos, maxdisp = maxDisp, params = track_params)
   tracks <- tracks2
-  
-  # init num of cells 
+
+  # init num of cells
   init.cell.n <- length(unique(tracks[,4]))
-	      
+
   if (!is.null(min_frames_per_cell) &&
       is.numeric(min_frames_per_cell) &&
       length(min_frames_per_cell) == 1 &&
       min_frames_per_cell > 1) {
-    
+
     all.cids <- table(tracks[, 4])
     all.cids <- data.frame(cell.id = as.numeric(names(all.cids)),
                            count = as.numeric(all.cids))
-    
-    
+
+
     all.cids <- all.cids[all.cids$count >= min_frames_per_cell, ]
     keep.cid <- all.cids$cell.id
-    
+
     tracks <- tracks[ tracks[,4] %in% unique(keep.cid), ]
-    
+
   } else {
     min_frames_per_cell <- 1
   }
   track_params$min_frames_per_cell <- min_frames_per_cell
-  
-  # end num of cells 
+
+  # end num of cells
   end.cell.n <- length(unique(tracks[,4]))
-	      
+
   # message
   message(paste0("Tot num of cells detected in the image stack: ", init.cell.n, "; Cells retained after filtering: ", end.cell.n))
 
   ### generate tracks
   #tracks <- track(xyzs = pos, maxdisp = maxDisp, params = track_params)
-  
+
   # pack and return
   #OUT <- list(images = all_b,
   #            centroids = OUT_centroids,
   #            positions = pos,
   #            tracks = tracks,
   #            params = track_params)
-  
+
   tc_obj@proc_images <- list(images = all_b)
   tc_obj@centroids <- OUT_centroids
   tc_obj@positions <- pos
   tc_obj@tracks <- tracks
   tc_obj@params <- track_params
-  
+
   tc_obj@ops$track <- 1
   tc_obj@ops$custom_params <- custom_params_flag
-  
+
   return(tc_obj)
 }
 
@@ -3590,7 +3590,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("this example may take up to several mins to complete")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
@@ -3611,7 +3611,7 @@ getTracks <- function(tc_obj, attach_meta = FALSE)
   TMP <- TMP[, c(4, 2, 3, 1)]
   rownames(TMP) <- NULL
   if(attach_meta && nrow(TMP) > 0) {
-    
+
     TMP$tiff_file = tc_obj@metadata$tiff_file
     TMP$experiment = tc_obj@metadata$experiment
     TMP$condition = tc_obj@metadata$condition
@@ -3619,7 +3619,7 @@ getTracks <- function(tc_obj, attach_meta = FALSE)
   } else if (nrow(TMP) < 1) {
     return (NULL)
   }
-  
+
   return(TMP)
 }
 
@@ -3637,7 +3637,7 @@ getTracks <- function(tc_obj, attach_meta = FALSE)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("this example may take up to several mins to complete")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
@@ -3674,7 +3674,7 @@ getPopulationStats <- function(tc_obj)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("this example may take up to several mins to complete")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
@@ -3710,7 +3710,7 @@ getCellsStats <- function(tc_obj)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' x0 <- cellmigRation::TrackCellsDataset
 #' getCellsMeta(x0)
 #'
@@ -3735,7 +3735,7 @@ getCellsMeta <- function(tc_obj)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' x0 <- cellmigRation::TrackCellsDataset
 #' y0 <- getImageStacks(x0)
 #' graphics::image(y0[[1]][200:400, 100:300])
@@ -3762,7 +3762,7 @@ getImageStacks <- function(tc_obj)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' message("this example may take up to several mins to complete")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
@@ -3801,7 +3801,7 @@ getOptimizedParams <- function(tc_obj)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
-#' @examples 
+#' @examples
 #' x0 <- cellmigRation::TrackCellsDataset
 #' x0 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DMSO")
 #' getCellsMeta(x0)
@@ -3811,27 +3811,27 @@ getOptimizedParams <- function(tc_obj)
 setCellsMeta <- function(tc_obj, experiment = NULL,
                          condition = NULL, replicate = NULL)
 {
-  
+
   if (is.null(experiment)) {
     experiment <- NA
   } else {
     experiment <- tryCatch(as.character(experiment[1]), error = function(e) NA)
   }
-  
+
   if (is.null(replicate)) {
     replicate <- NA
   } else {
     replicate <- tryCatch(as.character(replicate[1]), error = function(e) NA)
   }
-  
+
   if (is.null(condition)) {
     condition <- NA
   } else {
     condition <- tryCatch(as.character(condition[1]), error = function(e) NA)
   }
-  
+
   FILENM <- tc_obj@metadata$tiff_file
-  
+
   tmp <- list(tiff_file = FILENM,
               experiment = experiment,
               condition = condition,
@@ -3884,13 +3884,13 @@ aggregateTrackedCells <- function(x, ...,
     }
     return(RT)
   }
-  
+
   compute_mult <- function(xx) {
     zz <- nchar(xx) + 2
     out <- (10 ^ zz)
     return(out)
   }
-  
+
   meta_id_field <- match.arg(arg = meta_id_field,
                              choices = c("tiff_file", "experiment",
                                          "condition", "replicate"),
@@ -3900,38 +3900,38 @@ aggregateTrackedCells <- function(x, ...,
   if (length(y) > 0) {
     test1 <- sum(do.call(c, lapply(y, check_trobj))) == length(y)
   }
-  
+
   # first check
   stopifnot(check_trobj(x), test1)
-  
+
   big.list <- list(x)
   for(yi in y) {
     big.list[[length(big.list) + 1]] <- yi
   }
-  
+
   # Chek names are different
   all_ids <- do.call(c, lapply(big.list, function(xx) {xx@metadata[[meta_id_field]] }))
   all_ids <- as.character(all_ids)
   unq_ids <- unique(all_ids)
-  
+
   # second check
   stopifnot(length(unq_ids) == length(all_ids))
-  
+
   # Adjust
   my_tracks <- lapply(big.list, getTracks, attach_meta = TRUE)
-  
+
   my_tracks <- do.call(rbind, my_tracks)
   my_tracks[,"new.ID"] <- factor(my_tracks[,meta_id_field], levels = unq_ids)
   my_tracks[,"new.ID"] <- as.numeric(my_tracks[,"new.ID"])
   my.mult <- compute_mult(max(my_tracks[, "cell.ID"], na.rm = TRUE))
   my_tracks[,"new.ID"] <- (my.mult * my_tracks[,"new.ID"]) + my_tracks[, "cell.ID"]
-  
+
   # Adjust as per S request
   #keep.colz <- c('new.ID', 'frame.ID', 'X', 'Y', 'cell.ID', 'tiff_file', 'experiment', 'condition', 'replicate')
   keep.colz <- c('new.ID', 'X', 'Y', 'frame.ID', 'cell.ID', 'tiff_file', 'experiment', 'condition', 'replicate')
   out <- my_tracks[, keep.colz]
   rownames(out) <- NULL
-  
+
   return(out)
 }
 
@@ -3968,17 +3968,17 @@ aggregateTrackedCells <- function(x, ...,
 FilterTrackedCells <- function(x, id_list,
                                meta_id_field = c("tiff_file", "experiment",
                                                  "condition", "replicate")) {
-  
+
   meta_id_field <- match.arg(arg = meta_id_field,
                              choices = c("tiff_file", "experiment",
                                          "condition", "replicate"),
                              several.ok = FALSE)
-  
+
   REQd <- c("new.ID", "frame.ID", "X", "Y", "cell.ID", meta_id_field)
   CHK1 <- sum(REQd %in% colnames(x)) == length(REQd)
-  
+
   stopifnot(CHK1)
-  
+
   xx <- x[x[, meta_id_field] %in% id_list, ]
   return(xx)
 }
@@ -3986,7 +3986,7 @@ FilterTrackedCells <- function(x, id_list,
 #
 ## --- !!! --- DF part ends here --- !!! ---
 #
-			  
+
 #' @title Data preprocessing for random migration (RM)
 #'
 #' @description This function allows preprocessing of the trajectory data from random
@@ -6965,7 +6965,7 @@ CellMigPCA = function(object, ExpName="ExpName",
 #' @export
 CellMigPCAclust = function(object, ExpName="ExpName",
                            parameters=c(1,2,3), export=FALSE){
-  
+
   if (!is.list(object) & !is(object, "CellMig")) {
     stop(
       "Input data must be a list. Please run the PreProcessing step first, ",
@@ -6975,7 +6975,7 @@ CellMigPCAclust = function(object, ExpName="ExpName",
   if ( length(object@results[,1])<1 ){
     stop("There are no results stored. Please run trajectory analysis first")
   }
-  
+
   if ( length(parameters)<2){
     stop("At least two parameters are required to run the PCA")
   }
@@ -6999,5 +6999,5 @@ CellMigPCAclust = function(object, ExpName="ExpName",
       " in your directory [use getwd()]\n"
     )
   }
-  
+
 }

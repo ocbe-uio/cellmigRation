@@ -74,7 +74,7 @@ message("this example may take up to several mins to complete")
 x <- cellmigRation::TrackCellsDataset
 x <- OptimizeParams(tc_obj = x)
 getOptimizedParams(x)
-} 
+}
 
 
 }
