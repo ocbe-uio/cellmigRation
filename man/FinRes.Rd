@@ -4,12 +4,20 @@
 \alias{FinRes}
 \title{Final Results}
 \usage{
-FinRes(object, ExpName = "ExpName", ParCor = TRUE, export = FALSE)
+FinRes(
+  object,
+  ExpName = "ExpName",
+  ExpDir = tempdir(),
+  ParCor = TRUE,
+  export = FALSE
+)
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
 \item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+\item{ExpDir}{Directory to export the results to (if `export = TRUE`)}
 
 \item{ParCor}{A logical vector that allows generating a correlation table. Default is TRUE.}
 
@@ -24,7 +32,7 @@ The FinRes function automatically generates a data frame that contains all the r
 \examples{
 \dontrun{
 data(WSADataset)
-wasDF=WSADataset[1:1000,]
+wasDF <- WSADataset[1:1000, ]
 wsaTD <- CellMig(wasDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName.FNRS")
