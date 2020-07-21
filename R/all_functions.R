@@ -6797,6 +6797,7 @@ FMI= function(object, TimeInterval=10, ExpName="ExpName", export=FALSE){
 #' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ParCor A logical vector that allows generating a correlation table. Default is TRUE.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
+#' @param ExpDir Directory to export the results to (if `export = TRUE`)
 #' @param export if `TRUE` (default), exports function output to CSV file
 #' @return  A data frame that contains all the results.
 #'
@@ -6819,7 +6820,13 @@ FMI= function(object, TimeInterval=10, ExpName="ExpName", export=FALSE){
 #' @importFrom Hmisc rcorr
 #'
 #' @export
-FinRes <- function(object, ExpName="ExpName", ParCor=TRUE, export=FALSE) {
+FinRes <- function(
+  object,
+  ExpName="ExpName",
+  ExpDir=tempdir(),
+  ParCor=TRUE,
+  export=FALSE
+) {
   # ============================================================================
   # Writing results
   # ============================================================================
@@ -6849,12 +6856,9 @@ FinRes <- function(object, ExpName="ExpName", ParCor=TRUE, export=FALSE) {
   # Exporting results
   # ============================================================================
   if (export) {
-    fileNameExt <- paste0(ExpName, "-Final_Results.csv")
-    utils::write.csv(Results, file = fileNameExt)
-    message(
-      "The table of the final results is saved as: ", fileNameExt,
-      " in your directory [use getwd()]"
-    )
+    fileNamePath <- paste0(ExpDir, "/", ExpName, "-Final_Results.csv")
+    utils::write.csv(object@results, file = fileNamePath)
+    message("The table with the final results is saved to ", fileNamePath)
   }
   # ============================================================================
   # Calculating correlation table
@@ -6865,12 +6869,9 @@ FinRes <- function(object, ExpName="ExpName", ParCor=TRUE, export=FALSE) {
     Parameters.Correlation <- Hmisc::rcorr(t(R), type="spearman")
     object@parCor <- Parameters.Correlation$r
     if (export) {
-      fileNameExt <- paste0(ExpName,"-Parameters.Correlation.csv")
-      utils::write.csv(Parameters.Correlation$r, file = fileNameExt)
-      message(
-        "Parameters Correlation table is saved as: ", fileNameExt,
-        "in your directory [use getwd()]"
-      )
+      fileNamePath <- paste0(ExpDir, "/", ExpName,"-Parameters.Correlation.csv")
+      utils::write.csv(Parameters.Correlation$r, file = fileNamePath)
+      message("Parameters Correlation table is saved to ", fileNamePath)
     }
   }
   message("\nThese are the parameters in your final results:")
