@@ -6845,13 +6845,12 @@ FinRes <- function(
     }
     return(tot_results)
   }
-  object@results <- juxtaposeResults("DRtable")
-  object@results <- juxtaposeResults("MSDtable")
-  object@results <- juxtaposeResults("PerAanSpeedtable")
-  object@results <- juxtaposeResults("DACtable")
-  object@results <- juxtaposeResults("VACtable")
-  object@results <- juxtaposeResults("ForMigtable")
-  object@results <- juxtaposeResults("FMItable")
+  partial_result_slots <- c(
+    "DRtable", "MSDtable", "PerAanSpeedtable", "DACtable", "VACtable",
+    "ForMigtable", "FMItable"
+  )
+  for (i in partial_result_slots) object@results <- juxtaposeResults(i)
+
   # ============================================================================
   # Exporting results
   # ============================================================================
