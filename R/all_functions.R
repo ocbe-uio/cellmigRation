@@ -6807,7 +6807,7 @@ FMI= function(object, TimeInterval=10, ExpName="ExpName", export=FALSE){
 #' @examples
 #' \dontrun{
 #' data(WSADataset)
-#' wasDF=WSADataset[1:1000,]
+#' wasDF <- WSADataset[1:1000, ]
 #' wsaTD <- CellMig(wasDF)
 #' wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 #' wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName.FNRS")
@@ -6819,93 +6819,65 @@ FMI= function(object, TimeInterval=10, ExpName="ExpName", export=FALSE){
 #' @importFrom Hmisc rcorr
 #'
 #' @export
-FinRes= function(object,ExpName="ExpName",ParCor=TRUE, export=FALSE){
-  msg <- NULL
-  if ( ! is.list(object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+FinRes <- function(object, ExpName="ExpName", ParCor=TRUE, export=FALSE) {
+  # ============================================================================
+  # Writing results
+  # ============================================================================
+  juxtaposeResults <- function(slt, obj=object) {
+    # rbinds slt to object@results, removing the first row of slt
+    new_results <- slot(obj, slt)
+    tot_results <- slot(obj, "results")
+    if (length(new_results) > 0) {
+      new_results_1st_row           <- new_results[1, ]
+      new_results_no_1st_row        <- new_results[-1, ]
+      if (length(names(tot_results)) > 0) {
+        names(new_results_no_1st_row) <- names(tot_results)
+      }
+      tot_results <- rbind(tot_results, new_results_no_1st_row)
+      names(tot_results) <- new_results_1st_row
+    }
+    return(tot_results)
   }
-  cells<-c()
-  if (length(object@DRtable)>0){
-    cells<-object@DRtable[1,]
-    DR<-object@DRtable[-1,]
-    names(DR) <- names(object@results)
-    object@results <- rbind(object@results,DR)
-  }
-
-  if (length(object@MSDtable)>0){
-    cells<-object@MSDtable[1,]
-    MSD<-object@MSDtable[-1,]
-    names(MSD) <- names(object@results)
-    object@results <- rbind(object@results,MSD)
-  }
-
-  if (length(object@PerAanSpeedtable)>0){
-    cells<-object@PerAanSpeedtable[1,]
-    per<-object@PerAanSpeedtable[-1,]
-    names(per) <- names(object@results)
-    object@results <- rbind(object@results,per)
-  }
-
-
-  if (length(object@DACtable)>0){
-    cells<-object@DACtable[1,]
-    DAC<-object@DACtable[-1,]
-    names(DAC) <- names(object@results)
-    object@results <- rbind(object@results,DAC)
-  }
-
-  if (length(object@VACtable)>0){
-    cells<-object@VACtable[1,]
-    VAC<-object@VACtable[-1,]
-    names(VAC) <- names(object@results)
-    object@results <- rbind(object@results,VAC)
-  }
-
-  if (length(object@ForMigtable)>0){
-    cells<-object@ForMigtable[1,]
-    FM<-object@ForMigtable[-1,]
-    names(FM) <- names(object@results)
-    object@results <- rbind(object@results,FM)
-  }
-
-
-  if (length(object@FMItable)>0){
-    cells<-object@FMItable[1,]
-    FMI<-object@FMItable[-1,]
-    names(FMI) <- names(object@results)
-    object@results <- rbind(object@results,FMI)
-  }
-
-  Results<-object@results
-  colnames(Results)<- cells
-  colnames(object@results)<- cells
+  object@results <- juxtaposeResults("DRtable")
+  object@results <- juxtaposeResults("MSDtable")
+  object@results <- juxtaposeResults("PerAanSpeedtable")
+  object@results <- juxtaposeResults("DACtable")
+  object@results <- juxtaposeResults("VACtable")
+  object@results <- juxtaposeResults("ForMigtable")
+  object@results <- juxtaposeResults("FMItable")
+  # ============================================================================
+  # Exporting results
+  # ============================================================================
   if (export) {
-    utils::write.csv(
-      Results,
-      file = paste0(ExpName,"-Final_Results.csv")
-    )
-    cat(
-      "The table of the final results is saved as: ",
-      paste0(ExpName,"-Final_Results.csv"),
-      " in your directory [use getwd()]\n"
+    fileNameExt <- paste0(ExpName, "-Final_Results.csv")
+    utils::write.csv(Results, file = fileNameExt)
+    message(
+      "The table of the final results is saved as: ", fileNameExt,
+      " in your directory [use getwd()]"
     )
   }
-  if ( ParCor == TRUE){
-    R=Results
-    R[,] <- lapply(R[,], function(x) as.numeric(gsub(",", ".", x)))
-    Parameters.Correlation<-Hmisc::rcorr(t(R), type="spearman")
-    object@parCor<-Parameters.Correlation$r
+  # ============================================================================
+  # Calculating correlation table
+  # ============================================================================
+  if (ParCor) {
+    R <- object@results
+    R[, ] <- lapply(R[, ], function(x) as.numeric(gsub(",", ".", x)))
+    Parameters.Correlation <- Hmisc::rcorr(t(R), type="spearman")
+    object@parCor <- Parameters.Correlation$r
     if (export) {
-      utils::write.csv(
-        Parameters.Correlation$r,
-        file = paste0(ExpName,"-Parameters.Correlation.csv")
+      fileNameExt <- paste0(ExpName,"-Parameters.Correlation.csv")
+      utils::write.csv(Parameters.Correlation$r, file = fileNameExt)
+      message(
+        "Parameters Correlation table is saved as: ", fileNameExt,
+        "in your directory [use getwd()]"
       )
-      cat("Parameters Correlation table is saved as: ",paste0(ExpName,"-Parameters.Correlation.csv"),"in your directory [use getwd()]","\n")
     }
   }
-  cat("\n", "These are the parameters in your final results:","\n")
-  print(rownames(Results))
-
+  message("\nThese are the parameters in your final results:")
+  print(rownames(object@results))
+  # ============================================================================
+  # Returning whole object
+  # ============================================================================
   return(object)
 }
 
