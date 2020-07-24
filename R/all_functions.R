@@ -5695,15 +5695,22 @@ MSD <- function(object, TimeInterval=10,
                sLAG=0.25, ffLAG=0.25,
                SlopePlot=TRUE, AllSlopesPlot=TRUE,
                FurthPlot=TRUE, AllFurthPlot=TRUE, export=FALSE) {
-
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
-  if ( ! is.numeric(sLAG) ) stop( "sLAG has to be a positive number" ) else if ( sLAG<= 0 ) stop( "sLAG has to be a positive number" )
-  if ( ! is.numeric(ffLAG) ) stop( "ffLAG has to be a positive number" ) else if ( ffLAG<= 0 ) stop( "ffLAG has to be a positive number" )
-  Object<-object@preprocessedDS
-  msg <- NULL
-  if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+  # ============================================================================
+  # Validation
+  # ============================================================================
+  if (!is.numeric(TimeInterval) | TimeInterval<= 0) {
+    stop( "TimeInterval has to be a positive number")
   }
+  if (!is.numeric(sLAG) | sLAG<= 0) {
+    stop( "sLAG has to be a positive number")
+  }
+  if (!is.numeric(ffLAG) | ffLAG<= 0) {
+    stop( "ffLAG has to be a positive number")
+  }
+  # ============================================================================
+  # Operations
+  # ============================================================================
+  Object <- object@preprocessedDS
   d=getwd()
   if (export) {
     dir.create(paste0(ExpName,"-MSDResults"))
