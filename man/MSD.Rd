@@ -42,14 +42,14 @@ MSD(
 An CellMig class object with a data frame and plots. The data frame is stored in the MSDtable slot.
 }
 \description{
-The MSD function automatically compute the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
+The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
 }
 \examples{
 data(TrajectoryDataset)
-rmDF=TrajectoryDataset[1:600,]
+rmDF <- TrajectoryDataset[1:600, ]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
-rmTD<-MSD(rmTD,sLAG=0.25, ffLAG=0.25, export=FALSE)
+rmTD <- MSD(rmTD, sLAG=0.25, ffLAG=0.25, export=FALSE)
 
 }
 \references{
