@@ -5656,7 +5656,7 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
 
 
 #' @title Mean Square Displacement
-#' @description The MSD function automatically compute the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
+#' @description The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
 #'
 #' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
@@ -5677,10 +5677,10 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
 #'
 #' @examples
 #' data(TrajectoryDataset)
-#' rmDF=TrajectoryDataset[1:600,]
+#' rmDF <- TrajectoryDataset[1:600, ]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
-#' rmTD<-MSD(rmTD,sLAG=0.25, ffLAG=0.25, export=FALSE)
+#' rmTD <- MSD(rmTD, sLAG=0.25, ffLAG=0.25, export=FALSE)
 #'
 #' @importFrom grDevices rainbow jpeg dev.off
 #' @importFrom stats lm coef
@@ -5690,7 +5690,7 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
 #' @importFrom utils write.csv
 #'
 #' @export
-MSD = function(object, TimeInterval=10,
+MSD <- function(object, TimeInterval=10,
                ExpName="ExpName",
                sLAG=0.25, ffLAG=0.25,
                SlopePlot=TRUE, AllSlopesPlot=TRUE,
