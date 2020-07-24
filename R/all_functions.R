@@ -5692,6 +5692,7 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
 #' @export
 MSD <- function(object, TimeInterval=10,
                ExpName="ExpName",
+               ExpDir=tempdir(),
                sLAG=0.25, ffLAG=0.25,
                SlopePlot=TRUE, AllSlopesPlot=TRUE,
                FurthPlot=TRUE, AllFurthPlot=TRUE, export=FALSE) {
@@ -5711,10 +5712,9 @@ MSD <- function(object, TimeInterval=10,
   # Operations
   # ============================================================================
   Object <- object@preprocessedDS
-  d=getwd()
   if (export) {
-    dir.create(paste0(ExpName,"-MSDResults"))
-    setwd(paste0(d,"/",paste0(ExpName,"-MSDResults")))
+    SavePath <- paste0(ExpDir, "/", ExpName,"-MSDResults")
+    if (!dir.exists(SavePath)) dir.create(SavePath)
   }
   Len<-length(Object)
   Step<-length(Object[[1]][,1])
@@ -5729,10 +5729,10 @@ MSD <- function(object, TimeInterval=10,
   }
 
   MSDResultsTable<-data.frame()
-  MSD.table<-data.frame()                                                          # creating a table that has all the MSDs to be able to compute the mean and sd
+  MSD.table<-data.frame() # creating a table that has all the MSDs to be able to compute the mean and sd
   for(j in 1:length(Object)){
     meanSD<-c()
-    LAG<-round(Step*sLAG)                                                     # number of lags is based on sLAG
+    LAG<-round(Step*sLAG) # number of lags is based on sLAG
     for(lag in 1:LAG){
       res <- sapply(1:Step, function(i){
         Object[[j]][i,22]=(((Object[[j]][i+lag,2]- Object[[j]][i,2])^2)+((Object[[j]][i+lag,3]- Object[[j]][i,3])^2))
@@ -5753,8 +5753,16 @@ MSD <- function(object, TimeInterval=10,
     reg<-stats::lm(NewrowMeans~ NewXaxis)
     reg1<-round(stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2)
     MSDResultsTable[3,j]<-reg1
-    if ( SlopePlot == TRUE){
-      if (export) grDevices::jpeg(paste0(ExpName,"-MSD.plot.Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
+    # --------------------------------------------------------------------------
+    # Generating separate slope plots
+    # --------------------------------------------------------------------------
+    if (SlopePlot) {
+      if (export) {
+        grDevices::jpeg(
+          paste0(SavePath, "/", ExpName, "-MSD.plot.Cell", j, ".jpg"),
+          width = 4, height = 4, units = 'in', res = 300
+        )
+      }
       xn <- expression(paste("MSD (um"^2, ")"))
       graphics::par(mar=c(5.1, 5.9, 4.1, 1.1), mgp=c(3.5, 0.5, 0), las=0)
       graphics::plot(Xaxis,Yaxis, type="p",col=color[j],xlab="Lag",ylab=xn,pch=19,las=1,log="xy",cex=2)
@@ -5762,15 +5770,22 @@ MSD <- function(object, TimeInterval=10,
       graphics::abline(reg,untf=TRUE,col="black")
       if (export) grDevices::dev.off()
     }
-
   }
-  if ( AllSlopesPlot == TRUE){
+  # ============================================================================
+  # Generating combined slopes plot
+  # ============================================================================
+  if (AllSlopesPlot) {
     RM1<-matrixStats::rowMedians(as.matrix(MSD.table),na.rm = TRUE)
     RSD<-matrixStats::rowSds(as.matrix(MSD.table),na.rm = TRUE)
     xn <- expression(paste("MSD (um"^2, ")"))
     LAG<-round(Step*sLAG)
     Xaxis<-c(1:LAG)
-    if (export) jpeg(paste0(ExpName,"-MSD.plot All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+    if (export) {
+      jpeg(
+        paste0(SavePath, "/", ExpName, "-MSD.plot All Cells.jpg"),
+        width = 4, height = 4, units = 'in', res = 300
+      )
+    }
     xn <- expression(paste("MSD (um"^2, ")"))
     graphics::par(mar=c(5.1, 5.5, 4.1, 0.9), mgp=c(3.5, .5, 0), las=0)
     graphics::plot(Xaxis,RM1, type="p",col="black",xlab="Lag",ylab=xn,pch=19,las=1,cex=1.5,log="xy")
@@ -5804,10 +5819,15 @@ MSD <- function(object, TimeInterval=10,
     MSDResultsTable[5,j]<-round(Fit$par[2],digits=3)
     MSDResultsTable[6,j]<-round(Summary$par[1,4],digits=3)
     MSDResultsTable[7,j]<-round(Summary$par[2,4],digits=3)
-
-    if ( FurthPlot == TRUE){
+    # --------------------------------------------------------------------------
+    # Generating individual Furth plots
+    # --------------------------------------------------------------------------
+    if (FurthPlot){
       if (export) {
-        grDevices::jpeg(paste0(ExpName,"-MSD N-M bestfit Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
+        grDevices::jpeg(
+          paste0(SavePath, "/", ExpName, "-MSD N-M bestfit Cell", j, ".jpg"),
+          width = 4, height = 4, units = 'in', res = 300
+        )
       }
       graphics::plot(Data, pch = 16,col=color[j], cex = 1.5, xlab = "Lags", ylab = "MSD")
       x<-seq(0,LAG,1)
@@ -5851,10 +5871,15 @@ MSD <- function(object, TimeInterval=10,
   MSDResultsTable[5,(length(Object)+1)]<-round(Fit$par[2],digits=3)
   MSDResultsTable[6,(length(Object)+1)]<-round(Summary$par[1,4],digits=3)
   MSDResultsTable[7,(length(Object)+1)]<-round(Summary$par[2,4],digits=3)
-
-  if ( AllFurthPlot == TRUE){
+  # ============================================================================
+  # Generating consolidated Furth plot
+  # ============================================================================
+  if (AllFurthPlot) {
     if (export) {
-      grDevices::jpeg(paste0(ExpName,"-MSD N-M bestfit All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+      grDevices::jpeg(
+        paste0(SavePath, "/", ExpName, "-MSD N-M bestfit All Cells.jpg"),
+        width = 4, height = 4, units = 'in', res = 300
+      )
     }
     graphics::plot(Data, pch = 16,col="black", cex = 1.5, xlab = "Lags", ylab = "MSD")
     x<-seq(0,LAG,1)
@@ -5868,13 +5893,12 @@ MSD <- function(object, TimeInterval=10,
 
   rownames(MSDResultsTable)<-c("Cell Number","MSD (lag=1)", "MSD slope", "N-M best fit (Furth) [D]","N-M best fit (Furth) [P]","The significance of fitting D","The significance of fitting P")
   object@MSDtable<-MSDResultsTable
-  setwd(d)
   if (export) {
     utils::write.csv(
       MSDResultsTable,
-      file = paste0(ExpName,"-MSDResultsTable.csv")
+      file = paste0(SavePath, "/", ExpName,"-MSDResultsTable.csv")
     )
-    cat("Results are saved in your directory [use getwd()]","\n")
+    message("Results were saved to ", ExpDir)
   }
   return(object)
 }
