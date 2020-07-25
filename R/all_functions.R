@@ -2866,13 +2866,64 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   }
 
   if (!verbose) {
-    tryCatch(sink(file = "/dev/null", type = "message"), error = function(e) {NULL})
-    tryCatch(sink(file = "/dev/null", type = "output"), error = function(e) {NULL})
+  
+    if(file.exists("/dev/null")){
+    
+      zzz <- tryCatch(suppressWarnings(
+        sink(file = "/dev/null", type = "message")), 
+        error = function(e) {NULL})
 
-    on.exit(expr = {
-      tryCatch(sink(file = NULL, type = "message"), error = function(e) {NULL});
-      tryCatch(sink(file = NULL, type = "output"), error = function(e) {NULL})})
+      zzz <- tryCatch(suppressWarnings(
+        sink(file = "/dev/null", type = "output")), 
+        error = function(e) {NULL})
+
+      on.exit(expr = {
+        tryCatch(sink(file = NULL, type = "message"), 
+                 error = function(e) {NULL});
+        tryCatch(sink(file = NULL, type = "output"), 
+                 error = function(e) {NULL})})
+    
+    } else {
+    
+      # create files
+      zzz <- tryCatch(suppressWarnings(
+        file.create("tmp.log.mssg.txt")), 
+        error = function(e) {NULL})
+    
+      zzz <- tryCatch(suppressWarnings(
+        file.create("tmp.log.outp.txt")), 
+        error = function(e) {NULL})
+    
+      # move output to files
+      zzz <- tryCatch(suppressWarnings(
+        sink(file = "tmp.log.mssg.txt", type = "message")), 
+        error = function(e) {NULL})
+    
+      zzz <- tryCatch(suppressWarnings(
+        sink(file = "tmp.log.outp.txt", type = "output")), 
+        error = function(e) {NULL})
+    
+      # on exit, do...
+      on.exit(expr = {
+      
+        # delete temp files
+        zzz <- tryCatch(sink(file = NULL, type = "message"), 
+                 error = function(e) {NULL});
+        zzz <- tryCatch(sink(file = NULL, type = "output"), 
+                 error = function(e) {NULL});
+      
+        # delete temp files
+        zzz <- tryCatch(suppressWarnings(
+          file.remove("tmp.log.mssg.txt")), 
+          error = function(e) {NULL})
+      
+        zzz <- tryCatch(suppressWarnings(
+          file.remove("tmp.log.outp.txt")), 
+                 error = function(e) {NULL})
+        })
+    }
   }
+
 
 
   # select mid signal image
@@ -3106,6 +3157,8 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
       #curPAR <- par(no.readonly = TRUE)
       #par(mfrow = c(3, 3))
       #on.exit(expr = {par(curPAR)})
+      tryCatch(sink(file = NULL, type = "output"), 
+               error = function(e) {NULL})})
       VisualizeImg(img_mtx = all_results[[ri]]$img, main = myLAB)
     }
 
@@ -3606,6 +3659,9 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
   end.cell.n <- length(unique(tracks[,4]))
 
   # message
+  tryCatch(sink(file = NULL, type = "message"), 
+    error = function(e) {NULL})})
+	    
   message(paste0("Tot num of cells detected in the image stack: ", init.cell.n, "; Cells retained after filtering: ", end.cell.n))
 
   ### generate tracks
