@@ -2881,7 +2881,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
         tryCatch(suppressWarnings(
           sink(file = NULL, type = "message")), 
           error = function(e) {NULL});
-        tryCatch(suppressWarnings
+        tryCatch(suppressWarnings(
                  sink(file = NULL, type = "output")), 
         error = function(e) {NULL})})
 
