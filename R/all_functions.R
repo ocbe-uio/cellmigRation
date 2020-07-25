@@ -3158,7 +3158,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
       #par(mfrow = c(3, 3))
       #on.exit(expr = {par(curPAR)})
       tryCatch(sink(file = NULL, type = "output"), 
-               error = function(e) {NULL})})
+               error = function(e) {NULL})
       VisualizeImg(img_mtx = all_results[[ri]]$img, main = myLAB)
     }
 
@@ -3660,7 +3660,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
 
   # message
   tryCatch(sink(file = NULL, type = "message"), 
-    error = function(e) {NULL})})
+    error = function(e) {NULL})
 	    
   message(paste0("Tot num of cells detected in the image stack: ", init.cell.n, "; Cells retained after filtering: ", end.cell.n))
 
