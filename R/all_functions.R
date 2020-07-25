@@ -2878,9 +2878,11 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
         error = function(e) {NULL})
 
       on.exit(expr = {
-        tryCatch(sink(file = NULL, type = "message"), 
+        tryCatch(suppressWarnings(
+	    sink(file = NULL, type = "message")), 
                  error = function(e) {NULL});
-        tryCatch(sink(file = NULL, type = "output"), 
+        tryCatch(suppressWarnings
+            sink(file = NULL, type = "output")), 
                  error = function(e) {NULL})})
     
     } else {
@@ -3388,9 +3390,11 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
         error = function(e) {NULL})
 
       on.exit(expr = {
-        tryCatch(sink(file = NULL, type = "message"), 
+        tryCatch(suppressWarnings(
+		 sink(file = NULL, type = "message")), 
                  error = function(e) {NULL});
-        tryCatch(sink(file = NULL, type = "output"), 
+        tryCatch(suppressWarnings(
+		 sink(file = NULL, type = "output")), 
                  error = function(e) {NULL})})
     
     } else {
