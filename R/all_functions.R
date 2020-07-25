@@ -5659,7 +5659,8 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
 #' @description The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
 #'
 #' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data
+#' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data.
+#' @param ExpDir Directory to export the results to (if `export = TRUE`)
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #' @param sLAG A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.
 #' @param ffLAG A numeric value to be used to get the number of lags for the  Furth formula fitting. Default is 0.25, which represents 25 percent of the steps.

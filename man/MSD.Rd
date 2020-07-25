@@ -8,6 +8,7 @@ MSD(
   object,
   TimeInterval = 10,
   ExpName = "ExpName",
+  ExpDir = tempdir(),
   sLAG = 0.25,
   ffLAG = 0.25,
   SlopePlot = TRUE,
