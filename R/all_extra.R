@@ -48,14 +48,3 @@
 "TrajectoryDataset"
 
 
-
-#' @title Intermediates and Results from Cell Tracking Analyses
-#' @description Intermediates and Results from Cell Tracking Analyses, used to build the package vignette.
-#' @usage data(VignBuilderDataset)
-#' @format a list including 21 elements
-#'
-#' @examples
-#' data(VignBuilderDataset)
-#'
-#' @keywords internal
-"VignBuilderDataset"
