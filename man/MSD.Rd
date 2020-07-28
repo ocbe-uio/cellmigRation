@@ -23,7 +23,9 @@ MSD(
 
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
-\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data.}
+
+\item{ExpDir}{Directory to export the results to (if `export = TRUE`)}
 
 \item{sLAG}{A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.}
 
