@@ -5068,7 +5068,6 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
     msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
   Len<-length(Object)
-  cat(paste0(Len," plots will be generated in a folder called:",ExpName,"_Tracks","\n"))
   Step<-length(Object[[1]][,1])
   color <-c()
   if (Len> 1023){
@@ -5079,10 +5078,18 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
   }else{
     color <-grDevices::rainbow(Len)
   }
-  if (export) dir.create(paste0(ExpName,"_Tracks"))
-  d=getwd()
-  if (export) setwd(paste0(d,"/",paste0(ExpName,"_Tracks")))
-  
+  new.fld <-paste0(ExpName,"_Tracks")
+  if (export) {
+    cat(paste0(Len," plots will be generated in a folder called:",ExpName,"_Tracks","\n"))
+      
+    if (dir.exists(new.fld)) {
+      unlink(new.fld, recursive = TRUE, force = TRUE)
+    }
+    
+    if(!dir.exists(new.fld)) {
+      dir.create(new.fld)
+    }
+  }
   if ( FixedField == TRUE){
     MinX<-c()
     MaxX<-c()
@@ -5101,42 +5108,50 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
     RangeX=c(MinX,MaxX)
     RangeY=c(MinY,MaxY)
     for(n in 1:Len){
-      if (export) grDevices::jpeg(paste0(ExpName,"_Track_Plot_",n,".jpg"),width = 4, height = 4, units = 'in', res = 300)
-      graphics::plot(Object[[n]][1:Step,2], Object[[n]][1:Step,3],
+      if (export){
+        plot_name <-  paste0(ExpName,"_Track_Plot_",n,".jpg")
+        file_path <- file.path(new.fld, plot_name)
+        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+        graphics::plot(Object[[n]][1:Step,2], Object[[n]][1:Step,3],
                      type=Type, xlab="x (um)", ylab="y (um)",
                      col=color[n], las=1, xlim=range(RangeX), ylim=range(RangeY))
-      x=c(min(RangeX)-100,max(RangeX)+100)
-      y=c(0,0)
-      graphics::lines(x, y, type='l', col="black")
-      x=c(0,0)
-      y=c(min(RangeY)-100,max(RangeY)+100)
-      graphics::lines(x, y, type='l', col="black")
-      end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
-      graphics::points(end,pch=16,col=color[n], cex = 1)
-      graphics::title(main=paste0("Cell Number  ", n),col.main="black")
-      if (export) grDevices::dev.off()
+        x=c(min(RangeX)-100,max(RangeX)+100)
+        y=c(0,0)
+        graphics::lines(x, y, type='l', col="black")
+        x=c(0,0)
+        y=c(min(RangeY)-100,max(RangeY)+100)
+        graphics::lines(x, y, type='l', col="black")
+        end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+        graphics::points(end,pch=16,col=color[n], cex = 1)
+        graphics::title(main=paste0("Cell Number  ", n),col.main="black")
+        grDevices::dev.off()
+      }
     }
   }else{
     for(n in 1:Len){
       RangeX= Object[[n]][1:Step,2]
       RangeY= Object[[n]][1:Step,3]
-      if (export) grDevices::jpeg(paste0(ExpName,"_Track_Plot_",n,".jpg"),width = 4, height = 4, units = 'in', res = 300)
-      graphics::plot(Object[[n]][1:Step,2],Object[[n]][1:Step,3],type=Type,xlab="x (um)",ylab="y (um)",col=color[n],las=1,xlim=range(RangeX),ylim=range(RangeY))
-      x=c(min(RangeX)-100,max(RangeX)+100)
-      y=c(0,0)
-      graphics::lines(x, y, type='l', col="black")
-      x=c(0,0)
-      y=c(min(RangeY)-100,max(RangeY)+100)
-      graphics::lines(x, y, type='l', col="black")
-      end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
-      graphics::points(end,pch=16,col=color[n], cex = 1)
-      graphics::title(main=paste0("Cell Number  ", n),col.main="black")
-      if (export) grDevices::dev.off()
+      if (export){
+        plot_name <-  paste0(ExpName,"_Track_Plot_",n,".jpg")
+        file_path <- file.path(new.fld, plot_name)
+        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+        graphics::plot(Object[[n]][1:Step,2],Object[[n]][1:Step,3],type=Type,xlab="x (um)",ylab="y (um)",col=color[n],las=1,xlim=range(RangeX),ylim=range(RangeY))
+        x=c(min(RangeX)-100,max(RangeX)+100)
+        y=c(0,0)
+        graphics::lines(x, y, type='l', col="black")
+        x=c(0,0)
+        y=c(min(RangeY)-100,max(RangeY)+100)
+        graphics::lines(x, y, type='l', col="black")
+        end<-cbind(Object[[n]][Step,2],Object[[n]][Step,3])
+        graphics::points(end,pch=16,col=color[n], cex = 1)
+        graphics::title(main=paste0("Cell Number  ", n),col.main="black")
+        if (export) grDevices::dev.off()
+      }
     }
-    
   }
-  setwd(d)
 }
+
+
 
 #' @title Persistence and Speed
 #' @description The PerAndSpeed() generates data and plots for persistence and speed.
@@ -5173,6 +5188,7 @@ PlotTracksSeparately= function(object, ExpName="ExpName",
 #'
 #'
 #'@export
+
 PerAndSpeed= function(object, TimeInterval=10,
                       ExpName="ExpName", PtSplot=TRUE,
                       AllPtSplot=TRUE, ApSplot=TRUE,
@@ -5185,12 +5201,16 @@ PerAndSpeed= function(object, TimeInterval=10,
   }
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   
-  d=getwd()
   if (export) {
-    dir.create(paste0(ExpName,"-PerResults"))
-    setwd(paste0(d,"/",paste0(ExpName,"-PerResults")))
+    new.fld <-paste0(ExpName,"-PerResults")
+    if (dir.exists(new.fld)) {
+      unlink(new.fld, recursive = TRUE, force = TRUE)
+    }
+    
+    if(!dir.exists(new.fld)) {
+      dir.create(new.fld)
+    }
   }
-  
   Len<-length(Object)
   Step<-length(Object[[1]][,1])
   color <-c()
@@ -5276,7 +5296,6 @@ PerAndSpeed= function(object, TimeInterval=10,
     MM1<-MM+1
     rowN<-c(1:MM1)
     Tval0 <- rowN[Ptime00TF]
-    #length(Tval0)
     
     TTT<-c()
     res3 <- sapply(1:(length (Tval0)-1), function(i){
@@ -5327,14 +5346,15 @@ PerAndSpeed= function(object, TimeInterval=10,
     
     
     if ( PtSplot == TRUE){
-      if (export) {
-        grDevices::jpeg(paste0(ExpName," Persist Time vs Speed",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
+      if (export){
+        plot_name <-  paste0(ExpName," Persist Time vs Speed",j,".jpg")
+        file_path <- file.path(new.fld, plot_name)
+        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
       }
       graphics::plot(VelPerTable[,j+j],VelPerTable[,j+j-1],
                      pch=16,type="p",ylab="Persistence Time (min)",
                      xlab=" Mean Speed during persistence time  (um/min)",col=color[j],las=1)
       reg<-stats::lm(PT~VelPerTable[,j+j-1])
-      #abline(reg,untf=FALSE,col="black")
       graphics::title(main=paste0("Cell Number  ", j,"   Speed vs Persistence Time"),cex.main =0.7 ,sub=paste0("Spearman's rank correlation coefficient = ",ccPV),col.sub="red")
       if (export) grDevices::dev.off()
       
@@ -5361,7 +5381,9 @@ PerAndSpeed= function(object, TimeInterval=10,
   
   if ( AllPtSplot == TRUE){
     if (export) {
-      grDevices::jpeg(paste0(ExpName,"_Persist_Time_vs_Speed-All_Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+      plot_name <-  paste0(ExpName,"_Persist_Time_vs_Speed-All_Cells.jpg")
+      file_path <- file.path(new.fld, plot_name)
+      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
     }
     graphics::plot(allvel,allper,type="p",pch=16,ylab="Persist_Time (min)",xlab=" Mean Speed during persistence time (um/h)",col="black",las=1)
     graphics::abline(reg,untf=FALSE,col="red")
@@ -5428,9 +5450,9 @@ PerAndSpeed= function(object, TimeInterval=10,
     
     if ( ApSplot == TRUE){
       if (export) {
-        grDevices::jpeg(
-          paste0(ExpName,"_Angular_Persistence_vs_Speed",j,".jpg",width = 4, height = 4, units = 'in', res = 300)
-        )
+        plot_name <-  paste0(ExpName,"_Angular_Persistence_vs_Speed",j,".jpg")
+        file_path <- file.path(new.fld, plot_name)
+        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
       }
       Speed=(sqrt(Object[[j]][1:MM2,11])/TimeInterval)*60
       graphics::plot(Speed,Object[[j]][1:MM2,9],pch=16,type="p",ylab="Angular Persistence (cosine)",xlab=" Instantaneous Speed (um/h)",col=color[j],las=1, xlim=c(0,3))
@@ -5483,11 +5505,9 @@ PerAndSpeed= function(object, TimeInterval=10,
   
   if ( AllApSplot == TRUE){
     if (export) {
-      grDevices::jpeg(
-        paste0(
-          ExpName,
-          " All_Cells_Average_Angular_Persistence_vs_Average_Speed.jpg"
-        ),width = 4, height = 4, units = 'in', res = 300)
+      plot_name <-  paste0(ExpName," All_Cells_Average_Angular_Persistence_vs_Average_Speed.jpg")
+      file_path <- file.path(new.fld, plot_name)
+      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
     }
     MS<-max(RowmeanSpeed)*60
     graphics::plot(RowmeanSpeed*60,RM,pch=16,type="p",ylab="Average Angular Persistence (cosine)",xlab=" Average Instantaneous Speed (um/h)",col="black",las=1,xlim=c(0,MS))
@@ -5511,7 +5531,18 @@ PerAndSpeed= function(object, TimeInterval=10,
   PerResultsTable[c(2:5,7:10,12:22),(length(Object)+1)]<-RM1[c(2:5,7:10,12:22)]
   
   RMSS<-as.numeric(PerResultsTable[7,1:length(PerResultsTable[1,])-1])
-  if (export) grDevices::jpeg(paste0(ExpName,"_RMSS_profile_of_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+  if (export) {
+    plot_name <- paste0(ExpName,"_RMSS_profile_of_all_cells.jpg")
+    file_path <- file.path(new.fld, plot_name)
+    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+  }
+  
+  if (export) {
+    plot_name <-  paste0(ExpName,"_RMSS_profile_of_all_cells.jpg")
+    file_path <- file.path(new.fld, plot_name)
+    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+  }
+  
   cells<-c(1:(length(PerResultsTable[1,])-1))
   MS<-max(RMSS)
   graphics::plot(cells,RMSS,pch=16,type="o",ylab = 'RMSS(um/h)',xlab = 'Cells',las=1,ylim = c(0, MS))
@@ -5522,7 +5553,9 @@ PerAndSpeed= function(object, TimeInterval=10,
   if (export) grDevices::dev.off()
   
   if (export) {
-    grDevices::jpeg(paste0(ExpName,"_RMSS_ViolinPlot_of_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+    plot_name <-  paste0(ExpName,"_RMSS_ViolinPlot_of_all_cells.jpg")
+    file_path <- file.path(new.fld, plot_name)
+    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
   }
   graphics::plot(1, 1, xlim = c(0, 2), ylim = c(0, MS), type = 'n', xlab = '', ylab = 'RMSS(um/h)', xaxt = 'n',las=1)
   graphics::title("RMSS of all cells",cex.main = 1)
@@ -5531,7 +5564,11 @@ PerAndSpeed= function(object, TimeInterval=10,
   
   
   SPEED<-as.numeric(PerResultsTable[19,1:length(PerResultsTable[1,])-1])
-  if (export) grDevices::jpeg(paste0(ExpName,"_Speed_profile_of_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+  if (export) {
+    plot_name <-  paste0(ExpName,"_Speed_profile_of_all_cells.jpg")
+    file_path <- file.path(new.fld, plot_name)
+    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+  }
   cells<-c(1:(length(PerResultsTable[1,])-1))
   MS<-max(SPEED)
   graphics::plot(cells,SPEED,pch=16,type="o",ylab = 'Speed(um/h)',xlab = 'Cells',las=1,ylim = c(0, MS))
@@ -5541,13 +5578,22 @@ PerAndSpeed= function(object, TimeInterval=10,
   graphics::legend(1, y=200, legend=c("Mean Speed","Median Speed"), col=c("blue","red"),lty=1, cex=0.8)
   if (export) grDevices::dev.off()
   
-  if (export) grDevices::jpeg(paste0(ExpName,"_Speed_ViolinPlot_of_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+  if (export) {
+    plot_name <-  paste0(ExpName,"_Speed_ViolinPlot_of_all_cells.jpg")
+    file_path <- file.path(new.fld, plot_name)
+    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+  }
   graphics::plot(1, 1, xlim = c(0, 2), ylim = c(0, MS), type = 'n', xlab = '', ylab = 'Speed(um/h)', xaxt = 'n',las=1)
   graphics::title("Speed of all cells",cex.main = 1)
   vioplot::vioplot(SPEED, at = 1, add = TRUE, col = "gray")
   if (export) grDevices::dev.off()
   
-  if (export) grDevices::jpeg(paste0(ExpName,"_Instantaneous_Speed_VS_Persistence Ratio_all_cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+  if (export) {
+    plot_name <-  paste0(ExpName,"_Instantaneous_Speed_VS_Persistence Ratio_all_cells.jpg")
+    file_path <- file.path(new.fld, plot_name)
+    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+  }
+  
   SPEED<-as.numeric(PerResultsTable[21,1:length(PerResultsTable[1,])-1])
   PerR<- as.numeric(PerResultsTable[4,1:length(PerResultsTable[1,])-1])
   MS<-max(SPEED)
@@ -5563,7 +5609,6 @@ PerAndSpeed= function(object, TimeInterval=10,
   
   PerResultsTable[1,(length(Object)+1)]<-"All Cells"
   object@PerAanSpeedtable <-PerResultsTable
-  setwd(d)
   if (export) {
     utils::write.csv(
       PerResultsTable,
@@ -5577,6 +5622,8 @@ PerAndSpeed= function(object, TimeInterval=10,
   }
   return(object)
 }
+
+
 
 
 
