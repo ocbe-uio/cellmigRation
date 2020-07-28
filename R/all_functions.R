@@ -5658,11 +5658,6 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=FALSE) {
     msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
-  d=getwd()
-  if (export) {
-    dir.create(paste0(ExpName,"-DRResults"))
-    setwd(paste0(d,"/",paste0(ExpName,"-DRResults")))
-  }
   Step<-length(Object[[1]][,1])
   DRResultsTable<-data.frame()
   DIR.RATIO<-c()
@@ -5716,7 +5711,6 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=FALSE) {
   DRResultsTable[,(length(Object)+1)]<-RM1
   DRResultsTable[1,(length(Object)+1)]<-"All Cells"
   object@DRtable<-DRResultsTable
-  setwd(d)
   
   if (export) {
     utils::write.csv(
@@ -5725,13 +5719,17 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=FALSE) {
     )
     cat(
       "Results are saved as: ",
-      paste0(ExpName,"-DRResultsTable.xlsx" ),
+      paste0(ExpName,"-DRResultsTable.csv" ),
       "in your directory [use getwd()]",
       "\n"
     )
   }
   return(object)
 }
+
+
+
+
 
 
 #' @title Directionality Ratio plots
@@ -5749,10 +5747,17 @@ DiRatio = function(object,TimeInterval=10,ExpName="ExpName", export=FALSE) {
 #' @references
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
+#' @examples
+#' data(TrajectoryDataset)
+#' rmDF <- TrajectoryDataset[1:600, ]
+#' rmTD <- CellMig(rmDF)
+#' DiRatio.Plot(rmTD,TimeInterval=10,ExpName="ExpName"Test", export=FALSE)
+#' 
 #' @importFrom grDevices rainbow jpeg dev.off rgb
 #' @importFrom graphics plot axis title lines polygon
 #' @importFrom matrixStats rowMedians rowSds
 #'
+#' 
 #' @export
 DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
@@ -5772,13 +5777,15 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
   }else{
     color <-grDevices::rainbow(Len)
   }
-  d=getwd()
   
-  if (file.exists(paste0(d,"/",paste0(ExpName,"-DRResults")))){
-    setwd(paste0(d,"/",paste0(ExpName,"-DRResults")))
-    
-  } else {
-    stop("Please run DiRatio() first and export the results")
+  if (export) {
+    new.fld <-paste0(ExpName,"-DRResults")
+    if (dir.exists(new.fld)) {
+      unlink(new.fld, recursive = TRUE, force = TRUE)
+    }
+    if(!dir.exists(new.fld)) {
+      dir.create(new.fld)
+    }
   }
   
   DIR.RATIO.AllCells<-data.frame()
@@ -5792,11 +5799,15 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
     xMMM<-c(0:xMM)
     xMMM1<-(c(0:xMM)*(60/TimeInterval))
     Xaxis<-c(1:MM2)
-    if (export) grDevices::jpeg(paste0(ExpName,"-D.R.plot-",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
+    if (export){
+      plot_name <-  paste0(ExpName,"-D.R.plot-",j,".jpg")
+      file_path <- file.path(new.fld, plot_name)
+      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+    }
     p<-graphics::plot(Time,Object[[j]][1:MM2,13], type="l",col=color[j],xlab="Time (hours)",xaxt="n",ylab="Directionality Ratio",lwd=2,las=1)
     graphics::axis(1, at=xMMM1, cex.axis=0.8,labels=xMMM)
     graphics::title(main=paste0("Cell Number  ", j),col.main=color[j])
-    if (export) grDevices::dev.off()
+    grDevices::dev.off()
     DIR.RATIO.AllCells[1:MM2,j]<-Object[[j]][1:MM2,13]
   }
   mycolblue <- grDevices::rgb(0, 0, 255, maxColorValue = 255, alpha = 100, names = "blue")    #transparent color
@@ -5808,7 +5819,10 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
   meanSDpn<-c(meanSDp,meanSDn)
   
   if (export) {
-    grDevices::jpeg(paste0(ExpName,"directionality ratio for all cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+    plot_name <-  paste0(ExpName,"directionality ratio for all cells.jpg")
+    file_path <- file.path(new.fld, plot_name)
+    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+    
   }
   p<-graphics::plot(Time,mean.DIR.RATIO.AllCells, type="l",col="black",xlab="Time (hours)",xaxt="n",ylab="Directionality Ratio",lwd=2,las=1)
   graphics::axis(1, at=xMMM1, cex.axis=0.8,labels=xMMM)
@@ -5816,9 +5830,10 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
   graphics::lines(Time,meanSDn, col="black")
   graphics::polygon(c(Time, rev(Time)), c(meanSDp, rev(meanSDn)),col = mycolblue , border = NA)
   graphics::title(main="Directionality Ratio - All Cells",col.main="black")
-  if (export) grDevices::dev.off()
-  setwd(d)
-  cat("Plots are saved in a folder in your directory [use getwd()]","\n")
+  if (export) {
+    grDevices::dev.off()
+    cat("Plots are saved in a folder in your directory [use getwd()]","\n")
+  }
 }
 
 
