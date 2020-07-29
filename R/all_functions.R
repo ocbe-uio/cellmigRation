@@ -6013,7 +6013,7 @@ MSD <- function(object, TimeInterval=10,
     # --------------------------------------------------------------------------
     if (FurthPlot){
       if (export) {
-        plot_name <-  paste0(ExpName, "-MSD N-M bestfit Cell", j, ".jpg")
+        plot_name <-  paste0(ExpName, "-MSD.N-M.bestfit.Cell", j, ".jpg")
         file_path <- file.path(new.fld, plot_name)
         grDevices::jpeg(filename = file_path,
                         width = 4, height = 4, units = 'in', res = 300)
@@ -6066,7 +6066,7 @@ MSD <- function(object, TimeInterval=10,
   # ============================================================================
   if (AllFurthPlot) {
     if (export) {
-      plot_name <-  paste0(ExpName, "-MSD N-M bestfit All Cells.jpg")
+      plot_name <-  paste0(ExpName, "-MSD.N-M.bestfit.All.Cells.jpg")
       file_path <- file.path(new.fld, plot_name)
       grDevices::jpeg(filename = file_path,
                       width = 4, height = 4, units = 'in', res = 300)
