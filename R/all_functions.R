@@ -5875,7 +5875,6 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
 #' @export
 MSD <- function(object, TimeInterval=10,
                 ExpName="ExpName",
-                ExpDir=tempdir(),
                 sLAG=0.25, ffLAG=0.25,
                 SlopePlot=TRUE, AllSlopesPlot=TRUE,
                 FurthPlot=TRUE, AllFurthPlot=TRUE, export=FALSE) {
@@ -6142,10 +6141,15 @@ DiAutoCor= function(object, TimeInterval=10,
   if ( ! is.list(Object) ){
     stop("Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
-  d=getwd()
   if (export) {
-    dir.create(paste0(ExpName,"-DIAutoCorResults"))
-    setwd(paste0(d,"/",paste0(ExpName,"-DIAutoCorResults")))
+    new.fld <-paste0(ExpName,"-DIAutoCorResults")
+    if (dir.exists(new.fld)) {
+      unlink(new.fld, recursive = TRUE, force = TRUE)
+    }
+    
+    if(!dir.exists(new.fld)) {
+      dir.create(new.fld)
+    }
   }
   
   Len<-length(Object)
@@ -6236,8 +6240,9 @@ DiAutoCor= function(object, TimeInterval=10,
       Xaxis<-c(1:LAG)
       Yaxis<-cos.diff
       if (export) {
-        grDevices::jpeg(
-          paste0(ExpName,"Direction Autocorrelation.plot.Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
+        plot_name <-  paste0(ExpName,"Direction Autocorrelation.plot.Cell",j,".jpg")
+        file_path <- file.path(new.fld, plot_name)
+        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
       }
       graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Cosine",pch=19,las=1,cex=1.2)
       xx<-c(0,1)
@@ -6245,7 +6250,7 @@ DiAutoCor= function(object, TimeInterval=10,
       graphics::lines(xx,yy, type='l',col=color[j])
       graphics::lines(timevalues, predictedcounts, col = "black", lwd = 3)
       graphics::title(main=paste0("Cell Number  ", j, "   DA quadratic model"),col.main="darkgreen",
-                      sub=paste0(" Intercept of DA quadratic model = ",round(ccc, digits=3)),col.sub="red")
+                      cex.main=0.8,sub=paste0(" Intercept of DA quadratic model = ",round(ccc, digits=3)),col.sub="red")
       if (export) grDevices::dev.off()
     }
     
@@ -6275,9 +6280,11 @@ DiAutoCor= function(object, TimeInterval=10,
     Yaxis<-RM1
     
     if (export) {
-      grDevices::jpeg(
-        paste0(ExpName,"-Direction Autocorrelation All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+      plot_name <-  paste0(ExpName,"-Direction Autocorrelation All Cells.jpg")
+      file_path <- file.path(new.fld, plot_name)
+      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
     }
+    
     graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Cosine",pch=19,las=1,cex=1.2)
     xx<-c(0,1)
     yy<-c(1,RM1[1])
@@ -6286,7 +6293,7 @@ DiAutoCor= function(object, TimeInterval=10,
     MDA<-round(stats::median(as.numeric(DA.ResultsTable[4,1:length(Object)])),digits=2)
     graphics::abline(h=MDA,col="blue",lwd = 2)
     graphics::title(main=paste0("All Cells - DA quadratic model"),col.main="darkgreen",
-                    sub=paste0(" Intercept of DA quadratic model = ",round(ccc, digits=3)),col.sub="red")
+                    cex.main=0.8,sub=paste0(" Intercept of DA quadratic model = ",round(ccc, digits=3)),col.sub="red")
     graphics::legend(1, y=-0.82, legend=c("Mean Direction AutoCorrelation","Quadratic model"), col=c("blue","darkgreen"),lty=1, cex=0.8)
     if (export) grDevices::dev.off()
   }
@@ -6294,7 +6301,6 @@ DiAutoCor= function(object, TimeInterval=10,
   rownames(DA.ResultsTable)<-c("Cell Number","Angular Persistence","Intercept of DA quadratic model","Mean Direction AutoCorrelation (all lags)","Stable Direction AutoCorrelation through the track",
                                "Difference between Mean DA and Intercept DA" )
   object@DACtable<-DA.ResultsTable
-  setwd(d)
   if (export) {
     utils::write.csv(
       DA.ResultsTable,
@@ -6304,6 +6310,8 @@ DiAutoCor= function(object, TimeInterval=10,
   }
   return(object)
 }
+
+
 
 
 #' @title Velocity AutoCorrelation
