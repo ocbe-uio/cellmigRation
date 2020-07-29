@@ -5351,9 +5351,9 @@ PerAndSpeed= function(object, TimeInterval=10,
         file_path <- file.path(new.fld, plot_name)
         grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
       }
-      graphics::plot(VelPerTable[,j+j],VelPerTable[,j+j-1],
+      graphics::plot(VelPerTable[,j+j]*60,VelPerTable[,j+j-1],
                      pch=16,type="p",ylab="Persistence Time (min)",
-                     xlab=" Mean Speed during persistence time  (um/min)",col=color[j],las=1)
+                     xlab=" Mean Speed during persistence time  (um/h)",col=color[j],las=1)
       reg<-stats::lm(PT~VelPerTable[,j+j-1])
       graphics::title(main=paste0("Cell Number  ", j,"   Speed vs Persistence Time"),cex.main =0.7 ,sub=paste0("Spearman's rank correlation coefficient = ",ccPV),col.sub="red")
       if (export) grDevices::dev.off()
@@ -5454,8 +5454,8 @@ PerAndSpeed= function(object, TimeInterval=10,
         file_path <- file.path(new.fld, plot_name)
         grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
       }
-      Speed=(sqrt(Object[[j]][1:MM2,11])/TimeInterval)*60
-      graphics::plot(Speed,Object[[j]][1:MM2,9],pch=16,type="p",ylab="Angular Persistence (cosine)",xlab=" Instantaneous Speed (um/h)",col=color[j],las=1, xlim=c(0,3))
+      Speed=sqrt(Object[[j]][1:MM2,11])*60
+      graphics::plot(Speed,Object[[j]][1:MM2,9],pch=16,type="p",ylab="Angular Persistence (cosine)",xlab=" Instantaneous Speed (um/h)",col=color[j],las=1)
       reg<-stats::lm(Object[[j]][1:MM2,9]~Speed)
       graphics::abline(reg,untf=FALSE,col="black")
       graphics::title(main=paste0("Cell Number  ", j," Instantaneous Speeds vs Angular Persistence "),cex.main = 0.7,sub=paste0("Spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
@@ -5843,7 +5843,6 @@ DiRatio.Plot = function(object,TimeInterval=10,ExpName=ExpName, export=FALSE) {
 #'
 #' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
 #' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data.
-#' @param ExpDir Directory to export the results to (if `export = TRUE`)
 #' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
 #' @param sLAG A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.
 #' @param ffLAG A numeric value to be used to get the number of lags for the  Furth formula fitting. Default is 0.25, which represents 25 percent of the steps.
@@ -5897,8 +5896,14 @@ MSD <- function(object, TimeInterval=10,
   # ============================================================================
   Object <- object@preprocessedDS
   if (export) {
-    SavePath <- paste0(ExpDir, "/", ExpName,"-MSDResults")
-    if (!dir.exists(SavePath)) dir.create(SavePath)
+    new.fld <-paste0(ExpName,"-MSDResults")
+    if (dir.exists(new.fld)) {
+      unlink(new.fld, recursive = TRUE, force = TRUE)
+    }
+    if(!dir.exists(new.fld)) {
+      dir.create(new.fld)
+    }
+    
   }
   Len<-length(Object)
   Step<-length(Object[[1]][,1])
@@ -5942,15 +5947,15 @@ MSD <- function(object, TimeInterval=10,
     # --------------------------------------------------------------------------
     if (SlopePlot) {
       if (export) {
-        grDevices::jpeg(
-          paste0(SavePath, "/", ExpName, "-MSD.plot.Cell", j, ".jpg"),
-          width = 4, height = 4, units = 'in', res = 300
-        )
+        plot_name <-  paste0(ExpName, "-MSD.plot.Cell", j, ".jpg")
+        file_path <- file.path(new.fld, plot_name)
+        grDevices::jpeg(filename = file_path,
+                        width = 4, height = 4, units = 'in', res = 300)
       }
       xn <- expression(paste("MSD (um"^2, ")"))
       graphics::par(mar=c(5.1, 5.9, 4.1, 1.1), mgp=c(3.5, 0.5, 0), las=0)
-      graphics::plot(Xaxis,Yaxis, type="p",col=color[j],xlab="Lag",ylab=xn,pch=19,las=1,log="xy",cex=2)
-      graphics::title(main=paste0("Cell Number  ", j," -  MSD Slope = ",reg1),col.main="black")
+      graphics::plot(Xaxis,Yaxis, type="p",col=color[j],xlab="Lag",ylab=xn,pch=19,las=1,log="xy",cex=1.2)
+      graphics::title(main=paste0("Cell Number  ", j," -  MSD Slope = ",reg1),col.main="black",cex.main=0.8)
       graphics::abline(reg,untf=TRUE,col="black")
       if (export) grDevices::dev.off()
     }
@@ -5965,20 +5970,20 @@ MSD <- function(object, TimeInterval=10,
     LAG<-round(Step*sLAG)
     Xaxis<-c(1:LAG)
     if (export) {
-      jpeg(
-        paste0(SavePath, "/", ExpName, "-MSD.plot All Cells.jpg"),
-        width = 4, height = 4, units = 'in', res = 300
-      )
+      plot_name <-  paste0(ExpName, "-MSD.plot All Cells.jpg")
+      file_path <- file.path(new.fld, plot_name)
+      grDevices::jpeg(filename = file_path,
+                      width = 4, height = 4, units = 'in', res = 300)
     }
     xn <- expression(paste("MSD (um"^2, ")"))
     graphics::par(mar=c(5.1, 5.5, 4.1, 0.9), mgp=c(3.5, .5, 0), las=0)
-    graphics::plot(Xaxis,RM1, type="p",col="black",xlab="Lag",ylab=xn,pch=19,las=1,cex=1.5,log="xy")
+    graphics::plot(Xaxis,RM1, type="p",col="black",xlab="Lag",ylab=xn,pch=19,las=1,cex=1.2,log="xy")
     NewrowMeans<-RM1[1:(round(LAG*sLAG)+1)]                                  # best fit based on sLAG *sLAG
     NewXaxis<-Xaxis[1:(round(LAG*sLAG)+1)]
     reg<-stats::lm(NewrowMeans~ NewXaxis)
     reg1<-round(stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2)
     graphics::abline(reg,untf=TRUE,col="red")
-    graphics::title(main=paste0("All Cells -  MSD Slope = ",reg1),col.main="black")
+    graphics::title(main=paste0("All Cells -  MSD Slope = ",reg1),col.main="black",cex.main=0.8)
     if (export) grDevices::dev.off()
   }
   for (j in 1: length(MSD.table[1,])){                      # Fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method
@@ -6008,18 +6013,19 @@ MSD <- function(object, TimeInterval=10,
     # --------------------------------------------------------------------------
     if (FurthPlot){
       if (export) {
-        grDevices::jpeg(
-          paste0(SavePath, "/", ExpName, "-MSD N-M bestfit Cell", j, ".jpg"),
-          width = 4, height = 4, units = 'in', res = 300
-        )
+        plot_name <-  paste0(ExpName, "-MSD N-M bestfit Cell", j, ".jpg")
+        file_path <- file.path(new.fld, plot_name)
+        grDevices::jpeg(filename = file_path,
+                        width = 4, height = 4, units = 'in', res = 300)
       }
-      graphics::plot(Data, pch = 16,col=color[j], cex = 1.5, xlab = "Lags", ylab = "MSD")
+      
+      graphics::plot(Data, pch = 16,col=color[j], cex = 1.2, xlab = "Lags", ylab = "MSD")
       x<-seq(0,LAG,1)
       Model <- function(p, x) return(data.frame(x = x, y = p[1]*4*(x- p[2]*(1-(exp(-x/p[2]))))))
       graphics::lines(Model(Fit$par, x),col="black")
       graphics::title(main=paste0("Cell Number  ", j,"    Nelder-Mead best-fit"),col.main="black",
-                      sub=paste0("D = ",round(Fit$par[1],digits=3),
-                                 "          P = ", round(Fit$par[2],digits=3)),col.sub="red")
+                      cex.main=0.8,sub=paste0("D = ",round(Fit$par[1],digits=3),
+                                              "          P = ", round(Fit$par[2],digits=3)),col.sub="red")
       if (export) grDevices::dev.off()
     }
   }
@@ -6060,18 +6066,18 @@ MSD <- function(object, TimeInterval=10,
   # ============================================================================
   if (AllFurthPlot) {
     if (export) {
-      grDevices::jpeg(
-        paste0(SavePath, "/", ExpName, "-MSD N-M bestfit All Cells.jpg"),
-        width = 4, height = 4, units = 'in', res = 300
-      )
+      plot_name <-  paste0(ExpName, "-MSD N-M bestfit All Cells.jpg")
+      file_path <- file.path(new.fld, plot_name)
+      grDevices::jpeg(filename = file_path,
+                      width = 4, height = 4, units = 'in', res = 300)
     }
-    graphics::plot(Data, pch = 16,col="black", cex = 1.5, xlab = "Lags", ylab = "MSD")
+    graphics::plot(Data, pch = 16,col="black", cex = 1.2, xlab = "Lags", ylab = "MSD")
     x<-seq(0,LAG,1)
     Model <- function(p, x) return(data.frame(x = x, y = p[1]*4*(x- p[2]*(1-(exp(-x/p[2]))))))
     graphics::lines(Model(Fit$par, x),col="red")
     graphics::title(main=paste0("All Cells Nelder-Mead best-fit"),col.main="black",
-                    sub=paste0("D = ",round(Fit$par[1],digits=3),
-                               "          P = ", round(Fit$par[2],digits=3)),col.sub="red")
+                    cex.main=0.8,sub=paste0("D = ",round(Fit$par[1],digits=3),
+                                            "          P = ", round(Fit$par[2],digits=3)),col.sub="red")
     if (export) grDevices::dev.off()
   }
   
@@ -6080,12 +6086,13 @@ MSD <- function(object, TimeInterval=10,
   if (export) {
     utils::write.csv(
       MSDResultsTable,
-      file = paste0(SavePath, "/", ExpName,"-MSDResultsTable.csv")
-    )
-    message("Results were saved to ", ExpDir)
+      file = paste0(ExpName,"-MSDResultsTable.csv"))
+    message("Results were saved in your directory [use getwd()]","\n")
   }
   return(object)
 }
+
+
 
 
 
@@ -6750,7 +6757,7 @@ ForwardMigration <- function(
     
     if ( sfptPLOT == TRUE){
       if (export) grDevices::jpeg(paste0(ExpName," FP Time vs Speed",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
-      graphics::plot(VelFPTable[,j+j],VelFPTable[,j+j-1],pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Mean Speed during FP time (um/min)",col=color[j],las=1)
+      graphics::plot(VelFPTable[,j+j]*60,VelFPTable[,j+j-1],pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Mean Speed during FP time (um/h)",col=color[j],las=1)
       reg<-stats::lm(VelFPTable[,j+j]~VelFPTable[,j+j-1])
       #abline(reg,untf=FALSE,col="red")
       graphics::title(main=paste0("Cell Number  ", j,"   Speed vs Forward Persistence Time"),cex.main = 1,sub=paste0("Spearman's rank correlation coefficient = ",ccPV),col.sub="red")
@@ -6780,7 +6787,7 @@ ForwardMigration <- function(
     if (export) {
       grDevices::jpeg(paste0(ExpName," FP Time vs Speed - All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
     }
-    graphics::plot(allvel,allper,type="p",pch=16,ylab="FP Time (min)",xlab=" Mean Speed during FP time (um/min)",col="black",las=1)
+    graphics::plot(allvel*60,allper,type="p",pch=16,ylab="FP Time (min)",xlab=" Mean Speed during FP time (um/h)",col="black",las=1)
     graphics::abline(reg,untf=FALSE,col="red")
     graphics::title("Speed vs FP Time (All cells)",cex.main = 1,sub=paste0("Spearman's rank correlation coefficient = ",ccP),col.sub="red")
     if (export) grDevices::dev.off()
@@ -6791,7 +6798,7 @@ ForwardMigration <- function(
     MM<-Step
     MM2<-MM-1
     Root.Mean.Square.Speed<-round(sqrt(mean(Object[[j]][1:MM2,11])),digits = 3)
-    FMResultsTable[7,j]<-Root.Mean.Square.Speed
+    FMResultsTable[7,j]<-Root.Mean.Square.Speed*60
     
     mean.cosineFP<-round(mean(Object[[j]][1:MM2,20],na.rm = TRUE),digits = 3)
     FMResultsTable[8,j]<-mean.cosineFP
@@ -6802,7 +6809,7 @@ ForwardMigration <- function(
     
     if ( sfpPLOT == TRUE){
       if (export) grDevices::jpeg(paste0(ExpName," FP vs Speed",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
-      graphics::plot(sqrt(Object[[j]][1:MM2,11]),Object[[j]][1:MM2,20],pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Instantaneous Speed (um/min)",col="black",las=1)
+      graphics::plot(sqrt(Object[[j]][1:MM2,11])*60,Object[[j]][1:MM2,20],pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Instantaneous Speed (um/h)",col="black",las=1)
       reg<-stats::lm(Object[[j]][1:MM2,20]~sqrt(Object[[j]][1:MM2,11]))
       graphics::abline(reg,untf=FALSE,col="red")
       graphics::title(main=paste0("Cell Number  ", j,"   Speed vs Forward Persistence "),cex.main = 1,sub=paste0("spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
@@ -6826,7 +6833,7 @@ ForwardMigration <- function(
   
   if ( afpPLOT == TRUE){
     if (export) grDevices::jpeg(paste0(ExpName," All Cells FP vs Speed.jpg"),width = 4, height = 4, units = 'in', res = 300)
-    graphics::plot(RowmeanSpeed,RM,pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Instantaneous Speed (um/min)",col="black",las=1)
+    graphics::plot(RowmeanSpeed*60,RM,pch=16,type="p",ylab="Forward Persistence Time (min)",xlab=" Instantaneous Speed (um/h)",col="black",las=1)
     reg<-stats::lm(RM~RowmeanSpeed)
     graphics::abline(reg,untf=FALSE,col="red")
     graphics::title(main=paste0("All Cells Speed vs Forward Persistence "),cex.main = 1,sub=paste0("spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
@@ -6835,8 +6842,13 @@ ForwardMigration <- function(
   RM1<-round(matrixStats::rowMedians(as.matrix(FMResultsTable),na.rm = TRUE),digits=3)
   FMResultsTable[c(2:5,7:8),(length(Object)+1)]<-RM1[c(2:5,7:8)]
   FMResultsTable[1,(length(Object)+1)]<-"All Cells"
-  rownames(FMResultsTable)<-c("Cell Number","Mean Forward Persist Time (min)","Mean Forward Persist Deviating Time (min)","Forward Persistence Ratio",
-                              "Maximum Forward Persistence period","Forward Persistence Time vs Speed (SCC)","RMSS (um per min)","Mean Forward Angular Persistence (mean cos.F)","Instantaneous Speed vs Forward Persistence (SCC)")
+  rownames(FMResultsTable)<-c("Cell Number","Mean Forward Persist Time (min)",
+                              "Mean Forward Persist Deviating Time (min)",
+                              "Forward Persistence Ratio",
+                              "Maximum Forward Persistence period",
+                              "Forward Persistence Time vs Speed (SCC)",
+                              "RMSS (um/h)","Mean Forward Angular Persistence (mean cos.F)",
+                              "Instantaneous Speed vs Forward Persistence (SCC)")
   FMResultsTable<-FMResultsTable[-7,]
   object@ForMigtable=FMResultsTable
   
