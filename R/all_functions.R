@@ -6356,10 +6356,14 @@ VeAutoCor = function(object, TimeInterval=10,
   if ( ! is.list(Object) ){
     msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
   }
-  d=getwd()
   if (export) {
-    dir.create(paste0(ExpName,"-VeAutoCorResults"))
-    setwd(paste0(d,"/",paste0(ExpName,"-VeAutoCorResults")))
+    new.fld <-paste0(ExpName,"-VeAutoCorResults")
+    if (dir.exists(new.fld)) {
+      unlink(new.fld, recursive = TRUE, force = TRUE)
+    }
+    if(!dir.exists(new.fld)) {
+      dir.create(new.fld)
+    }
   }
   
   Len<-length(Object)
@@ -6430,13 +6434,14 @@ VeAutoCor = function(object, TimeInterval=10,
       Xaxis<-c(1:LAG)
       Yaxis<-meanVAC
       if (export) {
-        grDevices::jpeg(
-          paste0(ExpName,"Velocity Autocorrelation.plot.Cell",j,".jpg"),width = 4, height = 4, units = 'in', res = 300)
+        plot_name <-  paste0(ExpName,"Velocity Autocorrelation.plot.Cell",j,".jpg")
+        file_path <- file.path(new.fld, plot_name)
+        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
       }
       graphics::plot(Xaxis,Yaxis, type="o",ylim=range(meanVAC),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=1.2)
       graphics::lines(timevalues, predictedcounts, col = "black", lwd = 3)
       graphics::title(main=paste0("Cell Number  ", j, "   VA quadratic model"),col.main="darkgreen",
-                      sub=paste0(" Intercept of VA quadratic model = ",round(ccc, digits=3)),col.sub="red")
+                      cex.main=0.8, sub=paste0(" Intercept of VA quadratic model = ",round(ccc, digits=3)),col.sub="red")
       if (export) grDevices::dev.off()
     }
     
@@ -6466,21 +6471,22 @@ VeAutoCor = function(object, TimeInterval=10,
     Xaxis<-c(1:LAG)
     Yaxis<-RM1
     if (export) {
-      grDevices::jpeg(paste0(ExpName,"-Velocity Autocorrelation All Cells.jpg"),width = 4, height = 4, units = 'in', res = 300)
+      plot_name <-  paste0(ExpName,"-Velocity.Autocorrelation.All.Cells.jpg")
+      file_path <- file.path(new.fld, plot_name)
+      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
     }
     graphics::plot(Xaxis,Yaxis, type="o",ylim=range(RM1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=1.2)
     graphics::lines(timevalues, predictedcounts, col = "darkgreen", lwd = 3)
     MVA<-round(stats::median(as.numeric(VA.ResultsTable[5,1:length(Object)])),digits=2)
     graphics::abline(h=MVA,col="blue",lwd = 2)
     graphics::title(main=paste0("All Cells - VA quadratic model"),col.main="darkgreen",
-                    sub=paste0(" Intercept of VA quadratic model = ",round(ccc, digits=3)),col.sub="red")
+                    cex.main=0.8,sub=paste0(" Intercept of VA quadratic model = ",round(ccc, digits=3)),col.sub="red")
     if (export) grDevices::dev.off()
   }
   
   rownames(VA.ResultsTable)<-c("Cell Number","Velocity AutoCorrelation (lag=1)","2nd normalized Velocity AutoCorrelation",
                                "Intercept of VA quadratic model","Mean Velocity AutoCorrelation (all lags)")
   object@VACtable<-VA.ResultsTable
-  setwd(d)
   if (export) {
     utils::write.csv(
       VA.ResultsTable,
