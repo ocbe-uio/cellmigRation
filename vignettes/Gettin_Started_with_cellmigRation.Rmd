@@ -1,0 +1,22 @@
+---
+title: "Gettin_Started_with_cellmigRation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Gettin_Started_with_cellmigRation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(cellmigRation)
+data("VignBuilderDataset")
+message("Hello world")
+```
+Done!
