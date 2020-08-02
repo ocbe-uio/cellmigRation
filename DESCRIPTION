@@ -11,6 +11,6 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.0), methods, foreach
 Imports: tiff, graphics, stats, utils, reshape2, parallel, doParallel, grDevices, matrixStats, FME, SpatialTools, rgl, sp, vioplot, FactoMineR, Hmisc
-Suggests: testthat, knitr, rmarkdown, dplyr
+Suggests: testthat, knitr, rmarkdown, dplyr, grid
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
