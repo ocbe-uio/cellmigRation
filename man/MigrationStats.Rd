@@ -21,7 +21,6 @@ yFMI, xFMI, y-displacement, x-displacement and frames
 \description{
 Calculate the statistics from X/Y positional data obtained from cell tracks
 }
-<<<<<<< HEAD
 \examples{
 x0 <- cbind(
   c(30, 35, 1, 5, 6, 7, 50, 55, 56, 58),
@@ -32,8 +31,6 @@ cellmigRation:::MigrationStats(x0, 10, 10)
 
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

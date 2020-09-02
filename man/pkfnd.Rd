@@ -27,7 +27,6 @@ Finds local maxima in an image to pixel level accuracy. This provides a rough gu
 of particle centers to be used by cntrd(). Inspired by the lmx subroutine of
 Grier and Crocker's. CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
 }
-<<<<<<< HEAD
 \examples{
 message("the following example may take up to one minute to run")
 \dontrun{
@@ -42,8 +41,6 @@ cnt[1:10,]
 }
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
