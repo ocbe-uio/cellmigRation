@@ -1,8 +1,13 @@
 ^CellMigRation\.Rproj$
+^.*\.Rproj$
 ^cell_migration_logo\.png$
 ^README\.Rmd$
-^READMNE\.md$
 ^\.travis\.yml$
 Shinyapp
 \.git
 ^\.Rproj\.user$
+^LICENSE
+inst
+aux
+.git
+^.*\.png$
