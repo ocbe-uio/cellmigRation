@@ -3,7 +3,7 @@ Type: Package
 Title: Track Cells, Analyze Cell Trajectories and Compute Migration Statistics
 Version: 0.2.1
 Author: Salim Ghannoum, Damiano Fantini, Waldir Leoncio Netto, Øystein Sørensen
-Maintainer: Salim Ghannoum <salim.ghannoum@medisin.uio.no>
+Maintainer: Waldir Leoncio <w.l.netto@medisin.uio.no>
 Description: Import TIFF images of fluorescently labeled cells, and track cell movements over time. Parallelization is supported for image processing and for fast computation of cell trajectories. In-depth analysis of cell trajectories is enabled by 15 trajectory analysis functions.
 biocViews: ExperimentData, BreastCancerData
 License: GPL-2
