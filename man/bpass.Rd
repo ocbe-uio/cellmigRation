@@ -31,6 +31,7 @@ This code 'bpass.pro' is copyright 1997, John C. Crocker and
 David G. Grier.  It should be considered 'freeware'- and may be
 distributed freely in its original form when properly attributed.
 }
+<<<<<<< HEAD
 \examples{
 x0 <- cbind(
   c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -55,6 +56,8 @@ image(x0); title("original")
 image(y0); title("after bpass")
 
 }
+=======
+>>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
