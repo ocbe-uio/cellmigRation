@@ -23,7 +23,6 @@ data.frame including cell tracks data
 Constructs n-dimensional trajectories from a scrambled list of particle
 coordinates determined at discrete times (e.g. in consecutive image frames)
 }
-<<<<<<< HEAD
 \examples{
 x0 <- data.frame(row = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
                  col = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
@@ -32,8 +31,6 @@ cellmigRation:::track(x0, maxdisp = 10, params = NULL)
 
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
