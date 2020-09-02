@@ -6,15 +6,27 @@
 \usage{
 plotAllTracks(
   object,
+<<<<<<< HEAD
   Type = "l",
   FixedField = TRUE,
   export = FALSE,
   ExpName = NULL
+=======
+  ExpName = "ExpName",
+  Type = "l",
+  FixedField = TRUE,
+  export = FALSE
+>>>>>>> shiny-page-4
 )
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
+<<<<<<< HEAD
+=======
+\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+>>>>>>> shiny-page-4
 \item{Type}{has to be one of the following: c("p", "l", "b", "o")
 "p": Points
 "l": Lines
@@ -24,8 +36,11 @@ plotAllTracks(
 \item{FixedField}{logical(1) Allows generating a plot with fixed field 800um x 800um. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports plot to JPG file}
+<<<<<<< HEAD
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
+=======
+>>>>>>> shiny-page-4
 }
 \value{
 A 2D rose-plot showing the tracks of all cells.
@@ -41,7 +56,11 @@ data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
+<<<<<<< HEAD
 plotAllTracks(rmTD,Type="l", FixedField=TRUE,export=FALSE)
+=======
+plotAllTracks(rmTD, ExpName="Test",Type="l", FixedField=TRUE,export=FALSE)
+>>>>>>> shiny-page-4
 
 }
 \references{

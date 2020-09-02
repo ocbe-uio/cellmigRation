@@ -7,12 +7,20 @@
 ForwardMigration(
   object,
   TimeInterval = 10,
+<<<<<<< HEAD
+=======
+  ExpName = "ExpName",
+>>>>>>> shiny-page-4
   sfptPLOT = TRUE,
   afptPLOT = TRUE,
   sfpPLOT = TRUE,
   afpPLOT = TRUE,
+<<<<<<< HEAD
   export = FALSE,
   ExpName = NULL
+=======
+  export = FALSE
+>>>>>>> shiny-page-4
 )
 }
 \arguments{
@@ -20,6 +28,11 @@ ForwardMigration(
 
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
+<<<<<<< HEAD
+=======
+\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+>>>>>>> shiny-page-4
 \item{sfptPLOT}{A logical vector that allows generating individual plots of persistence time vs speed per cell. Default is TRUE.}
 
 \item{afptPLOT}{A logical vector that allows generating a plot of persistence time vs speed for all cells. Default is TRUE.}
@@ -29,8 +42,11 @@ ForwardMigration(
 \item{afpPLOT}{A logical vector that allows generating a plot of angular persistence vs speed of all cells. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output to CSV file}
+<<<<<<< HEAD
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
+=======
+>>>>>>> shiny-page-4
 }
 \value{
 An CellMig class Object with a data frame and plots. The data frame is stored in the ForMigtable slot.
@@ -40,12 +56,21 @@ The ForwardMigration function automatically generates data and plots for forward
 }
 \examples{
 data(WSADataset)
+<<<<<<< HEAD
 wsaDF <- WSADataset[1:1000,]
 wsaTD <- CellMig(wsaDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 wsaTD <-ForwardMigration(wsaTD, TimeInterval=10, 
    sfptPLOT=FALSE, afptPLOT= FALSE,sfpPLOT= FALSE,afpPLOT= FALSE,
    export=FALSE)
+=======
+wasDF=WSADataset[1:1000,]
+wsaTD <- CellMig(wasDF)
+wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
+wsaTD <-ForwardMigration(
+   wsaTD, TimeInterval=10, ExpName="ExpName", export=FALSE
+)
+>>>>>>> shiny-page-4
 
 }
 \references{

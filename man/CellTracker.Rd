@@ -6,8 +6,11 @@
 \usage{
 CellTracker(
   tc_obj,
+<<<<<<< HEAD
   import_optiParam_from = NULL,
   min_frames_per_cell = 1,
+=======
+>>>>>>> shiny-page-4
   lnoise = NULL,
   diameter = NULL,
   threshold = NULL,
@@ -15,6 +18,7 @@ CellTracker(
   memory_b = 0,
   goodenough = 0,
   threads = 1,
+<<<<<<< HEAD
   show_plots = FALSE,
   verbose = FALSE
 )
@@ -27,6 +31,14 @@ import optimized parameters; can be NULL.}
 
 \item{min_frames_per_cell}{numeric, minimum number of consecutive frames in which
 a cell shall be found in order to retain that cell in the final cell tracks data.frame. Defaults to 1.}
+=======
+  show_plots = TRUE,
+  verbose = TRUE
+)
+}
+\arguments{
+\item{tc_obj}{a \code{trackedCells} object}
+>>>>>>> shiny-page-4
 
 \item{lnoise}{numeric, lnoise parameter; can be NULL if OptimizeParams() has already been run}
 
@@ -75,6 +87,7 @@ the initial image convolution
 
 }
 }
+<<<<<<< HEAD
 \examples{
 message("this example may take up to several mins to complete")
 \dontrun{
@@ -85,6 +98,8 @@ getTracks(x)[1:10,]
 }
 
 }
+=======
+>>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
