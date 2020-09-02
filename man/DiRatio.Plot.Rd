@@ -4,16 +4,26 @@
 \alias{DiRatio.Plot}
 \title{Directionality Ratio plots}
 \usage{
+<<<<<<< HEAD
 DiRatio.Plot(object, TimeInterval = 10, export = FALSE, ExpName = NULL)
+=======
+DiRatio.Plot(object, TimeInterval = 10, ExpName = ExpName, export = FALSE)
+>>>>>>> shiny-page-4
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
+<<<<<<< HEAD
 \item{export}{if `TRUE` (default), exports plot to JPG file}
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
+=======
+\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+\item{export}{if `TRUE` (default), exports plot to JPG file}
+>>>>>>> shiny-page-4
 }
 \value{
 Directionality Ratio plots
@@ -24,6 +34,7 @@ Directionality Ratio is the displacement divided by the total length of the tota
 \details{
 Directionality Ratio
 }
+<<<<<<< HEAD
 \examples{
 data(TrajectoryDataset)
 rmDF <- TrajectoryDataset[1:600, ]
@@ -33,6 +44,8 @@ DiRatio.Plot(rmTD, export=FALSE)
 
 
 }
+=======
+>>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 }

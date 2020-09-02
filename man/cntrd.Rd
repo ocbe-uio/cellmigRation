@@ -25,6 +25,7 @@ Calculates the centroid of bright spots to sub-pixel accuracy. Inspired by Grier
 Crocker's feature for IDL, but greatly simplified and optimized for matlab, and then
 further ported to R. CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
 }
+<<<<<<< HEAD
 \examples{
 message("the following example may take up to one minute to run")
 \dontrun{
@@ -39,6 +40,8 @@ cnt[1:10,]
 }
 
 }
+=======
+>>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

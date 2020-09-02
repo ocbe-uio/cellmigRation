@@ -4,16 +4,26 @@
 \alias{FMI}
 \title{Forward Migration Index}
 \usage{
+<<<<<<< HEAD
 FMI(object, TimeInterval = 10, export = FALSE, ExpName = NULL)
+=======
+FMI(object, TimeInterval = 10, ExpName = "ExpName", export = FALSE)
+>>>>>>> shiny-page-4
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
+<<<<<<< HEAD
 \item{export}{if `TRUE` (default), exports function output to CSV file}
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
+=======
+\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+\item{export}{if `TRUE` (default), exports function output to CSV file}
+>>>>>>> shiny-page-4
 }
 \value{
 An CellMig class Object with a data frame. The data frame is stored in the FMItable slot.
@@ -23,10 +33,17 @@ The FMI function automatically generates data for the forward migration index
 }
 \examples{
 data(WSADataset)
+<<<<<<< HEAD
 wasDF=WSADataset[1:300,]
 wsaTD <- CellMig(wasDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=55)
 wsaTD <-FMI(wsaTD,TimeInterval=10, export=FALSE)
+=======
+wasDF=WSADataset[1:1000,]
+wsaTD <- CellMig(wasDF)
+wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
+wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName", export=FALSE)
+>>>>>>> shiny-page-4
 
 }
 \references{
