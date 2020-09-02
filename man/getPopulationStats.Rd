@@ -15,7 +15,6 @@ data.frame including cell population stats
 \description{
 Extract cell population statistics from a trackedCells object
 }
-<<<<<<< HEAD
 \examples{
 message("this example may take up to several mins to complete")
 \dontrun{
@@ -28,8 +27,6 @@ getPopulationStats(x)
 
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

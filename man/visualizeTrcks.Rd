@@ -35,7 +35,6 @@ None
 \description{
 Annotates an image with cell centroids by adding cell ROIs and drawing cell tracks
 }
-<<<<<<< HEAD
 \examples{
 x1 <- data.frame(c(10, 30, 25, 55, 43, 39, 75, 72),
                  c(22, 28, 35, 24, 31, 39, 65, 73),
@@ -46,8 +45,6 @@ cellmigRation:::visualizeTrcks(x1, width_px = 100, height_px = 100)
 
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/celltracker/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

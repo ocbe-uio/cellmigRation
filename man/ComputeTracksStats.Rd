@@ -20,7 +20,6 @@ a trackedCells object, including cell track statistics
 Wrapper for the MigrationStats() function. It computes statistics for a
 trackedCells object where cells have already been tracked.
 }
-<<<<<<< HEAD
 \examples{
 message("this example may take up to several mins to complete")
 \dontrun{
@@ -31,8 +30,6 @@ getCellsStats(x)[1:10,]
 }
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

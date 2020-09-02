@@ -17,7 +17,6 @@ a data.frame including cell tracks data
 \description{
 Extract Track Data from a trackedCells object
 }
-<<<<<<< HEAD
 \examples{
 message("this example may take up to several mins to complete")
 \dontrun{
@@ -29,8 +28,6 @@ getTracks(x)[1:10,]
 
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

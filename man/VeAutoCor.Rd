@@ -7,19 +7,11 @@
 VeAutoCor(
   object,
   TimeInterval = 10,
-<<<<<<< HEAD
   sLAG = 0.25,
   sPLOT = TRUE,
   aPLOT = TRUE,
   export = FALSE,
   ExpName = NULL
-=======
-  ExpName = "ExpName",
-  sLAG = 0.25,
-  sPLOT = TRUE,
-  aPLOT = TRUE,
-  export = FALSE
->>>>>>> shiny-page-4
 )
 }
 \arguments{
@@ -27,11 +19,6 @@ VeAutoCor(
 
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
-<<<<<<< HEAD
-=======
-\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
-
->>>>>>> shiny-page-4
 \item{sLAG}{A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.}
 
 \item{sPLOT}{A logical vector that allows generating individual plots showing the velocity across several sequantial time intervals. Default is TRUE.}
@@ -39,37 +26,23 @@ VeAutoCor(
 \item{aPLOT}{A logical vector that allows generating a plot showing the velocity across several sequantial time intervals of all cells. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output to CSV file}
-<<<<<<< HEAD
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }
 \value{
-Plots and a data frame, which contains six rows: "Cell Number", "Velocity AutoCorrelation (lag=1)", 
-"2nd normalized Velocity AutoCorrelation", "Intercept of VA quadratic model", 
+Plots and a data frame, which contains six rows: "Cell Number", "Velocity AutoCorrelation (lag=1)",
+"2nd normalized Velocity AutoCorrelation", "Intercept of VA quadratic model",
 "Mean Velocity AutoCorrelation (all lags)", "Mean |Acceleration|" and "Average Speed".
-=======
-}
-\value{
-Plots and a data frame, which contains six rows: "Cell Number", .
->>>>>>> shiny-page-4
 }
 \description{
 The VeAutoCor function automatically compute the changes in both speed and direction across several sequantial time intervals.
 }
 \examples{
 data(TrajectoryDataset)
-<<<<<<< HEAD
 rmDF=TrajectoryDataset[1:300,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=55)
 rmTD <- VeAutoCor(rmTD, TimeInterval=10, sLAG=0.25, sPLOT=FALSE,
-=======
-rmDF=TrajectoryDataset[1:1000,]
-rmTD <- CellMig(rmDF)
-rmTD <- rmPreProcessing(rmTD,FrameN=100)
-rmTD <- VeAutoCor(
-   rmTD, TimeInterval=10, ExpName="ExpName", sLAG=0.25, sPLOT=FALSE,
->>>>>>> shiny-page-4
    aPLOT=FALSE, export=FALSE
 )
 }

@@ -21,7 +21,6 @@ a trackedCells object
 \description{
 Import a .tif stack containing fluorescently labeled point particles to be tracked
 }
-<<<<<<< HEAD
 \examples{
 \dontrun{
 # Let `path/to/tiff_file.tiff` be the path to tiff file we want to import
@@ -29,8 +28,6 @@ x <- LoadTiff(tiff_file = "path/to/tiff_file.tiff")
 }
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
