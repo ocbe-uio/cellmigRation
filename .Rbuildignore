@@ -1,4 +1,4 @@
-*.Rproj$
+^.*\.Rproj$
 ^cell_migration_logo\.png$
 ^.*\.Rproj$
 ^\.travis\.yml$
@@ -10,3 +10,4 @@ aux
 ^.*\.png$
 ^doc$
 ^Meta$
+inst/extdata
