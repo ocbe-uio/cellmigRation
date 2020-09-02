@@ -35,7 +35,6 @@ None
 \description{
 Visualize Cell Tracks that originated at an Image Stack of interest
 }
-<<<<<<< HEAD
 \examples{
 message("The following example will take few min to complete")
 \dontrun{
@@ -46,8 +45,6 @@ message("The following example will take few min to complete")
 
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/celltracker/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
