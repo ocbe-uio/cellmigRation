@@ -1,4 +1,4 @@
-^CellMigRation\.Rproj$
+*.Rproj$
 ^cell_migration_logo\.png$
 ^.*\.Rproj$
 ^\.travis\.yml$
