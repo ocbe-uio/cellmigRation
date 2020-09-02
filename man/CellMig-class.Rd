@@ -8,11 +8,7 @@
 \usage{
 CellMig(...)
 
-<<<<<<< HEAD
 \S4method{initialize}{CellMig}(.Object, trajdata, expName = NULL)
-=======
-\S4method{initialize}{CellMig}(.Object, trajdata)
->>>>>>> shiny-page-4
 
 CellMig(...)
 }
@@ -22,11 +18,8 @@ CellMig(...)
 \item{.Object}{the CellMig object being built}
 
 \item{trajdata}{data frame including trajectory data}
-<<<<<<< HEAD
 
 \item{expName}{string (character vector of length of 1) with the name of the experiment}
-=======
->>>>>>> shiny-page-4
 }
 \value{
 An S4-class object
@@ -65,11 +58,8 @@ random migration (RM) and wound scratch assay (WSA). It comprises 14 slots.
 \item{\code{results}}{A data frame of all the results.}
 
 \item{\code{parCor}}{A data frame for Parameters Correlation.}
-<<<<<<< HEAD
 
 \item{\code{meta}}{A list including experiment name, meta data and other information.}
-=======
->>>>>>> shiny-page-4
 }}
 
 \author{

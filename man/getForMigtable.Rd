@@ -20,7 +20,7 @@ data(WSADataset)
 wsaDF <- WSADataset[1:300,]
 wsaTD <- CellMig(wsaDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=55)
-wsaTD <-ForwardMigration(wsaTD, TimeInterval=10, 
+wsaTD <-ForwardMigration(wsaTD, TimeInterval=10,
    sfptPLOT=FALSE, afptPLOT= FALSE,sfpPLOT= FALSE,afpPLOT= FALSE,
    export=FALSE)
 head(getForMigtable(wsaTD))

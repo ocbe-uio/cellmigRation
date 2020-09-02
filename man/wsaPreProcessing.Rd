@@ -14,12 +14,8 @@ wsaPreProcessing(
   upperE = 400,
   lowerE = 1000,
   mar = 75,
-<<<<<<< HEAD
   clearW = TRUE,
   ExpName = NULL
-=======
-  clearW = TRUE
->>>>>>> shiny-page-4
 )
 }
 \arguments{
@@ -42,11 +38,8 @@ wsaPreProcessing(
 \item{mar}{A numeric value of the margin to be used to narrow the clearing zone inside the zone.}
 
 \item{clearW}{A logical vector that allows removing the cells within the wound. Default is TRUE.}
-<<<<<<< HEAD
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
-=======
->>>>>>> shiny-page-4
 }
 \value{
 An CellMig class object with filtered, annotated and preprocessed data.

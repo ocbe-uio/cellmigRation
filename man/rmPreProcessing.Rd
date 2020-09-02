@@ -4,7 +4,6 @@
 \alias{rmPreProcessing}
 \title{Data preprocessing for random migration (RM)}
 \usage{
-<<<<<<< HEAD
 rmPreProcessing(
   object,
   PixelSize = 1.24,
@@ -12,9 +11,6 @@ rmPreProcessing(
   FrameN = NULL,
   ExpName = NULL
 )
-=======
-rmPreProcessing(object, PixelSize = 1.24, TimeInterval = 10, FrameN = NULL)
->>>>>>> shiny-page-4
 }
 \arguments{
 \item{object}{\code{CellMig} class object.}
@@ -24,11 +20,8 @@ rmPreProcessing(object, PixelSize = 1.24, TimeInterval = 10, FrameN = NULL)
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack. Default is 10 min.}
 
 \item{FrameN}{A numeric value of the number of frames. Default is NULL}
-<<<<<<< HEAD
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
-=======
->>>>>>> shiny-page-4
 }
 \value{
 An CellMig class object with preprocessed data.

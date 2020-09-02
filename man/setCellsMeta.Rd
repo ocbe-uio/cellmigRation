@@ -21,7 +21,6 @@ a list including three items: experiment name, condition label, and replicate ID
 \description{
 Write/Replace MetaData of a trackedCells object
 }
-<<<<<<< HEAD
 \examples{
 x0 <- cellmigRation::TrackCellsDataset
 x0 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DMSO")
@@ -29,8 +28,6 @@ getCellsMeta(x0)
 
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

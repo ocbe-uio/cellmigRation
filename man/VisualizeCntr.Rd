@@ -35,7 +35,6 @@ None
 \description{
 Annotates centroids over an image
 }
-<<<<<<< HEAD
 \examples{
 x1 <- data.frame(row = c(50, 80, 20, 65, 99),
                  col = c(15, 25, 50, 65, 86))
@@ -44,8 +43,6 @@ cellmigRation:::VisualizeCntr(x1, width_px = 100, height_px = 100)
 
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
