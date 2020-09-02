@@ -10,8 +10,8 @@ getVACtable(object)
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 }
 \value{
-A data frame, which contains six rows: "Cell Number", "Velocity AutoCorrelation (lag=1)", 
-"2nd normalized Velocity AutoCorrelation", "Intercept of VA quadratic model", 
+A data frame, which contains six rows: "Cell Number", "Velocity AutoCorrelation (lag=1)",
+"2nd normalized Velocity AutoCorrelation", "Intercept of VA quadratic model",
 "Mean Velocity AutoCorrelation (all lags)", "Mean |Acceleration|" and "Average Speed".
 }
 \description{

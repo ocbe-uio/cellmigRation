@@ -34,7 +34,6 @@ each trackedCells-class object passed to this function requires a unique identif
 tiff_file name). Any of the metadata columns can be used as unique ID for an image/experiment. The function
 will raise an error if non-unique identifiers are found across the input objects.
 }
-<<<<<<< HEAD
 \examples{
 # Please, see the package vignette
 # for an example of how to use this function.
@@ -45,8 +44,6 @@ will raise an error if non-unique identifiers are found across the input objects
   y <- aggregateTrackedCells(x0, x1, x2)
 }
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 }

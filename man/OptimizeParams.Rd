@@ -14,12 +14,8 @@ OptimizeParams(
   threads = 1,
   quantile.val = NULL,
   px.margin = NULL,
-<<<<<<< HEAD
   plot = FALSE,
   verbose = FALSE
-=======
-  plot = FALSE
->>>>>>> shiny-page-4
 )
 }
 \arguments{
@@ -43,11 +39,8 @@ Particles with a diameter smaller than min.px.diam are discarded}
 \item{px.margin}{numeric, argument passed to EstimateDiameterRange(). If NULL, it ia defaulted to 2}
 
 \item{plot}{if `TRUE`, plots results in the end}
-<<<<<<< HEAD
 
 \item{verbose}{shall information about the progress of the operation be printed to screen/console}
-=======
->>>>>>> shiny-page-4
 }
 \value{
 a trackedCells object
@@ -75,7 +68,6 @@ the initial image convolution
 
 }
 }
-<<<<<<< HEAD
 \examples{
 message("this example may take up to several mins to complete")
 \dontrun{
@@ -86,8 +78,6 @@ getOptimizedParams(x)
 
 
 }
-=======
->>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

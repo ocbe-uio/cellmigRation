@@ -4,20 +4,11 @@
 \alias{CellMigPCA}
 \title{PCA}
 \usage{
-<<<<<<< HEAD
 CellMigPCA(object, parameters = c(1, 2, 3))
-=======
-CellMigPCA(object, ExpName = "ExpName", parameters = c(1, 2, 3))
->>>>>>> shiny-page-4
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
-<<<<<<< HEAD
-=======
-\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data.}
-
->>>>>>> shiny-page-4
 \item{parameters}{A numeric vector contains the parameters to be included in the Principal Component Analysis. These numbers can be obtained from the outcome of the FinRes() function.}
 }
 \value{
@@ -27,7 +18,6 @@ PCA Graph of cells and PCA Graph of variables.
 The CellMigPCA function automatically generates Principal Component Analysis.
 }
 \examples{
-<<<<<<< HEAD
 data(WSADataset)
 wasDF=WSADataset[1:300,]
 wsaTD <- CellMig(wasDF)
@@ -36,18 +26,6 @@ wsaTD <-FMI(wsaTD,TimeInterval=10)
 wsaTD <-ForwardMigration(wsaTD,TimeInterval=10)
 wsaTD <-FinRes(wsaTD,ParCor=FALSE)
 PCAplot<-CellMigPCA(wsaTD,parameters=c(1,4))
-=======
-\dontrun{
-data(WSADataset)
-wasDF=WSADataset[1:1000,]
-wsaTD <- CellMig(wasDF)
-wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
-wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName")
-wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName")
-wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE)
-PCAplot<-CellMigPCA(wsaTD,,parameters=c(1,2))
-}
->>>>>>> shiny-page-4
 
 }
 \references{
