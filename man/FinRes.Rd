@@ -4,16 +4,28 @@
 \alias{FinRes}
 \title{Final Results}
 \usage{
+<<<<<<< HEAD
 FinRes(object, ParCor = TRUE, export = FALSE, ExpName = NULL)
+=======
+FinRes(object, ExpName = "ExpName", ParCor = TRUE, export = FALSE)
+>>>>>>> shiny-page-4
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
+<<<<<<< HEAD
 \item{ParCor}{A logical vector that allows generating a correlation table. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output to CSV file}
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
+=======
+\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+\item{ParCor}{A logical vector that allows generating a correlation table. Default is TRUE.}
+
+\item{export}{if `TRUE` (default), exports function output to CSV file}
+>>>>>>> shiny-page-4
 }
 \value{
 A data frame that contains all the results.
@@ -22,6 +34,7 @@ A data frame that contains all the results.
 The FinRes function automatically generates a data frame that contains all the results.
 }
 \examples{
+<<<<<<< HEAD
 data(WSADataset)
 wasDF <- WSADataset[1:300, ]
 wsaTD <- CellMig(wasDF)
@@ -29,6 +42,17 @@ wsaTD <- wsaPreProcessing(wsaTD,FrameN=55)
 wsaTD <-FMI(wsaTD,TimeInterval=10)
 wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,)
 wsaTD <-FinRes(wsaTD,ParCor=FALSE, export=FALSE)
+=======
+\dontrun{
+data(WSADataset)
+wasDF=WSADataset[1:1000,]
+wsaTD <- CellMig(wasDF)
+wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
+wsaTD <-FMI(wsaTD,TimeInterval=10,ExpName="ExpName.FNRS")
+wsaTD <-ForwardMigration(wsaTD,TimeInterval=10,ExpName="ExpName.FNRS")
+wsaTD <-FinRes(wsaTD,ExpName="ExpName",ParCor=FALSE, export=FALSE)
+}
+>>>>>>> shiny-page-4
 
 }
 \references{

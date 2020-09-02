@@ -7,14 +7,22 @@
 MSD(
   object,
   TimeInterval = 10,
+<<<<<<< HEAD
+=======
+  ExpName = "ExpName",
+>>>>>>> shiny-page-4
   sLAG = 0.25,
   ffLAG = 0.25,
   SlopePlot = TRUE,
   AllSlopesPlot = TRUE,
   FurthPlot = TRUE,
   AllFurthPlot = TRUE,
+<<<<<<< HEAD
   export = FALSE,
   ExpName = NULL
+=======
+  export = FALSE
+>>>>>>> shiny-page-4
 )
 }
 \arguments{
@@ -22,6 +30,11 @@ MSD(
 
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
+<<<<<<< HEAD
+=======
+\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+>>>>>>> shiny-page-4
 \item{sLAG}{A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.}
 
 \item{ffLAG}{A numeric value to be used to get the number of lags for the  Furth formula fitting. Default is 0.25, which represents 25 percent of the steps.}
@@ -35,13 +48,17 @@ MSD(
 \item{AllFurthPlot}{A logical vector that allows generating a plot fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method for all cells. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output}
+<<<<<<< HEAD
 
 \item{ExpName}{string, anem of the Experiment. Can be NULL}
+=======
+>>>>>>> shiny-page-4
 }
 \value{
 An CellMig class object with a data frame and plots. The data frame is stored in the MSDtable slot.
 }
 \description{
+<<<<<<< HEAD
 The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
 }
 \examples{
@@ -50,6 +67,16 @@ rmDF <- TrajectoryDataset[1:600, ]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
 rmTD <- MSD(rmTD, sLAG=0.25, ffLAG=0.25, export=FALSE)
+=======
+The MSD function automatically compute the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
+}
+\examples{
+data(TrajectoryDataset)
+rmDF=TrajectoryDataset[1:600,]
+rmTD <- CellMig(rmDF)
+rmTD <- rmPreProcessing(rmTD,FrameN=100)
+rmTD<-MSD(rmTD,sLAG=0.25, ffLAG=0.25, export=FALSE)
+>>>>>>> shiny-page-4
 
 }
 \references{

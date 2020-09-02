@@ -2,7 +2,7 @@
 ##
 ## ~~ All Methods ~~
 #
-# 
+#
 
 # ~~~
 # 1) trackedCells-methods
@@ -16,30 +16,30 @@
 #' @param x imported TIFF image data
 #' @aliases initialize,trackedCells-method
 #' @import methods
-#' 
+#'
 setMethod("initialize", "trackedCells",
           function(.Object, x) {
             .Object <- callNextMethod(.Object)
-            
+
             # check data and args
             chk <- (sum(names(x) %in% c("images", "dim", "attributes")) == 3)
-            
+
             if(!chk)
               stop("Malformed Data")
-            
+
             # Initialize
             P0 <- data.frame(row = 1, col = 1, tau = 1)
             P0 <- P0[-1, ]
-            
+
             T0 <- matrix(NA, ncol = 4, nrow = 0)
-            
+
             O0 <- list(images = 1,
                        optimized_params = 0,
                        custom_params = 0,
                        track = 0,
                        stats = 0
             )
-            
+
             #Assign
             .Object@images <- x
             .Object@proc_images <- list()
@@ -54,10 +54,10 @@ setMethod("initialize", "trackedCells",
                                      experiment = NA,
                                      condition = NA,
                                      replicate = NA)
-            
+
             # return
             .Object
-            
+
           })
 
 
@@ -72,7 +72,7 @@ setMethod("show", signature(object = "trackedCells"),
               paste0("      + Cells Tracked: ", ifelse(object@ops$track == 1, "Yes", "No")),
               paste0("      + Stats Computed: ", ifelse(object@ops$stats == 1, "Yes", "No")),
               "")
-            
+
             for(lni in LNS){
               cat(lni, sep = "\n")
             }
@@ -95,13 +95,13 @@ setMethod("show", signature(object = "trackedCells"),
 #' @param expName string (character vector of length of 1) with the name of the experiment
 #' @aliases initialize,CellMig-method
 #' @import methods
-#' 
+#'
 setMethod("initialize",
           signature = "CellMig",
           definition = function(.Object, trajdata, expName=NULL){
             .Object <- callNextMethod(.Object)
             .Object@trajdata <- trajdata
-            
+
             if (is.null(expName)) {
               expName <- "my_custom_experiment_01"
             } else if (is.vector(expName) && length(expName) > 0){
@@ -111,7 +111,7 @@ setMethod("initialize",
             } else {
               expName <- "my_custom_experiment_01"
             }
-            
+
             .Object@meta <- list(expName = expName)
             return(.Object)
           }
@@ -125,7 +125,7 @@ setMethod("initialize",
 #' @param ... arguments to pass to the CellMig constructor
 #' @importFrom methods new
 #' @export
-CellMig <- function(...) new("CellMig", ...) 
+CellMig <- function(...) new("CellMig", ...)
 
 
 setMethod("show", signature(object = "CellMig"),
@@ -133,7 +133,7 @@ setMethod("show", signature(object = "CellMig"),
             LNS <- list(
               " ~~~ An S4 CellMig object ~~~",
               "")
-            
+
             for(lni in LNS){
               cat(lni, sep = "\n")
             }
