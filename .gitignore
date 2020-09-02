@@ -4,3 +4,5 @@
 .Ruserdata
 aux
 inst/extdata/*.csv
+inst/extdata/A6dCon.tif
+inst/extdata/*racTable*

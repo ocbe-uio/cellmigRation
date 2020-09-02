@@ -32,6 +32,7 @@ None
 \description{
 Visualize objects that were identified as cells in a given image stack
 }
+<<<<<<< HEAD
 \examples{
 message("The following example will take few min to complete")
 \dontrun{
@@ -42,6 +43,8 @@ message("The following example will take few min to complete")
 
 
 }
+=======
+>>>>>>> shiny-page-4
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}

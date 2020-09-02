@@ -6,16 +6,29 @@
 \usage{
 plotSampleTracks(
   object,
+<<<<<<< HEAD
   Type = "l",
   celNum = 35,
   FixedField = TRUE,
   export = FALSE,
   ExpName = NULL
+=======
+  ExpName = "ExpName",
+  Type = "l",
+  celNum = 35,
+  FixedField = TRUE,
+  export = FALSE
+>>>>>>> shiny-page-4
 )
 }
 \arguments{
 \item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
 
+<<<<<<< HEAD
+=======
+\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+>>>>>>> shiny-page-4
 \item{Type}{has to be one of the following: c("p", "l", "b", "o")}
 
 \item{celNum}{A numeric value showing the desired number of cells to be plotted.}
@@ -27,8 +40,11 @@ plotSampleTracks(
 "l": Lines
 "b": Both
 "o": Both "overplotted"}
+<<<<<<< HEAD
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
+=======
+>>>>>>> shiny-page-4
 }
 \value{
 A 2D rose-plot showing the tracks of sample cells selected randomly based on the desired number of cells selected by the user.
@@ -44,7 +60,11 @@ data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
+<<<<<<< HEAD
 plotSampleTracks(rmTD,Type="l", FixedField=TRUE, celNum=5, export=FALSE,ExpName = NULL)
+=======
+plotSampleTracks(rmTD, ExpName="Test",Type="l", FixedField=TRUE, celNum=5, export=FALSE)
+>>>>>>> shiny-page-4
 
 }
 \references{

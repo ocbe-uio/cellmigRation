@@ -7,12 +7,20 @@
 PerAndSpeed(
   object,
   TimeInterval = 10,
+<<<<<<< HEAD
+=======
+  ExpName = "ExpName",
+>>>>>>> shiny-page-4
   PtSplot = TRUE,
   AllPtSplot = TRUE,
   ApSplot = TRUE,
   AllApSplot = TRUE,
+<<<<<<< HEAD
   export = FALSE,
   ExpName = NULL
+=======
+  export = FALSE
+>>>>>>> shiny-page-4
 )
 }
 \arguments{
@@ -20,6 +28,11 @@ PerAndSpeed(
 
 \item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
 
+<<<<<<< HEAD
+=======
+\item{ExpName}{A character string. The ExpName will be appended to all exported tracks and statistics data}
+
+>>>>>>> shiny-page-4
 \item{PtSplot}{A logical vector that allows generating individual plots of persistence time vs speed per cell. Default is TRUE.}
 
 \item{AllPtSplot}{A logical vector that allows generating a plot of persistence time vs speed for all cells. Default is TRUE.}
@@ -29,8 +42,11 @@ PerAndSpeed(
 \item{AllApSplot}{A logical vector that allows generating a plot of angular persistence vs speed of all cells. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output}
+<<<<<<< HEAD
 
 \item{ExpName}{string, indicates the name of the experiment. Can be NULL}
+=======
+>>>>>>> shiny-page-4
 }
 \value{
 An CellMig class object with a data frame and plots. The data frame is stored in the PerAanSpeedtable slot.
@@ -43,7 +59,11 @@ data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
+<<<<<<< HEAD
 rmTD <- PerAndSpeed(rmTD,TimeInterval=10, export=FALSE)
+=======
+rmTD <- PerAndSpeed(rmTD,TimeInterval=10,ExpName="ExpName", export=FALSE)
+>>>>>>> shiny-page-4
 
 }
 \references{
