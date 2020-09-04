@@ -10,4 +10,3 @@ aux
 ^.*\.png$
 ^doc$
 ^Meta$
-inst/extdata
