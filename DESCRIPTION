@@ -28,7 +28,7 @@ Authors@R:
 		)
 	)
 Description: Import TIFF images of fluorescently labeled cells, and track cell movements over time. Parallelization is supported for image processing and for fast computation of cell trajectories. In-depth analysis of cell trajectories is enabled by 15 trajectory analysis functions.
-biocViews: ExperimentData, BreastCancerData
+biocViews: CellBiology, DataRepresentation
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
