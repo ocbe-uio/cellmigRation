@@ -6668,24 +6668,23 @@ VeAutoCor = function(object, TimeInterval=10,
   VAC.first.value<-c()        # to save the fist VAC non-normalized value for all cells
   VAC.second.value<-c()        # to save the second VAC non-normalized value for all cells
 
-  for(j in 1:length(Object)){
+  for(j in seq_along(Object)){
     meanVAC<-c()
     LAG<-round(Step*sLAG)              #taking only the first 12.5%
-    for(lag in 1:LAG){
-      res <- t(sapply(1:(Step - 1), function(i){                      # starting from 2 to exclude the first cosine which is always 1.
+    for(lag in seq_len(LAG)){
+      res <- t(vapply(seq_len(Step - 1), function(i){                      # starting from 2 to exclude the first cosine which is always 1.
         Object[[j]][i,14]= Object[[j]][i+lag,2]-Object[[j]][i,2]    # newdx
         Object[[j]][i,15]= Object[[j]][i+lag,3]-Object[[j]][i,3]    # newdy
-        return(Object[[j]][i,14:15])
-      }))
-      Object[[j]][1:(Step -1),14:15] <- as.data.frame(res)
+        return(as.numeric(Object[[j]][i,14:15]))
+      }, FUN.VALUE = numeric(2)))
+      Object[[j]][1:(Step -1),14:15] <- res
       Object[[j]][,14:15] <- lapply(Object[[j]][,14:15], as.numeric)
       Object[[j]][,14][is.na(Object[[j]][,14])] <- 0                                # to remove NA and replace it with 0
       Object[[j]][,15][is.na(Object[[j]][,15])] <- 0                                # to remove NA and replace it with 0
 
-      res1 <- sapply(1:(Step - lag), function(i){                                               # starting from 2 to exclude the first cosine which is always 1.
-        Object[[j]][i,23]=((Object[[j]][i,14]* Object[[j]][i+lag,14])+ (Object[[j]][i,15]* Object[[j]][i+lag,15]))/ ((lag*TimeInterval)^2)
-        return(Object[[j]][i,23])
-      })
+      res1 <- vapply(seq_len(Step - lag), function(i){                                               # starting from 2 to exclude the first cosine which is always 1.
+        ((Object[[j]][i,14]* Object[[j]][i+lag,14])+ (Object[[j]][i,15]* Object[[j]][i+lag,15]))/ ((lag*TimeInterval)^2)
+      }, FUN.VALUE = numeric(1))
       Object[[j]][1:(Step - lag),23] <- res1
       meanVAC[lag]<-mean(Object[[j]][1:(Step - lag),23])
 
