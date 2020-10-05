@@ -513,9 +513,9 @@ visualizeTrcks <- function(tracks, width_px, height_px, i.slice = 1, pnt.cex = 1
 
 
   all_cells_slice <- cnt$cell
-  cKeep <- sapply(all_cells_slice, function(jj) {
+  cKeep <- vapply(all_cells_slice, function(jj) {
     sum(allcnt$cell == jj) > 1
-  })
+  }, FUN.VALUE = logical(1))
 
   # Cell outile
 
