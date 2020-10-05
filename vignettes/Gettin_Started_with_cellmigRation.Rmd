@@ -1,6 +1,8 @@
 ---
 title: "Gettin_Started_with_cellmigRation"
-output: rmarkdown::html_vignette
+output:
+  html_document:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Gettin_Started_with_cellmigRation}
   %\VignetteEngine{knitr::rmarkdown}
