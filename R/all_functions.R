@@ -203,7 +203,11 @@ matfix <- function(x) {
 #'
 #' @examples
 #' graphics::par(mfrow = c(1, 2))
-#' tmp <- vapply(seq_len(12), function(i) { (6 + abs(i - 6)) * c(1:10, 10:1) }, FUN.VALUE = numeric(20))
+#' tmp <- vapply(
+#'     seq_len(12),
+#'     function(i) {(6 + abs(i - 6)) * c(1:10, 10:1)},
+#'     FUN.VALUE = numeric(20)
+#' )
 #' cnv.tmp <- cellmigRation:::LinearConv2(tmp, c(-3, 0, 3))
 #' graphics::image(tmp); graphics::image(cnv.tmp)
 #' @importFrom graphics par image
@@ -7006,7 +7010,7 @@ ForwardMigration <- function(
     meanVEL <- vapply(seq_along(tabb), function(i){
       round(sqrt(mean(tabb[[i]][,1])),digits=2)
     }, FUN.VALUE = numeric(1))
-    
+
     meanVEL=meanVEL[-1]
 
     FP.time <- vapply(seq_along(tabb), function(i){
@@ -7026,7 +7030,7 @@ ForwardMigration <- function(
     MM1<-MM+1
     rowN<-c(1:MM1)
     Tval0 <- rowN[FPtime00TF]
-    
+
     TTT <- vapply(seq_len(length (Tval0)-1), function(i){
       TTT<- (Tval0[i+1]- Tval0[i])-1
       return(TTT)
