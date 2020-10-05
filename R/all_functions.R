@@ -203,7 +203,7 @@ matfix <- function(x) {
 #'
 #' @examples
 #' graphics::par(mfrow = c(1, 2))
-#' tmp <- sapply(1:12, function(i) { (6 + abs(i - 6)) * c(1:10, 10:1) })
+#' tmp <- vapply(seq_len(12), function(i) { (6 + abs(i - 6)) * c(1:10, 10:1) }, FUN.VALUE = numeric(20))
 #' cnv.tmp <- cellmigRation:::LinearConv2(tmp, c(-3, 0, 3))
 #' graphics::image(tmp); graphics::image(cnv.tmp)
 #' @importFrom graphics par image
@@ -221,8 +221,8 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 
   # Enlarge x based on kernel size
   ncl <- ncol(xx)
-  tmp.i <- sapply(1:floor(length(krnl)/2), function(w) {xx[,1]})
-  tmp.f <- sapply(1:floor(length(krnl)/2), function(w) {xx[,ncl]})
+  tmp.i <- vapply(seq_len(floor(length(krnl)/2)), function(w) {xx[,1]}, FUN.VALUE = numeric(nrow(xx) * floor(length(krnl)/2)))
+  tmp.f <- vapply(seq_len(floor(length(krnl)/2)), function(w) {xx[,ncl]}, FUN.VALUE = numeric(nrow(xx) * floor(length(krnl)/2)))
   X <- cbind(tmp.i, xx, tmp.f)
 
   # Proceed with convolution
