@@ -203,7 +203,7 @@ matfix <- function(x) {
 #'
 #' @examples
 #' graphics::par(mfrow = c(1, 2))
-#' tmp <- sapply(1:12, function(i) { (6 + abs(i - 6)) * c(1:10, 10:1) })
+#' tmp <- vapply(seq_len(12), function(i) { (6 + abs(i - 6)) * c(1:10, 10:1) }, FUN.VALUE = numeric(20))
 #' cnv.tmp <- cellmigRation:::LinearConv2(tmp, c(-3, 0, 3))
 #' graphics::image(tmp); graphics::image(cnv.tmp)
 #' @importFrom graphics par image
@@ -221,8 +221,8 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 
   # Enlarge x based on kernel size
   ncl <- ncol(xx)
-  tmp.i <- sapply(1:floor(length(krnl)/2), function(w) {xx[,1]})
-  tmp.f <- sapply(1:floor(length(krnl)/2), function(w) {xx[,ncl]})
+  tmp.i <- vapply(seq_len(floor(length(krnl)/2)), function(w) {xx[,1]}, FUN.VALUE = numeric(nrow(xx) * floor(length(krnl)/2)))
+  tmp.f <- vapply(seq_len(floor(length(krnl)/2)), function(w) {xx[,ncl]}, FUN.VALUE = numeric(nrow(xx) * floor(length(krnl)/2)))
   X <- cbind(tmp.i, xx, tmp.f)
 
   # Proceed with convolution
@@ -261,7 +261,7 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 #' @keywords cellTracker
 #'
 #' @examples
-#' x <- sapply(1:20, function(i) {runif(n = 20, min = 0, max = 10)})
+#' x <- vapply(seq_len(20), function(i) {runif(n = 20, min = 0, max = 10)}, FUN.VALUE = numeric(20))
 #' cellmigRation:::VisualizeImg(x)
 #'
 #' @importFrom grDevices colorRampPalette
@@ -870,7 +870,7 @@ cntrd <- function(im, mx, sz, interactive = NULL)
 
   ind <- dst < r
 
-  msk <- sapply(1:ncol(ind), function(j) {as.numeric(ind[,j])})
+  msk <- ind * 1 # convert ind to numeric
   dst2 <- msk * (dst^2)
   ndst2 <- sum(dst2, na.rm = TRUE)
 
@@ -1844,21 +1844,22 @@ track <- function(xyzs, maxdisp, params)
         #%            whos xmat
         #%            disp(m)
 
-        for (d in 1:dim) {
+        for (d in seq_len(dim)) {
           x <- xyi[,d]
           y <- pos[wh,d]
 
-          xm <- sapply(1:ncol(xmat), function(jj) {
+          
+          xm <- vapply(seq_len(ncol(xmat)), function(jj) {
             tcljj <- xmat[, jj]
             x[tcljj]
-          })
+          }, FUN.VALUE = numeric(nrow(xmat)))
 
           #ym <- y[ymat[1:lenxn, 1:lenxm]]
-          tmpymat <- ymat[1:lenxn, 1:lenxm]
-          ym <- sapply(1:ncol(tmpymat), function(jj) {
+          tmpymat <- ymat[seq_len(lenxn), seq_len(lenxm)]
+          ym <- vapply(seq_len(ncol(tmpymat)), function(jj) {
             tcljj <- tmpymat[, jj]
             y[tcljj]
-          })
+          }, FUN.VALUE = numeric(nrow(tmpymat)))
 
           if (nrow(xm) != nrow(ym) || ncol(xm) != ncol(ym)) {
             xm <- t(xm)
@@ -2947,7 +2948,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 
 
   # select mid signal image
-  imgSums <- sapply(stack_img$images, sum, na.rm = TRUE)
+  imgSums <- vapply(stack_img$images, FUN = sum, FUN.VALUE = numeric(1), na.rm = TRUE)
   med.i <- ifelse(length(imgSums) %% 2 == 0, length(imgSums) / 2, (0.5 * length(imgSums) + 0.5))
   r.i <- order(imgSums)[med.i]
 
@@ -3361,7 +3362,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
                        show_plots = show_plots)
 
   # Final check
-  if (sum(sapply(track_params, is.na)) > 0) {
+  if (any(is.na(track_params))) {
     message("Make sure to set all params for the analysis, or run OptimizeParams()")
     return(tc_obj)
   }
@@ -4215,14 +4216,14 @@ rmPreProcessing = function(object, PixelSize=1.24,
     ID_split[[j]][1]=j
   }
 
-  for(j in 1:length(ID_split)){                        # adjusting x and y (starting from 0 & being multiplied by H)
+  for(j in seq_len(length(ID_split))){                        # adjusting x and y (starting from 0 & being multiplied by H)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- t(sapply(2:MM, function(i){
+    res <- t(vapply(seq(from = 2, to = MM, by = 1L), function(i){
       ID_split[[j]][i,4]=PixelSize*((ID_split[[j]][i,2])-( ID_split[[j]][1,2]))      # x2-x1
       ID_split[[j]][i,5]=PixelSize*(( ID_split[[j]][1,3])-(ID_split[[j]][i,3]))      # y2-y1
-      return(ID_split[[j]][i,4:5])
-    }))
+      return(as.numeric(ID_split[[j]][i,4:5]))
+    }, FUN.VALUE = numeric(2)))
     ID_split[[j]][2:MM,4:5] <- as.data.frame(res)
     ID_split[[j]][,4:5] <- lapply(ID_split[[j]][,4:5], as.numeric)
   }
@@ -4236,10 +4237,10 @@ rmPreProcessing = function(object, PixelSize=1.24,
 
 
 
-  for(j in 1:length(ID_split)){                    # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
+  for(j in seq_len(length(ID_split))){                    # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- t(sapply(1:MM, function(i){
+    res <- t(vapply(seq_len(MM), function(i){
       ID_split[[j]][i,4]=(ID_split[[j]][i+1,2])-( ID_split[[j]][i,2])                                         # creating values for dx
       ID_split[[j]][,4][is.na(ID_split[[j]][,4])] <- 0
       ID_split[[j]][i,5]= ( ID_split[[j]][i+1,3])-(ID_split[[j]][i,3])                                        # creating values for dy
@@ -4248,10 +4249,10 @@ rmPreProcessing = function(object, PixelSize=1.24,
       ID_split[[j]][i,7]= acos((ID_split[[j]][i,4])/(ID_split[[j]][i,6]))
       ID_split[[j]][,7][is.na(ID_split[[j]][,7])] <- 0                                                        # to remove NA and replace it with 0
       ID_split[[j]][i,11]=((ID_split[[j]][i,6])/TimeInterval)^2                                               # creating values for Square Speed
-      return(ID_split[[j]][i,c(4:7, 11)])
-    }))
+      return(as.numeric(ID_split[[j]][i,c(4:7, 11)]))
+    }, FUN.VALUE = numeric(5)))
 
-    ID_split[[j]][1:MM,c(4:7, 11)] <- as.data.frame(res)
+    ID_split[[j]][1:MM,c(4:7, 11)] <- res
     ID_split[[j]][,c(4:7, 11)] <- lapply(ID_split[[j]][,c(4:7, 11)], as.numeric)
   }
 
@@ -4267,11 +4268,11 @@ rmPreProcessing = function(object, PixelSize=1.24,
     ID_split[[j]][,12:13] <- lapply(ID_split[[j]][,12:13], as.numeric)
   }
 
-  for(j in 1:length(ID_split)){              # creating values for  rel.ang.P  (step to the previous)
+  for(j in seq_len(length(ID_split))){              # creating values for  rel.ang.P  (step to the previous)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     MM1<-MM-1
-    res <- sapply(1:MM1, function(i){
+    res <- vapply(seq_len(MM1), function(i){
 
       if((ID_split[[j]][i+1,5]<0) && (ID_split[[j]][i,5]>=0)||(ID_split[[j]][i+1,5]>=0) && (ID_split[[j]][i,5]<0) ){
         ID_split[[j]][i,8]= abs(ID_split[[j]][i+1,7])+abs(ID_split[[j]][i,7])
@@ -4282,27 +4283,27 @@ rmPreProcessing = function(object, PixelSize=1.24,
       ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])<= (-pi), 2*pi+(ID_split[[j]][i,8]),(ID_split[[j]][i,8]))    # adjusting the rel.ang
       ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])> pi,(ID_split[[j]][i,8])-2*pi,(ID_split[[j]][i,8]))
       return(ID_split[[j]][i, 8])
-    })
-    ID_split[[j]][1:MM1, 8] <- as.data.frame(res)
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM1, 8] <- res
   }
 
   cosine.P<-data.frame()
-  for(j in 1:length(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
+  for(j in seq_along(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       ID_split[[j]][i,9]<-cos(ID_split[[j]][i,8])
       return(ID_split[[j]][i,9])
-    })
-    ID_split[[j]][1:MM, 9] <- as.data.frame(res)
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM, 9] <- res
     cosine.P[1:MM,j]<-ID_split[[j]][,9]
   }
 
 
-  for(j in 1:length(ID_split)){              # Computing persistence time   (based on rel.ang.P)
+  for(j in seq_along(ID_split)){              # Computing persistence time   (based on rel.ang.P)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       if(abs(ID_split[[j]][i,8])<=1.5707963268){
         ID_split[[j]][i,10]= TimeInterval
       }
@@ -4310,20 +4311,20 @@ rmPreProcessing = function(object, PixelSize=1.24,
         ID_split[[j]][i,10]= 0
       }
       return(ID_split[[j]][i,10])
-    })
-    ID_split[[j]][1:MM, 10] <- as.data.frame(res)
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM, 10] <- res
   }
 
 
-  for(j in 1:length(ID_split)){              # Computing Acceleration
+  for(j in seq_along(ID_split)){              # Computing Acceleration
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     MM2<-MM-2
-    res <- sapply(1:MM2, function(i){
+    res <- vapply(seq_len(MM2), function(i){
       ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/TimeInterval
       return(ID_split[[j]][i,24])
-    })
-    ID_split[[j]][1:MM2, 24] <- as.data.frame(res)
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM2, 24] <- res
   }
 
 
@@ -4506,15 +4507,15 @@ wsaPreProcessing = function(object, PixelSize=1.24,
     ID_split[[j]][1]=j
   }
 
-  for(j in 1:length(ID_split)){                        # adjusting x and y (starting from 0 & being multiplied by H)
+  for(j in seq_along(ID_split)){                        # adjusting x and y (starting from 0 & being multiplied by H)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- t(sapply(2:MM, function(i){
+    res <- t(vapply(seq(from = 2, to = MM, by = 1L), function(i){
       ID_split[[j]][i,4]=PixelSize*((ID_split[[j]][i,2])-( ID_split[[j]][1,2]))      # x2-x1
       ID_split[[j]][i,5]=PixelSize*(( ID_split[[j]][1,3])-(ID_split[[j]][i,3]))      # y2-y1
-      return(ID_split[[j]][i,4:5])
-    }))
-    ID_split[[j]][2:MM,4:5] <- as.data.frame(res)
+      return(as.numeric(ID_split[[j]][i,4:5]))
+    }, FUN.VALUE = numeric(2)))
+    ID_split[[j]][2:MM,4:5] <- res
     ID_split[[j]][,4:5] <- lapply(ID_split[[j]][,4:5], as.numeric)
   }
 
@@ -4527,10 +4528,10 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 
 
 
-  for(j in 1:length(ID_split)){                    # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
+  for(j in seq_along(ID_split)){                    # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- t(sapply(1:MM, function(i){
+    res <- t(vapply(seq_len(MM), function(i){
       ID_split[[j]][i,4]=(ID_split[[j]][i+1,2])-( ID_split[[j]][i,2])                                         # creating values for dx
       ID_split[[j]][,4][is.na(ID_split[[j]][,4])] <- 0
       ID_split[[j]][i,5]= ( ID_split[[j]][i+1,3])-(ID_split[[j]][i,3])                                        # creating values for dy
@@ -4539,30 +4540,30 @@ wsaPreProcessing = function(object, PixelSize=1.24,
       ID_split[[j]][i,7]= acos((ID_split[[j]][i,4])/(ID_split[[j]][i,6]))
       ID_split[[j]][,7][is.na(ID_split[[j]][,7])] <- 0                                                        # to remove NA and replace it with 0
       ID_split[[j]][i,11]=((ID_split[[j]][i,6])/TimeInterval)^2                                               # creating values for Square Speed
-      return(ID_split[[j]][i,c(4:7, 11)])
-    }))
+      return(as.numeric(ID_split[[j]][i,c(4:7, 11)]))
+    }, FUN.VALUE = numeric(5)))
 
-    ID_split[[j]][1:MM,c(4:7, 11)] <- as.data.frame(res)
+    ID_split[[j]][1:MM,c(4:7, 11)] <- res
     ID_split[[j]][,c(4:7, 11)] <- lapply(ID_split[[j]][,c(4:7, 11)], as.numeric)
   }
 
-  for(j in 1:length(ID_split)){
+  for(j in seq_along(ID_split)){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res1 <- t(sapply(1:MM, function(i){
+    res1 <- t(vapply(seq_len(MM), function(i){
       ID_split[[j]][,12]=cumsum(ID_split[[j]][,6])                                                            # creating values for cumsum
       ID_split[[j]][i,13]= sqrt(((ID_split[[j]][i+1,2])^2)+((ID_split[[j]][i+1,3])^2))/(ID_split[[j]][i,12])  # creating values for cumulative directionality ratio
-      return(ID_split[[j]][i,12:13])
-    }))
-    ID_split[[j]][1:MM,12:13] <- as.data.frame(res1)
+      return(as.numeric(ID_split[[j]][i,12:13]))
+    }, FUN.VALUE = numeric(2)))
+    ID_split[[j]][1:MM,12:13] <- res1
     ID_split[[j]][,12:13] <- lapply(ID_split[[j]][,12:13], as.numeric)
   }
 
-  for(j in 1:length(ID_split)){              # creating values for  rel.ang.P  (step to the previous)
+  for(j in seq_along(ID_split)){              # creating values for  rel.ang.P  (step to the previous)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     MM1<-MM-1
-    res <- sapply(1:MM1, function(i){
+    res <- vapply(seq_len(MM1), function(i){
 
       if((ID_split[[j]][i+1,5]<0) && (ID_split[[j]][i,5]>=0)||(ID_split[[j]][i+1,5]>=0) && (ID_split[[j]][i,5]<0) ){
         ID_split[[j]][i,8]= abs(ID_split[[j]][i+1,7])+abs(ID_split[[j]][i,7])
@@ -4572,37 +4573,37 @@ wsaPreProcessing = function(object, PixelSize=1.24,
       }
       ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])<= (-pi), 2*pi+(ID_split[[j]][i,8]),(ID_split[[j]][i,8]))    # adjusting the rel.ang
       ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])> pi,(ID_split[[j]][i,8])-2*pi,(ID_split[[j]][i,8]))
-      return(ID_split[[j]][i, 8])
-    })
-    ID_split[[j]][1:MM1, 8] <- as.data.frame(res)
+      return(as.numeric(ID_split[[j]][i, 8]))
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM1, 8] <- res
   }
 
   cosine.P<-data.frame()
-  for(j in 1:length(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
+  for(j in seq_along(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       ID_split[[j]][i,9]<-cos(ID_split[[j]][i,8])
-      return(ID_split[[j]][i,9])
-    })
-    ID_split[[j]][1:MM, 9] <- as.data.frame(res)
+      return(as.numeric(ID_split[[j]][i,9]))
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM, 9] <- res
     cosine.P[1:MM,j]<-ID_split[[j]][,9]
   }
 
 
-  for(j in 1:length(ID_split)){              # Computing persistence time   (based on rel.ang.P)
+  for(j in seq_along(ID_split)){              # Computing persistence time   (based on rel.ang.P)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       if(abs(ID_split[[j]][i,8])<=1.5707963268){
         ID_split[[j]][i,10]= TimeInterval
       }
       if(abs(ID_split[[j]][i,8])>1.5707963267){
         ID_split[[j]][i,10]= 0
       }
-      return(ID_split[[j]][i,10])
-    })
-    ID_split[[j]][1:MM, 10] <- as.data.frame(res)
+      return(as.numeric(ID_split[[j]][i,10]))
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM, 10] <- res
   }
 
 
