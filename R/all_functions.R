@@ -6160,15 +6160,14 @@ MSD <- function(object, TimeInterval=10,
 
   MSDResultsTable<-data.frame()
   MSD.table<-data.frame() # creating a table that has all the MSDs to be able to compute the mean and sd
-  for(j in 1:length(Object)){
+  for(j in seq_along(Object)){
     meanSD<-c()
     LAG<-round(Step*sLAG) # number of lags is based on sLAG
     for(lag in 1:LAG){
-      res <- sapply(1:Step, function(i){
-        Object[[j]][i,22]=(((Object[[j]][i+lag,2]- Object[[j]][i,2])^2)+((Object[[j]][i+lag,3]- Object[[j]][i,3])^2))
-        return(Object[[j]][i,22])
-      })
-      Object[[j]][1:Step, 22] <- as.data.frame(res)
+      res <- vapply(seq_len(Step), function(i){
+        ((Object[[j]][i+lag,2]- Object[[j]][i,2])^2)+((Object[[j]][i+lag,3]- Object[[j]][i,3])^2)
+      }, FUN.VALUE = numeric(1))
+      Object[[j]][1:Step, 22] <- res
       Object[[j]][,22][is.na(Object[[j]][,22])] <- 0
       meanSD[lag]<-mean(Object[[j]][1:(Step-LAG),22])
       Object[[j]][,22]=0
