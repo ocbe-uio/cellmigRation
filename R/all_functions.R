@@ -226,12 +226,12 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
   X <- cbind(tmp.i, xx, tmp.f)
 
   # Proceed with convolution
-  Y <- do.call(rbind, lapply(1:nrow(X), function(ri) {
-    sapply(1:(ncol(X) - length(krnl) + 1), function(ci) {
-      xcoord <- ci:(ci+length(krnl)-1)
+  Y <- do.call(rbind, lapply(seq_len(nrow(X)), function(ri) {
+    vapply(seq_len(ncol(X) - length(krnl) + 1), function(ci) {
+      xcoord <- seq(from = ci, to = (ci+length(krnl)-1), by = 1L)
       tmp <- X[ri, xcoord]
       as.numeric(rbind(tmp) %*% cbind(krnl))
-    })
+    }, FUN.VALUE = numeric(1))
   }))
 
   if (col.wise)
