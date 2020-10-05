@@ -6431,26 +6431,25 @@ DiAutoCor= function(object, TimeInterval=10,
   DA.ResultsTable<-data.frame()
   DA.table<-data.frame()
 
-  for(j in 1:length(Object)){
+  for(j in seq_along(Object)){
     cos.diff<-c()
     LAG<-round(Step*sLAG)     #taking only the first 12.5%
-    for(lag in 1:LAG){
-      res <- t(sapply(1:Step, function(i){                      # starting from 2 to exclude the first cosine which is always 1.
+    for(lag in seq_len(LAG)){
+      res <- t(vapply(1:Step, function(i){                      # starting from 2 to exclude the first cosine which is always 1.
         Object[[j]][i,14]= Object[[j]][i+lag,2]-Object[[j]][i,2]    # newdx
         Object[[j]][i,15]= Object[[j]][i+lag,3]-Object[[j]][i,3]    # newdy
-        return(Object[[j]][i,14:15])
-      }))
-      Object[[j]][1:Step,14:15] <- as.data.frame(res)
+        return(as.numeric(Object[[j]][i,14:15]))
+      }, FUN.VALUE = numeric(2)))
+      Object[[j]][1:Step,14:15] <- res
 
 
       Object[[j]][,14:15] <- lapply(Object[[j]][,14:15], as.numeric)
       Object[[j]][,14][is.na(Object[[j]][,14])] <- 0                                # to remove NA and replace it with 0
       Object[[j]][,15][is.na(Object[[j]][,15])] <- 0                                # to remove NA and replace it with 0
 
-      res1 <- sapply(1:Step, function(i){
-        Object[[j]][i,16]=acos((Object[[j]][i+lag,2]-Object[[j]][i,2])/sqrt((Object[[j]][i+lag,2]-Object[[j]][i,2])^2 +(Object[[j]][i+lag,3]-Object[[j]][i,3])^2)) # to find the abs angle
-        return(Object[[j]][i,16])
-      })
+      res1 <- vapply(seq_len(Step), function(i){
+        acos((Object[[j]][i+lag,2]-Object[[j]][i,2])/sqrt((Object[[j]][i+lag,2]-Object[[j]][i,2])^2 +(Object[[j]][i+lag,3]-Object[[j]][i,3])^2)) # to find the abs angle
+      }, FUN.VALUE = numeric(1))
       Object[[j]][1:(Step),16] <- res1
       Object[[j]][,16][is.na(Object[[j]][,16])] <- 0                                # to remove NA and replace it with 0
 
