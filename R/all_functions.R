@@ -2948,7 +2948,7 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 
 
   # select mid signal image
-  imgSums <- sapply(stack_img$images, sum, na.rm = TRUE)
+  imgSums <- vapply(stack_img$images, FUN = sum, FUN.VALUE = numeric(1), na.rm = TRUE)
   med.i <- ifelse(length(imgSums) %% 2 == 0, length(imgSums) / 2, (0.5 * length(imgSums) + 0.5))
   r.i <- order(imgSums)[med.i]
 
