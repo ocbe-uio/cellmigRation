@@ -612,7 +612,7 @@ LoadTiff <- function(tiff_file, experiment = NULL, condition = NULL, replicate =
 
   # Get image matrices
   FinalImage <- try({lapply(myIMG, function(x) {
-    sapply(1:ncol(x), function(ii) {as.numeric(x[,ii])})
+    vapply(seq_len(ncol(x)), function(ii) {as.numeric(x[,ii])}, FUN.VALUE = numeric(nrow(x)))
   })}, silent = TRUE)
 
   #return(list(images = FinalImage,
