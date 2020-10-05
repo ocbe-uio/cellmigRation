@@ -4287,14 +4287,14 @@ rmPreProcessing = function(object, PixelSize=1.24,
   }
 
   cosine.P<-data.frame()
-  for(j in 1:length(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
+  for(j in seq_along(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       ID_split[[j]][i,9]<-cos(ID_split[[j]][i,8])
       return(ID_split[[j]][i,9])
-    })
-    ID_split[[j]][1:MM, 9] <- as.data.frame(res)
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM, 9] <- res
     cosine.P[1:MM,j]<-ID_split[[j]][,9]
   }
 
