@@ -1848,7 +1848,7 @@ track <- function(xyzs, maxdisp, params)
           x <- xyi[,d]
           y <- pos[wh,d]
 
-          
+
           xm <- vapply(seq_len(ncol(xmat)), function(jj) {
             tcljj <- xmat[, jj]
             x[tcljj]
@@ -5942,7 +5942,7 @@ DiRatio = function(object,TimeInterval=10, export=FALSE, ExpName=NULL) {
 #' rmDF <- TrajectoryDataset[1:600, ]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
-#' DiRatio.Plot(rmTD, export=FALSE)
+#' DiRatioPlot(rmTD, export=FALSE)
 #'
 #'
 #' @importFrom grDevices rainbow jpeg dev.off rgb
@@ -5951,7 +5951,7 @@ DiRatio = function(object,TimeInterval=10, export=FALSE, ExpName=NULL) {
 #'
 #'
 #' @export
-DiRatio.Plot = function(object,TimeInterval=10, export=FALSE,ExpName = NULL) {
+DiRatioPlot = function(object,TimeInterval=10, export=FALSE,ExpName = NULL) {
   if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
   Object<-object@preprocessedDS
   msg <- NULL
