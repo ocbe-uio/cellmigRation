@@ -6891,10 +6891,10 @@ ForwardMigration <- function(
   }
 
   # creating values for  rel.ang.F  (step to the original)
-  for(j in 1:length(Object)){
+  for(j in seq_along(Object)){
     MM  <- Step
     MM1 <- MM - 1
-    res <- sapply(1:MM1, function(i) {
+    res <- sapply(seq_len(MM1), function(i) {
 
       if((Object[[j]][1,25]==0) && (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]<0)){
         Object[[j]][i,19]= 1.5707963268 - abs(Object[[j]][i,7])
@@ -6905,9 +6905,9 @@ ForwardMigration <- function(
       }
       Object[[j]][i,19]<-ifelse((Object[[j]][i,19])<= (-pi), 2*pi+(Object[[j]][i,19]),(Object[[j]][i,19]))    # adjusting the rel.ang
       Object[[j]][i,19]<-ifelse((Object[[j]][i,19])>= pi,(Object[[j]][i,19])-2*pi,(Object[[j]][i,19]))
-      return(Object[[j]][i, 19])
-    })
-    Object[[j]][1:MM1, 19] <- as.data.frame(res)
+      return(as.numeric(Object[[j]][i, 19]))
+    }, FUN.VALUE = numeric(1))
+    Object[[j]][1:MM1, 19] <- res
   }
 
 
