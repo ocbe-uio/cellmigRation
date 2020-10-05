@@ -4558,11 +4558,11 @@ wsaPreProcessing = function(object, PixelSize=1.24,
     ID_split[[j]][,12:13] <- lapply(ID_split[[j]][,12:13], as.numeric)
   }
 
-  for(j in 1:length(ID_split)){              # creating values for  rel.ang.P  (step to the previous)
+  for(j in seq_along(ID_split)){              # creating values for  rel.ang.P  (step to the previous)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     MM1<-MM-1
-    res <- sapply(1:MM1, function(i){
+    res <- vapply(seq_len(MM1), function(i){
 
       if((ID_split[[j]][i+1,5]<0) && (ID_split[[j]][i,5]>=0)||(ID_split[[j]][i+1,5]>=0) && (ID_split[[j]][i,5]<0) ){
         ID_split[[j]][i,8]= abs(ID_split[[j]][i+1,7])+abs(ID_split[[j]][i,7])
@@ -4572,20 +4572,20 @@ wsaPreProcessing = function(object, PixelSize=1.24,
       }
       ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])<= (-pi), 2*pi+(ID_split[[j]][i,8]),(ID_split[[j]][i,8]))    # adjusting the rel.ang
       ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])> pi,(ID_split[[j]][i,8])-2*pi,(ID_split[[j]][i,8]))
-      return(ID_split[[j]][i, 8])
-    })
-    ID_split[[j]][1:MM1, 8] <- as.data.frame(res)
+      return(as.numeric(ID_split[[j]][i, 8]))
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM1, 8] <- res
   }
 
   cosine.P<-data.frame()
-  for(j in 1:length(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
+  for(j in seq_along(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       ID_split[[j]][i,9]<-cos(ID_split[[j]][i,8])
-      return(ID_split[[j]][i,9])
-    })
-    ID_split[[j]][1:MM, 9] <- as.data.frame(res)
+      return(as.numeric(ID_split[[j]][i,9]))
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM, 9] <- res
     cosine.P[1:MM,j]<-ID_split[[j]][,9]
   }
 
