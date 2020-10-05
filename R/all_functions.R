@@ -4507,15 +4507,15 @@ wsaPreProcessing = function(object, PixelSize=1.24,
     ID_split[[j]][1]=j
   }
 
-  for(j in 1:length(ID_split)){                        # adjusting x and y (starting from 0 & being multiplied by H)
+  for(j in seq_along(ID_split)){                        # adjusting x and y (starting from 0 & being multiplied by H)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- t(sapply(2:MM, function(i){
+    res <- t(vapply(seq(from = 2, to = MM, by = 1L), function(i){
       ID_split[[j]][i,4]=PixelSize*((ID_split[[j]][i,2])-( ID_split[[j]][1,2]))      # x2-x1
       ID_split[[j]][i,5]=PixelSize*(( ID_split[[j]][1,3])-(ID_split[[j]][i,3]))      # y2-y1
-      return(ID_split[[j]][i,4:5])
-    }))
-    ID_split[[j]][2:MM,4:5] <- as.data.frame(res)
+      return(as.numeric(ID_split[[j]][i,4:5]))
+    }, FUN.VALUE = numeric(2)))
+    ID_split[[j]][2:MM,4:5] <- res
     ID_split[[j]][,4:5] <- lapply(ID_split[[j]][,4:5], as.numeric)
   }
 
