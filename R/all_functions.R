@@ -7026,13 +7026,12 @@ ForwardMigration <- function(
     MM1<-MM+1
     rowN<-c(1:MM1)
     Tval0 <- rowN[FPtime00TF]
-    TTT<-c()
-    res3 <- sapply(1:(length (Tval0)-1), function(i){
+    
+    TTT <- vapply(seq_len(length (Tval0)-1), function(i){
       TTT<- (Tval0[i+1]- Tval0[i])-1
       return(TTT)
-    })
+    }, FUN.VALUE = numeric(1))
 
-    TTT=res3
     TTT[TTT==0]<-NA
     F.ID.for.0.FP<-TTT[!is.na(TTT)]
     Final.ID.for.0.FP<-c()
@@ -7054,11 +7053,10 @@ ForwardMigration <- function(
     tabbb<-split(tabb1, Final.ID.for.0.FP)
     meanVel.for0<-c()
 
-    res4 <- sapply(1:length(tabbb), function(i){
-      meanVel.for0<-round(sqrt(mean(tabbb[[i]][,1])),digits=2)
-      return(meanVel.for0)
-    })
-    meanVel.for0=res4
+    meanVel.for0 <- vapply(seq_along(tabbb), function(i){
+      round(sqrt(mean(tabbb[[i]][,1])),digits=2)
+    }, FUN.VALUE = numeric(1))
+
 
     zerooFP<-rep(0,length(meanVel.for0))
     FP.time1<-c(zerooFP,FP.time)
