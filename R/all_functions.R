@@ -4546,15 +4546,15 @@ wsaPreProcessing = function(object, PixelSize=1.24,
     ID_split[[j]][,c(4:7, 11)] <- lapply(ID_split[[j]][,c(4:7, 11)], as.numeric)
   }
 
-  for(j in 1:length(ID_split)){
+  for(j in seq_along(ID_split)){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res1 <- t(sapply(1:MM, function(i){
+    res1 <- t(vapply(seq_len(MM), function(i){
       ID_split[[j]][,12]=cumsum(ID_split[[j]][,6])                                                            # creating values for cumsum
       ID_split[[j]][i,13]= sqrt(((ID_split[[j]][i+1,2])^2)+((ID_split[[j]][i+1,3])^2))/(ID_split[[j]][i,12])  # creating values for cumulative directionality ratio
-      return(ID_split[[j]][i,12:13])
-    }))
-    ID_split[[j]][1:MM,12:13] <- as.data.frame(res1)
+      return(as.numeric(ID_split[[j]][i,12:13]))
+    }, FUN.VALUE = numeric(2)))
+    ID_split[[j]][1:MM,12:13] <- res1
     ID_split[[j]][,12:13] <- lapply(ID_split[[j]][,12:13], as.numeric)
   }
 
