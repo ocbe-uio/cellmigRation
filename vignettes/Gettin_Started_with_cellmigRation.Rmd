@@ -80,16 +80,14 @@ This vignette guides the user through package installation, *tiff* import, cell 
 
 Damiano Fantini (Northwestern University, Chicago, IL, USA), Salim Ghannoum (University of Oslo, Oslo, Norway)
 
-
-
-
 ## Installation
 
-The package is currently available on GitHub. It can be installed from <https://github.com/ocbe-uio/cellmigRation> using `devtools`.
+The package is currently available on Bioconductor. It can be installed using the following commands:
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
-devtools::install_github(repo = "ocbe-uio/cellmigRation", 
-                         force = TRUE, build_vignettes = TRUE)
+if(!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("cellmigRation")
 ```
 
 ## cellmigRation Pipeline
