@@ -4300,10 +4300,10 @@ rmPreProcessing = function(object, PixelSize=1.24,
   }
 
 
-  for(j in 1:length(ID_split)){              # Computing persistence time   (based on rel.ang.P)
+  for(j in seq_along(ID_split)){              # Computing persistence time   (based on rel.ang.P)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       if(abs(ID_split[[j]][i,8])<=1.5707963268){
         ID_split[[j]][i,10]= TimeInterval
       }
@@ -4311,20 +4311,20 @@ rmPreProcessing = function(object, PixelSize=1.24,
         ID_split[[j]][i,10]= 0
       }
       return(ID_split[[j]][i,10])
-    })
-    ID_split[[j]][1:MM, 10] <- as.data.frame(res)
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM, 10] <- res
   }
 
 
-  for(j in 1:length(ID_split)){              # Computing Acceleration
+  for(j in seq_along(ID_split)){              # Computing Acceleration
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     MM2<-MM-2
-    res <- sapply(1:MM2, function(i){
+    res <- vapply(seq_len(MM2), function(i){
       ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/TimeInterval
       return(ID_split[[j]][i,24])
-    })
-    ID_split[[j]][1:MM2, 24] <- as.data.frame(res)
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM2, 24] <- res
   }
 
 
