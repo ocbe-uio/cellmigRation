@@ -6935,16 +6935,16 @@ ForwardMigration <- function(
     MM<-Step
     MM1<-MM-1
 
-    res <- sapply(1:MM1, function(i){
+    res <- vapply(seq_len(MM1), function(i){
       if(abs(Object[[j]][i,19])<1.5707963268){
         Object[[j]][i,21]= TimeInterval
       }
       if(abs(Object[[j]][i,19])>=1.5707963267){
         Object[[j]][i,21]= 0
       }
-      return(Object[[j]][i,21])
-    })
-    Object[[j]][1:MM1,21] <- as.data.frame(res)
+      return(as.numeric(Object[[j]][i,21]))
+    }, FUN.VALUE = numeric(1))
+    Object[[j]][1:MM1,21] <- res
     Object[[j]][MM1,21] <- TimeInterval
 
   }
