@@ -6894,7 +6894,7 @@ ForwardMigration <- function(
   for(j in seq_along(Object)){
     MM  <- Step
     MM1 <- MM - 1
-    res <- sapply(seq_len(MM1), function(i) {
+    res <- vapply(seq_len(MM1), function(i) {
 
       if((Object[[j]][1,25]==0) && (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]<0)){
         Object[[j]][i,19]= 1.5707963268 - abs(Object[[j]][i,7])
