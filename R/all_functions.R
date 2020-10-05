@@ -870,7 +870,7 @@ cntrd <- function(im, mx, sz, interactive = NULL)
 
   ind <- dst < r
 
-  msk <- sapply(1:ncol(ind), function(j) {as.numeric(ind[,j])})
+  msk <- ind * 1 # convert ind to numeric
   dst2 <- msk * (dst^2)
   ndst2 <- sum(dst2, na.rm = TRUE)
 
