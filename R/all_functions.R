@@ -7003,11 +7003,10 @@ ForwardMigration <- function(
     meanVEL<-c()
     FP.time<-c()
 
-    res1 <- sapply(1:length(tabb), function(i){
-      meanVEL= round(sqrt(mean(tabb[[i]][,1])),digits=2)
-      return(meanVEL)
-    })
-    meanVEL= res1
+    meanVEL <- vapply(seq_along(tabb), function(i){
+      round(sqrt(mean(tabb[[i]][,1])),digits=2)
+    }, FUN.VALUE = numeric(1))
+    
     meanVEL=meanVEL[-1]
 
     res2 <- sapply(1:length(tabb), function(i){
