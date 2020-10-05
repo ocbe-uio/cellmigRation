@@ -261,7 +261,7 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 #' @keywords cellTracker
 #'
 #' @examples
-#' x <- sapply(1:20, function(i) {runif(n = 20, min = 0, max = 10)})
+#' x <- vapply(seq_len(20), function(i) {runif(n = 20, min = 0, max = 10)}, FUN.VALUE = numeric(20))
 #' cellmigRation:::VisualizeImg(x)
 #'
 #' @importFrom grDevices colorRampPalette
