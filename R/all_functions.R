@@ -5411,7 +5411,7 @@ PerAndSpeed= function(object, TimeInterval=10,
   }
 
   VelPerTable<-data.frame()               # creating a table to store the mean velocity with correspondence with the persistence time
-  for(j in 1:length(Object)){
+  for(j in seq_along(Object)){
     MM=length(Object[[j]][,1])
     Ptime<-Object[[j]][1:MM,10]
     Ptime0<-c(0,Ptime)                      #adding a "0" value in the beginning
@@ -5437,17 +5437,17 @@ PerAndSpeed= function(object, TimeInterval=10,
 
     meanVEL<-c()
     Per.time<-c()
-    res1 <- sapply(1:length(tabb), function(i){
+    res1 <- vapply(seq_along(tabb), function(i){
       meanVEL= round(sqrt(mean(tabb[[i]][,1])),digits=2)
       return(meanVEL)
-    })
+    }, FUN.VALUE = numeric(1))
     meanVEL= res1
     meanVEL=meanVEL[-1]
 
-    res2 <- sapply(1:length(tabb), function(i){
+    res2 <- vapply(seq_along(tabb), function(i){
       Per.time=sum(tabb[[i]][,2])
       return(Per.time)
-    })
+    }, FUN.VALUE = numeric(1))
     Per.time= res2
     Per.time=Per.time[-1]
     w<-which.max(Per.time)
@@ -5463,10 +5463,10 @@ PerAndSpeed= function(object, TimeInterval=10,
     Tval0 <- rowN[Ptime00TF]
 
     TTT<-c()
-    res3 <- sapply(1:(length (Tval0)-1), function(i){
+    res3 <- vapply(seq_len(length (Tval0)-1), function(i){
       TTT<- (Tval0[i+1]- Tval0[i])-1
       return(TTT)
-    })
+    }, FUN.VALUE = numeric(1))
     TTT=res3
     TTT[TTT==0]<-NA
     F.ID.for.0.per<-TTT[!is.na(TTT)]
@@ -5489,10 +5489,10 @@ PerAndSpeed= function(object, TimeInterval=10,
     tabbb<-split(tabb1, Final.ID.for.0.per)
     meanVel.for0<-c()
 
-    res4 <- sapply(1:length(tabbb), function(i){
+    res4 <- vapply(seq_along(tabbb), function(i){
       meanVel.for0<-round(sqrt(mean(tabbb[[i]][,1])),digits=2)
       return(meanVel.for0)
-    })
+    }, FUN.VALUE = numeric(1))
 
     meanVel.for0=res4
     zerooPrep<-rep(0,length(meanVel.for0))

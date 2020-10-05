@@ -21,7 +21,7 @@ Shows an image representation of a numeric matrix. Typically, this is a non-nega
 where signal (high values) corresponds to the presence of cells, or cell-like particles
 }
 \examples{
-x <- sapply(1:20, function(i) {runif(n = 20, min = 0, max = 10)})
+x <- vapply(seq_len(20), function(i) {runif(n = 20, min = 0, max = 10)}, FUN.VALUE = numeric(20))
 cellmigRation:::VisualizeImg(x)
 
 }
