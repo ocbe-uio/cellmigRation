@@ -3362,7 +3362,7 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
                        show_plots = show_plots)
 
   # Final check
-  if (sum(sapply(track_params, is.na)) > 0) {
+  if (any(is.na(track_params))) {
     message("Make sure to set all params for the analysis, or run OptimizeParams()")
     return(tc_obj)
   }
