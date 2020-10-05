@@ -7009,11 +7009,9 @@ ForwardMigration <- function(
     
     meanVEL=meanVEL[-1]
 
-    res2 <- sapply(1:length(tabb), function(i){
-      FP.time=sum(tabb[[i]][,2])
-      return(FP.time)
-    })
-    FP.time= res2
+    FP.time <- vapply(seq_along(tabb), function(i){
+      sum(tabb[[i]][,2])
+    }, FUN.VALUE = numeric(1))
     FP.time=FP.time[-1]
     w<-which.max(FP.time)
     FMResultsTable[5,j]<-FP.time[w]
