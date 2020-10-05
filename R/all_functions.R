@@ -7285,11 +7285,11 @@ FMI= function(object, TimeInterval=10, export=FALSE, ExpName=NULL){
   }
 
   FMIResultsTable<-data.frame()
-  for(j in 1:length(Object)){                             # calculating the cumsum of distance for each cell
+  for(j in seq_along(Object)){                             # calculating the cumsum of distance for each cell
     MM<-Step
     MM1<-MM-1
 
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       if((Object[[j]][1,25]==0) && (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]<0)){   # upper cell going up or lower cell going down
         Object[[j]][i,20]<-(-1*abs(cos(Object[[j]][i,19])))
       }
@@ -7298,7 +7298,7 @@ FMI= function(object, TimeInterval=10, export=FALSE, ExpName=NULL){
         Object[[j]][i,20]<-cos(Object[[j]][i,19])
       }
       return(Object[[j]][i,20])
-    })
+    }, FUN.VALUE = numeric(1))
 
     Object[[j]][1:MM, 20] <- as.data.frame(res)
     end<-cbind(Object[[j]][MM,2],Object[[j]][MM,3])       # finding the cordinates of the final point in the track.
