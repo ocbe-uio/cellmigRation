@@ -4590,19 +4590,19 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   }
 
 
-  for(j in 1:length(ID_split)){              # Computing persistence time   (based on rel.ang.P)
+  for(j in seq_along(ID_split)){              # Computing persistence time   (based on rel.ang.P)
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       if(abs(ID_split[[j]][i,8])<=1.5707963268){
         ID_split[[j]][i,10]= TimeInterval
       }
       if(abs(ID_split[[j]][i,8])>1.5707963267){
         ID_split[[j]][i,10]= 0
       }
-      return(ID_split[[j]][i,10])
-    })
-    ID_split[[j]][1:MM, 10] <- as.data.frame(res)
+      return(as.numeric(ID_split[[j]][i,10]))
+    }, FUN.VALUE = numeric(1))
+    ID_split[[j]][1:MM, 10] <- res
   }
 
 
