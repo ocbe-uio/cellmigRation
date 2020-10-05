@@ -225,8 +225,16 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 
   # Enlarge x based on kernel size
   ncl <- ncol(xx)
-  tmp.i <- vapply(seq_len(floor(length(krnl)/2)), function(w) {xx[,1]}, FUN.VALUE = numeric(nrow(xx) * floor(length(krnl)/2)))
-  tmp.f <- vapply(seq_len(floor(length(krnl)/2)), function(w) {xx[,ncl]}, FUN.VALUE = numeric(nrow(xx) * floor(length(krnl)/2)))
+  tmp.i <- vapply(
+    X         = seq_len(floor(length(krnl) / 2)),
+    FUN       = function(w) {xx[, 1]},
+    FUN.VALUE = numeric(length=nrow(xx))
+  )
+  tmp.f <- vapply(
+    X         = seq_len(floor(length(krnl) / 2)),
+    FUN       = function(w) {xx[, ncl]},
+    FUN.VALUE = numeric(length=nrow(xx))
+  )
   X <- cbind(tmp.i, xx, tmp.f)
 
   # Proceed with convolution
