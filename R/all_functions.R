@@ -5649,14 +5649,13 @@ PerAndSpeed= function(object, TimeInterval=10,
   MM<-length(Object[[1]][,1])
   MM2<-MM-1
   cosine.P<-data.frame()
-  for(j in 1:length(Object)){              # creating values for  cosine.P  based on rel.ang.P
+  for(j in seq_along(Object)){              # creating values for  cosine.P  based on rel.ang.P
     M<- Object[[j]][1]
     MM<-length(M[,1])
-    res <- sapply(1:MM, function(i){
-      Object[[j]][i,9]<-cos(Object[[j]][i,8])
-      return(Object[[j]][i,9])
-    })
-    Object[[j]][1:MM, 9] <- as.data.frame(res)
+    res <- vapply(seq_len(MM), function(i){
+      cos(Object[[j]][i,8])
+    }, FUN.VALUE = numeric(1))
+    Object[[j]][1:MM, 9] <- res
     cosine.P[1:MM,j]<-Object[[j]][,9]
   }
 
