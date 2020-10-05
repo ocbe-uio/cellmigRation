@@ -6912,11 +6912,11 @@ ForwardMigration <- function(
 
 
   cosine.FP<-data.frame()
-  for(j in 1:length(Object)){              # creating values for  cosine based on rel.ang.F
+  for(j in seq_along(Object)){              # creating values for  cosine based on rel.ang.F
     MM<-Step
     MM1<-MM-1
 
-    res <- sapply(1:MM, function(i){
+    res <- vapply(seq_len(MM), function(i){
       if((Object[[j]][1,25]==0) && (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]<0)){   # upper cell going up or lower cell going down
         Object[[j]][i,20]<-(-1*abs(cos(Object[[j]][i,19])))
       }
@@ -6924,8 +6924,8 @@ ForwardMigration <- function(
       if((Object[[j]][1,25]==0) && (Object[[j]][i,5]<0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]>0)){
         Object[[j]][i,20]<-cos(Object[[j]][i,19])
       }
-      return(Object[[j]][i,20])
-    })
+      return(as.numeric(Object[[j]][i,20]))
+    }, FUN.VALUE = numeric(1))
 
     Object[[j]][1:MM, 20] <- as.data.frame(res)
     cosine.FP[1:MM,j]<-Object[[j]][,20]
