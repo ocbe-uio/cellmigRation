@@ -6454,25 +6454,22 @@ DiAutoCor= function(object, TimeInterval=10,
       Object[[j]][,16][is.na(Object[[j]][,16])] <- 0                                # to remove NA and replace it with 0
 
 
-      res2 <- sapply(1:(Step - lag), function(i){
+      res2 <- vapply(seq_len(Step - lag), function(i){
         if((Object[[j]][i+1,15]<0) && (Object[[j]][i,15]>=0)||(Object[[j]][i+1,15]>=0) && (Object[[j]][i,15]<0)){
-          Object[[j]][i,17]= abs(Object[[j]][i+1,16])+abs(Object[[j]][i,16])
+          abs(Object[[j]][i+1,16])+abs(Object[[j]][i,16])
+        } else if((Object[[j]][i+1,15]<0) && (Object[[j]][i,15]<0)||(Object[[j]][i+1,15]>=0) && (Object[[j]][i,15]>=0) ){
+          Object[[j]][i+1,16]-Object[[j]][i,16]
         }
-        if((Object[[j]][i+1,15]<0) && (Object[[j]][i,15]<0)||(Object[[j]][i+1,15]>=0) && (Object[[j]][i,15]>=0) ){
-          Object[[j]][i,17]=Object[[j]][i+1,16]-Object[[j]][i,16]
-        }
-
-        return(Object[[j]][i,17])
-      })
+      }, FUN.VALUE = numeric(1))
       Object[[j]][1:(Step - lag),17] <- res2
 
-      res3 <- t(sapply(1:(Step - lag), function(i){
+      res3 <- t(vapply(seq_len(Step - lag), function(i){
         Object[[j]][i,17]<-ifelse((Object[[j]][i,17])<= (-pi), 2*pi+(Object[[j]][i,17]),(Object[[j]][i,17]))    # adjusting the ang.diff
         Object[[j]][i,17]<-ifelse((Object[[j]][i,17])>= pi,(Object[[j]][i,17])-2*pi,(Object[[j]][i,17]))
         Object[[j]][i,18]<-cos(Object[[j]][i,17])
-        return(Object[[j]][i,17:18])
-      }))
-      Object[[j]][1:(Step - lag),17:18] <- as.data.frame(res3)
+        return(as.numeric(Object[[j]][i,17:18]))
+      }, FUN.VALUE = numeric(2)))
+      Object[[j]][seq_len(Step - lag),17:18] <- res3
       Object[[j]][,17:18] <- lapply(Object[[j]][,17:18], as.numeric)
 
       for(i in 1:LAG){
