@@ -1844,21 +1844,22 @@ track <- function(xyzs, maxdisp, params)
         #%            whos xmat
         #%            disp(m)
 
-        for (d in 1:dim) {
+        for (d in seq_len(dim)) {
           x <- xyi[,d]
           y <- pos[wh,d]
 
-          xm <- sapply(1:ncol(xmat), function(jj) {
+          
+          xm <- vapply(seq_len(ncol(xmat)), function(jj) {
             tcljj <- xmat[, jj]
             x[tcljj]
-          })
+          }, FUN.VALUE = numeric(nrow(xmat)))
 
           #ym <- y[ymat[1:lenxn, 1:lenxm]]
-          tmpymat <- ymat[1:lenxn, 1:lenxm]
-          ym <- sapply(1:ncol(tmpymat), function(jj) {
+          tmpymat <- ymat[seq_len(lenxn), seq_len(lenxm)]
+          ym <- vapply(seq_len(ncol(tmpymat)), function(jj) {
             tcljj <- tmpymat[, jj]
             y[tcljj]
-          })
+          }, FUN.VALUE = numeric(nrow(tmpymat)))
 
           if (nrow(xm) != nrow(ym) || ncol(xm) != ncol(ym)) {
             xm <- t(xm)
