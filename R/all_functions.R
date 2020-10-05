@@ -4528,10 +4528,10 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 
 
 
-  for(j in 1:length(ID_split)){                    # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
+  for(j in seq_along(ID_split)){                    # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
-    res <- t(sapply(1:MM, function(i){
+    res <- t(vapply(seq_len(MM), function(i){
       ID_split[[j]][i,4]=(ID_split[[j]][i+1,2])-( ID_split[[j]][i,2])                                         # creating values for dx
       ID_split[[j]][,4][is.na(ID_split[[j]][,4])] <- 0
       ID_split[[j]][i,5]= ( ID_split[[j]][i+1,3])-(ID_split[[j]][i,3])                                        # creating values for dy
@@ -4540,10 +4540,10 @@ wsaPreProcessing = function(object, PixelSize=1.24,
       ID_split[[j]][i,7]= acos((ID_split[[j]][i,4])/(ID_split[[j]][i,6]))
       ID_split[[j]][,7][is.na(ID_split[[j]][,7])] <- 0                                                        # to remove NA and replace it with 0
       ID_split[[j]][i,11]=((ID_split[[j]][i,6])/TimeInterval)^2                                               # creating values for Square Speed
-      return(ID_split[[j]][i,c(4:7, 11)])
-    }))
+      return(as.numeric(ID_split[[j]][i,c(4:7, 11)]))
+    }, FUN.VALUE = numeric(5)))
 
-    ID_split[[j]][1:MM,c(4:7, 11)] <- as.data.frame(res)
+    ID_split[[j]][1:MM,c(4:7, 11)] <- res
     ID_split[[j]][,c(4:7, 11)] <- lapply(ID_split[[j]][,c(4:7, 11)], as.numeric)
   }
 
