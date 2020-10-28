@@ -20,7 +20,7 @@ to all exported tracks and statistics data.}
 
 \item{parameters}{A numeric vector contains the parameters to be
 included in the Principal Component Analysis. These numbers can be
- obtained from the outcome of the FinRes() function.}
+obtained from the outcome of the FinRes() function.}
 
 \item{export}{if `TRUE` (default), exports function output to CSV
 file}
@@ -48,7 +48,7 @@ wsaTD2 <-FMI(wsaTD2,TimeInterval=10)
 wsaTD2 <-FinRes(wsaTD2,ParCor=FALSE, export=FALSE)
 AGG<-aggregateFR(wsaTD1 ,wsaTD2 ,export=FALSE)
 CellMigPCAclustALL (AGG,ExpName="Aggregated_Conditions",
-                    parameters=c(1,6),export=FALSE)
+parameters=c(1,6),export=FALSE)
 }
 
 }

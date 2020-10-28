@@ -32,32 +32,32 @@
 #' @export
 #' @return An S4-class object
 trackedCells <- setClass(
-  #Name of the class
-  "trackedCells",
+        #Name of the class
+        "trackedCells",
 
-  #define slots
-  slots = list(
-    images="list",
-    proc_images="list",
-    ops = "list",
-    optimized = "list",
-    centroids = "list",
-    positions = "data.frame",
-    tracks = "matrix",
-    params = "list",
-    stats = "list",
-    metadata = "list"
-  ),
+        #define slots
+        slots = list(
+                images="list",
+                proc_images="list",
+                ops = "list",
+                optimized = "list",
+                centroids = "list",
+                positions = "data.frame",
+                tracks = "matrix",
+                params = "list",
+                stats = "list",
+                metadata = "list"
+        ),
 
-  # Make a function to check compatibility
-  validity = function(object)
-  {
-    if(length(object@images) > 1){
-      return(TRUE)
-    } else {
-      return("Malformed Data")
-    }
-  }
+        # Make a function to check compatibility
+        validity = function(object)
+        {
+                if(length(object@images) > 1){
+                        return(TRUE)
+                } else {
+                        return("Malformed Data")
+                }
+        }
 )
 
 
@@ -111,40 +111,42 @@ trackedCells <- setClass(
 #' @export
 #' @return An S4-class object
 CellMig <- setClass(
-  # Name of your class
-  "CellMig",
+        # Name of your class
+    "CellMig",
 
-  slots = list(trajdata = "data.frame",
-               adjDS= "data.frame",
-               cellpos = "vector",
-               parE= "vector",
-               preprocessedDS= "list",
-               DRtable= "data.frame",
-               MSDtable= "data.frame",
-               PerAanSpeedtable= "data.frame",
-               DACtable= "data.frame",
-               VACtable= "data.frame",
-               ForMigtable= "data.frame",
-               FMItable= "data.frame",
-               results="data.frame",
-               parCor="matrix",
-               meta="list"),
+    slots = list(
+        trajdata = "data.frame",
+        adjDS= "data.frame",
+        cellpos = "vector",
+        parE= "vector",
+        preprocessedDS= "list",
+        DRtable= "data.frame",
+        MSDtable= "data.frame",
+        PerAanSpeedtable= "data.frame",
+        DACtable= "data.frame",
+        VACtable= "data.frame",
+        ForMigtable= "data.frame",
+        FMItable= "data.frame",
+        results="data.frame",
+        parCor="matrix",
+        meta="list"
+    ),
 
-  # Make a function to check compatibility
-  validity = function(object)
-  {
-    msg <- NULL
-    if ( nrow(object@trajdata) < 2 ){
-      msg <- "input data must have more than one row"
-    } else if ( ncol(object@trajdata) < 4 ){
-      msg <- "input data must have four columns"
-    }
-    if (is.null(msg)) {
-      return(TRUE)
-    } else {
-      return(msg)
-    }
-  })
+    # Make a function to check compatibility
+    validity = function(object)
+    {
+        msg <- NULL
+        if ( nrow(object@trajdata) < 2 ){
+            msg <- "input data must have more than one row"
+        } else if ( ncol(object@trajdata) < 4 ){
+            msg <- "input data must have four columns"
+        }
+        if (is.null(msg)) {
+            return(TRUE)
+        } else {
+            return(msg)
+        }
+    })
 
 
 

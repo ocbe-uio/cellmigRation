@@ -51,8 +51,8 @@ message("the following example may take up to one minute to run")
 \dontrun{
 x <- cellmigRation::TrackCellsDataset
 y <- cellmigRation:::CentroidValidation(
-  stack = x@images, slice = 1,
-  lobject = 6, threshold = 20
+stack = x@images, slice = 1,
+lobject = 6, threshold = 20
 )
 y[1:10,]
 }

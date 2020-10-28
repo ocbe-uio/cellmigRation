@@ -19,7 +19,7 @@ PCA Graph of cells and PCA Graph of variables.
 }
 \description{
 The CellMigPCA function automatically generates
- Principal Component Analysis.
+Principal Component Analysis.
 }
 \examples{
 data(WSADataset)

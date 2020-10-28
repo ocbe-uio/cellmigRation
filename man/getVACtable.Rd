@@ -29,7 +29,7 @@ rmDF=TrajectoryDataset[1:300,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=55)
 rmTD <- VeAutoCor(rmTD, TimeInterval=10, sLAG=0.25, sPLOT=FALSE,
-   aPLOT=FALSE, export=FALSE)
+aPLOT=FALSE, export=FALSE)
 head(getVACtable(rmTD))
 
 }

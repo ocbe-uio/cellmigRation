@@ -36,9 +36,9 @@ stack
 \examples{
 message("The following example will take few min to complete")
 \dontrun{
-  x <- cellmigRation::TrackCellsDataset
-  x <- CellTracker(x, lnoise = 5, diameter = 16, threshold = 10)
-  VisualizeStackCentroids(tc_obj = x, stack = 2)
+x <- cellmigRation::TrackCellsDataset
+x <- CellTracker(x, lnoise = 5, diameter = 16, threshold = 10)
+VisualizeStackCentroids(tc_obj = x, stack = 2)
 }
 
 

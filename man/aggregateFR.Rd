@@ -21,14 +21,14 @@ two data frames:
 The first data frame shows the average of each parameter per
 experiment/condition.
 The second data frame shows the parameters of individual cells
- of all experiments/conditions.
+of all experiments/conditions.
 }
 \description{
 Aggregate two or more CellMig-class objects together.
 Input objects must carry information of trajectory analyses
 (otherwise an error will be raised).
 All trajectory results form the different experiments/conditions
- are returned in two data frames.
+are returned in two data frames.
 }
 \details{
 The visualization shows centered trajectories where the

@@ -22,7 +22,7 @@ frames resulted from the PreProcessing.}
 successive frames in the time-lapse stack.}
 
 \item{sLAG}{A numeric value to be used to get the number of lags
- for the slope fitting. Default is 0.25, which represents 25
+for the slope fitting. Default is 0.25, which represents 25
 percent of the steps.}
 
 \item{sPLOT}{A logical vector that allows generating individual
@@ -31,7 +31,7 @@ intervals. Default is TRUE.}
 
 \item{aPLOT}{A logical vector that allows generating a plot
 showing the velocity across several sequantial time intervals
- of all cells. Default is TRUE.}
+of all cells. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output to
 CSV file}
@@ -48,8 +48,8 @@ and "Average Speed".
 }
 \description{
 The VeAutoCor function automatically compute the
- changes in both speed and direction across several sequantial time
- intervals.
+changes in both speed and direction across several sequantial time
+intervals.
 }
 \examples{
 data(TrajectoryDataset)
@@ -57,7 +57,7 @@ rmDF=TrajectoryDataset[1:300,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=55)
 rmTD <- VeAutoCor(rmTD, TimeInterval=10, sLAG=0.25, sPLOT=FALSE,
-   aPLOT=FALSE, export=FALSE
+aPLOT=FALSE, export=FALSE
 )
 }
 \references{
