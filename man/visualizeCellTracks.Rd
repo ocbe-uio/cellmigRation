@@ -25,7 +25,9 @@ visualizeCellTracks(
 
 \item{col}{color of the points and the tracks, e.g.: "red2"}
 
-\item{col.untracked}{color of the points that were not tracked further, e.g.: "gray45"}
+\item{col.untracked}{color of the points that were not tracked
+further,
+e.g.: "gray45"}
 
 \item{main}{string used as plot title, can be NULL}
 }

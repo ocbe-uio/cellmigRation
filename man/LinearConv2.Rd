@@ -7,25 +7,31 @@
 LinearConv2(x, krnl, col.wise = TRUE)
 }
 \arguments{
-\item{x}{numeric matrix that will be used as input for the convoltion;
-this matrix typically corresponds to an image where signal (high values) indicates the
-presence of a cell or a cell-like particle}
+\item{x}{numeric matrix that will be used as input for the
+convoltion;
+this matrix typically corresponds to an image where signal
+(high values) indicates the presence of a cell or a cell-like
+particle}
 
-\item{krnl}{numeric vector corresponding to th kernel that will be used for the convolution.
-Briefly, the kernel includes the weights that will be used to compute a weighted sum at each
-position of the input numeric matrix}
+\item{krnl}{numeric vector corresponding to the kernel
+that will be used for the convolution. Briefly, the kernel
+includes the weights that will be used to compute a weighted sum
+at each position of the input numeric matrix}
 
-\item{col.wise}{logical; shall the linear convolution be performed in a column-wise or
-row-wise fashion}
+\item{col.wise}{logical; shall the linear convolution be performed
+in a column-wise or row-wise fashion?}
 }
 \value{
-Linearly convoluted numeric matrix. The resulting matrix has the same
-dimensions of the inut matrix
+Linearly convoluted numeric matrix. The resulting matrix
+has the same dimensions of the inut matrix
 }
 \description{
-Performs a linear convoltion of a Numeric Matrix, using a user-supplied linear kernel.
-The convolution can be executed in a column-wise fashion by setting the col.wise argument to TRUE.
-Alternatively, the convolution is performed in a row-wise fashion.
+Performs a linear convoltion of a Numeric Matrix, using a
+user-supplied
+linear kernel. The convolution can be executed in a column-wise
+fashion
+by setting the col.wise argument to TRUE. Alternatively,
+the convolution is performed in a row-wise fashion.
 }
 \examples{
 graphics::par(mfrow = c(1, 2))

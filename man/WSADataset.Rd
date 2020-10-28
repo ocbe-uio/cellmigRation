@@ -11,7 +11,8 @@ A data frame with 11970 rows and 4 columns
 data(WSADataset)
 }
 \description{
-A dataset containing the coordinates and the ID of 147 cells from wound scratch migration experiment
+A dataset containing the coordinates and the ID of 147 cells from
+wound scratch migration experiment
 }
 \examples{
 data(WSADataset)

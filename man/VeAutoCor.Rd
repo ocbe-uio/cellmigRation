@@ -15,27 +15,41 @@ VeAutoCor(
 )
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of data
+frames resulted from the PreProcessing.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+\item{TimeInterval}{A numeric value of the time elapsed between
+successive frames in the time-lapse stack.}
 
-\item{sLAG}{A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.}
+\item{sLAG}{A numeric value to be used to get the number of lags
+ for the slope fitting. Default is 0.25, which represents 25
+percent of the steps.}
 
-\item{sPLOT}{A logical vector that allows generating individual plots showing the velocity across several sequantial time intervals. Default is TRUE.}
+\item{sPLOT}{A logical vector that allows generating individual
+plots showing the velocity across several sequantial time
+intervals. Default is TRUE.}
 
-\item{aPLOT}{A logical vector that allows generating a plot showing the velocity across several sequantial time intervals of all cells. Default is TRUE.}
+\item{aPLOT}{A logical vector that allows generating a plot
+showing the velocity across several sequantial time intervals
+ of all cells. Default is TRUE.}
 
-\item{export}{if `TRUE` (default), exports function output to CSV file}
+\item{export}{if `TRUE` (default), exports function output to
+CSV file}
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }
 \value{
-Plots and a data frame, which contains six rows: "Cell Number", "Velocity AutoCorrelation (lag=1)",
-"2nd normalized Velocity AutoCorrelation", "Intercept of VA quadratic model",
-"Mean Velocity AutoCorrelation (all lags)", "Mean |Acceleration|" and "Average Speed".
+Plots and a data frame, which contains six rows:
+"Cell Number", "Velocity AutoCorrelation (lag=1)",
+"2nd normalized Velocity AutoCorrelation",
+"Intercept of VA quadratic model",
+"Mean Velocity AutoCorrelation (all lags)", "Mean |Acceleration|"
+and "Average Speed".
 }
 \description{
-The VeAutoCor function automatically compute the changes in both speed and direction across several sequantial time intervals.
+The VeAutoCor function automatically compute the
+ changes in both speed and direction across several sequantial time
+ intervals.
 }
 \examples{
 data(TrajectoryDataset)

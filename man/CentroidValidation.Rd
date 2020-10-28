@@ -19,10 +19,13 @@ CentroidValidation(
 
 \item{slice}{index of the frame within the stack to be evaluated}
 
-\item{lobject}{integer, length in pixels somewhat larger than a typical object (cell)}
+\item{lobject}{integer, length in pixels somewhat larger than
+a typical object (cell)}
 
-\item{threshold}{the minimum brightness of a pixel that might be local maxima. NOTE:
-Make it big and the code runs faster but you might miss some particles.
+\item{threshold}{the minimum brightness of a pixel that might
+be local maxima. NOTE:
+Make it big and the code runs faster but you might miss some
+particles.
 Make it small and you'll get everything and it'll be slow.}
 
 \item{pnt.cex}{cex of the circle drawn around each cell}
@@ -35,18 +38,22 @@ Make it small and you'll get everything and it'll be slow.}
 data.frame of centroid positions
 }
 \description{
-Validate parameters used to identify cells in a image stack. A figure containing
-current image frame with identified particles labeled with circles and numerical tags is generated.
-This function is included for consistency and compatibility reasons
-with the original fastTracks software (Matlab). Also, consider using
+Validate parameters used to identify cells in a image stack.
+A figure containing current image frame with identified particles
+labeled with circles and numerical tags is generated. This function
+is included for consistency and compatibility reasons
+with the original fastTracks software (Matlab). Also, consider
+using
 VisualizeStackCentroids() or visualizeCellTracks() instead.
 }
 \examples{
 message("the following example may take up to one minute to run")
 \dontrun{
 x <- cellmigRation::TrackCellsDataset
-y <- cellmigRation:::CentroidValidation(stack = x@images, slice = 1,
-                                        lobject = 6, threshold = 20)
+y <- cellmigRation:::CentroidValidation(
+  stack = x@images, slice = 1,
+  lobject = 6, threshold = 20
+)
 y[1:10,]
 }
 

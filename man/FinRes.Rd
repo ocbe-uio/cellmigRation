@@ -7,11 +7,14 @@
 FinRes(object, ParCor = TRUE, export = FALSE, ExpName = NULL)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of data
+frames resulted from the PreProcessing.}
 
-\item{ParCor}{A logical vector that allows generating a correlation table. Default is TRUE.}
+\item{ParCor}{A logical vector that allows generating a
+correlation table. Default is TRUE.}
 
-\item{export}{if `TRUE` (default), exports function output to CSV file}
+\item{export}{if `TRUE` (default), exports function output
+to CSV file}
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }
@@ -19,7 +22,8 @@ FinRes(object, ParCor = TRUE, export = FALSE, ExpName = NULL)
 A data frame that contains all the results.
 }
 \description{
-The FinRes function automatically generates a data frame that contains all the results.
+The FinRes function automatically generates a
+data frame that contains all the results.
 }
 \examples{
 data(WSADataset)

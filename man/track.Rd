@@ -7,21 +7,26 @@
 track(xyzs, maxdisp, params)
 }
 \arguments{
-\item{xyzs}{an array listing the scrambled coordinates and data of the
+\item{xyzs}{an array listing the scrambled coordinates and data of
+the
 different particles at different times}
 
-\item{maxdisp}{an estimate of the maximum distance that a particle would
+\item{maxdisp}{an estimate of the maximum distance that a particle
+ would
 move in a single time interval}
 
-\item{params}{a list containing a few tracking parameters that are needed
+\item{params}{a list containing a few tracking parameters that are
+needed
 for the analysis}
 }
 \value{
 data.frame including cell tracks data
 }
 \description{
-Constructs n-dimensional trajectories from a scrambled list of particle
-coordinates determined at discrete times (e.g. in consecutive image frames)
+Constructs n-dimensional trajectories from a scrambled list of
+particle
+coordinates determined at discrete times (e.g. in consecutive
+image frames)
 }
 \examples{
 x0 <- data.frame(row = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),

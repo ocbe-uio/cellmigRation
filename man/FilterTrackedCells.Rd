@@ -11,21 +11,26 @@ FilterTrackedCells(
 )
 }
 \arguments{
-\item{x}{data.frame, is an aggregated Table of Cell Tracks. Must include the following columns:
-"new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name", "experiment", "condition", "replicate"}
+\item{x}{data.frame, is an aggregated Table of Cell Tracks.
+Must include the following columns:
+"new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name",
+"experiment", "condition", "replicate"}
 
-\item{id_list}{character vector, indicates the IDs (such as tiff_filenames) to be retained in the
+\item{id_list}{character vector, indicates the IDs (such as
+tiff_filenames) to be retained in the
 output data.frame}
 
-\item{meta_id_field}{string, can take one of the following values, c("tiff_file", "experiment",
-"condition", "replicate"). Indicates the meta-data column used as unique ID for the image/experiment.
+\item{meta_id_field}{string, can take one of the following values,
+c("tiff_file", "experiment", "condition", "replicate"). Indicates
+the meta-data column used as unique ID for the image/experiment.
 Can be abbreviated. Defaults to "tiff_file".}
 }
 \value{
 data.frame, a filtered aggregated Table of Cell Tracks
 }
 \description{
-Filter an Aggregated Table (data.frame) of cell tracks (from multiple images/experiments) and
+Filter an Aggregated Table (data.frame) of cell tracks
+(from multiple images/experiments) and
 retain cell tracks from images/experiments of interest
 }
 \examples{

@@ -11,7 +11,9 @@ a \code{trackedCells} object including 10 stacks
 data(TrackCellsDataset)
 }
 \description{
-Sample Stack of Fluorescent Cells to be used for computing cell tracks and stats
+Sample Stack of Fluorescent Cells to be used for
+computing
+cell tracks and stats
 }
 \examples{
 data(TrackCellsDataset)

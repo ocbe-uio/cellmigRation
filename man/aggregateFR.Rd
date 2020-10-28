@@ -7,24 +7,33 @@
 aggregateFR(x, ..., export = FALSE)
 }
 \arguments{
-\item{x}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{x}{\code{CellMig} class object, which is a list of data
+frames resulted from the PreProcessing.}
 
-\item{...}{one or more CellMig-class object(s) where cells' trajectories have already been analyzed.}
+\item{...}{one or more CellMig-class object(s) where cells'
+trajectories have already been analyzed.}
 
-\item{export}{if `TRUE` (default), exports function output to CSV file}
+\item{export}{if `TRUE` (default), exports function output to CSV
+file}
 }
 \value{
 two data frames:
-The first data frame shows the average of each parameter per experiment/condition.
-The second data frame shows the parameters of individual cells of all experiments/conditions.
+The first data frame shows the average of each parameter per
+experiment/condition.
+The second data frame shows the parameters of individual cells
+ of all experiments/conditions.
 }
 \description{
 Aggregate two or more CellMig-class objects together.
-Input objects must carry information of trajectory analyses (otherwise an error will be raised).
-All trajectory results form the different experiments/conditions are returned in two data frames.
+Input objects must carry information of trajectory analyses
+(otherwise an error will be raised).
+All trajectory results form the different experiments/conditions
+ are returned in two data frames.
 }
 \details{
-The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+The visualization shows centered trajectories where the
+starting point of each track is located at the origin of the
+coordinate system (X=0,Y=0).
 }
 \examples{
 data(WSADataset)
@@ -46,6 +55,7 @@ AGG<-aggregateFR(wsaTD1 ,wsaTD2 ,export=FALSE)
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 }
 \author{
-Damiano Fantini and Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}
+Damiano Fantini and
+Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}
 Damiano Fantini, \email{damiano.fantini@gmail.com}
 }

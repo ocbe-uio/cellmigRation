@@ -16,27 +16,36 @@ ForwardMigration(
 )
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of data
+frames resulted from the PreProcessing.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+\item{TimeInterval}{A numeric value of the time elapsed between
+successive frames in the time-lapse stack.}
 
-\item{sfptPLOT}{A logical vector that allows generating individual plots of persistence time vs speed per cell. Default is TRUE.}
+\item{sfptPLOT}{A logical vector that allows generating individual
+plots of persistence time vs speed per cell. Default is TRUE.}
 
-\item{afptPLOT}{A logical vector that allows generating a plot of persistence time vs speed for all cells. Default is TRUE.}
+\item{afptPLOT}{A logical vector that allows generating a plot of
+persistence time vs speed for all cells. Default is TRUE.}
 
-\item{sfpPLOT}{A logical vector that allows generating individual plots of angular persistence vs speed per cell. Default is TRUE.}
+\item{sfpPLOT}{A logical vector that allows generating individual
+plots of angular persistence vs speed per cell. Default is TRUE.}
 
-\item{afpPLOT}{A logical vector that allows generating a plot of angular persistence vs speed of all cells. Default is TRUE.}
+\item{afpPLOT}{A logical vector that allows generating a plot of
+angular persistence vs speed of all cells. Default is TRUE.}
 
-\item{export}{if `TRUE` (default), exports function output to CSV file}
+\item{export}{if `TRUE` (default), exports function output to CSV
+file}
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }
 \value{
-An CellMig class Object with a data frame and plots. The data frame is stored in the ForMigtable slot.
+An CellMig class Object with a data frame and plots.
+The data frame is stored in the ForMigtable slot.
 }
 \description{
-The ForwardMigration function automatically generates data and plots for forward persistence and speed.
+The ForwardMigration function automatically generates
+ data and plots for forward persistence and speed.
 }
 \examples{
 data(WSADataset)

@@ -7,19 +7,30 @@
 DiRatio(object, TimeInterval = 10, export = FALSE, ExpName = NULL)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+\item{TimeInterval}{A numeric value of the time elapsed between
+successive frames in the time-lapse stack.}
 
-\item{export}{if `TRUE` (default), exports function output to CSV file}
+\item{export}{if `TRUE` (default), exports function output to
+CSV file}
 
 \item{ExpName}{string}
 }
 \value{
-An CellMig class object with a data frame stored in the DRtable slot. It contains nine rows: "Cell Number","Directionality Ratio","Mean Cumulative Directionality Ratio","Stable Directionality Ratio", "Number of returns","Min CumDR","Location of Min CumDR, Steps with less CumDR than DR","Directional Persistence"
+An CellMig class object with a data frame stored in the
+DRtable slot. It contains nine rows: "Cell Number",
+"Directionality Ratio","Mean Cumulative Directionality Ratio",
+"Stable Directionality Ratio", "Number of returns","Min CumDR",
+"Location of Min CumDR, Steps with less CumDR than DR",
+"Directional Persistence"
 }
 \description{
-Directionality Ratio is the displacement divided by the total length of the total path distance, where displacement is the straight line length between the start point and the endpoint of the migration trajectory,
+Directionality Ratio is the displacement divided by
+the total length of the total path distance, where displacement is
+the straight line length between the start point and the endpoint
+of the migration trajectory,
 }
 \details{
 Directionality Ratio and Directional persistence

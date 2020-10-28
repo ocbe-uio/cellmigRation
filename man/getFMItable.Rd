@@ -7,13 +7,15 @@
 getFMItable(object)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 }
 \value{
 A data frame for the FMI.
 }
 \description{
-The FMI function automatically generates data for the forward migration index
+The FMI function automatically generates data
+for the forward migration index
 }
 \examples{
 data(WSADataset)

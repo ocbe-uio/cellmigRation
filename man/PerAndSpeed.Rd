@@ -16,27 +16,36 @@ PerAndSpeed(
 )
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+\item{TimeInterval}{A numeric value of the time elapsed between
+successive frames in the time-lapse stack.}
 
-\item{PtSplot}{A logical vector that allows generating individual plots of persistence time vs speed per cell. Default is TRUE.}
+\item{PtSplot}{A logical vector that allows generating individual
+plots of persistence time vs speed per cell. Default is TRUE.}
 
-\item{AllPtSplot}{A logical vector that allows generating a plot of persistence time vs speed for all cells. Default is TRUE.}
+\item{AllPtSplot}{A logical vector that allows generating a plot
+of persistence time vs speed for all cells. Default is TRUE.}
 
-\item{ApSplot}{A logical vector that allows generating individual plots of angular persistence vs speed per cell. Default is TRUE.}
+\item{ApSplot}{A logical vector that allows generating individual
+plots of angular persistence vs speed per cell. Default is TRUE.}
 
-\item{AllApSplot}{A logical vector that allows generating a plot of angular persistence vs speed of all cells. Default is TRUE.}
+\item{AllApSplot}{A logical vector that allows generating a plot
+of angular persistence vs speed of all cells. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output}
 
-\item{ExpName}{string, indicates the name of the experiment. Can be NULL}
+\item{ExpName}{string, indicates the name of the experiment.
+Can be NULL}
 }
 \value{
-An CellMig class object with a data frame and plots. The data frame is stored in the PerAanSpeedtable slot.
+An CellMig class object with a data frame and plots.
+The data frame is stored in the PerAanSpeedtable slot.
 }
 \description{
-The PerAndSpeed() generates data and plots for persistence and speed.
+The PerAndSpeed() generates data and plots for
+persistence and speed.
 }
 \examples{
 data(TrajectoryDataset)

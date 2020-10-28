@@ -7,16 +7,20 @@
 circshift(x, n = 1)
 }
 \arguments{
-\item{x}{a character, numeric, or logical vector with at least n + 1 elements}
+\item{x}{a character, numeric, or logical vector with at least
+n + 1 elements}
 
-\item{n}{an integer corresponding to the number of positions for the shift}
+\item{n}{an integer corresponding to the number of positions for
+the shift}
 }
 \value{
-a vector corresponding to x (same size, same class), whose elements have been shifted
+a vector corresponding to x (same size, same class),
+whose elements have been shifted
 }
 \description{
-Circularly shift the elements in an array by a user-defined number of positions.
-This emulates the behavior of the corresponding Matlab Circhsift function.
+Circularly shift the elements in an array by a user-defined number
+of positions. This emulates the behavior of the corresponding
+Matlab Circhsift function.
 }
 \examples{
 cellmigRation:::circshift(1:10, -2)

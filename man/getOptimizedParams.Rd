@@ -10,7 +10,8 @@ getOptimizedParams(tc_obj)
 \item{tc_obj}{a \code{trackedCells} object}
 }
 \value{
-a list including optimized parameter values (lnoise, diameter, and threshold)
+a list including optimized parameter values
+(lnoise, diameter, and threshold)
 }
 \description{
 Extract Parameters that were automatically optimized

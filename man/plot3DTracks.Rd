@@ -7,22 +7,27 @@
 plot3DTracks(object, VS = 3, size = 2, cells)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 
 \item{VS}{A numeric value of the vertical separator between cells.}
 
 \item{size}{A numeric value of the point's size.}
 
-\item{cells}{A numeric vector containing the cell's numbers to be plotted.}
+\item{cells}{A numeric vector containing the cell's numbers to be
+plotted.}
 }
 \value{
 A 3D rose-plot showing the tracks of particular cells.
 }
 \description{
-Plotting the trajectory data of particular cells in 3D.
+Plotting the trajectory data of particular cells in
+3D.
 }
 \details{
-The 3D visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+The 3D visualization shows centered trajectories
+where the starting point of each track is located at the origin
+of the coordinate system (X=0,Y=0).
 }
 \examples{
 data(TrajectoryDataset)

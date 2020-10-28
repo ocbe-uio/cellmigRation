@@ -11,7 +11,8 @@ A data frame with 50216 rows and 4 columns
 data(TrajectoryDataset)
 }
 \description{
-A dataset containing the coordinates and the ID of 350 cells from a dense random migration experiment
+A dataset containing the coordinates and the ID of 350 cells from
+a dense random migration experiment
 }
 \examples{
 data(TrajectoryDataset)

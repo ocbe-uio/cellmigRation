@@ -7,13 +7,19 @@
 getDACtable(object)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 }
 \value{
-A data frame which contains six rows: "Cell Number", "Angular Persistence", "Intercept of DA quadratic model","Mean Direction AutoCorrelation (all lags)", "Stable Direction AutoCorrelation through the track" and "Difference between Mean DA and Intercept DA".
+A data frame which contains six rows: "Cell Number",
+"Angular Persistence", "Intercept of DA quadratic model",
+"Mean Direction AutoCorrelation (all lags)",
+"Stable Direction AutoCorrelation through the track"
+and "Difference between Mean DA and Intercept DA".
 }
 \description{
-The DiAutoCor function automatically compute the angular persistence across several sequantial time intervals.
+The DiAutoCor function automatically compute the
+angular persistence across several sequantial time intervals.
 }
 \examples{
 

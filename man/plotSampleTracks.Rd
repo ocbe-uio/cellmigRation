@@ -14,13 +14,16 @@ plotSampleTracks(
 )
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 
 \item{Type}{has to be one of the following: c("p", "l", "b", "o")}
 
-\item{celNum}{A numeric value showing the desired number of cells to be plotted.}
+\item{celNum}{A numeric value showing the desired number of cells
+to be plotted.}
 
-\item{FixedField}{logical(1) Allows generating a plot with fixed field 800um x 800um. Default is TRUE.}
+\item{FixedField}{logical(1) Allows generating a plot with
+fixed field 800um x 800um. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports plot to JPG file
 "p": Points
@@ -31,20 +34,27 @@ plotSampleTracks(
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }
 \value{
-A 2D rose-plot showing the tracks of sample cells selected randomly based on the desired number of cells selected by the user.
+A 2D rose-plot showing the tracks of sample cells
+selected randomly based on the desired number of cells selected
+by the user.
 }
 \description{
 Plotting the trajectory data of some cells.
 }
 \details{
-The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+The visualization shows centered trajectories where
+the starting point of each track is located at the
+origin of the coordinate system (X=0,Y=0).
 }
 \examples{
 data(TrajectoryDataset)
 rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
-plotSampleTracks(rmTD,Type="l", FixedField=TRUE, celNum=5, export=FALSE,ExpName = NULL)
+plotSampleTracks(
+  rmTD,Type="l", FixedField=TRUE, celNum=5, export=FALSE,
+  ExpName = NULL
+)
 
 }
 \references{

@@ -9,21 +9,31 @@ LoadTiff(tiff_file, experiment = NULL, condition = NULL, replicate = NULL)
 \arguments{
 \item{tiff_file}{path to a TIFF file to be read in}
 
-\item{experiment}{string, a label to describe the experiment (optional). Can be NULL}
+\item{experiment}{string, a label to describe the experiment
+(optional)}
 
-\item{condition}{string, a label to describe the experimental condition (optional). Can be NULL}
+\item{condition}{string, a label to describe the experimental
+condition}
 
-\item{replicate}{string, a label to identify the replicate (optional). Can be NULL}
+\item{replicate}{string, a label to identify the replicate
+(optional)}
 }
 \value{
 a trackedCells object
 }
 \description{
-Import a .tif stack containing fluorescently labeled point particles to be tracked
+Import a .tif stack containing fluorescently labeled point particles
+to be tracked
+}
+\note{
+`experiment`, `condition` and `replicate` are optional
+arguments
+and can be NULL.
 }
 \examples{
 \dontrun{
-# Let `path/to/tiff_file.tiff` be the path to tiff file we want to import
+# Let `path/to/tiff_file.tiff` be the path to tiff file we want to
+import
 x <- LoadTiff(tiff_file = "path/to/tiff_file.tiff")
 }
 

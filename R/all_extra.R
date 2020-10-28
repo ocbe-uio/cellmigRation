@@ -13,7 +13,8 @@
 
 
 #' @title Sample Stack of Fluorescent Cells
-#' @description Sample Stack of Fluorescent Cells to be used for computing
+#' @description Sample Stack of Fluorescent Cells to be used for
+#' computing
 #' cell tracks and stats
 #' @usage data(TrackCellsDataset)
 #' @format a \code{trackedCells} object including 10 stacks

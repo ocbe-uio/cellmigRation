@@ -10,7 +10,8 @@ getCellsMeta(tc_obj)
 \item{tc_obj}{a trackedCells object}
 }
 \value{
-a list including four items: tiff filename, experiment name, condition label, and replicate ID.
+a list including four items:
+tiff filename, experiment name, condition label, and replicate ID.
 }
 \description{
 Extract MetaData from a trackedCells object

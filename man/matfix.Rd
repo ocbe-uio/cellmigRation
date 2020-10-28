@@ -7,13 +7,15 @@
 matfix(x)
 }
 \arguments{
-\item{x}{matrix or data.frame including numeric data (or data that can be coerced to integer)}
+\item{x}{matrix or data.frame including numeric data
+(or data that can be coerced to integer)}
 }
 \value{
 numeric matrix with all its elements coerced to integer
 }
 \description{
-Convert any matrix-lie object to a numeric Matrix, and coerces all the elements to integer.
+Convert any matrix-lie object to a numeric Matrix,
+and coerces all the elements to integer.
 Row names and column names are removed.
 }
 \examples{
