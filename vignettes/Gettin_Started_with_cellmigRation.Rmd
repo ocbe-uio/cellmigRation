@@ -12,8 +12,11 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", echo = TRUE, include = TRUE, eval = TRUE, message = FALSE, warning = FALSE,
-  fig.align = "center", fig.keep = "last", fig.height = 5, fig.width = 9
+  comment = "#>", echo = TRUE, include = TRUE, eval = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center", fig.keep = "last", fig.height = 5,
+  fig.width = 9
 )
 ```
 
@@ -33,17 +36,29 @@ LS <- VignBuilderDataset
 
 ### Introduction
 
-This vignette illustrates how to get started with **cellmigRation**, an R library aimed at analyzing cell movements over time using multi-stack *tiff* images of fluorescent cells.
+This vignette illustrates how to get started with **cellmigRation**, an R
+library aimed at analyzing cell movements over time using multi-stack *tiff*
+images of fluorescent cells.
 
 The software includes two modules:
 
-- **Module 1**: data import and pre-precessing. This module includes a series of functions to import tiff images, remove noise/background and detect cell/particles, (optional) automatically estimate optimal analytic parameters, compute cell tracks (movements) and basic stats. The first module is largely based on the FastTracks software written in Matlab by *Brian DuChez* (FastTracks, <https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks>, MATLAB Central File Exchange).
-
-- **Module 2**: advanced analyses and visualization. The second module includes a series of functions to compute advanced metrics/stats, exporting, automatically build visualizations, and generate interactive/3D plots.
+- **Module 1**: data import and pre-precessing. This module includes a series
+  of functions to import tiff images, remove noise/background and detect
+  cell/particles, (optional) automatically estimate optimal analytic
+  parameters, compute cell tracks (movements) and basic stats. The first module
+  is largely based on the FastTracks software written in Matlab by
+  *Brian DuChez* (FastTracks,
+  <https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks>,
+  MATLAB Central File Exchange).
+- **Module 2**: advanced analyses and visualization. The second module includes
+  a series of functions to compute advanced metrics/stats, exporting,
+  automatically build visualizations, and generate interactive/3D plots.
 
 ### Summary
 
-This vignette guides the user through package installation, *tiff* import, cell tracking, performing analyses, exporting cell migration metrics, and build plots and visualizations.
+This vignette guides the user through package installation, *tiff* import, cell
+tracking, performing analyses, exporting cell migration metrics, and build plots
+and visualizations.
 
 - Package installation
 
@@ -75,11 +90,13 @@ This vignette guides the user through package installation, *tiff* import, cell 
 
 ### Notes and Acknowledgmenets
 
-Damiano Fantini (Northwestern University, Chicago, IL, USA), Salim Ghannoum (University of Oslo, Oslo, Norway)
+Damiano Fantini (Northwestern University, Chicago, IL, USA), Salim Ghannoum
+(University of Oslo, Oslo, Norway)
 
 ## Installation
 
-The package is currently available on Bioconductor. It can be installed using the following commands:
+The package is currently available on Bioconductor. It can be installed using
+the following commands:
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 if(!requireNamespace("BiocManager", quietly = TRUE))
@@ -104,7 +121,10 @@ library(grid)
 
 #### Importing TIFF files
 
-In this vignette, we are going to download, import, and analyze three small tiff files that are made available as toy datasets for the purpose of illustrating the different functions included in *cellmigRation*. The files can be downloaded from the URLs indicated below.
+In this vignette, we are going to download, import, and analyze three small
+tiff files that are made available as toy datasets for the purpose of
+illustrating the different functions included in *cellmigRation*. The files can
+be downloaded from the URLs indicated below.
 
 ```{r include=TRUE, echo=TRUE, eval=FALSE}
 # URLs
@@ -121,7 +141,10 @@ download.file(url = url2, destfile = "tiff/ctrl_002.tif", quiet = TRUE)
 download.file(url = url3, destfile = "tiff/drug_001.tif", quiet = TRUE)
 ```
 
-TIFF files are imported using the `LoadTiff()` function. This function includes a series of arguments to attach meta-information to a TIFF image, for example the `experiment` and `condition` arguments. An imported TIFF file is stored in a *trackedCells*-class object.
+TIFF files are imported using the `LoadTiff()` function. This function includes
+a series of arguments to attach meta-information to a TIFF image, for example
+the `experiment` and `condition` arguments. An imported TIFF file is stored in
+a *trackedCells*-class object.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 # read tiff files
@@ -144,17 +167,31 @@ cat(LS$step.01, sep = "\n")
 
 #### Optimizing Tracking Params
 
-This is an optional yet recommended step. Detecting fluorescent cells requires defining a series of parameters to maximize signal to noise ratio. Specifically,
+This is an optional yet recommended step. Detecting fluorescent cells requires
+defining a series of parameters to maximize signal to noise ratio. Specifically,
 
-- **diameter**: size corresponding to the largest diameter of a cell (expressed in pixels). Ideally, we want to set this parameter to a value large enough to capture all cells (even the large ones), but small enough to exclude aggregates or large background particles (artifacts, bubbles)
+- **diameter**: size corresponding to the largest diameter of a cell (expressed
+  in pixels). Ideally, we want to set this parameter to a value large enough to
+  capture all cells (even the large ones), but small enough to exclude
+  aggregates or large background particles (artifacts, bubbles)
+- **lnoise**: size corresponding to the smalles diameter of a cell (expressed
+  in pixels). Ideally, we want to set this parameter to a value small enough to
+  capture all cells (even the small ones), but large enough to exclude small
+  background particles (artifacts, debris)
+- **threshold**: signal level used as background threshold. Signal smaller than
+  threshold is set to zero
 
-- **lnoise**: size corresponding to the smalles diameter of a cell (expressed in pixels). Ideally, we want to set this parameter to a value small enough to capture all cells (even the small ones), but large enough to exclude small background particles (artifacts, debris)
+If the values of these arguments are known, you can skip this step.
+Alternatively, if you want to test a specific range of these values, you can
+run `OptimizeParams()` manually specifying the ranges to be tested. By default,
+the function determines automatically a reasonable range of values to be tested
+for each argument based on the empirical distribution of signal and sizes of
+particles detected in the frame with median signal from a TIFF stack. This
+operation supports parallelization.
 
-- **threshold**: signal level used as background threshold. Signal smaller than threshold is set to zero
-
-If the values of these arguments are known, you can skip this step. Alternatively, if you want to test a specific range of these values, you can run `OptimizeParams()` manually specifying the ranges to be tested. By default, the function determines automatically a reasonable range of values to be tested for each argument based on the empirical distribution of signal and sizes of particles detected in the frame with median signal from a TIFF stack. This operation supports parallelization.
-
-**Note**: the user may request to visualize a plot. The output plot shows how many cells were detected for each combination of parameter values. By default, the *pick #1* is selected for the downstream steps.
+**Note**: the user may request to visualize a plot. The output plot shows how
+many cells were detected for each combination of parameter values. By default,
+the *pick #1* is selected for the downstream steps.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 # Optimize parameters using 2 cores
@@ -164,12 +201,13 @@ x1 <- OptimizeParams(x1, threads = 2)
 x3 <- OptimizeParams(x3, threads = 2, verbose = TRUE, plot = TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=7.4, fig.height=6, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=7.4, fig.height=6, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.02, width = 170, default.units = 'mm')
 ```
 
-**Note**: the `getOptimizedParams()` is a getter function to obtain the values of each optimized parameter.
+**Note**: the `getOptimizedParams()` is a getter function to obtain the values
+of each optimized parameter.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 # obtain optimized params
@@ -190,17 +228,30 @@ list(lnoise = 6, diameter = 20, threshold = 1)
 
 #### Tracking Cell Movements
 
-The central step of *Module 1* is tracking cell movements across all frames of a multi-stack image (where each stack was acquired at a different time). This operation is carried out via the `CellTracker()` function, which performs two tasks: *i)* identify all cells in each frame of the image; *ii)* map cells across all image frames, identify cell movements and return cell tracks. This operation supports parallelization. This function requires three parameters to be set: `lnoise`, `diameter`, and `threshold`. These parameters can be set manually or automatically:
+The central step of *Module 1* is tracking cell movements across all frames of a
+multi-stack image (where each stack was acquired at a different time). This
+operation is carried out via the `CellTracker()` function, which performs two
+tasks: *i)* identify all cells in each frame of the image; *ii)* map cells
+across all image frames, identify cell movements and return cell tracks.
+This operation supports parallelization. This function requires three
+parameters to be set: `lnoise`, `diameter`, and `threshold`. These parameters
+can be set manually or automatically:
 
 - rely on the optimized params estimated using `OptimizeParams()`
 
-- rely on the optimized params estimated for a different `trackedCells` object; using `OptimizeParams()`; see the `import_optiParam_from` argument
+- rely on the optimized params estimated for a different `trackedCells` object;
+  using `OptimizeParams()`; see the `import_optiParam_from` argument
 
-- the user can manually specify the parameter values; note that user-specified parameters will overwrite automatically-optimized values
+- the user can manually specify the parameter values; note that user-specified
+  parameters will overwrite automatically-optimized values
 
-**Note 1**: the user may request to visualize a plot for each frame being processed. The output plot shows cells that were detected for each combination of parameter values.
+**Note 1**: the user may request to visualize a plot for each frame being
+processed. The output plot shows cells that were detected for each combination
+of parameter values.
 
-**Note 2**: it is possible to only include cells that were detected in at least a minimum number of frames by setting the `min_frames_per_cell` argument. If so, cells detected in a small number of frames will be removed from the output.
+**Note 2**: it is possible to only include cells that were detected in at least
+a minimum number of frames by setting the `min_frames_per_cell` argument. If so,
+ cells detected in a small number of frames will be removed from the output.
 
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
@@ -217,12 +268,13 @@ x3 <- CellTracker(x3, import_optiParam_from = x1,
                   verbose = TRUE, show_plots = TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(image = LS$step.03)
 ```
 
-It is possible to retrieve the output data.frame including information about cell movements (cell tracks) using the `getTracks()` getter function.
+It is possible to retrieve the output data.frame including information about
+cell movements (cell tracks) using the `getTracks()` getter function.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 # Get tracks and show header
@@ -231,16 +283,24 @@ head(trk1)
 ```
 
 ```{r eval=TRUE, echo=FALSE, include=TRUE}
-TMP <- data.frame(cell.ID=c(8,8,8,8,8,8),
-                  X=c(426.9544, 424.0819, 426.1550, 422.8822, 421.0395, 421.0395),
-                  Y=c(181.2166, 185.0852, 184.7437, 186.0545, 186.2270, 186.2270),
-                  frame.ID=c(1:6))
+TMP <- data.frame(
+  cell.ID=c(8,8,8,8,8,8),
+  X=c(426.9544, 424.0819, 426.1550, 422.8822, 421.0395, 421.0395),
+  Y=c(181.2166, 185.0852, 184.7437, 186.0545, 186.2270, 186.2270),
+  frame.ID=c(1:6)
+)
 TMP
 ```
 
 #### Basic migration stats
 
-For compatibility and portability reasons, Module 1 includes a function to compute the same basic metrics/stats as in the *FastTracks* Matlab software by Brian DuChez. This step is performed via the `ComputeTracksStats()` function. The results can be extracted from a `trackedCells` object via dedicated getter functions: `getPopulationStats()` and `getCellsStats()`. Noete however that more advanced stats are computed using functions included in the second module of `cellmigRation`.
+For compatibility and portability reasons, Module 1 includes a function to
+compute the same basic metrics/stats as in the *FastTracks* Matlab software by
+Brian DuChez. This step is performed via the `ComputeTracksStats()` function.
+ The results can be extracted from a `trackedCells` object via dedicated getter
+ functions: `getPopulationStats()` and `getCellsStats()`. Noete however that
+ more advanced stats are computed using functions included in the second module
+ of `cellmigRation`.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 # Basic migration stats can be computed similar to the fastTracks software
@@ -268,7 +328,9 @@ stats.x3 <- LS$step.04$DRUG
 
 ```{r echo=TRUE, include=TRUE, eval=TRUE}
 stats.x1 %>%
-  dplyr::select(c("Condition", "Cell_Number", "Speed", "Distance", "Frames")) %>%
+  dplyr::select(
+    c("Condition", "Cell_Number", "Speed", "Distance", "Frames")
+  ) %>%
   head()
 ```
 
@@ -296,14 +358,17 @@ t.test(sp.lst$CTRL1, sp.lst$DRUG1, paired = FALSE, var.equal = FALSE)
 
 #### Basic Visualizations
 
-Two basic visualization functions are included in Module 1, and allow visualization of cells detected in a frame of interest, and tracks originating at a frame of interest. These functions are included in Module 1 (and not Module 2) since they take a `trackedCells`-class object as input.
+Two basic visualization functions are included in Module 1, and allow
+visualization of cells detected in a frame of interest, and tracks originating
+at a frame of interest. These functions are included in Module 1 (and not
+Module 2) since they take a `trackedCells`-class object as input.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 # Visualize cells in a frame of interest
 cellmigRation::VisualizeStackCentroids(x1, stack = 1)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.05)
 ```
@@ -315,20 +380,33 @@ cellmigRation::visualizeCellTracks(x2, stack = 1, main = "tracks from CTRL2")
 cellmigRation::visualizeCellTracks(x3, stack = 1, main = "tracks from DRUG1")
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6.6, fig.height=3, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6.6, fig.height=3, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.06)
 ```
 
 #### Aggregate Cell Tracks
 
-Cell tracks from multiple TIFF images can be aggregated together. All tracks form the different experiments/images are returned in a large data.frame. A new unique ID is assigned to specifically identify each cell track from each image/experiment. Different `trackedCells` objects can be merged together based on the corresponding *TIFF filename* (default), or one of the meta-information included in the object(s).
+Cell tracks from multiple TIFF images can be aggregated together. All tracks
+form the different experiments/images are returned in a large data.frame. A new
+unique ID is assigned to specifically identify each cell track from each
+image/experiment. Different `trackedCells` objects can be merged together based
+on the corresponding *TIFF filename* (default), or one of the meta-information
+included in the object(s).
 
-**Note 1**: the data.frame returned by `aggregateTrackedCells()` has a structure that aligns to the output of the `getTracks()` function when the `attach_meta` argument is set to TRUE.
+**Note 1**: the data.frame returned by `aggregateTrackedCells()` has a structure
+that aligns to the output of the `getTracks()` function when the `attach_meta`
+argument is set to TRUE.
 
-**Note 2**: the data.frame returned by `aggregateTrackedCells()` (or by `getTracks()` with the `attach_meta` argument set to TRUE) is the input of the `CellMig()` function, and is the first step of Module 2.
+**Note 2**: the data.frame returned by `aggregateTrackedCells()` (or by
+`getTracks()` with the `attach_meta` argument set to TRUE) is the input of
+the `CellMig()` function, and is the first step of Module 2.
 
-**Note 3**: it is recommended to aggregate experiments/tiff files corresponding to the same condition (as shown below: for example, all replicates of the control cells) However, it is also possible to mix and match multiple treatments/timepoints/conditions, and filter the desired tracks right before running the `CellMig()` step (not shown).
+**Note 3**: it is recommended to aggregate experiments/tiff files corresponding
+to the same condition (as shown below: for example, all replicates of the
+control cells) However, it is also possible to mix and match multiple
+treatments/timepoints/conditions, and filter the desired tracks right before
+running the `CellMig()` step (not shown).
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 # aggregate tracks together
@@ -343,7 +421,7 @@ all.x <- LS$step.07
 head(all.x)
 ```
 
-```{r eval = FALSE, echo = FALSE, results='markup', include=FALSE}
+```{r eval = FALSE, echo=FALSE, results='markup', include=FALSE}
 # Table tiff_filename vs. condition
 with(all.ctrl, table(condition, tiff_file))
 ```
@@ -353,18 +431,24 @@ with(all.ctrl, table(condition, tiff_file))
 all.drug <- getTracks(tc_obj = x3, attach_meta = TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, results='markup', include=FALSE}
+```{r echo=FALSE, results='markup', include=FALSE}
 all.ctrl <- all.x %>% filter(condition == "CTRL")
 all.drug <- all.x %>% filter(condition != "CTRL")
 ```
 
 ### Module 2
 
-The second module of `cellmigRation` is aimed at computing advanced stats and building 2D, 3D, and interactive visualizations based on the cell tracks computed in Module 1.
+The second module of `cellmigRation` is aimed at computing advanced stats and
+building 2D, 3D, and interactive visualizations based on the cell tracks
+computed in Module 1.
 
 #### Import and Pre-process Cell Tracks
 
-The first step entails the generation of a `CellMig`-class object (S4 class) to store cell tracks data, and all output resulting from running Module 2 functions. After importing data into a `CellMig`-class object, tracks are processed according to the experiment type (random migration in a plate vs. scratch-wound healing assay).
+The first step entails the generation of a `CellMig`-class object (S4 class)
+to store cell tracks data, and all output resulting from running Module 2
+functions. After importing data into a `CellMig`-class object, tracks are
+processed according to the experiment type (random migration in a plate vs.
+scratch-wound healing assay).
 
 **Note 1**: the arguments passed to the `CellMig()` function are:
 
@@ -373,9 +457,12 @@ The first step entails the generation of a `CellMig`-class object (S4 class) to 
 - **expName** a string, this is the name of the experiment
 
 
-**Note 1**: the user is allowed to name the analysis; here we select a name that will be used as a prefix in the name of plots and tables.
+**Note 1**: the user is allowed to name the analysis; here we select a name
+that will be used as a prefix in the name of plots and tables.
 
-**Note 2**: For Random Migration assays, the `rmPreProcessing()` function is used for preprocessing; if a Scratch Wound Healing Assay was performed, the `wsaPreProcessing()` function shall be used instead.
+**Note 2**: For Random Migration assays, the `rmPreProcessing()` function is
+used for preprocessing; if a Scratch Wound Healing Assay was performed, the
+`wsaPreProcessing()` function shall be used instead.
 
 
 ```{r eval = FALSE, echo = TRUE, results='markup', include=TRUE}
@@ -388,7 +475,9 @@ rmTD <- rmPreProcessing(rmTD, PixelSize = 1.24, TimeInterval = 10, FrameN=10)
 
 #### Plotting tracks (2D and 3D)
 
-Multiple plotting functions allow the user to generate 2D or 3D charts and plots showing the movements of all cells, or part of the cells in the experiment.
+Multiple plotting functions allow the user to generate 2D or 3D charts and
+plots showing the movements of all cells, or part of the cells in the
+experiment.
 
 ```{r eval = FALSE, echo = TRUE, include=TRUE}
 # Plotting tracks (2D and 3D)
@@ -396,18 +485,19 @@ plotAllTracks(rmTD, Type="l",
               FixedField=FALSE, export=TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.08)
 ```
 
 ```{r eval = FALSE, echo = TRUE, include=TRUE}
-# Plotting the trajectory data of sample of cells (selected randomly)in one figure
+# Plotting the trajectory data of sample of cells (selected randomly)
+# in one figure
 plotSampleTracks(rmTD, Type="l", FixedField=FALSE,
                  celNum=15, export = TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.09)
 ```
@@ -418,7 +508,7 @@ PlotTracksSeparately(rmTD, Type="l",
                      FixedField=FALSE, export = TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.10)
 ```
@@ -428,7 +518,7 @@ grid::grid.raster(LS$step.10)
 plot3DAllTracks(rmTD, VS=2, size=5)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.11)
 ```
@@ -439,14 +529,15 @@ grid::grid.raster(LS$step.11)
 plot3DTracks(rmTD, cells=1:10, size = 8)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.12)
 ```
 
 #### Deep Trajectory Analysis
 
-The deep trajectory analysis includes a series of tools to examine the following metrics:
+The deep trajectory analysis includes a series of tools to examine the
+following metrics:
 
 - Persistence and Speed: `PerAndSpeed()` function
 
@@ -458,7 +549,8 @@ The deep trajectory analysis includes a series of tools to examine the following
 
 - Velocity AutoCorrelation: `VeAutoCor()` function
 
-**Note**: the `getPerAndSpeed()` getter allows to retrieve the results of this step.
+**Note**: the `getPerAndSpeed()` getter allows to retrieve the results of
+this step.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 ## Persistence and Speed
@@ -469,7 +561,7 @@ rmTD <- PerAndSpeed(rmTD,TimeInterval=10,
 getPerAndSpeed(rmTD) %>% head()
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, results='markup'}
+```{r echo=FALSE, include=TRUE, results='markup'}
 LS$step.13
 ```
 
@@ -479,12 +571,16 @@ srmTD <- DiRatio(rmTD, export=TRUE)
 DiRatio.Plot(rmTD, export=TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.14)
 ```
 
-**Mean Square Displacement**.  The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time. Usually, both the `sLAG` and `ffLAG` arguments are recommended to be set to 0.25 but since here we have just 10 frames, we will set it to 0.5.
+**Mean Square Displacement**.  The MSD function automatically computes the mean
+square displacements across several sequential time intervals. MSD parameters
+are used to assess the area explored by cells over time. Usually, both the
+`sLAG` and `ffLAG` arguments are recommended to be set to 0.25 but since here
+we have just 10 frames, we will set it to 0.5.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 rmTD<-MSD(rmTD,sLAG=0.5,
@@ -492,12 +588,15 @@ rmTD<-MSD(rmTD,sLAG=0.5,
           export=TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.15)
 ```
 
-**Direction AutoCorrelation**. The `DiAutoCor()` function automatically computes the angular persistence across several sequantial time intervals. Usually, the `sLAG` argument is recommended to be set to 0.25 but since here we have just 10 frames, we will set it to 0.5.
+**Direction AutoCorrelation**. The `DiAutoCor()` function automatically computes
+the angular persistence across several sequantial time intervals. Usually, the
+`sLAG` argument is recommended to be set to 0.25 but since here we have just 10
+frames, we will set it to 0.5.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 rmTD <- DiAutoCor(rmTD, TimeInterval=10,
@@ -505,12 +604,15 @@ rmTD <- DiAutoCor(rmTD, TimeInterval=10,
                   aPLOT=TRUE, export=TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.16)
 ```
 
-**Velocity AutoCorrelation**. The `VeAutoCor()` function automatically computes the changes in both speed and direction across several sequantial time intervals. Usually the `sLAG` is recommended to be set to 0.25 but since here we have just 10 frames, we will set it to 0.5.
+**Velocity AutoCorrelation**. The `VeAutoCor()` function automatically computes
+the changes in both speed and direction across several sequantial time
+intervals. Usually the `sLAG` is recommended to be set to 0.25 but since here
+we have just 10 frames, we will set it to 0.5.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 rmTD <- VeAutoCor(rmTD, TimeInterval=10,
@@ -518,14 +620,15 @@ rmTD <- VeAutoCor(rmTD, TimeInterval=10,
                   aPLOT=TRUE, export=TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.17)
 ```
 
 #### Final Results
 
-The `FinRes()` function automatically generates a data frame that contains all the results with or without the a correlation table.
+The `FinRes()` function automatically generates a data frame that contains all
+the results with or without the a correlation table.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 rmTD <-FinRes(rmTD, ParCor=TRUE, export=TRUE)
@@ -533,21 +636,23 @@ rmTD <-FinRes(rmTD, ParCor=TRUE, export=TRUE)
 
 Below, the first 5 columns of the output data.frame are shown.
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, results='markup'}
+```{r echo=FALSE, include=TRUE, results='markup'}
 LS$step.18[, 1:5]
 ```
 
 #### Principal Component Analysis (PCA) and Cell Clustering
 
-The `CellMigPCA()` function automatically generates Principal Component Analysis based on a set of parameters selected by the user.
-The `CellMigPCAclust()` function automatically generates clusters based on the Principal Component Analysis.
+The `CellMigPCA()` function automatically generates Principal Component Analysis
+based on a set of parameters selected by the user.
+The `CellMigPCAclust()` function automatically generates clusters based on the
+Principal Component Analysis.
 
 ```{r echo=TRUE, include=TRUE, eval=FALSE}
 # PCA: you need to save this manually
 PCAplot<-CellMigPCA(rmTD,parameters=c(8,32))
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.19)
 ```
@@ -558,14 +663,16 @@ PCAclust <- CellMigPCAclust(rmTD,parameters=c(8,32),
                             export=TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.20)
 ```
 
 #### Analysis of Condition #2: Drug
 
-The following code executes the deep analysis steps for the cell tracks from the second condition of interest: cells that were subjected to an experimental treatment that is expected to increase their movements.
+The following code executes the deep analysis steps for the cell tracks from the
+second condition of interest: cells that were subjected to an experimental
+treatment that is expected to increase their movements.
 
 **Data import and prep**
 
@@ -617,12 +724,14 @@ rmDR <- FinRes(rmDR, ParCor=TRUE, export=FALSE)
 
 **Aggregate and PCA Clust**
 
-This step returns a list that includes *i)* population stats and *ii)* individual cell stats (by group).
+This step returns a list that includes *i)* population stats and
+*ii)* individual cell stats (by group).
 
 ```{r eval=TRUE, echo=TRUE, include=TRUE, warning=FALSE, fig.keep='none'}
 AGG <- aggregateFR(rmTD, rmDR, export=TRUE)
 ```
-**Note**: the metrics that are available after data aggregation can be obtained using the `getAvailableAggrMetrics()` function.
+**Note**: the metrics that are available after data aggregation can be obtained
+using the `getAvailableAggrMetrics()` function.
 
 ```{r}
 # Header of available metrics
@@ -653,25 +762,29 @@ CellMigPCAclustALL (AGG, ExpName="Aggregated_Conditions",
                     parameters= c(8,32), export=TRUE)
 ```
 
-```{r eval = TRUE, echo = FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
+```{r echo=FALSE, include=TRUE, fig.width=6, fig.height=5, fig.align='center'}
 grid::grid.newpage()
 grid::grid.raster(LS$step.21)
 ```
 
 #### Getters
 
-A series of getter functions allow retrieving data and intermediates from a `CellMig` object. Some examples are shown below.
+A series of getter functions allow retrieving data and intermediates from a
+`CellMig` object. Some examples are shown below.
 
 **VeAutoCor**
 
-The *VeAutoCor* function automatically computes the changes in both speed and direction across several sequential time intervals
+The *VeAutoCor* function automatically computes the changes in both speed and
+direction across several sequential time intervals
 
 ```{r eval=FALSE, echo=TRUE, include=TRUE}
 getVACtable(rmTD)
 ```
 **Directionality Ratio**
 
-Directionality Ratio is the displacement divided by the total length of the total path distance, where displacement is the straight line length between the start point and the endpoint of the migration trajectory
+Directionality Ratio is the displacement divided by the total length of the
+total path distance, where displacement is the straight line length between
+the start point and the endpoint of the migration trajectory
 
 ```{r eval=FALSE, echo=TRUE, include=TRUE}
 getDiRatio(rmTD)
@@ -679,7 +792,9 @@ getDiRatio(rmTD)
 
 **Mean Square Displacement**
 
-The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time
+The MSD function automatically computes the mean square displacements across
+several sequential time intervals. MSD parameters are used to assess the area
+explored by cells over time
 
 ```{r eval=FALSE, echo=TRUE, include=TRUE}
 getMSDtable(rmTD)
@@ -691,4 +806,5 @@ getMSDtable(rmTD)
 sessionInfo()
 ```
 
-**Success!** For questions about `cellmigRation`, don't hesitate to email the authors or the maintainer.
+**Success!** For questions about `cellmigRation`, don't hesitate to email the
+authors or the maintainer.
