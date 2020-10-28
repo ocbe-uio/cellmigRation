@@ -9,20 +9,24 @@ CentroidArray(stack, lobject, threshold)
 \arguments{
 \item{stack}{3D matrix loaded to workspace from .tif stack}
 
-\item{lobject}{Integer length in pixels somewhat larger than a typical object}
+\item{lobject}{Integer length in pixels somewhat larger
+than a typical object}
 
-\item{threshold}{the minimum brightness of a pixel that might be local maxima}
+\item{threshold}{the minimum brightness of a pixel that might be
+local maxima}
 }
 \value{
-data.frame of centroids, with 4 columns corresponding to x-position of centroid,
-y-postion of centroid, brightness, and square of the radius of gyration
+data.frame of centroids, with 4 columns corresponding to
+x-position of centroid,
+y-postion of centroid, brightness, and square of the radius
+of gyration
 }
 \description{
-Create an array containing centroid data for particles identified in each frame
-of the imported TIFF image stack
+Create an array containing centroid data for particles identified
+in each frame of the imported TIFF image stack
 }
 \examples{
-message("the following example may take up to several minutes to run")
+# the following example may take up to several minutes to run
 \dontrun{
 x0 <- cellmigRation::TrackCellsDataset@images
 y0 <- cellmigRation:::CentroidArray(x0, 16, 10)

@@ -6,12 +6,14 @@
 
 #' The trackedCells Class.
 #'
-#' An S4 class to represent a set of cells whose movements were tracked
+#' An S4 class to represent a set of cells whose movements were
+#' tracked
 #' over time.
 #'
 #' @slot images is a list of imported images
 #' @slot proc_images is a list of processed images
-#' @slot ops is a list keeping track of the operations executed on the object
+#' @slot ops is a list keeping track of the operations executed on
+#' the object
 #' @slot optimized is a list including results of the params
 #' auto-optimization (optional)
 #' @slot centroids is a list of detected centroids
@@ -62,16 +64,21 @@ trackedCells <- setClass(
 
 #' The CellMig Class.
 #'
-#' The CellMig class represents objects storing all information for both
-#' random migration (RM) and wound scratch assay (WSA). It comprises 14 slots.
+#' The CellMig class represents objects storing all information for
+#' both
+#' random migration (RM) and wound scratch assay (WSA). It comprises
+#' 14 slots.
 #'
 #' @slot trajdata The raw trajectory data matrix organized into
-#' four columns: cell ID, X coordinates, Y coordinates and Track number,
+#' four columns: cell ID, X coordinates, Y coordinates and Track
+#' number,
 #' which is the track's path order.
 #' @slot adjDS A data frame of the trajectory data passed
 #' from the WSAprep function.
-#' @slot cellpos A binary vector showing on which side of the wound cells
-#' are located. "0" refers to a cell located above the wound whereas "1"
+#' @slot cellpos A binary vector showing on which side of the wound
+#' cells
+#' are located. "0" refers to a cell located above the wound whereas
+#' "1"
 #' refers to a cell located below the wound.
 #' @slot parE A numeric vector contains estimations for the
 #' imageH, woundH, upperE and lowerE.
@@ -79,7 +86,8 @@ trackedCells <- setClass(
 #' shows the trajectories of a single cell.
 #' @slot DRtable A data frame of the results of running the
 #' DiRatio() function.
-#' @slot MSDtable A data frame of the results of running the MSD() function.
+#' @slot MSDtable A data frame of the results of running the MSD()
+#' function.
 #' @slot PerAanSpeedtable A data frame of the results of running
 #' the PerAndSpeed() function.
 #' @slot DACtable A data frame of the results of running
@@ -88,10 +96,12 @@ trackedCells <- setClass(
 #' the VeAutoCor() function.
 #' @slot ForMigtable A data frame of the results of running
 #' the ForwardMigration() function.
-#' @slot FMItable A data frame of the results of running the FMI() function.
+#' @slot FMItable A data frame of the results of running the FMI()
+#' function.
 #' @slot results A data frame of all the results.
 #' @slot parCor A data frame for Parameters Correlation.
-#' @slot meta A list including experiment name, meta data and other information.
+#' @slot meta A list including experiment name, meta data and other
+#' information.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #'

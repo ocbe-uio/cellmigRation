@@ -13,7 +13,9 @@ NextOdd(x)
 a vector of class integer
 }
 \description{
-Returns the smallest odd number bigger than the number(s) provided as the argument
+Returns the smallest odd number bigger than the number(s) provided
+as
+the argument
 }
 \examples{
 cellmigRation:::NextOdd(2:5)

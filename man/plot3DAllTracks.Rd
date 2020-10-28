@@ -7,7 +7,8 @@
 plot3DAllTracks(object, VS = 3, size = 2)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list
+of data frames resulted from the PreProcessing.}
 
 \item{VS}{A numeric value of the vertical separator between cells.}
 
@@ -20,7 +21,9 @@ A 3D rose-plot showing the tracks of all cells.
 Plotting the trajectory data of all cells in 3D.
 }
 \details{
-The 3D visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+The 3D visualization shows centered trajectories where
+the starting point of each track is located at the origin
+of the coordinate system (X=0,Y=0).
 }
 \examples{
 \dontrun{

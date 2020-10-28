@@ -7,17 +7,22 @@
 CellMigPCAclust(object, parameters = c(1, 2, 3), export = FALSE)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of data
+frames resulted from the PreProcessing.}
 
-\item{parameters}{A numeric vector contains the parameters to be included in the Principal Component Analysis. These numbers can be obtained from the outcome of the FinRes() function.}
+\item{parameters}{A numeric vector contains the parameters to be
+included in the Principal Component Analysis. These numbers can
+be obtained from the outcome of the FinRes() function.}
 
-\item{export}{if `TRUE` (default), exports function output to CSV file}
+\item{export}{if `TRUE` (default), exports function output to
+CSV file}
 }
 \value{
 PCA Graph of cells and PCA Graph of variables.
 }
 \description{
-The CellMigPCAclust function automatically generates clusters based on the Principal Component Analysis.
+The CellMigPCAclust function automatically generates
+clusters based on the Principal Component Analysis.
 }
 \examples{
 # Please run this example in an interactive session!

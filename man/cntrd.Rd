@@ -11,19 +11,25 @@ cntrd(im, mx, sz, interactive = NULL)
 
 \item{mx}{location of local maxima to pixel-levels accuracy}
 
-\item{sz}{diameter of the window over which to average to calculate the centroid. should be big enough.}
+\item{sz}{diameter of the window over which to average to calculate
+the centroid. should be big enough.}
 
-\item{interactive}{numeric; if set to 1 (or any positive number), an image showing the
+\item{interactive}{numeric; if set to 1 (or any positive number),
+an image showing the
 computed centroids will be visualized}
 }
 \value{
-a data.frame with 4 columns, containing, x, y, brightness, and
+a data.frame with 4 columns, containing, x, y, brightness,
+and
 the square of the radius of gyration for each cell.
 }
 \description{
-Calculates the centroid of bright spots to sub-pixel accuracy. Inspired by Grier &
-Crocker's feature for IDL, but greatly simplified and optimized for matlab, and then
-further ported to R. CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
+Calculates the centroid of bright spots to sub-pixel accuracy.
+Inspired by Grier &
+Crocker's feature for IDL, but greatly simplified and optimized for
+MATLAB, and then
+further ported to R.
+CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
 }
 \examples{
 message("the following example may take up to one minute to run")

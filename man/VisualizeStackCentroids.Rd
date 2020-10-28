@@ -30,7 +30,8 @@ VisualizeStackCentroids(
 None
 }
 \description{
-Visualize objects that were identified as cells in a given image stack
+Visualize objects that were identified as cells in a given image
+stack
 }
 \examples{
 message("The following example will take few min to complete")

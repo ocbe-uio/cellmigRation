@@ -9,17 +9,23 @@ MigrationStats(tracks, interval_time, pixel_micron)
 \arguments{
 \item{tracks}{data.frame with cell tracks information}
 
-\item{interval_time}{integer, time interval between two successive frames were taken}
+\item{interval_time}{integer, time interval between two successive
+frames were taken}
 
-\item{pixel_micron}{integer, image resolution, i.e. number of pixels per micron}
+\item{pixel_micron}{integer, image resolution, i.e. number of
+pixels
+per micron}
 }
 \value{
-list of stats calculated for the cell tracks. Info include variables of speed,
-distance, euclidean displacement, persistence, angular displacement,
+list of stats calculated for the cell tracks.
+Info include variables of speed,
+distance, euclidean displacement, persistence, angular
+displacement,
 yFMI, xFMI, y-displacement, x-displacement and frames
 }
 \description{
-Calculate the statistics from X/Y positional data obtained from cell tracks
+Calculate the statistics from X/Y positional data obtained from
+cell tracks
 }
 \examples{
 x0 <- cbind(

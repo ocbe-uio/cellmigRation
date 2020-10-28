@@ -7,13 +7,16 @@
 getForMigtable(object)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 }
 \value{
-A data frame inclusing values of the forward migration analysis.
+A data frame inclusing values of the forward migration
+analysis.
 }
 \description{
-The ForwardMigration function automatically generates data and plots for forward persistence and speed.
+The ForwardMigration function automatically generates
+data and plots for forward persistence and speed.
 }
 \examples{
 data(WSADataset)

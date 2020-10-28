@@ -10,7 +10,8 @@ getImageStacks(tc_obj)
 \item{tc_obj}{a \code{trackedCells} object}
 }
 \value{
-a list including stack images (formatted as numeric matrices)
+a list including stack images (formatted as numeric
+matrices)
 }
 \description{
 Extract Images Stacks from a trackedCells object

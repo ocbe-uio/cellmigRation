@@ -18,31 +18,48 @@ MSD(
 )
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list
+of data frames resulted from the PreProcessing.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+\item{TimeInterval}{A numeric value of the time elapsed between
+successive frames in the time-lapse stack.}
 
-\item{sLAG}{A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.}
+\item{sLAG}{A numeric value to be used to get the number of lags
+for the slope fitting. Default is 0.25, which represents 25 percent
+of the steps.}
 
-\item{ffLAG}{A numeric value to be used to get the number of lags for the  Furth formula fitting. Default is 0.25, which represents 25 percent of the steps.}
+\item{ffLAG}{A numeric value to be used to get the number of lags
+for the  Furth formula fitting. Default is 0.25, which represents
+25 percent of the steps.}
 
-\item{SlopePlot}{A logical vector that allows generating individual plots showing the slope of the mean square displacement of the movement of individual cells. Default is TRUE.}
+\item{SlopePlot}{A logical vector that allows generating individual
+plots showing the slope of the mean square displacement of the
+movement of individual cells. Default is TRUE.}
 
-\item{AllSlopesPlot}{A logical vector that allows generating a plot showing the slope of the mean square displacement of the movement of all cells. Default is TRUE.}
+\item{AllSlopesPlot}{A logical vector that allows generating a plot
+showing the slope of the mean square displacement of the movement of
+all cells. Default is TRUE.}
 
-\item{FurthPlot}{A logical vector that allows generating individual plots fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method per cell. Default is TRUE.}
+\item{FurthPlot}{A logical vector that allows generating individual
+plots fitting the Furth formula using generalized regression by the
+Nelder–Mead method simplex method per cell. Default is TRUE.}
 
-\item{AllFurthPlot}{A logical vector that allows generating a plot fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method for all cells. Default is TRUE.}
+\item{AllFurthPlot}{A logical vector that allows generating a plot
+fitting the Furth formula using generalized regression by the
+Nelder–Mead method simplex method for all cells. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output}
 
 \item{ExpName}{string, anem of the Experiment. Can be NULL}
 }
 \value{
-An CellMig class object with a data frame and plots. The data frame is stored in the MSDtable slot.
+An CellMig class object with a data frame and plots.
+The data frame is stored in the MSDtable slot.
 }
 \description{
-The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
+The MSD function automatically computes the mean
+square displacements across several sequential time intervals.
+ MSD parameters are used to assess the area explored by cells over time.
 }
 \examples{
 data(TrajectoryDataset)

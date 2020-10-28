@@ -13,7 +13,8 @@ plotAllTracks(
 )
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list
+of data frames resulted from the PreProcessing.}
 
 \item{Type}{has to be one of the following: c("p", "l", "b", "o")
 "p": Points
@@ -21,7 +22,8 @@ plotAllTracks(
 "b": Both
 "o": Both "overplotted"}
 
-\item{FixedField}{logical(1) Allows generating a plot with fixed field 800um x 800um. Default is TRUE.}
+\item{FixedField}{logical(1) Allows generating a plot with
+fixed field 800um x 800um. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports plot to JPG file}
 
@@ -34,7 +36,9 @@ A 2D rose-plot showing the tracks of all cells.
 Plotting the trajectory data of all cells.
 }
 \details{
-The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+The visualization shows centered trajectories where
+the starting point of each track is located at the origin
+of the coordinate system (X=0,Y=0).
 }
 \examples{
 data(TrajectoryDataset)

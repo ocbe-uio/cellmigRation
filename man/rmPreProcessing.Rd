@@ -15,11 +15,15 @@ rmPreProcessing(
 \arguments{
 \item{object}{\code{CellMig} class object.}
 
-\item{PixelSize}{A numeric value of the physical size of a pixel. Default is 1.24.}
+\item{PixelSize}{A numeric value of the physical size of a pixel.
+Default is 1.24.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack. Default is 10 min.}
+\item{TimeInterval}{A numeric value of the time elapsed
+between successive frames in the time-lapse stack. Default is
+10 min.}
 
-\item{FrameN}{A numeric value of the number of frames. Default is NULL}
+\item{FrameN}{A numeric value of the number of frames.
+Default is NULL}
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }
@@ -27,7 +31,8 @@ rmPreProcessing(
 An CellMig class object with preprocessed data.
 }
 \description{
-This function allows preprocessing of the trajectory data from random
+This function allows preprocessing of the trajectory
+data from random
 migration (RM) experiments.
 }
 \examples{

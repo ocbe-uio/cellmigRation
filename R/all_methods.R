@@ -106,7 +106,8 @@ setMethod("show", signature(object = "trackedCells"),
 #' @rdname CellMig-class
 #' @param .Object the CellMig object being built
 #' @param trajdata data frame including trajectory data
-#' @param expName string (character vector of length of 1) with the name
+#' @param expName string (character vector of length of 1) with the
+#' name
 #' of the experiment
 #' @aliases initialize,CellMig-method
 #' @import methods

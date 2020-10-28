@@ -7,13 +7,17 @@
 getMSDtable(object)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of data
+frames resulted from the PreProcessing.}
 }
 \value{
 A data frame of MSD values.
 }
 \description{
-The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
+The MSD function automatically computes the
+mean square displacements across several sequential time intervals.
+MSD parameters are used to assess the area explored by cells over
+time.
 }
 \examples{
 data(TrajectoryDataset)

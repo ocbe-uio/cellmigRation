@@ -7,19 +7,24 @@
 FMI(object, TimeInterval = 10, export = FALSE, ExpName = NULL)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+\item{TimeInterval}{A numeric value of the time elapsed between
+successive frames in the time-lapse stack.}
 
-\item{export}{if `TRUE` (default), exports function output to CSV file}
+\item{export}{if `TRUE` (default), exports function output to
+CSV file}
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }
 \value{
-An CellMig class Object with a data frame. The data frame is stored in the FMItable slot.
+An CellMig class Object with a data frame. The data
+frame is stored in the FMItable slot.
 }
 \description{
-The FMI function automatically generates data for the forward migration index
+The FMI function automatically generates data for
+the forward migration index
 }
 \examples{
 data(WSADataset)

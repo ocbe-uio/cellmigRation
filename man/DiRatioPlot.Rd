@@ -7,9 +7,11 @@
 DiRatioPlot(object, TimeInterval = 10, export = FALSE, ExpName = NULL)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list
+of data frames resulted from the PreProcessing.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+\item{TimeInterval}{A numeric value of the time elapsed between
+successive frames in the time-lapse stack.}
 
 \item{export}{if `TRUE` (default), exports plot to JPG file}
 
@@ -19,7 +21,10 @@ DiRatioPlot(object, TimeInterval = 10, export = FALSE, ExpName = NULL)
 Directionality Ratio plots
 }
 \description{
-Directionality Ratio is the displacement divided by the total length of the total path distance, where displacement is the straightline length between the start point and the endpoint of the migration trajectory,
+Directionality Ratio is the displacement divided
+by the total length of the total path distance, where displacement
+is the straightline length between the start point and the endpoint
+of the migration trajectory,
 }
 \details{
 Directionality Ratio

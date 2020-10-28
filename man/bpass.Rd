@@ -7,25 +7,38 @@
 bpass(image_array, lnoise, lobject = NULL, threshold)
 }
 \arguments{
-\item{image_array}{Numeric matrix corresponding to the image to be filtered}
+\item{image_array}{Numeric matrix corresponding to the image to be
+filtered}
 
 \item{lnoise}{Characteristic lengthscale of noise in pixels.}
 
-\item{lobject}{Integer length in pixels somewhat larger than a typical object}
+\item{lobject}{Integer length in pixels somewhat larger than
+a typical object}
 
-\item{threshold}{By default, after the convolution, any negative pixels are reset to 0.
-Threshold changes the threshhold for setting pixels to 0. Positive values may be useful for removing
+\item{threshold}{By default, after the convolution, any negative
+pixels
+are reset to 0. Threshold changes the threshhold for setting
+pixels
+to 0. Positive values may be useful for removing
 stray noise or small particles.}
 }
 \value{
 Numeric matrix corresponding to the filtered image
 }
 \description{
-Implements a real-space bandpass filter that suppresses pixel noise and long-wavelength
-image variations while retaining information of a characteristic size.
-First, a lowpassed image is produced by convolving the original with a gaussian.
-Next, a second lowpassed image is produced by convolving the original with a
-boxcar function. By subtracting the boxcar version from the gaussian version,
+Implements a real-space bandpass filter that suppresses pixel noise
+and
+long-wavelength
+image variations while retaining information of a characteristic
+size.
+First, a lowpassed image is produced by convolving the original
+with
+a gaussian.
+Next, a second lowpassed image is produced by convolving the
+original
+with a
+boxcar function. By subtracting the boxcar version from
+the gaussian version,
 we are using the boxcar version to perform a highpass.
 This code 'bpass.pro' is copyright 1997, John C. Crocker and
 David G. Grier.  It should be considered 'freeware'- and may be
@@ -49,7 +62,9 @@ x0 <- cbind(
   c(0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0),
   c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
   c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-y0 <- cellmigRation:::bpass(x0, lnoise = 1, lobject = 5, threshold = 1)
+y0 <- cellmigRation:::bpass(
+  x0, lnoise = 1, lobject = 5, threshold = 1
+)
 par(mfrow = c(1, 2))
 image(x0); title("original")
 image(y0); title("after bpass")

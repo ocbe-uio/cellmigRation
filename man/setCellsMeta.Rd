@@ -9,14 +9,18 @@ setCellsMeta(tc_obj, experiment = NULL, condition = NULL, replicate = NULL)
 \arguments{
 \item{tc_obj}{a \code{trackedCells} object}
 
-\item{experiment}{string, a label to describe the experiment (optional). Can be NULL}
+\item{experiment}{string, a label to describe the experiment
+(optional). Can be NULL}
 
-\item{condition}{string, a label to describe the experimental condition (optional). Can be NULL}
+\item{condition}{string, a label to describe the experimental
+condition (optional). Can be NULL}
 
-\item{replicate}{string, a label to identify the replicate (optional). Can be NULL}
+\item{replicate}{string, a label to identify the replicate
+(optional). Can be NULL}
 }
 \value{
-a list including three items: experiment name, condition label, and replicate ID.
+a list including three items: experiment name, condition label,
+and replicate ID.
 }
 \description{
 Write/Replace MetaData of a trackedCells object

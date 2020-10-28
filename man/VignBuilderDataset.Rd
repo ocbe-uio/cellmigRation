@@ -11,7 +11,8 @@ a list including 21 elements
 data(VignBuilderDataset)
 }
 \description{
-Intermediates and Results from Cell Tracking Analyses, used to build the package vignette.
+Intermediates and Results from Cell Tracking Analyses,
+used to build the package vignette.
 }
 \examples{
 data(VignBuilderDataset)

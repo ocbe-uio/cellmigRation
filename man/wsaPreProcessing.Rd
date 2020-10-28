@@ -23,9 +23,11 @@ wsaPreProcessing(
 
 \item{PixelSize}{A numeric value of the physical size of a pixel.}
 
-\item{TimeInterval}{A numeric value of the time elapsed between successive frames in the time-lapse stack.}
+\item{TimeInterval}{A numeric value of the time elapsed between
+successive frames in the time-lapse stack.}
 
-\item{FrameN}{A numeric value of the number of frames. Default is NULL}
+\item{FrameN}{A numeric value of the number of frames. Default
+is NULL}
 
 \item{imageH}{A numeric value of the image height.}
 
@@ -35,17 +37,22 @@ wsaPreProcessing(
 
 \item{lowerE}{A numeric value of the lower edge of the wound.}
 
-\item{mar}{A numeric value of the margin to be used to narrow the clearing zone inside the zone.}
+\item{mar}{A numeric value of the margin to be used to narrow
+the clearing zone inside the zone.}
 
-\item{clearW}{A logical vector that allows removing the cells within the wound. Default is TRUE.}
+\item{clearW}{A logical vector that allows removing the cells
+within the wound. Default is TRUE.}
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }
 \value{
-An CellMig class object with filtered, annotated and preprocessed data.
+An CellMig class object with filtered, annotated
+and preprocessed data.
 }
 \description{
-This function allows filtering of cells and preprocessing of the trajectory data from wound scratch assay (WSA) experiments.
+This function allows filtering of cells and
+preprocessing
+of the trajectory data from wound scratch assay (WSA) experiments.
 }
 \examples{
 

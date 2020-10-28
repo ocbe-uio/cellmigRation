@@ -38,7 +38,10 @@ Annotates centroids over an image
 \examples{
 x1 <- data.frame(row = c(50, 80, 20, 65, 99),
                  col = c(15, 25, 50, 65, 86))
-plot(2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "", las = 2)
+plot(
+  2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "",
+  las = 2
+)
 cellmigRation:::VisualizeCntr(x1, width_px = 100, height_px = 100)
 
 

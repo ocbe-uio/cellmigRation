@@ -21,26 +21,36 @@ OptimizeParams(
 \arguments{
 \item{tc_obj}{a \code{trackedCells} object}
 
-\item{lnoise_range}{numeric vector of lnoise values to be used in the optimization step. Can be NULL}
+\item{lnoise_range}{numeric vector of lnoise values to be used
+in the optimization step. Can be NULL}
 
 \item{min.px.diam}{integer, minimum diameter of a particle (cell).
 Particles with a diameter smaller than min.px.diam are discarded}
 
-\item{diameter_range}{numeric vector of diameter values to be used in the optimization step. Can be NULL}
+\item{diameter_range}{numeric vector of diameter values to be used
+in the optimization step. Can be NULL}
 
-\item{threshold_range}{numeric vector of threshold values to be used in the optimization step. Can be NULL}
+\item{threshold_range}{numeric vector of threshold values to be
+used
+in the optimization step. Can be NULL}
 
-\item{target_cell_num}{integer, the expected (optimal) number of cells to be detected in each frame}
+\item{target_cell_num}{integer, the expected (optimal) number of
+cells
+to be detected in each frame}
 
 \item{threads}{integer, number of cores to use for parallelization}
 
-\item{quantile.val}{numeric, argument passed to EstimateDiameterRange(). If NULL, it is defaulted to 0.99}
+\item{quantile.val}{numeric, argument passed to
+EstimateDiameterRange(). If NULL, it is defaulted to 0.99}
 
-\item{px.margin}{numeric, argument passed to EstimateDiameterRange(). If NULL, it ia defaulted to 2}
+\item{px.margin}{numeric, argument passed to
+EstimateDiameterRange(). If NULL, it ia defaulted to 2}
 
 \item{plot}{if `TRUE`, plots results in the end}
 
-\item{verbose}{shall information about the progress of the operation be printed to screen/console}
+\item{verbose}{shall information about the progress of the
+operation
+be printed to screen/console}
 }
 \value{
 a trackedCells object
@@ -49,21 +59,33 @@ a trackedCells object
 Optimize Detection Parameters for running a cell tracking job
 }
 \details{
-The lnoise param is used to guide a lowpass blurring operation, while the lobject param is used
-to guide a highpass background subtraction. The threshold param is used for a background correction following
+The lnoise param is used to guide a lowpass blurring
+operation,
+while the lobject param is used
+to guide a highpass background subtraction. The threshold param
+is used for a background correction following
 the initial image convolution
 \itemize{
 
-  \item \strong{lnoise}: Characteristic lengthscale of noise in pixels.
-  Additive noise averaged over this length should vanish. May assume any positive floating value.
-  May be also set to 0, in which case only the highpass "background subtraction" operation is performed.
+  \item \strong{lnoise}: Characteristic lengthscale of noise in
+  pixels.
+  Additive noise averaged over this length should vanish. May
+  assume
+  any positive floating value.
+  May be also set to 0, in which case only the highpass
+  "background subtraction" operation is performed.
 
-  \item \strong{lobject} Integer length in pixels somewhat larger than a typical object.
-  Can also be set to 0, in which case only the lowpass "blurring" operation defined by lnoise is done
+  \item \strong{lobject} Integer length in pixels somewhat larger
+  than a typical object.
+  Can also be set to 0, in which case only the lowpass "blurring"
+  operation defined by lnoise is done
   without the background subtraction defined by lobject
 
-  \item \strong{threshold} Numeric. By default, after the convolution, any negative pixels are reset
-  to 0.  Threshold changes the threshhold for setting pixels to 0.  Positive values may be useful
+  \item \strong{threshold} Numeric. By default, after the
+  convolution,
+  any negative pixels are reset
+  to 0.  Threshold changes the threshhold for setting pixels to 0.
+  Positive values may be useful
   for removing stray noise or small particles.
 
 }

@@ -6,7 +6,8 @@
 
 #' Return the Next Odd Integer
 #'
-#' Returns the smallest odd number bigger than the number(s) provided as
+#' Returns the smallest odd number bigger than the number(s) provided
+#' as
 #' the argument
 #'
 #' @param x a vector of class numeric
@@ -123,7 +124,8 @@ AddDimension <- function(x, y) {
 
 #' Make Hypercube
 #'
-#' Creates a Molten Hypercube with a user-defined number of dimensions.
+#' Creates a Molten Hypercube with a user-defined number of
+#' dimensions.
 #' The values supplied by the user are used to fill each dimension.
 #' All possible combination of values are included in
 #' the resulting hyper cube.
@@ -192,14 +194,18 @@ matfix <- function(x) {
 
 #' Linear Convolution of a Numeric Matrix
 #'
-#' Performs a linear convoltion of a Numeric Matrix, using a user-supplied
-#' linear kernel. The convolution can be executed in a column-wise fashion
+#' Performs a linear convoltion of a Numeric Matrix, using a
+#' user-supplied
+#' linear kernel. The convolution can be executed in a column-wise
+#' fashion
 #' by setting the col.wise argument to TRUE. Alternatively,
 #' the convolution is performed in a row-wise fashion.
 #'
-#' @param x numeric matrix that will be used as input for the convoltion;
+#' @param x numeric matrix that will be used as input for the
+#' convoltion;
 #' this matrix typically corresponds to an image where signal
-#' (high values) indicates the presence of a cell or a cell-like particle
+#' (high values) indicates the presence of a cell or a cell-like
+#' particle
 #' @param krnl numeric vector corresponding to the kernel
 #' that will be used for the convolution. Briefly, the kernel
 #' includes the weights that will be used to compute a weighted sum
@@ -324,7 +330,8 @@ VisualizeImg <- function(img_mtx, col = NULL, ...)
 
 #' Visualize Cells in an Image Stack
 #'
-#' Visualize objects that were identified as cells in a given image stack
+#' Visualize objects that were identified as cells in a given image
+#' stack
 #'
 #' @param tc_obj a \code{trackedCells} object
 #' @param stack index of the image stack to use
@@ -389,7 +396,10 @@ VisualizeStackCentroids <- function(tc_obj, stack = 1,
 #' @examples
 #' x1 <- data.frame(row = c(50, 80, 20, 65, 99),
 #'                  col = c(15, 25, 50, 65, 86))
-#' plot(2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "", las = 2)
+#' plot(
+#'   2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "",
+#'   las = 2
+#' )
 #' cellmigRation:::VisualizeCntr(x1, width_px = 100, height_px = 100)
 #'
 #'
@@ -428,7 +438,8 @@ VisualizeCntr <- function(centroids, width_px, height_px, pnt.cex = 1.2,
 #' @param pnt.cex cex of the point drawn around each cell
 #' @param lwd width of the lines visualizing cell tracks
 #' @param col color of the points and the tracks, e.g.: "red2"
-#' @param col.untracked color of the points that were not tracked further,
+#' @param col.untracked color of the points that were not tracked
+#' further,
 #' e.g.: "gray45"
 #' @param main string used as plot title, can be NULL
 #'
@@ -531,7 +542,10 @@ visualizeCellTracks <- function(tc_obj, stack = 1,
 #'                  c(22, 28, 35, 24, 31, 39, 65, 73),
 #'                  c( 1,  2,  3,  4,  5,  6,  7,  8),
 #'                  c( 1,  1,  1,  1,  1,  1,  1,  1))
-#' plot(2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "", las = 2)
+#' plot(
+#'   2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "",
+#'   las = 2
+#' )
 #' cellmigRation:::visualizeTrcks(x1, width_px = 100, height_px = 100)
 #'
 #'
@@ -583,11 +597,15 @@ visualizeTrcks <- function(
 #' to be tracked
 #'
 #' @param tiff_file path to a TIFF file to be read in
-#' @param experiment string, a label to describe the experiment (optional)
-#' @param condition string, a label to describe the experimental condition
-#' @param replicate string, a label to identify the replicate (optional)
+#' @param experiment string, a label to describe the experiment
+#' (optional)
+#' @param condition string, a label to describe the experimental
+#' condition
+#' @param replicate string, a label to identify the replicate
+#' (optional)
 #'
-#' @note `experiment`, `condition` and `replicate` are optional arguments
+#' @note `experiment`, `condition` and `replicate` are optional
+#' arguments
 #' and can be NULL.
 #'
 #' @return a trackedCells object
@@ -599,7 +617,8 @@ visualizeTrcks <- function(
 #'
 #' @examples
 #' \dontrun{
-#' # Let `path/to/tiff_file.tiff` be the path to tiff file we want to import
+#' # Let `path/to/tiff_file.tiff` be the path to tiff file we want to
+#' import
 #' x <- LoadTiff(tiff_file = "path/to/tiff_file.tiff")
 #' }
 #'
@@ -688,7 +707,8 @@ LoadTiff <- function(
 #' A figure containing current image frame with identified particles
 #' labeled with circles and numerical tags is generated. This function
 #' is included for consistency and compatibility reasons
-#' with the original fastTracks software (Matlab). Also, consider using
+#' with the original fastTracks software (Matlab). Also, consider
+#' using
 #' VisualizeStackCentroids() or visualizeCellTracks() instead.
 #'
 #' @param stack stack of images to be evaluated
@@ -697,7 +717,8 @@ LoadTiff <- function(
 #' a typical object (cell)
 #' @param threshold the minimum brightness of a pixel that might
 #' be local maxima. NOTE:
-#' Make it big and the code runs faster but you might miss some particles.
+#' Make it big and the code runs faster but you might miss some
+#' particles.
 #' Make it small and you'll get everything and it'll be slow.
 #' @param pnt.cex cex of the circle drawn around each cell
 #' @param txt.cex cex of the text used for annotating cells
@@ -714,8 +735,10 @@ LoadTiff <- function(
 #' message("the following example may take up to one minute to run")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
-#' y <- cellmigRation:::CentroidValidation(stack = x@@images, slice = 1,
-#'                                         lobject = 6, threshold = 20)
+#' y <- cellmigRation:::CentroidValidation(
+#'   stack = x@@images, slice = 1,
+#'   lobject = 6, threshold = 20
+#' )
 #' y[1:10,]
 #' }
 #'
@@ -765,12 +788,16 @@ CentroidValidation <- function(stack, slice, lobject, threshold,
 
 #' Perform a bandpass by convolving with an appropriate kernel
 #'
-#' Implements a real-space bandpass filter that suppresses pixel noise and
+#' Implements a real-space bandpass filter that suppresses pixel noise
+#' and
 #' long-wavelength
-#' image variations while retaining information of a characteristic size.
-#' First, a lowpassed image is produced by convolving the original with
+#' image variations while retaining information of a characteristic
+#' size.
+#' First, a lowpassed image is produced by convolving the original
+#' with
 #' a gaussian.
-#' Next, a second lowpassed image is produced by convolving the original
+#' Next, a second lowpassed image is produced by convolving the
+#' original
 #' with a
 #' boxcar function. By subtracting the boxcar version from
 #' the gaussian version,
@@ -779,12 +806,15 @@ CentroidValidation <- function(stack, slice, lobject, threshold,
 #' David G. Grier.  It should be considered 'freeware'- and may be
 #' distributed freely in its original form when properly attributed.
 #'
-#' @param image_array Numeric matrix corresponding to the image to be filtered
+#' @param image_array Numeric matrix corresponding to the image to be
+#' filtered
 #' @param lnoise Characteristic lengthscale of noise in pixels.
 #' @param lobject Integer length in pixels somewhat larger than
 #' a typical object
-#' @param threshold By default, after the convolution, any negative pixels
-#' are reset to 0. Threshold changes the threshhold for setting pixels
+#' @param threshold By default, after the convolution, any negative
+#' pixels
+#' are reset to 0. Threshold changes the threshhold for setting
+#' pixels
 #' to 0. Positive values may be useful for removing
 #' stray noise or small particles.
 #'
@@ -813,7 +843,9 @@ CentroidValidation <- function(stack, slice, lobject, threshold,
 #'   c(0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0),
 #'   c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 #'   c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-#' y0 <- cellmigRation:::bpass(x0, lnoise = 1, lobject = 5, threshold = 1)
+#' y0 <- cellmigRation:::bpass(
+#'   x0, lnoise = 1, lobject = 5, threshold = 1
+#' )
 #' par(mfrow = c(1, 2))
 #' image(x0); title("original")
 #' image(y0); title("after bpass")
@@ -837,8 +869,6 @@ bpass <- function(image_array, lnoise, lobject = NULL, threshold)
   gconv <- LinearConv2(t(image_array), gaussian_kernel)
   gconv <- LinearConv2(t(gconv), gaussian_kernel)
 
-  #VisualizeImg(image_array, col = colorRampPalette(c("white", "red2"))(100))
-  #VisualizeImg(gconv)
 
   if (!is.null(lobject)) {
     bconv <- LinearConv2(t(image_array), boxcar_kernel)
@@ -882,7 +912,8 @@ bpass <- function(image_array, lnoise, lobject = NULL, threshold)
 #' an image showing the
 #' computed centroids will be visualized
 #'
-#' @return a data.frame with 4 columns, containing, x, y, brightness, and
+#' @return a data.frame with 4 columns, containing, x, y, brightness,
+#' and
 #' the square of the radius of gyration for each cell.
 #'
 #'
@@ -1025,11 +1056,13 @@ cntrd <- function(im, mx, sz, interactive = NULL)
 #' @param im image to process, particle should be bright spots on
 #' dark background
 #' with little noise ofen an bandpass filtered brightfield image
-#' @param th the minimum brightness of a pixel that might be local maxima.
+#' @param th the minimum brightness of a pixel that might be local
+#' maxima.
 #' NOTE: Make it big and the code runs faster but you might miss some
 #' particles.
 #' Make it small and you'll get everything and it'll be slow.
-#' @param sz if your data is noisy, (e.g. a single particle has multiple
+#' @param sz if your data is noisy, (e.g. a single particle has
+#' multiple
 #' local maxima),
 #' then set this optional keyword to a value slightly larger than
 #' the diameter of your blob.
@@ -1208,7 +1241,7 @@ pkfnd <- function(im, th, sz=NULL)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' message("the following example may take up to several minutes to run")
+#' # the following example may take up to several minutes to run
 #' \dontrun{
 #' x0 <- cellmigRation::TrackCellsDataset@@images
 #' y0 <- cellmigRation:::CentroidArray(x0, 16, 10)
@@ -1330,7 +1363,8 @@ DetectRadii <- function(x) {
 #' while searching/filtering for neighboring particles
 #' @param min.px.diam integer, minimum diameter of a particle (cell).
 #' Particles with a diameter smaller than min.px.diam are discarded
-#' @param quantile.val numeric, must be bigger than 0 and smaller than 1.
+#' @param quantile.val numeric, must be bigger than 0 and smaller
+#' than 1.
 #' Quantile for discriminating signal and background;
 #' only pixels with intensity higher than the corresponding
 #' quantile will count as signal while estimating particle diameters
@@ -1447,15 +1481,20 @@ EstimateDiameterRange <- function(x, px.margin = 2,
 
 #' Track cells
 #'
-#' Constructs n-dimensional trajectories from a scrambled list of particle
-#' coordinates determined at discrete times (e.g. in consecutive image frames)
+#' Constructs n-dimensional trajectories from a scrambled list of
+#' particle
+#' coordinates determined at discrete times (e.g. in consecutive
+#' image frames)
 #'
 #'
-#' @param xyzs an array listing the scrambled coordinates and data of the
+#' @param xyzs an array listing the scrambled coordinates and data of
+#' the
 #' different particles at different times
-#' @param maxdisp an estimate of the maximum distance that a particle would
+#' @param maxdisp an estimate of the maximum distance that a particle
+#'  would
 #' move in a single time interval
-#' @param params a list containing a few tracking parameters that are needed
+#' @param params a list containing a few tracking parameters that are
+#' needed
 #' for the analysis
 #'
 #'
@@ -2663,17 +2702,20 @@ track <- function(xyzs, maxdisp, params)
 
 #' Compute Cell Migration Statistics
 #'
-#' Calculate the statistics from X/Y positional data obtained from cell tracks
+#' Calculate the statistics from X/Y positional data obtained from
+#' cell tracks
 #'
 #' @param tracks data.frame with cell tracks information
 #' @param interval_time integer, time interval between two successive
 #' frames were taken
-#' @param pixel_micron integer, image resolution, i.e. number of pixels
+#' @param pixel_micron integer, image resolution, i.e. number of
+#' pixels
 #' per micron
 #'
 #' @return list of stats calculated for the cell tracks.
 #' Info include variables of speed,
-#' distance, euclidean displacement, persistence, angular displacement,
+#' distance, euclidean displacement, persistence, angular
+#' displacement,
 #' yFMI, xFMI, y-displacement, x-displacement and frames
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
@@ -2824,7 +2866,8 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
 
 #' Compute Tracks Stats
 #'
-#' Wrapper for the MigrationStats() function. It computes statistics for a
+#' Wrapper for the MigrationStats() function. It computes statistics
+#' for a
 #' trackedCells object where cells have already been tracked.
 #'
 #' @param tc_obj a \code{trackedCells} object
@@ -2845,7 +2888,9 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
 #' message("this example may take up to several mins to complete")
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
-#' x <- CellTracker(tc_obj = x, lnoise = 6, diameter = 16, threshold = 10)
+#' x <- CellTracker(
+#'   tc_obj = x, lnoise = 6, diameter = 16, threshold = 10
+#' )
 #' x <- ComputeTracksStats(
 #'   x, time_between_frames = 10, resolution_pixel_per_micron = 20
 #' )
@@ -2928,15 +2973,18 @@ ComputeTracksStats <- function(
 #'
 #' Optimize Detection Parameters for running a cell tracking job
 #'
-#' @details The lnoise param is used to guide a lowpass blurring operation,
+#' @details The lnoise param is used to guide a lowpass blurring
+#' operation,
 #' while the lobject param is used
 #' to guide a highpass background subtraction. The threshold param
 #' is used for a background correction following
 #' the initial image convolution
 #' \itemize{
 #'
-#'   \item \strong{lnoise}: Characteristic lengthscale of noise in pixels.
-#'   Additive noise averaged over this length should vanish. May assume
+#'   \item \strong{lnoise}: Characteristic lengthscale of noise in
+#'   pixels.
+#'   Additive noise averaged over this length should vanish. May
+#'   assume
 #'   any positive floating value.
 #'   May be also set to 0, in which case only the highpass
 #'   "background subtraction" operation is performed.
@@ -2947,7 +2995,8 @@ ComputeTracksStats <- function(
 #'   operation defined by lnoise is done
 #'   without the background subtraction defined by lobject
 #'
-#'   \item \strong{threshold} Numeric. By default, after the convolution,
+#'   \item \strong{threshold} Numeric. By default, after the
+#'   convolution,
 #'   any negative pixels are reset
 #'   to 0.  Threshold changes the threshhold for setting pixels to 0.
 #'   Positive values may be useful
@@ -2964,9 +3013,11 @@ ComputeTracksStats <- function(
 #' Particles with a diameter smaller than min.px.diam are discarded
 #' @param diameter_range numeric vector of diameter values to be used
 #' in the optimization step. Can be NULL
-#' @param threshold_range numeric vector of threshold values to be used
+#' @param threshold_range numeric vector of threshold values to be
+#' used
 #' in the optimization step. Can be NULL
-#' @param target_cell_num integer, the expected (optimal) number of cells
+#' @param target_cell_num integer, the expected (optimal) number of
+#' cells
 #' to be detected in each frame
 #' @param threads integer, number of cores to use for parallelization
 #' @param quantile.val numeric, argument passed to
@@ -2974,7 +3025,8 @@ ComputeTracksStats <- function(
 #' @param px.margin numeric, argument passed to
 #' EstimateDiameterRange(). If NULL, it ia defaulted to 2
 #' @param plot if `TRUE`, plots results in the end
-#' @param verbose shall information about the progress of the operation
+#' @param verbose shall information about the progress of the
+#' operation
 #' be printed to screen/console
 #'
 #' @return a trackedCells object
@@ -2996,7 +3048,8 @@ ComputeTracksStats <- function(
 #' @importFrom stats quantile
 #' @importFrom utils head
 #' @importFrom graphics par
-#' @importFrom parallel detectCores makeCluster clusterExport stopCluster
+#' @importFrom parallel detectCores makeCluster clusterExport
+#' stopCluster
 #' @import foreach
 #'
 #'
@@ -3407,7 +3460,8 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 
 #' Compute Cell Tracks
 #'
-#' Analyze Stacks, detect cells in each frame, and analyze cell tracks over time
+#' Analyze Stacks, detect cells in each frame, and analyze cell tracks
+#' over time
 #'
 #' @details The lnoise param is used to guide a lowpass blurring
 #' operation, while the lobject param is used
@@ -3416,7 +3470,8 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 #' the initial image convolution
 #' \itemize{
 #'
-#'   \item \strong{lnoise}: Characteristic lengthscale of noise in pixels.
+#'   \item \strong{lnoise}: Characteristic lengthscale of noise in
+#' pixels.
 #'   Additive noise averaged over this length should vanish.
 #'   May assume any positive floating value.
 #'   May be also set to 0, in which case only the highpass
@@ -3438,7 +3493,8 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 #'
 #'
 #' @param tc_obj a \code{trackedCells} object.
-#' @param import_optiParam_from a \code{trackedCells} object (optional)
+#' @param import_optiParam_from a \code{trackedCells} object
+#' (optional)
 #' used to
 #' import optimized parameters; can be NULL.
 #' @param min_frames_per_cell numeric, minimum number of consecutive
@@ -3457,7 +3513,8 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 #' should be used.
 #' @param memory_b numeric, memory_b parameter as used in
 #' the original track.m function.
-#' In the current R implementation, only the value memory_b=0 is accepted
+#' In the current R implementation, only the value memory_b=0 is
+#' accepted
 #' @param goodenough numeric, goodenough parameter as used in
 #' the original track.m function.
 #' In the current R implementation, only the value goodenough=0
@@ -3484,7 +3541,8 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 #' getTracks(x)[1:10,]
 #' }
 #'
-#' @importFrom parallel detectCores makeCluster clusterExport stopCluster
+#' @importFrom parallel detectCores makeCluster clusterExport
+#' stopCluster
 #'
 #' @export
 CellTracker <- function(tc_obj, import_optiParam_from = NULL,
@@ -4123,7 +4181,8 @@ getCellsMeta <- function(tc_obj)
 #'
 #' @param tc_obj a \code{trackedCells} object
 #'
-#' @return a list including stack images (formatted as numeric matrices)
+#' @return a list including stack images (formatted as numeric
+#' matrices)
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
@@ -4250,7 +4309,8 @@ setCellsMeta <- function(tc_obj, experiment = NULL,
 #' large data.frame. A new unique ID is assigned to specifically
 #' identify each cell track from each image/experiment.
 #'
-#' @param x a \code{trackedCells}-class object where cells have already
+#' @param x a \code{trackedCells}-class object where cells have
+#' already
 #' been tracked
 #' @param ... one or more trackedCells-class object(s) where cells
 #' have already been tracked
@@ -4261,7 +4321,8 @@ setCellsMeta <- function(tc_obj, experiment = NULL,
 #'
 #' @return An aggregate data.frame including all cells that were
 #' tracked over two or more images/experiments.
-#' The data.frame includes the following columns: "new.ID", "frame.ID",
+#' The data.frame includes the following columns: "new.ID",
+#' "frame.ID",
 #' "X", "Y", "cell.ID", "tiff_name",
 #' "experiment", "condition", "replicate". The "new.ID" uniquely
 #' identifies a cell in a given image/experiment.
@@ -4427,7 +4488,8 @@ FilterTrackedCells <- function(x, id_list,
 #'
 #' @param object \code{CellMig} class object.
 #' @param TimeInterval A numeric value of the time elapsed
-#' between successive frames in the time-lapse stack. Default is 10 min.
+#' between successive frames in the time-lapse stack. Default is
+#' 10 min.
 #' @param PixelSize A numeric value of the physical size of a pixel.
 #' Default is 1.24.
 #' @param FrameN A numeric value of the number of frames.
@@ -4741,13 +4803,15 @@ rmPreProcessing = function(object, PixelSize=1.24,
 
 #' @title Data preprocessing for wound scratch assay (WSA).
 #'
-#' @description This function allows filtering of cells and preprocessing
+#' @description This function allows filtering of cells and
+#' preprocessing
 #' of the trajectory data from wound scratch assay (WSA) experiments.
 #' @param object \code{CellMig} class object.
 #' @param TimeInterval A numeric value of the time elapsed between
 #' successive frames in the time-lapse stack.
 #' @param PixelSize A numeric value of the physical size of a pixel.
-#' @param FrameN A numeric value of the number of frames. Default is NULL
+#' @param FrameN A numeric value of the number of frames. Default
+#' is NULL
 #' @param imageH A numeric value of the image height.
 #' @param woundH A numeric value of the image height.
 #' @param upperE A numeric value of the upper edge of the wound.
@@ -5049,7 +5113,7 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   }
 
 
-  for(j in seq_along(ID_split)){              # Computing Acceleration
+  for(j in seq_along(ID_split)){ # Computing Acceleration
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     MM2<-MM-2
@@ -5348,7 +5412,8 @@ plotAllTracks= function(object, Type="l",
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
 #' plotSampleTracks(
-#'   rmTD,Type="l", FixedField=TRUE, celNum=5, export=FALSE,ExpName = NULL
+#'   rmTD,Type="l", FixedField=TRUE, celNum=5, export=FALSE,
+#'   ExpName = NULL
 #' )
 #'
 #' @importFrom grDevices rainbow jpeg dev.off
@@ -5617,13 +5682,15 @@ plot3DAllTracks= function(object, VS=3, size=2) {
 
 
 #' @title A 3D rose-plot
-#' @description Plotting the trajectory data of particular cells in 3D.
+#' @description Plotting the trajectory data of particular cells in
+#' 3D.
 #'
 #' @param object \code{CellMig} class object, which is a list of
 #' data frames resulted from the PreProcessing.
 #' @param VS A numeric value of the vertical separator between cells.
 #' @param size A numeric value of the point's size.
-#' @param cells A numeric vector containing the cell's numbers to be plotted.
+#' @param cells A numeric vector containing the cell's numbers to be
+#' plotted.
 #'
 #' @return A 3D rose-plot showing the tracks of particular cells.
 #' @details  The 3D visualization shows centered trajectories
@@ -7220,7 +7287,8 @@ MSD <- function(object, TimeInterval=10,
 #' @param aPLOT A logical vector that allows generating a plot
 #' showing the angular persistence across several sequantial time
 #' intervals of all cells. Default is TRUE.
-#' @param export if `TRUE` (default), exports function output to CSV file
+#' @param export if `TRUE` (default), exports function output to CSV
+#' file
 #' @param ExpName, string, name of the experiment. Can be NULL
 #'
 #' @return An CellMig class Object with a data frame and plots.
@@ -7844,7 +7912,8 @@ VeAutoCor = function(object, TimeInterval=10,
 #' plots of angular persistence vs speed per cell. Default is TRUE.
 #' @param afpPLOT A logical vector that allows generating a plot of
 #' angular persistence vs speed of all cells. Default is TRUE.
-#' @param export if `TRUE` (default), exports function output to CSV file
+#' @param export if `TRUE` (default), exports function output to CSV
+#' file
 #' @param ExpName string, name of the experiment. Can be NULL
 #'
 #' @return  An CellMig class Object with a data frame and plots.
@@ -8824,7 +8893,8 @@ CellMigPCAclust = function(object, parameters=c(1,2,3), export=FALSE){
 #' frames resulted from the PreProcessing.
 #' @param ... one or more CellMig-class object(s) where cells'
 #' trajectories have already been analyzed.
-#' @param export if `TRUE` (default), exports function output to CSV file
+#' @param export if `TRUE` (default), exports function output to CSV
+#' file
 #'
 #' @return two data frames:
 #' The first data frame shows the average of each parameter per
@@ -9028,7 +9098,8 @@ aggregateFR<-function(x, ..., export=FALSE){
 #' @param parameters A numeric vector contains the parameters to be
 #' included in the Principal Component Analysis. These numbers can be
 #'  obtained from the outcome of the FinRes() function.
-#' @param export if `TRUE` (default), exports function output to CSV file
+#' @param export if `TRUE` (default), exports function output to CSV
+#' file
 #'
 #' @return  PCA Graph of cells and PCA Graph of variables.
 #'
@@ -9101,8 +9172,9 @@ CellMigPCAclustALL = function(object, ExpName="PCA_Clusters",
 
 
 #' @title Getting the Directionality Table
-#' @description Directionality Ratio is the displacement divided by the
-#'  total length of the total path distance, where displacement is the
+#' @description Directionality Ratio is the displacement divided by
+#' the
+#' total length of the total path distance, where displacement is the
 #' straight line length between the start point and the endpoint of
 #' the migration trajectory,
 #' @param object \code{CellMig} class object, which is a list of data
@@ -9374,7 +9446,8 @@ getResults<- function(object)
 #' @description Retrieve a list of metrics computed for an aggregated
 #' result object.
 #' This getter function takes the output of aggregateFR() as input.
-#' @param object list of length 2, returned by the aggregateFR() function
+#' @param object list of length 2, returned by the aggregateFR()
+#' function
 #' @return  character vector listing all available metrics
 #'
 #' @author Damiano Fantini and

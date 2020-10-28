@@ -7,13 +7,15 @@
 getResults(object)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of data
+frames resulted from the PreProcessing.}
 }
 \value{
 A data frame that contains all the results.
 }
 \description{
-The FinRes function automatically generates a data frame that contains all the results.
+The FinRes function automatically generates a data
+frame that contains all the results.
 }
 \examples{
 data(WSADataset)

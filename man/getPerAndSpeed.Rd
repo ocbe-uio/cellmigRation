@@ -7,13 +7,15 @@
 getPerAndSpeed(object)
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 }
 \value{
 A data frame of Persistence and Speed.
 }
 \description{
-The PerAndSpeed() generates data and plots for persistence and speed.
+The PerAndSpeed() generates data and plots for
+persistence and speed.
 }
 \examples{
 data(TrajectoryDataset)

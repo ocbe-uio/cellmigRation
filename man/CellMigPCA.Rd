@@ -7,15 +7,19 @@
 CellMigPCA(object, parameters = c(1, 2, 3))
 }
 \arguments{
-\item{object}{\code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.}
+\item{object}{\code{CellMig} class object, which is a list of
+data frames resulted from the PreProcessing.}
 
-\item{parameters}{A numeric vector contains the parameters to be included in the Principal Component Analysis. These numbers can be obtained from the outcome of the FinRes() function.}
+\item{parameters}{A numeric vector contains the parameters to
+be included in the Principal Component Analysis. These numbers
+can be obtained from the outcome of the FinRes() function.}
 }
 \value{
 PCA Graph of cells and PCA Graph of variables.
 }
 \description{
-The CellMigPCA function automatically generates Principal Component Analysis.
+The CellMigPCA function automatically generates
+ Principal Component Analysis.
 }
 \examples{
 data(WSADataset)

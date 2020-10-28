@@ -7,13 +7,15 @@
 getAvailableAggrMetrics(object)
 }
 \arguments{
-\item{object}{list of length 2, returned by the aggregateFR() function}
+\item{object}{list of length 2, returned by the aggregateFR()
+function}
 }
 \value{
 character vector listing all available metrics
 }
 \description{
-Retrieve a list of metrics computed for an aggregated result object.
+Retrieve a list of metrics computed for an aggregated
+result object.
 This getter function takes the output of aggregateFR() as input.
 }
 \examples{
@@ -38,5 +40,6 @@ getAvailableAggrMetrics(AGG)
 \url{https://www.data-pulse.com/dev_site/cellmigration/}
 }
 \author{
-Damiano Fantini and Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}
+Damiano Fantini and
+Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}
 }
