@@ -29,7 +29,7 @@ for the slope fitting. Default is 0.25, which represents 25 percent
 of the steps.}
 
 \item{ffLAG}{A numeric value to be used to get the number of lags
-for the  Furth formula fitting. Default is 0.25, which represents
+for the    Furth formula fitting. Default is 0.25, which represents
 25 percent of the steps.}
 
 \item{SlopePlot}{A logical vector that allows generating individual
@@ -59,7 +59,7 @@ The data frame is stored in the MSDtable slot.
 \description{
 The MSD function automatically computes the mean
 square displacements across several sequential time intervals.
- MSD parameters are used to assess the area explored by cells over time.
+MSD parameters are used to assess the area explored by cells over time.
 }
 \examples{
 data(TrajectoryDataset)

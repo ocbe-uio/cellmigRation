@@ -55,7 +55,7 @@ the input objects.
 # Let x0, x1, and x2 be trackedCells-class objects
 # with a non-empty tracks slot.
 \dontrun{
-  y <- aggregateTrackedCells(x0, x1, x2)
+y <- aggregateTrackedCells(x0, x1, x2)
 }
 }
 \references{

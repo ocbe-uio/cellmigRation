@@ -45,7 +45,7 @@ The data frame is stored in the ForMigtable slot.
 }
 \description{
 The ForwardMigration function automatically generates
- data and plots for forward persistence and speed.
+data and plots for forward persistence and speed.
 }
 \examples{
 data(WSADataset)
@@ -53,8 +53,8 @@ wsaDF <- WSADataset[1:1000,]
 wsaTD <- CellMig(wsaDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
 wsaTD <-ForwardMigration(wsaTD, TimeInterval=10,
-   sfptPLOT=FALSE, afptPLOT= FALSE,sfpPLOT= FALSE,afpPLOT= FALSE,
-   export=FALSE)
+sfptPLOT=FALSE, afptPLOT= FALSE,sfpPLOT= FALSE,afpPLOT= FALSE,
+export=FALSE)
 
 }
 \references{

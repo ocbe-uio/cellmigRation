@@ -52,8 +52,8 @@ rmDF=TrajectoryDataset[1:1000,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
 plotSampleTracks(
-  rmTD,Type="l", FixedField=TRUE, celNum=5, export=FALSE,
-  ExpName = NULL
+rmTD,Type="l", FixedField=TRUE, celNum=5, export=FALSE,
+ExpName = NULL
 )
 
 }

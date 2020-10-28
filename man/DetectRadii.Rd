@@ -19,7 +19,7 @@ Estimates the diameters of particles in a numeric or logical vector
 }
 \examples{
 cellmigRation:::DetectRadii(
-  c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1)
+c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1)
 )
 
 }

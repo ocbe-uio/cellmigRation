@@ -28,10 +28,10 @@ message("this example may take up to several mins to complete")
 \dontrun{
 x <- cellmigRation::TrackCellsDataset
 x <- CellTracker(
-  tc_obj = x, lnoise = 6, diameter = 16, threshold = 10
+tc_obj = x, lnoise = 6, diameter = 16, threshold = 10
 )
 x <- ComputeTracksStats(
-  x, time_between_frames = 10, resolution_pixel_per_micron = 20
+x, time_between_frames = 10, resolution_pixel_per_micron = 20
 )
 getCellsStats(x)[1:10,]
 }

@@ -39,10 +39,10 @@ Estimates the diameters of particles in a numeric matrix
 }
 \examples{
 a <- cbind(c(1, 1, 1, 0, 0, 0, 0, 0, 1, 1),
-           c(1, 1, 0, 0, 0, 0, 0, 0, 1, 1),
-           c(1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-           c(0, 0, 0, 0, 1, 1, 0, 0, 0, 0),
-           c(0, 0, 0, 1, 1, 1, 0, 0, 0, 0))
+c(1, 1, 0, 0, 0, 0, 0, 0, 1, 1),
+c(1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+c(0, 0, 0, 0, 1, 1, 0, 0, 0, 0),
+c(0, 0, 0, 1, 1, 1, 0, 0, 0, 0))
 graphics::image(a)
 b <- EstimateDiameterRange(a, min.px.diam = 2)
 print(b$estim.cell.num)
