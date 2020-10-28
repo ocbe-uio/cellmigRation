@@ -6,7 +6,8 @@
 
 #' Return the Next Odd Integer
 #'
-#' Returns the smallest odd number bigger than the number(s) provided as the argument
+#' Returns the smallest odd number bigger than the number(s) provided as
+#' the argument
 #'
 #' @param x a vector of class numeric
 #'
@@ -29,13 +30,17 @@ NextOdd <- function(x) {
 
 #' Shift Array Circularly
 #'
-#' Circularly shift the elements in an array by a user-defined number of positions.
-#' This emulates the behavior of the corresponding Matlab Circhsift function.
+#' Circularly shift the elements in an array by a user-defined number
+#' of positions. This emulates the behavior of the corresponding
+#' Matlab Circhsift function.
 #'
-#' @param x a character, numeric, or logical vector with at least n + 1 elements
-#' @param n an integer corresponding to the number of positions for the shift
+#' @param x a character, numeric, or logical vector with at least
+#' n + 1 elements
+#' @param n an integer corresponding to the number of positions for
+#' the shift
 #'
-#' @return a vector corresponding to x (same size, same class), whose elements have been shifted
+#' @return a vector corresponding to x (same size, same class),
+#' whose elements have been shifted
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
@@ -64,7 +69,9 @@ circshift <- function(x, n = 1) {
 
   nu_idx <- 1:len
   if(n > 0) {
-    nu_idx <- c((length(nu_idx) - nn + 1):length(nu_idx), 1:(length(nu_idx) - nn))
+    nu_idx <- c(
+      (length(nu_idx) - nn + 1):length(nu_idx), 1:(length(nu_idx) - nn)
+    )
   } else if (n < 0) {
     nu_idx <- c((nn + 1):length(nu_idx), 1:nn)
   }
@@ -80,8 +87,9 @@ circshift <- function(x, n = 1) {
 
 #' Add Dimension to a Molten Data Frame
 #'
-#' Creates a new (molten) data matrix where all elements of y ar added to each row of x.
-#' Each row in x is recycled for each element in y. Elements in y are added as
+#' Creates a new (molten) data matrix where all elements of y
+#' are added to each row of x. Each row in x is recycled
+#' for each element in y. Elements in y are added as
 #' the first column in the returned matrix.
 #'
 #' @param x a matrix or data.frame with at least 1 row and 1 column.
@@ -116,16 +124,17 @@ AddDimension <- function(x, y) {
 #' Make Hypercube
 #'
 #' Creates a Molten Hypercube with a user-defined number of dimensions.
-#' The values supplied by the user
-#' are used to fill each dimension. All possible combination of values are included in
+#' The values supplied by the user are used to fill each dimension.
+#' All possible combination of values are included in
 #' the resulting hyper cube.
 #'
 #' @param vals vector of values used to fill the hyper cube
-#' @param dims integer indicating the number of dimensions. The resulting molden
-#' data frame will have a number of
-#' columns equal to dims
+#' @param dims integer indicating the number of dimensions.
+#' The resulting molden data frame will have a number of columns
+#' equal to dims
 #'
-#' @return Matrix corresponding to a molten hyper cube. The number of columns is equal to dims;
+#' @return Matrix corresponding to a molten hyper cube.
+#' The number of columns is equal to dims;
 #' the number of rows is equal to length(vals) ^ dims
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
@@ -152,10 +161,12 @@ MakeHypercube <- function(vals, dims) {
 
 #' Clean And Reformat a Numeric Matrix
 #'
-#' Convert any matrix-lie object to a numeric Matrix, and coerces all the elements to integer.
+#' Convert any matrix-lie object to a numeric Matrix,
+#' and coerces all the elements to integer.
 #' Row names and column names are removed.
 #'
-#' @param x matrix or data.frame including numeric data (or data that can be coerced to integer)
+#' @param x matrix or data.frame including numeric data
+#' (or data that can be coerced to integer)
 #'
 #' @return numeric matrix with all its elements coerced to integer
 #'
@@ -181,21 +192,23 @@ matfix <- function(x) {
 
 #' Linear Convolution of a Numeric Matrix
 #'
-#' Performs a linear convoltion of a Numeric Matrix, using a user-supplied linear kernel.
-#' The convolution can be executed in a column-wise fashion by setting the col.wise argument to TRUE.
-#' Alternatively, the convolution is performed in a row-wise fashion.
+#' Performs a linear convoltion of a Numeric Matrix, using a user-supplied
+#' linear kernel. The convolution can be executed in a column-wise fashion
+#' by setting the col.wise argument to TRUE. Alternatively,
+#' the convolution is performed in a row-wise fashion.
 #'
 #' @param x numeric matrix that will be used as input for the convoltion;
-#' this matrix typically corresponds to an image where signal (high values) indicates the
-#' presence of a cell or a cell-like particle
-#' @param krnl numeric vector corresponding to th kernel that will be used for the convolution.
-#' Briefly, the kernel includes the weights that will be used to compute a weighted sum at each
-#' position of the input numeric matrix
-#' @param col.wise logical; shall the linear convolution be performed in a column-wise or
-#' row-wise fashion
+#' this matrix typically corresponds to an image where signal
+#' (high values) indicates the presence of a cell or a cell-like particle
+#' @param krnl numeric vector corresponding to the kernel
+#' that will be used for the convolution. Briefly, the kernel
+#' includes the weights that will be used to compute a weighted sum
+#' at each position of the input numeric matrix
+#' @param col.wise logical; shall the linear convolution be performed
+#' in a column-wise or row-wise fashion?
 #'
-#' @return Linearly convoluted numeric matrix. The resulting matrix has the same
-#' dimensions of the inut matrix
+#' @return Linearly convoluted numeric matrix. The resulting matrix
+#' has the same dimensions of the inut matrix
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
@@ -256,8 +269,9 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 
 #' Visualize a matrix image
 #'
-#' Shows an image representation of a numeric matrix. Typically, this is a non-negative numeric matrix,
-#' where signal (high values) corresponds to the presence of cells, or cell-like particles
+#' Shows an image representation of a numeric matrix. Typically,
+#' this is a non-negative numeric matrix, where signal (high values)
+#' corresponds to the presence of cells, or cell-like particles.
 #'
 #' @param img_mtx numeric matrix corresponding to a image
 #' @param col character vector corresponding to a valid color palette
@@ -273,7 +287,11 @@ LinearConv2 <- function(x, krnl, col.wise = TRUE)
 #' @keywords cellTracker
 #'
 #' @examples
-#' x <- vapply(seq_len(20), function(i) {runif(n = 20, min = 0, max = 10)}, FUN.VALUE = numeric(20))
+#' x <- vapply(
+#'     seq_len(20),
+#'     function(i) {runif(n = 20, min = 0, max = 10)},
+#'     FUN.VALUE = numeric(20)
+#' )
 #' cellmigRation:::VisualizeImg(x)
 #'
 #' @importFrom grDevices colorRampPalette
@@ -410,7 +428,8 @@ VisualizeCntr <- function(centroids, width_px, height_px, pnt.cex = 1.2,
 #' @param pnt.cex cex of the point drawn around each cell
 #' @param lwd width of the lines visualizing cell tracks
 #' @param col color of the points and the tracks, e.g.: "red2"
-#' @param col.untracked color of the points that were not tracked further, e.g.: "gray45"
+#' @param col.untracked color of the points that were not tracked further,
+#' e.g.: "gray45"
 #' @param main string used as plot title, can be NULL
 #'
 #' @return None
@@ -465,8 +484,10 @@ visualizeCellTracks <- function(tc_obj, stack = 1,
     tmp_cnt <- setNames(as.data.frame(tmp_cnt),
                         nm = colnames(tc_obj@centroids[[1]]))
 
-    VisualizeCntr(centroids = tmp_cnt, width_px = ncol(b), height_px = nrow(b),
-                  pnt.cex = pnt.cex, txt.cex = 0.00001, offset = 0.1, col = col.untracked)
+    VisualizeCntr(
+      centroids = tmp_cnt, width_px = ncol(b), height_px = nrow(b),
+      pnt.cex = pnt.cex, txt.cex = 0.00001, offset = 0.1, col = col.untracked
+    )
 
   }
 
@@ -487,7 +508,8 @@ visualizeCellTracks <- function(tc_obj, stack = 1,
 
 #' Visualize Cell Tracks
 #'
-#' Annotates an image with cell centroids by adding cell ROIs and drawing cell tracks
+#' Annotates an image with cell centroids by adding cell ROIs
+#' and drawing cell tracks
 #'
 #' @param tracks cell tracks
 #' @param width_px width in pixels
@@ -516,8 +538,15 @@ visualizeCellTracks <- function(tc_obj, stack = 1,
 #' @importFrom graphics points lines
 #'
 #' @keywords internal
-visualizeTrcks <- function(tracks, width_px, height_px, i.slice = 1, pnt.cex = 1.2, lwd = 1.2, col = "red")
-{
+visualizeTrcks <- function(
+  tracks,
+  width_px,
+  height_px,
+  i.slice = 1,
+  pnt.cex = 1.2,
+  lwd = 1.2,
+  col = "red"
+) {
   allcnt <- setNames(as.data.frame(tracks),
                      nm = c("row", "col", "slice", "cell"))
   cnt <- allcnt[allcnt$slice == i.slice, ]
@@ -550,12 +579,16 @@ visualizeTrcks <- function(tracks, width_px, height_px, i.slice = 1, pnt.cex = 1
 
 #' Import Image from TIFF
 #'
-#' Import a .tif stack containing fluorescently labeled point particles to be tracked
+#' Import a .tif stack containing fluorescently labeled point particles
+#' to be tracked
 #'
 #' @param tiff_file path to a TIFF file to be read in
-#' @param experiment string, a label to describe the experiment (optional). Can be NULL
-#' @param condition string, a label to describe the experimental condition (optional). Can be NULL
-#' @param replicate string, a label to identify the replicate (optional). Can be NULL
+#' @param experiment string, a label to describe the experiment (optional)
+#' @param condition string, a label to describe the experimental condition
+#' @param replicate string, a label to identify the replicate (optional)
+#'
+#' @note `experiment`, `condition` and `replicate` are optional arguments
+#' and can be NULL.
 #'
 #' @return a trackedCells object
 #'
@@ -573,8 +606,9 @@ visualizeTrcks <- function(tracks, width_px, height_px, i.slice = 1, pnt.cex = 1
 #' @importFrom tiff readTIFF
 #'
 #' @export
-LoadTiff <- function(tiff_file, experiment = NULL, condition = NULL, replicate = NULL)
-{
+LoadTiff <- function(
+  tiff_file, experiment = NULL, condition = NULL, replicate = NULL
+) {
   myIMG <- suppressMessages(
     suppressWarnings(
       tiff::readTIFF(source = tiff_file,
@@ -620,15 +654,20 @@ LoadTiff <- function(tiff_file, experiment = NULL, condition = NULL, replicate =
 
   # Get image matrices
   FinalImage <- try({lapply(myIMG, function(x) {
-    vapply(seq_len(ncol(x)), function(ii) {as.numeric(x[,ii])}, FUN.VALUE = numeric(nrow(x)))
+    vapply(
+      seq_len(ncol(x)),
+      function(ii) {as.numeric(x[,ii])},
+      FUN.VALUE = numeric(nrow(x))
+    )
   })}, silent = TRUE)
 
-  #return(list(images = FinalImage,
-  #            dim = list(NumberImages  = NumberImages , width_m = mImage, height_n = nImage),
-  #            attributes = InfoImage))
-  img_list <-   list(images = FinalImage,
-                     dim = list(NumberImages  = NumberImages , width_m = mImage, height_n = nImage),
-                     attributes = InfoImage)
+  img_list <- list(
+    images = FinalImage,
+    dim = list(
+      NumberImages  = NumberImages , width_m = mImage, height_n = nImage
+    ),
+    attributes = InfoImage
+  )
 
   Y <- new(Class = "trackedCells", img_list)
 
@@ -645,16 +684,19 @@ LoadTiff <- function(tiff_file, experiment = NULL, condition = NULL, replicate =
 
 #' Validate Centroids
 #'
-#' Validate parameters used to identify cells in a image stack. A figure containing
-#' current image frame with identified particles labeled with circles and numerical tags is generated.
-#' This function is included for consistency and compatibility reasons
+#' Validate parameters used to identify cells in a image stack.
+#' A figure containing current image frame with identified particles
+#' labeled with circles and numerical tags is generated. This function
+#' is included for consistency and compatibility reasons
 #' with the original fastTracks software (Matlab). Also, consider using
 #' VisualizeStackCentroids() or visualizeCellTracks() instead.
 #'
 #' @param stack stack of images to be evaluated
 #' @param slice index of the frame within the stack to be evaluated
-#' @param lobject integer, length in pixels somewhat larger than a typical object (cell)
-#' @param threshold the minimum brightness of a pixel that might be local maxima. NOTE:
+#' @param lobject integer, length in pixels somewhat larger than
+#' a typical object (cell)
+#' @param threshold the minimum brightness of a pixel that might
+#' be local maxima. NOTE:
 #' Make it big and the code runs faster but you might miss some particles.
 #' Make it small and you'll get everything and it'll be slow.
 #' @param pnt.cex cex of the circle drawn around each cell
@@ -684,7 +726,9 @@ CentroidValidation <- function(stack, slice, lobject, threshold,
                                pnt.cex = 1.2, txt.cex = 0.85, offset = 0.18)
 {
   a <- stack$images[[slice]]
-  b <- bpass(image_array = a, lnoise = 1, lobject = lobject, threshold = threshold)
+  b <- bpass(
+    image_array = a, lnoise = 1, lobject = lobject, threshold = threshold
+  )
   pk = pkfnd(im = b, th = threshold, sz = lobject+1)
   cnt = cntrd(im = b, mx = pk, sz = lobject+1)
 
@@ -721,11 +765,15 @@ CentroidValidation <- function(stack, slice, lobject, threshold,
 
 #' Perform a bandpass by convolving with an appropriate kernel
 #'
-#' Implements a real-space bandpass filter that suppresses pixel noise and long-wavelength
+#' Implements a real-space bandpass filter that suppresses pixel noise and
+#' long-wavelength
 #' image variations while retaining information of a characteristic size.
-#' First, a lowpassed image is produced by convolving the original with a gaussian.
-#' Next, a second lowpassed image is produced by convolving the original with a
-#' boxcar function. By subtracting the boxcar version from the gaussian version,
+#' First, a lowpassed image is produced by convolving the original with
+#' a gaussian.
+#' Next, a second lowpassed image is produced by convolving the original
+#' with a
+#' boxcar function. By subtracting the boxcar version from
+#' the gaussian version,
 #' we are using the boxcar version to perform a highpass.
 #' This code 'bpass.pro' is copyright 1997, John C. Crocker and
 #' David G. Grier.  It should be considered 'freeware'- and may be
@@ -733,9 +781,11 @@ CentroidValidation <- function(stack, slice, lobject, threshold,
 #'
 #' @param image_array Numeric matrix corresponding to the image to be filtered
 #' @param lnoise Characteristic lengthscale of noise in pixels.
-#' @param lobject Integer length in pixels somewhat larger than a typical object
-#' @param threshold By default, after the convolution, any negative pixels are reset to 0.
-#' Threshold changes the threshhold for setting pixels to 0. Positive values may be useful for removing
+#' @param lobject Integer length in pixels somewhat larger than
+#' a typical object
+#' @param threshold By default, after the convolution, any negative pixels
+#' are reset to 0. Threshold changes the threshhold for setting pixels
+#' to 0. Positive values may be useful for removing
 #' stray noise or small particles.
 #'
 #' @return Numeric matrix corresponding to the filtered image
@@ -775,10 +825,13 @@ bpass <- function(image_array, lnoise, lobject = NULL, threshold)
   cstm_normalize <- function(x) { x/sum(x) }
 
   # Make kernel (linear)
-  gaussian_kernel <- cstm_normalize(exp(-(seq(-2.5, 2.5, length.out = ((10 * lnoise) + 1))^2)))
+  gaussian_kernel <- cstm_normalize(
+    exp(-(seq(-2.5, 2.5, length.out = ((10 * lnoise) + 1))^2))
+  )
 
-  if (!is.null(lobject))
+  if (!is.null(lobject)) {
     boxcar_kernel <- cstm_normalize(rep(1, times = (2 * lobject) + 1))
+  }
 
 
   gconv <- LinearConv2(t(image_array), gaussian_kernel)
@@ -814,14 +867,19 @@ bpass <- function(image_array, lnoise, lobject = NULL, threshold)
 
 #' Calculates Centroids
 #'
-#' Calculates the centroid of bright spots to sub-pixel accuracy. Inspired by Grier &
-#' Crocker's feature for IDL, but greatly simplified and optimized for matlab, and then
-#' further ported to R. CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
+#' Calculates the centroid of bright spots to sub-pixel accuracy.
+#' Inspired by Grier &
+#' Crocker's feature for IDL, but greatly simplified and optimized for
+#' MATLAB, and then
+#' further ported to R.
+#' CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
 #'
 #' @param im numeric matrix corresponding to the image to process
 #' @param mx location of local maxima to pixel-levels accuracy
-#' @param sz diameter of the window over which to average to calculate the centroid. should be big enough.
-#' @param interactive numeric; if set to 1 (or any positive number), an image showing the
+#' @param sz diameter of the window over which to average to calculate
+#' the centroid. should be big enough.
+#' @param interactive numeric; if set to 1 (or any positive number),
+#' an image showing the
 #' computed centroids will be visualized
 #'
 #' @return a data.frame with 4 columns, containing, x, y, brightness, and
@@ -864,14 +922,17 @@ cntrd <- function(im, mx, sz, interactive = NULL)
 
   # check mx
   if (is.null(mx) || (!is.data.frame(mx)) || nrow(mx) == 0) {
-    message('there were no positions inputted into cntrd. check your pkfnd theshold')
+    message(
+      'there were no positions inputted into cntrd. check your pkfnd theshold'
+    )
     return(NULL)
   }
 
   # Compute
   r <- (sz+1)/2
 
-  # Create mask - window around trial location over which to calculate the centroid
+  # Create mask window around trial location over which to calculate
+  # the centroid
   m <- 2*r
   x <- 0:(m-1)
   cent <- (m-1)/2
@@ -906,7 +967,8 @@ cntrd <- function(im, mx, sz, interactive = NULL)
   #loop through all of the candidate positions
   pts <- list()
   for (i in 1:nmx) {
-    #create a small working array around each candidate location, and apply the window function
+    # create a small working array around each candidate location,
+    # and apply the window function
     tmp <- msk * im[(mx$row[i] - floor(r) + 1):(mx$row[i] + floor(r)),
                     (mx$col[i] - floor(r) + 1):(mx$col[i] + floor(r))]
 
@@ -953,21 +1015,30 @@ cntrd <- function(im, mx, sz, interactive = NULL)
 
 #' Find Signal Peaks
 #'
-#' Finds local maxima in an image to pixel level accuracy. This provides a rough guess
-#' of particle centers to be used by cntrd(). Inspired by the lmx subroutine of
-#' Grier and Crocker's. CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
+#' Finds local maxima in an image to pixel level accuracy.
+#' This provides a rough guess
+#' of particle centers to be used by cntrd(). Inspired by
+#' the lmx subroutine of
+#' Grier and Crocker's.
+#' CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
 #'
-#' @param im image to process, particle should be bright spots on dark background
+#' @param im image to process, particle should be bright spots on
+#' dark background
 #' with little noise ofen an bandpass filtered brightfield image
 #' @param th the minimum brightness of a pixel that might be local maxima.
-#' NOTE: Make it big and the code runs faster but you might miss some particles.
+#' NOTE: Make it big and the code runs faster but you might miss some
+#' particles.
 #' Make it small and you'll get everything and it'll be slow.
-#' @param sz if your data is noisy, (e.g. a single particle has multiple local maxima),
-#' then set this optional keyword to a value slightly larger than the diameter of your blob.
-#' If multiple peaks are found withing a radius of sz/2 then the code will keep only the brightest.
+#' @param sz if your data is noisy, (e.g. a single particle has multiple
+#' local maxima),
+#' then set this optional keyword to a value slightly larger than
+#' the diameter of your blob.
+#' If multiple peaks are found withing a radius of sz/2 then the code
+#' will keep only the brightest.
 #' Also gets rid of all peaks within sz of boundary
 #'
-#' @return a numeric data.frame with two columns, with the coordinates of local maxima
+#' @return a numeric data.frame with two columns,
+#' with the coordinates of local maxima
 #'
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
@@ -1020,9 +1091,11 @@ pkfnd <- function(im, th, sz=NULL)
   ind2 <- reshape2::melt(data = ind, varnames = c("row", "col"))
   ind2 <- ind2[ind2$value, ]
 
-  # check each pixel above threshold to see if it's brighter than it's neighbors
-  # THERE'S GOT TO BE A FASTER WAY OF DOING THIS.  I'M CHECKING SOME MULTIPLE TIMES,
-  # BUT THIS DOESN'T SEEM THAT SLOW COMPARED TO THE OTHER ROUTINES, ANYWAY.
+  # check each pixel above threshold to see if it's brighter than
+  # its neighbors
+  # THERE'S GOT TO BE A FASTER WAY OF DOING THIS.
+  # I'M CHECKING SOME MULTIPLE TIMES, BUT THIS DOESN'T SEEM THAT SLOW
+  # COMPARED TO THE OTHER ROUTINES, ANYWAY.
   keep <- list()
   for(i in 1:nrow(ind2)) {
     ri <- ind2$row[i]
@@ -1047,10 +1120,15 @@ pkfnd <- function(im, th, sz=NULL)
     return(NULL)
   }
 
-  # if size is specified, then get ride of pks within size of boundary (i.e., a margin from image edges)
+  # if size is specified, then get ride of pks within size of boundary
+  # (i.e., a margin from image edges)
   if (!is.null(sz) & npks>0) {
     # throw out all pks within sz of boundary;
-    keep <- mx$row > sz & mx$row < (nr - sz + 1) & mx$col > sz & mx$col < (nc - sz + 1)
+    keep <-
+      mx$row > sz &
+      mx$row < (nr - sz + 1) &
+      mx$col > sz &
+      mx$col < (nc - sz + 1)
     mx<-mx[keep,]
   }
 
@@ -1069,15 +1147,26 @@ pkfnd <- function(im, th, sz=NULL)
     # LOOK IN NEIGHBORHOOD AROUND EACH PEAK, PICK THE BRIGHTEST
     for (i in 1:nrow(mx)) {
       astep <- floor(sz/2)
-      roi <- tmp[(mx$row[i] - astep):(mx$row[i] + astep), (mx$col[i] - astep):(mx$col[i] + astep)]
+      roi <- tmp[
+        (mx$row[i] - astep):(mx$row[i] + astep),
+        (mx$col[i] - astep):(mx$col[i] + astep)
+      ]
       imax <- which.max(roi)
       chkrow <- imax %% nrow(roi)
       myrow <- ifelse(chkrow == 0, nrow(roi), chkrow)
-      mycol <- ifelse(chkrow == 0, floor(imax/nrow(roi)), floor(imax/nrow(roi)) + 1)
+      mycol <- ifelse(
+        chkrow == 0, floor(imax/nrow(roi)), floor(imax/nrow(roi)) + 1
+      )
       mv <- roi[myrow, mycol]
 
-      tmp[(mx$row[i] - astep):(mx$row[i] + astep), (mx$col[i] - astep):(mx$col[i] + astep)] <- 0
-      tmp[(mx$row[i] - astep + myrow - 1), (mx$col[i] - astep + mycol - 1)] <- mv
+      tmp[
+        (mx$row[i] - astep):(mx$row[i] + astep),
+        (mx$col[i] - astep):(mx$col[i] + astep)
+      ] <- 0
+      tmp[
+        (mx$row[i] - astep + myrow - 1),
+        (mx$col[i] - astep + mycol - 1)
+      ] <- mv
     }
 
     ind <- tmp > th
@@ -1098,15 +1187,19 @@ pkfnd <- function(im, th, sz=NULL)
 
 #' Build a Centroid Array
 #'
-#' Create an array containing centroid data for particles identified in each frame
-#' of the imported TIFF image stack
+#' Create an array containing centroid data for particles identified
+#' in each frame of the imported TIFF image stack
 #'
 #' @param stack 3D matrix loaded to workspace from .tif stack
-#' @param lobject Integer length in pixels somewhat larger than a typical object
-#' @param threshold the minimum brightness of a pixel that might be local maxima
+#' @param lobject Integer length in pixels somewhat larger
+#' than a typical object
+#' @param threshold the minimum brightness of a pixel that might be
+#' local maxima
 #'
-#' @return data.frame of centroids, with 4 columns corresponding to x-position of centroid,
-#' y-postion of centroid, brightness, and square of the radius of gyration
+#' @return data.frame of centroids, with 4 columns corresponding to
+#' x-position of centroid,
+#' y-postion of centroid, brightness, and square of the radius
+#' of gyration
 #'
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
@@ -1160,7 +1253,8 @@ CentroidArray <- function(stack, lobject, threshold)
 #'
 #' @param x numeric or logical vector
 #'
-#' @return data.frame including two columns: MPOS indicates the centroid position of a particle,
+#' @return data.frame including two columns: MPOS indicates
+#' the centroid position of a particle,
 #' and LEN indicates the diameter size
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
@@ -1168,7 +1262,9 @@ CentroidArray <- function(stack, lobject, threshold)
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' cellmigRation:::DetectRadii(c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1))
+#' cellmigRation:::DetectRadii(
+#'   c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1)
+#' )
 #'
 #' @keywords internal
 DetectRadii <- function(x) {
@@ -1230,15 +1326,19 @@ DetectRadii <- function(x) {
 #'
 #'
 #' @param x numeric matrix corresponding to a digital image
-#' @param px.margin integer, number of pixels used as margin while searching/filtering for neighboring particles
+#' @param px.margin integer, number of pixels used as margin
+#' while searching/filtering for neighboring particles
 #' @param min.px.diam integer, minimum diameter of a particle (cell).
 #' Particles with a diameter smaller than min.px.diam are discarded
 #' @param quantile.val numeric, must be bigger than 0 and smaller than 1.
-#' Quantile for discriminating signal and background; only pixels with intensity higher than the corresponding
+#' Quantile for discriminating signal and background;
+#' only pixels with intensity higher than the corresponding
 #' quantile will count as signal while estimating particle diameters
-#' @param plot logial, shall a histogram of the distribution of diameters be shown
+#' @param plot logial, shall a histogram of the distribution
+#' of diameters be shown
 #'
-#' @return list including summary stats and data about the particles found in the image
+#' @return list including summary stats and data about the particles
+#' found in the image
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #'
@@ -1271,7 +1371,10 @@ EstimateDiameterRange <- function(x, px.margin = 2,
   max.sig <- max(tmp.xx, na.rm = TRUE)
   min.sig <- min(tmp.xx, na.rm = TRUE)
   if (QNTS == min.sig && max.sig > min.sig) {
-    QNTS <- mean(c(min.sig, min(tmp.xx[tmp.xx > min.sig], na.rm = TRUE)), na.rm = TRUE)
+    QNTS <- mean(
+      c(min.sig, min(tmp.xx[tmp.xx > min.sig], na.rm = TRUE)),
+      na.rm = TRUE
+    )
   }
 
   B <- x
@@ -1318,16 +1421,24 @@ EstimateDiameterRange <- function(x, px.margin = 2,
 
   yy <- list(estim.cell.num = sum(FINL$KEEP),
              q50.diam = median(FINL$LEN, na.rm = TRUE),
-             q75.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.75)),
-             q90.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.90)),
-             q95.diam = as.numeric(quantile(FINL$LEN, na.rm = TRUE, probs = 0.95)),
+             q75.diam = as.numeric(
+               quantile(FINL$LEN, na.rm = TRUE, probs = 0.75)
+             ),
+             q90.diam = as.numeric(
+               quantile(FINL$LEN, na.rm = TRUE, probs = 0.90)
+             ),
+             q95.diam = as.numeric(
+               quantile(FINL$LEN, na.rm = TRUE, probs = 0.95)
+             ),
              raw = FINL)
 
   if (plot) {
-    try(hist(FINL$LEN, breaks = seq(min(FINL$LEN, na.rm = TRUE),
-                                    max(FINL$LEN, na.rm = TRUE), length.out = 20),
-             xlab = "Particle Diameter", las = 1, main = "Diam. Distribution",
-             col = "aquamarine3"), silent = TRUE); box()
+    try(hist(FINL$LEN, breaks = seq(
+      min(FINL$LEN, na.rm = TRUE),
+      max(FINL$LEN, na.rm = TRUE), length.out = 20
+    ),
+    xlab = "Particle Diameter", las = 1, main = "Diam. Distribution",
+    col = "aquamarine3"), silent = TRUE); box()
   }
 
   return(yy)
@@ -1365,97 +1476,97 @@ EstimateDiameterRange <- function(x, px.margin = 2,
 #' @keywords internal
 track <- function(xyzs, maxdisp, params)
 {
-  #% ; maxdisp: an estimate of the maximum distance that a particle
-  #% ;     would move in a single time interval.(see Restrictions)
-  #%  OPTIONAL INPUT:
-  #%   param:  a structure containing a few tracking parameters that are
-  #%       needed for many applications.  If param is not included in the
-  #%       function call, then default values are used.  If you set one value
-  #%       make sure you set them all:
-  #% ;         param.mem: this is the number of time steps that a particle can be
-  #% ;             'lost' and then recovered again.  If the particle reappears
-  #% ;             after this number of frames has elapsed, it will be
-  #% ;             tracked as a new particle. The default setting is zero.
-  #% ;             this is useful if particles occasionally 'drop out' of
-  #% ;             the data.
-  #% ;         param.dim: if the user would like to unscramble non-coordinate data
-  #% ;             for the particles (e.g. apparent radius of gyration for
-  #% ;             the particle images), then positionlist should
-  #% ;             contain the position data in positionlist(0:param.dim-1,*)
-  #% ;             and the extra data in positionlist(param.dim:d-1,*). It is then
-  #% ;             necessary to set dim equal to the dimensionality of the
-  #% ;             coordinate data to so that the track knows to ignore the
-  #% ;             non-coordinate data in the construction of the
-  #% ;             trajectories. The default value is two.
-  #% ;         param.good: set this keyword to eliminate all trajectories with
-  #% ;             fewer than param.good valid positions.  This is useful
-  #% ;             for eliminating very short, mostly 'lost' trajectories
-  #% ;             due to blinking 'noise' particles in the data stream.
-  #%;          param.quiet: set this keyword to 1 if you don't want any text
-  #% ; OUTPUTS:
-  #  % ; result:  a list containing the original data rows sorted
-  #% ;     into a series of trajectories.  To the original input
-  #% ;     data structure there is appended an additional column
-  #% ;     containing a unique 'id number' for each identified
-  #% ;     particle trajectory.  The result array is sorted so
-  #% ;     rows with corresponding id numbers are in contiguous
-  #% ;     blocks, with the time variable a monotonically
-  #% ;     increasing function inside each block.  For example:
-  #  % ;
-  #% ;
-  #% ;     NB: for t=1 in the example above, one particle temporarily
-  #% ;     vanished.  As a result, the trajectory id=1 has one time
-  #% ;     missing, i.e. particle loss can cause time gaps to occur
-  #% ;     in the corresponding trajectory list. In contrast:
-  #  % ;
-  #% ;     IDL> res = track(pos,5)
-  #% ;
-  #% ;     track will return the result 'res'
-  #% ;         (x)      (y)      (t)          (id)
-  #% ;     res = 15.1000      22.6000      0.00000      0.00000
-  #% ;                   3.60000      5.00000      0.00000      1.00000
-  #% ;               4.10000      5.50000      1.00000      1.00000
-  #% ;               6.20000      4.30000      2.00000      1.00000
-  #% ;               15.9000      20.7000      2.00000      2.00000
-  #% ;
-  #% ;     where the reappeared 'particle' will be labelled as new
-  #% ;     rather than as a continuation of an old particle since
-  #% ;     mem=0.  It is up to the user to decide what setting of
-  #% ;     'mem' will yeild the highest fidelity .
-  #% ;
-  #% ; SIDE EFFECTS:
-  #  % ; Produces informational messages.  Can be memory intensive for
-  #% ; extremely large data sets.
-  #% ; RESTRICTIONS:
-  #  % ; maxdisp should be set to a value somewhat less than the mean
-  #% ; spacing between the particles. As maxdisp approaches the mean
-  #% ; spacing the runtime will increase significantly. The function
-  #% ; will produce an error message: "Excessive Combinatorics!" if
-  #% ; the run time would be too long, and the user should respond
-  #% ; by re-executing the function with a smaller value of maxdisp.
-  #% ; Obviously, if the particles being tracked are frequently moving
-  #% ; as much as their mean separation in a single time step, this
-  #% ; function will not return acceptable trajectories.
-  #% ; PROCEDURE:
-  #  % ; Given the positions for n particles at time t(i), and m possible
-  #% ; new positions at time t(i+1), this function considers all possible
-  #% ; identifications of the n old positions with the m new positions,
-  #% ; and chooses that identification which results in the minimal total
-  #% ; squared displacement. Those identifications which don't associate
-  #% ; a new position within maxdisp of an old position ( particle loss )
-  #% ; penalize the total squared displacement by maxdisp^2. For non-
-  #% ; interacting Brownian particles with the same diffusivity, this
-  #% ; algorithm will produce the most probable set of identifications
-  #% ; ( provided maxdisp >> RMS displacement between frames ).
-  #% ; In practice it works reasonably well for systems with oscillatory,
-  #% ; ballistic, correlated and random hopping motion, so long as single
-  #% ; time step displacements are reasonably small.  NB: multidimensional
-  #% ; functionality is intended to facilitate tracking when additional
-  #% ; information regarding target identity is available (e.g. size or
-  #% ; color).  At present, this information should be rescaled by the
-  #% ; user to have a comparable or smaller (measurement) variance than
-  #% ; the spatial displacements.
-  #% ;
+# maxdisp: an estimate of the maximum distance that a particle
+# would move in a single time interval.(see Restrictions)
+#OPTIONAL INPUT:
+# param:  a structure containing a few tracking parameters that are
+# needed for many applications.  If param is not included in the
+# function call, then default values are used.  If you set one value
+# make sure you set them all:
+# param.mem: this is the number of time steps that a particle can be
+#     'lost' and then recovered again.  If the particle reappears
+#     after this number of frames has elapsed, it will be
+#     tracked as a new particle. The default setting is zero.
+#     this is useful if particles occasionally 'drop out' of
+#     the data.
+# param.dim: if the user would like to unscramble non-coordinate data
+#     for the particles (e.g. apparent radius of gyration for
+#     the particle images), then positionlist should
+#     contain the position data in positionlist(0:param.dim-1,*)
+#     and the extra data in positionlist(param.dim:d-1,*). It is then
+#     necessary to set dim equal to the dimensionality of the
+#     coordinate data to so that the track knows to ignore the
+#     non-coordinate data in the construction of the
+#     trajectories. The default value is two.
+# param.good: set this keyword to eliminate all trajectories with
+#     fewer than param.good valid positions.  This is useful
+#     for eliminating very short, mostly 'lost' trajectories
+#     due to blinking 'noise' particles in the data stream.
+#  param.quiet: set this keyword to 1 if you don't want any text
+# OUTPUTS:
+#   result:  a list containing the original data rows sorted
+# into a series of trajectories.  To the original input
+# data structure there is appended an additional column
+# containing a unique 'id number' for each identified
+# particle trajectory.  The result array is sorted so
+# rows with corresponding id numbers are in contiguous
+# blocks, with the time variable a monotonically
+# increasing function inside each block.  For example:
+#
+#
+# NB: for t=1 in the example above, one particle temporarily
+# vanished.  As a result, the trajectory id=1 has one time
+# missing, i.e. particle loss can cause time gaps to occur
+# in the corresponding trajectory list. In contrast:
+#
+# IDL> res = track(pos,5)
+#
+# track will return the result 'res'
+#     (x)      (y)      (t)          (id)
+# res = 15.1000      22.6000      0.00000      0.00000
+#               3.60000      5.00000      0.00000      1.00000
+#           4.10000      5.50000      1.00000      1.00000
+#           6.20000      4.30000      2.00000      1.00000
+#           15.9000      20.7000      2.00000      2.00000
+#
+# where the reappeared 'particle' will be labelled as new
+# rather than as a continuation of an old particle since
+# mem=0.  It is up to the user to decide what setting of
+# 'mem' will yeild the highest fidelity .
+#
+# SIDE EFFECTS:
+#   Produces informational messages.  Can be memory intensive for
+# extremely large data sets.
+# RESTRICTIONS:
+#   maxdisp should be set to a value somewhat less than the mean
+# spacing between the particles. As maxdisp approaches the mean
+# spacing the runtime will increase significantly. The function
+# will produce an error message: "Excessive Combinatorics!" if
+# the run time would be too long, and the user should respond
+# by re-executing the function with a smaller value of maxdisp.
+# Obviously, if the particles being tracked are frequently moving
+# as much as their mean separation in a single time step, this
+# function will not return acceptable trajectories.
+# PROCEDURE:
+#   Given the positions for n particles at time t(i), and m possible
+# new positions at time t(i+1), this function considers all possible
+# identifications of the n old positions with the m new positions,
+# and chooses that identification which results in the minimal total
+# squared displacement. Those identifications which don't associate
+# a new position within maxdisp of an old position ( particle loss )
+# penalize the total squared displacement by maxdisp^2. For non-
+# interacting Brownian particles with the same diffusivity, this
+# algorithm will produce the most probable set of identifications
+# ( provided maxdisp >> RMS displacement between frames ).
+# In practice it works reasonably well for systems with oscillatory,
+# ballistic, correlated and random hopping motion, so long as single
+# time step displacements are reasonably small.  NB: multidimensional
+# functionality is intended to facilitate tracking when additional
+# information regarding target identity is available (e.g. size or
+# color).  At present, this information should be rescaled by the
+# user to have a comparable or smaller (measurement) variance than
+# the spatial displacements.
+#
 
   # Initialize and stuff
   warn_log <- list()
@@ -1469,8 +1580,12 @@ track <- function(xyzs, maxdisp, params)
       warn_cycles <- sort(unique(do.call(c, warn_log)))
 
       if (!quiet) {
-        message(paste0("Difficult combinatorics encountered while processing slide(s): ",
-                       paste(warn_cycles, collapse = ", "), "."))
+        message(
+          paste0(
+            "Difficult combinatorics encountered while processing slide(s): ",
+            paste(warn_cycles, collapse = ", "), "."
+          )
+        )
       }
     }
     return(warn_cycles)
@@ -1677,7 +1792,8 @@ track <- function(xyzs, maxdisp, params)
           }
         }
 
-        # % calculate the "s" coordinates of hypercube (with a corner @ the origin)
+        # % calculate the "s" coordinates of hypercube
+        # (with a corner @ the origin)
         scube <- matrix(0, nrow = nrow(cub), ncol=1)
         coff <- 1
         for (j in 1:dim){
@@ -1685,7 +1801,8 @@ track <- function(xyzs, maxdisp, params)
           coff <- coff*dimm[j, 1]
         }
 
-        # % shift the hypercube "s" coordinates to be centered around the origin
+        # % shift the hypercube "s" coordinates to be centered
+        # around the origin
         coff <- 1
         for (j in 1:dim){
           if (dimm[j, 1] > 3) {
@@ -1699,8 +1816,8 @@ track <- function(xyzs, maxdisp, params)
         ed <- sort(si)
         isort <- order(si)
 
-        #% make a hash table which will allow us to know which new particles
-        #% are at a given si.
+        #% make a hash table which will allow us to know which
+        # new particles are at a given si.
         strt <- matrix((-1), nrow = nblocks, ncol = 1)
         fnsh <- matrix(0, nrow = nblocks, ncol = 1)
         h <- which(si == 0)
@@ -2143,13 +2260,15 @@ track <- function(xyzs, maxdisp, params)
                 #message('Warning: difficult combinatorics encountered')
               } else if (rnsteps >= 200000 && !force_exec){
 
-                #message(paste0("i=", i, "... nc=", nc))
-                #message('Excessive Combinitorics LOOK WHAT YOU HAVE DONE TO ME!!!')
-                #close(uniquevar);
-
                 warn_message(warn_log = warn_log, quiet = quiet)
-                message(paste0("Excessive Combinitorics encountered while processing slide ", i,
-                               ". Quitting now... Try using a smaller maxdisp."))
+                message(
+                  paste0(
+                    "Excessive Combinitorics encountered ",
+                    "while processing slide ",
+                    i,
+                    ". Quitting now... Try using a smaller maxdisp."
+                  )
+                )
 
                 return(NULL)
 
@@ -2160,8 +2279,14 @@ track <- function(xyzs, maxdisp, params)
               } else if (rnsteps >= 200000) {
 
                 warn_message(warn_log = warn_log, quiet = quiet)
-                message(paste0("Excessive Combinitorics encountered while processing slide ", i,
-                               ". Quitting now... Try using a smaller maxdisp."))
+                message(
+                  paste0(
+                    "Excessive Combinitorics encountered ",
+                    "while processing slide ",
+                    i,
+                    ". Quitting now... Try using a smaller maxdisp."
+                  )
+                )
 
                 return(NULL)
               }
@@ -2185,7 +2310,9 @@ track <- function(xyzs, maxdisp, params)
             sb <- bonds[, 2]
             sbr <- circshift(sb,1)
             sbl <- circshift(sb,-1)
-            st[2:length(st)] <- which(sb[2:length(sb)] != sbr[2:length(sbr)]) + 1
+            st[2:length(st)] <- which(
+              sb[2:length(sb)] != sbr[2:length(sbr)]
+            ) + 1
             fi[1:(nnew-1)] <- which(sb[1:(nbonds-1)] != sbl[1:(nbonds-1)])
           }
           #%                if i-1 == 13
@@ -2208,7 +2335,7 @@ track <- function(xyzs, maxdisp, params)
               if (pt[(who+1)] != fi[(who+1)]){
 
 
-                w <- which(ok[h[(pt[(who+1)]+1):(fi[(who+1)])]]!=0) ###---------------% check this -1
+                w <- which(ok[h[(pt[(who+1)]+1):(fi[(who+1)])]]!=0) # check -1
                 ngood <- length(w)
                 if (ngood > 0){
                   if (pt[(who+1)] != st[(who+1)]-1) {
@@ -2302,7 +2429,8 @@ track <- function(xyzs, maxdisp, params)
           }
           #%   update resx using the minimum bond configuration
 
-          resx[ispan, labely[bonds[minbonds, 2]]] <- eyes[labelx[(bonds[minbonds,1] + 1)]]
+          resx[ispan, labely[bonds[minbonds, 2]]] <-
+            eyes[labelx[(bonds[minbonds,1] + 1)]]
           found[labelx[(bonds[minbonds,1] + 1)], 1] <- 1
 
         }
@@ -2400,9 +2528,12 @@ track <- function(xyzs, maxdisp, params)
 
       #% again goodenough keyword
       if (!quiet) {
-
-        message(paste0(i, ' of ' , z, ' done. Tracking ', ntrk, ' particles. ', n, ' tracks total.'))
-
+        message(
+          paste(
+            i, 'of' , z, 'done. Tracking', ntrk, 'particles.',
+            n, 'tracks total.'
+          )
+        )
       }
 
       if (!is.matrix(bigresx) || nrow(resx) > nrow(bigresx)) {
@@ -2427,9 +2558,6 @@ track <- function(xyzs, maxdisp, params)
 
           thing = cbind(bigresx[wpull2,wpull[ipull]],
                         rep(x = uniqid[wpull[ipull]], times = npull2))
-
-          #thing <- c(bigresx[wpull2, wpull[ipull]], ),zeros(npull2,1)+uniqid(wpull(ipull))];
-          #lillist = [lillist;thing];
           lillist[[length(lillist) + 1]] <- thing
 
         }
@@ -2538,10 +2666,13 @@ track <- function(xyzs, maxdisp, params)
 #' Calculate the statistics from X/Y positional data obtained from cell tracks
 #'
 #' @param tracks data.frame with cell tracks information
-#' @param interval_time integer, time interval between two successive frames were taken
-#' @param pixel_micron integer, image resolution, i.e. number of pixels per micron
+#' @param interval_time integer, time interval between two successive
+#' frames were taken
+#' @param pixel_micron integer, image resolution, i.e. number of pixels
+#' per micron
 #'
-#' @return list of stats calculated for the cell tracks. Info include variables of speed,
+#' @return list of stats calculated for the cell tracks.
+#' Info include variables of speed,
 #' distance, euclidean displacement, persistence, angular displacement,
 #' yFMI, xFMI, y-displacement, x-displacement and frames
 #'
@@ -2607,7 +2738,7 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
     euclid[[length(euclid) + 1]] <- E
 
     # add subsequent displacements of the cell
-    cumulative_displacements <- as.numeric(cumsum(sqrt(diff(X)^2 + diff(Y)^2)) )
+    cumulative_displacements <- as.numeric(cumsum(sqrt(diff(X)^2 + diff(Y)^2)))
 
     # sum of the displacements between each cell centroid for the given
     # track
@@ -2697,8 +2828,10 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
 #' trackedCells object where cells have already been tracked.
 #'
 #' @param tc_obj a \code{trackedCells} object
-#' @param time_between_frames integer, time interval between two successive frames were taken
-#' @param resolution_pixel_per_micron integer, image resolution, i.e. number of pixels per micron
+#' @param time_between_frames integer, time interval between two
+#' successive frames were taken
+#' @param resolution_pixel_per_micron integer, image resolution,
+#' i.e. number of pixels per micron
 #'
 #' @return a trackedCells object, including cell track statistics
 #'
@@ -2713,13 +2846,16 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
 #' \dontrun{
 #' x <- cellmigRation::TrackCellsDataset
 #' x <- CellTracker(tc_obj = x, lnoise = 6, diameter = 16, threshold = 10)
-#' x <- ComputeTracksStats(x, time_between_frames = 10, resolution_pixel_per_micron = 20)
+#' x <- ComputeTracksStats(
+#'   x, time_between_frames = 10, resolution_pixel_per_micron = 20
+#' )
 #' getCellsStats(x)[1:10,]
 #' }
 #'
 #' @export
-ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per_micron)
-{
+ComputeTracksStats <- function(
+  tc_obj, time_between_frames, resolution_pixel_per_micron
+) {
 
   if(tc_obj@ops$track == 0)
     stop("You need to run CellTracker() before computing stats")
@@ -2728,8 +2864,10 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
   my_tracks <- tc_obj@tracks
 
   # DO
-  handles <- MigrationStats(tracks = my_tracks, interval_time = time_between_frames,
-                            pixel_micron = resolution_pixel_per_micron);
+  handles <- MigrationStats(
+    tracks = my_tracks, interval_time = time_between_frames,
+    pixel_micron = resolution_pixel_per_micron
+  )
 
 
   sz <- length(handles$speed)
@@ -2769,15 +2907,18 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
   # obtain mean angle
   meanTheta <- Arg(r)
   degrees <- meanTheta/pi*180
-  my_rows <- rbind(my_rows,
-                   Angle = data.frame(mean = sz, SD = degrees, median = NA, min = NA, max = NA))
+  my_rows <- rbind(
+    my_rows,
+    Angle = data.frame(
+      mean = sz, SD = degrees, median = NA, min = NA, max = NA
+    )
+  )
   rownames(my_rows)[c(2,3)] <- c("Total_displacement", "Euclidean_displacement")
   pop_stats <- my_rows
 
   # Attach, return
   tc_obj@ops$stats <- 1
-  tc_obj@stats <- list(population = pop_stats,
-                       cells = cell_stats)
+  tc_obj@stats <- list(population = pop_stats, cells = cell_stats)
 
   return(tc_obj)
 }
@@ -2787,21 +2928,29 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #'
 #' Optimize Detection Parameters for running a cell tracking job
 #'
-#' @details The lnoise param is used to guide a lowpass blurring operation, while the lobject param is used
-#' to guide a highpass background subtraction. The threshold param is used for a background correction following
+#' @details The lnoise param is used to guide a lowpass blurring operation,
+#' while the lobject param is used
+#' to guide a highpass background subtraction. The threshold param
+#' is used for a background correction following
 #' the initial image convolution
 #' \itemize{
 #'
 #'   \item \strong{lnoise}: Characteristic lengthscale of noise in pixels.
-#'   Additive noise averaged over this length should vanish. May assume any positive floating value.
-#'   May be also set to 0, in which case only the highpass "background subtraction" operation is performed.
+#'   Additive noise averaged over this length should vanish. May assume
+#'   any positive floating value.
+#'   May be also set to 0, in which case only the highpass
+#'   "background subtraction" operation is performed.
 #'
-#'   \item \strong{lobject} Integer length in pixels somewhat larger than a typical object.
-#'   Can also be set to 0, in which case only the lowpass "blurring" operation defined by lnoise is done
+#'   \item \strong{lobject} Integer length in pixels somewhat larger
+#'   than a typical object.
+#'   Can also be set to 0, in which case only the lowpass "blurring"
+#'   operation defined by lnoise is done
 #'   without the background subtraction defined by lobject
 #'
-#'   \item \strong{threshold} Numeric. By default, after the convolution, any negative pixels are reset
-#'   to 0.  Threshold changes the threshhold for setting pixels to 0.  Positive values may be useful
+#'   \item \strong{threshold} Numeric. By default, after the convolution,
+#'   any negative pixels are reset
+#'   to 0.  Threshold changes the threshhold for setting pixels to 0.
+#'   Positive values may be useful
 #'   for removing stray noise or small particles.
 #'
 #' }
@@ -2809,17 +2958,24 @@ ComputeTracksStats <- function(tc_obj, time_between_frames, resolution_pixel_per
 #'
 #'
 #' @param tc_obj a \code{trackedCells} object
-#' @param lnoise_range numeric vector of lnoise values to be used in the optimization step. Can be NULL
+#' @param lnoise_range numeric vector of lnoise values to be used
+#' in the optimization step. Can be NULL
 #' @param min.px.diam integer, minimum diameter of a particle (cell).
 #' Particles with a diameter smaller than min.px.diam are discarded
-#' @param diameter_range numeric vector of diameter values to be used in the optimization step. Can be NULL
-#' @param threshold_range numeric vector of threshold values to be used in the optimization step. Can be NULL
-#' @param target_cell_num integer, the expected (optimal) number of cells to be detected in each frame
+#' @param diameter_range numeric vector of diameter values to be used
+#' in the optimization step. Can be NULL
+#' @param threshold_range numeric vector of threshold values to be used
+#' in the optimization step. Can be NULL
+#' @param target_cell_num integer, the expected (optimal) number of cells
+#' to be detected in each frame
 #' @param threads integer, number of cores to use for parallelization
-#' @param quantile.val numeric, argument passed to EstimateDiameterRange(). If NULL, it is defaulted to 0.99
-#' @param px.margin numeric, argument passed to EstimateDiameterRange(). If NULL, it ia defaulted to 2
+#' @param quantile.val numeric, argument passed to
+#' EstimateDiameterRange(). If NULL, it is defaulted to 0.99
+#' @param px.margin numeric, argument passed to
+#' EstimateDiameterRange(). If NULL, it ia defaulted to 2
 #' @param plot if `TRUE`, plots results in the end
-#' @param verbose shall information about the progress of the operation be printed to screen/console
+#' @param verbose shall information about the progress of the operation
+#' be printed to screen/console
 #'
 #' @return a trackedCells object
 #'
@@ -2960,8 +3116,17 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 
 
   # select mid signal image
-  imgSums <- vapply(stack_img$images, FUN = sum, FUN.VALUE = numeric(1), na.rm = TRUE)
-  med.i <- ifelse(length(imgSums) %% 2 == 0, length(imgSums) / 2, (0.5 * length(imgSums) + 0.5))
+  imgSums <- vapply(
+    stack_img$images,
+    FUN = sum,
+    FUN.VALUE = numeric(1),
+    na.rm = TRUE
+  )
+  med.i <- ifelse(
+    length(imgSums) %% 2 == 0,
+    length(imgSums) / 2,
+    (0.5 * length(imgSums) + 0.5)
+  )
   r.i <- order(imgSums)[med.i]
 
   tmp_img <- stack_img$images[[r.i]]
@@ -2982,7 +3147,10 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 
   # diam range
   if(is.null(diameter_range) && !is.null(estRDI)) {
-    diameter_range <- c(floor(estRDI$q75.diam - 1), ceiling(1.25 * as.numeric(estRDI$q95.diam)))
+    diameter_range <- c(
+      floor(estRDI$q75.diam - 1),
+      ceiling(1.25 * as.numeric(estRDI$q95.diam))
+    )
     diameter_range[diameter_range < min.px.diam] <- min.px.diam
     diameter_range <- unique(as.integer(diameter_range))
     diameter_range <- unique(as.integer(
@@ -3001,14 +3169,23 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 
   # Define param ranges
   if(is.null(lnoise_range))
-    lnoise_range <- unique(as.integer(seq(from = min.px.diam,
-                                          to = quantile(estRDI$raw$LEN, probs = 0.25),
-                                          length.out = 3)))
+    lnoise_range <- unique(
+      as.integer(seq(
+        from = min.px.diam,
+        to = quantile(estRDI$raw$LEN, probs = 0.25),
+        length.out = 3
+      ))
+    )
 
   if(is.null(threshold_range)) {
-    threshold_range <- seq(max(0, (min(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], na.rm = TRUE) - 1)),
-                           (1 + quantile(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], probs = 0.75)),
-                           length.out = 4)
+    threshold_range <- seq(
+      max(
+        0,
+        (min(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], na.rm = TRUE) - 1)
+      ),
+      1 + quantile(tmp_img[tmp_img > min(tmp_img, na.rm = TRUE)], probs = 0.75),
+      length.out = 4
+    )
     threshold_range <- unique(as.integer(threshold_range))
   }
 
@@ -3039,7 +3216,12 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
   # Verbose
   if (verbose) {
 
-    message(paste0("Testing ", nrow(all_params), " combination(s) of params."), appendLF = TRUE)
+    message(
+      paste0(
+        "Testing ", nrow(all_params), " combination(s) of params."
+      ),
+      appendLF = TRUE
+    )
     message("This may take some time.", appendLF = TRUE)
 
     message("Processing ", appendLF = FALSE)
@@ -3119,43 +3301,46 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
     suppressMessages(parallel::clusterExport(cl, stuffToExp))
 
     ## %dopar%
-    all_results <-
-      tryCatch(foreach::foreach(j = (1:nrow(all_params)),
-                                .verbose = verbose,
-                                .packages = "cellmigRation") %dopar% {
+    all_results <- tryCatch(
+      foreach::foreach(
+        j = (1:nrow(all_params)),
+        .verbose = verbose,
+        .packages = "cellmigRation"
+      ) %dopar% {
+        # Verbose
+        message(".", appendLF = FALSE)
 
-                                  # Verbose
-                                  message(".", appendLF = FALSE)
+        #VisualizeImg(tmp_img)
+        b <- bpass(image_array = tmp_img,
+                    lnoise = all_params$lnoise[j],
+                    lobject = all_params$diameter[j],
+                    threshold = all_params$threshold[j])
+        tmpOUT <- list(img = b)
 
-                                  #VisualizeImg(tmp_img)
-                                  b <- bpass(image_array = tmp_img,
-                                             lnoise = all_params$lnoise[j],
-                                             lobject = all_params$diameter[j],
-                                             threshold = all_params$threshold[j])
-                                  tmpOUT <- list(img = b)
+        tryCatch({
+          pk <- suppressMessages(
+            pkfnd(im = b,
+                  th = all_params$threshold[j],
+                  sz = NextOdd(all_params$diameter[j])))
 
-                                  tryCatch({
-                                    pk <- suppressMessages(
-                                      pkfnd(im = b,
-                                            th = all_params$threshold[j],
-                                            sz = NextOdd(all_params$diameter[j])))
+          cnt <- suppressMessages(
+            cntrd(im = b, mx = pk,
+                  sz = NextOdd(all_params$diameter[j])))
 
-                                    cnt <- suppressMessages(
-                                      cntrd(im = b, mx = pk,
-                                            sz = NextOdd(all_params$diameter[j])))
+          tmpOUT[["count"]] <- nrow(cnt)
 
-                                    tmpOUT[["count"]] <- nrow(cnt)
+        }, error = function(e) {
+          tmpOUT[["count"]] <- 0
 
-                                  }, error = function(e) {
-                                    tmpOUT[["count"]] <- 0
-
-                                  })
-                                  tmpOUT
-                                }, error = (function(e) {
-                                  print(e)
-                                  try(parallel::stopCluster(cl), silent = TRUE)
-                                  return(NULL)
-                                }))
+        })
+        tmpOUT
+      },
+      error = (function(e) {
+        print(e)
+        try(parallel::stopCluster(cl), silent = TRUE)
+          return(NULL)
+      })
+    )
     message("Done!", appendLF = TRUE)
     try({suppressWarnings(parallel::stopCluster(cl))}, silent = TRUE)
   }
@@ -3181,10 +3366,15 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
       best_params[["threshold"]] <- ord_params$threshold[ord_params$i == ri]
     }
 
-    myLAB <- paste0("Pick #", top.i, "; Cell_count=", ord_params$counts[ord_params$i == ri], "\n")
-    myLAB <- paste0(myLAB, "lnoise=", ord_params$lnoise[ord_params$i == ri], "; ",
-                    "diameter=", ord_params$diameter[ord_params$i == ri], "; ",
-                    "threshold=", ord_params$threshold[ord_params$i == ri])
+    myLAB <- paste0(
+      "Pick #", top.i, "; Cell_count=", ord_params$counts[ord_params$i == ri],
+      "\n"
+    )
+    myLAB <- paste0(
+      myLAB, "lnoise=", ord_params$lnoise[ord_params$i == ri], "; ",
+      "diameter=", ord_params$diameter[ord_params$i == ri], "; ",
+      "threshold=", ord_params$threshold[ord_params$i == ri]
+    )
 
     if (plot) {
       #curPAR <- par(no.readonly = TRUE)
@@ -3219,43 +3409,64 @@ OptimizeParams <- function(tc_obj, lnoise_range = NULL, min.px.diam = 5,
 #'
 #' Analyze Stacks, detect cells in each frame, and analyze cell tracks over time
 #'
-#' @details The lnoise param is used to guide a lowpass blurring operation, while the lobject param is used
-#' to guide a highpass background subtraction. The threshold param is used for a background correction following
+#' @details The lnoise param is used to guide a lowpass blurring
+#' operation, while the lobject param is used
+#' to guide a highpass background subtraction. The threshold param
+#' is used for a background correction following
 #' the initial image convolution
 #' \itemize{
 #'
 #'   \item \strong{lnoise}: Characteristic lengthscale of noise in pixels.
-#'   Additive noise averaged over this length should vanish. May assume any positive floating value.
-#'   May be also set to 0, in which case only the highpass "background subtraction" operation is performed.
+#'   Additive noise averaged over this length should vanish.
+#'   May assume any positive floating value.
+#'   May be also set to 0, in which case only the highpass
+#'   "background subtraction" operation is performed.
 #'
-#'   \item \strong{lobject} Integer length in pixels somewhat larger than a typical object.
-#'   Can also be set to 0, in which case only the lowpass "blurring" operation defined by lnoise is done
+#'   \item \strong{lobject} Integer length in pixels somewhat larger
+#'   than a typical object.
+#'   Can also be set to 0, in which case only the lowpass "blurring"
+#'   operation defined by lnoise is done
 #'   without the background subtraction defined by lobject
 #'
-#'   \item \strong{threshold} Numeric. By default, after the convolution, any negative pixels are reset
-#'   to 0.  Threshold changes the threshhold for setting pixels to 0.  Positive values may be useful
+#'   \item \strong{threshold} Numeric. By default,
+#'   after the convolution, any negative pixels are reset
+#'   to 0.  Threshold changes the threshhold for setting pixels to 0.
+#'   Positive values may be useful
 #'   for removing stray noise or small particles.
 #'
 #' }
 #'
 #'
 #' @param tc_obj a \code{trackedCells} object.
-#' @param import_optiParam_from a \code{trackedCells} object (optional) used to
+#' @param import_optiParam_from a \code{trackedCells} object (optional)
+#' used to
 #' import optimized parameters; can be NULL.
-#' @param min_frames_per_cell numeric, minimum number of consecutive frames in which
-#' a cell shall be found in order to retain that cell in the final cell tracks data.frame. Defaults to 1.
-#' @param lnoise numeric, lnoise parameter; can be NULL if OptimizeParams() has already been run
-#' @param diameter numeric, diameter parameter; can be NULL if OptimizeParams() has already been run
-#' @param threshold numeric, threshold parameter; can be NULL if OptimizeParams() has already been run
-#' @param maxDisp numeric,  maximum displacement of a cell per time interval.
-#' When many cells are detected in each frame, small maxDisp values should be used.
-#' @param memory_b numeric, memory_b parameter as used in the original track.m function.
+#' @param min_frames_per_cell numeric, minimum number of consecutive
+#' frames in which
+#' a cell shall be found in order to retain that cell in the final
+#' cell tracks data.frame. Defaults to 1.
+#' @param lnoise numeric, lnoise parameter; can be NULL if
+#' OptimizeParams() has already been run
+#' @param diameter numeric, diameter parameter; can be NULL if
+#' OptimizeParams() has already been run
+#' @param threshold numeric, threshold parameter; can be NULL
+#' if OptimizeParams() has already been run
+#' @param maxDisp numeric,  maximum displacement of a cell per
+#' time interval.
+#' When many cells are detected in each frame, small maxDisp values
+#' should be used.
+#' @param memory_b numeric, memory_b parameter as used in
+#' the original track.m function.
 #' In the current R implementation, only the value memory_b=0 is accepted
-#' @param goodenough numeric, goodenough parameter as used in the original track.m function.
-#' In the current R implementation, only the value goodenough=0 is accepted
+#' @param goodenough numeric, goodenough parameter as used in
+#' the original track.m function.
+#' In the current R implementation, only the value goodenough=0
+#' is accepted
 #' @param threads integer, number of cores to use for parallelization
-#' @param show_plots logical, shall cells detected in each frame of the image stack be visualized
-#' @param verbose logical, shall info about the progress of the cell tracking job be printed
+#' @param show_plots logical, shall cells detected in each frame of
+#' the image stack be visualized
+#' @param verbose logical, shall info about the progress of the cell
+#' tracking job be printed
 #'
 #' @return a trackedCells object
 #'
@@ -3314,7 +3525,9 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
     }
     if (chk.tco == 0) {
       message("Could not import optimal params from the provided object.")
-      message("Is it a 'trackedCells'-class object? Did you run `OptimizeParams()`?")
+      message(
+        "Is it a 'trackedCells'-class object? Did you run `OptimizeParams()`?"
+      )
     }
   }
 
@@ -3375,7 +3588,9 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
 
   # Final check
   if (any(is.na(track_params))) {
-    message("Make sure to set all params for the analysis, or run OptimizeParams()")
+    message(
+      "Make sure to set all params for the analysis, or run OptimizeParams()"
+    )
     return(tc_obj)
   }
 
@@ -3507,9 +3722,6 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
                      error = function(e) {NULL})
       cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))},
                       error = function(e) {NULL})
-      #b <- bpass(image_array = a, lnoise = lnoise, lobject = diameter, threshold = threshold)
-      #pk <- pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
-      #cnt <- cntrd(im = b, mx = pk, sz = NextOdd(diameter))
 
       if (show_plots) {
         VisualizeImg(img_mtx = b, las = 1, main = paste0("Stack num. ", i))
@@ -3522,8 +3734,12 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
         all_b[[length(all_b) + 1]] <- b
 
       } else {
-        message(paste0('No centroids detectd in frame ', i, ' in the current stack'))
-        message('Please, check nuclei validation settings for this image stack.')
+        message(
+          paste0('No centroids detectd in frame ', i, ' in the current stack')
+        )
+        message(
+          'Please, check nuclei validation settings for this image stack.'
+        )
       }
     }
     if (verbose)
@@ -3545,46 +3761,44 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
 
     ## %dopar%
     all_results <-
-      tryCatch(foreach::foreach(j = (1:NumberImages),
-                                .verbose = verbose,
-                                .packages = "cellmigRation") %dopar% {
+      tryCatch(foreach::foreach(
+        j = (1:NumberImages),
+        .verbose = verbose,
+        .packages = "cellmigRation"
+      ) %dopar% {
 
-                                  # Verbose
-                                  message(".", appendLF = FALSE)
+        # Verbose
+        message(".", appendLF = FALSE)
 
-                                  # generate an 1xP array with each column containing centroid output for
-                                  # individual frames
-                                  a <- FinalImage[[j]]
-                                  #b <- bpass(image_array = a, lnoise = lnoise, lobject = diameter, threshold = threshold)
-                                  #pk <- pkfnd(im = b, th = threshold, sz = NextOdd(diameter))
-                                  #cnt <- cntrd(im = b, mx = pk, sz = NextOdd(diameter))
-                                  b <- tryCatch({bpass(image_array = a, lnoise = lnoise,
-                                                       lobject = diameter, threshold = threshold)},
-                                                error = function(e) {NULL})
-                                  pk <- tryCatch({pkfnd(im = b, th = threshold, sz = NextOdd(diameter))},
-                                                 error = function(e) {NULL})
-                                  cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))},
-                                                  error = function(e) {NULL})
+        # generate an 1xP array with each column containing centroid output
+        # for individual frames
+        a <- FinalImage[[j]]
+        b <- tryCatch({bpass(image_array = a, lnoise = lnoise,
+                              lobject = diameter, threshold = threshold)},
+                      error = function(e) {NULL})
+        pk <- tryCatch({pkfnd(im = b, th = threshold, sz = NextOdd(diameter))},
+                        error = function(e) {NULL})
+        cnt <- tryCatch({cntrd(im = b, mx = pk, sz = NextOdd(diameter))},
+                        error = function(e) {NULL})
 
-                                  # determine that frame s has at least 1 valid centroid
-                                  if(! is.null(cnt) && is.data.frame(cnt) && nrow(cnt) > 0) {
-                                    tmpOUT <- list(cnt = cnt, b = b, j = j)
+        # determine that frame s has at least 1 valid centroid
+        if(! is.null(cnt) && is.data.frame(cnt) && nrow(cnt) > 0) {
+          tmpOUT <- list(cnt = cnt, b = b, j = j)
 
-                                  } else {
-                                    #message(paste0("No centroids detectd in frame ",
-                                    #               i, " in the current stack"))
-                                    #message("Please, check nuclei validation settings for this image stack.")
-                                    errCNT <- data.frame(row = 1, col = 1, norm = 1, rg = 1)
-                                    tmpOUT <- list(cnt = errCNT[-1, ], b = b, j = j)
+        } else {
+          errCNT <- data.frame(row = 1, col = 1, norm = 1, rg = 1)
+          tmpOUT <- list(cnt = errCNT[-1, ], b = b, j = j)
 
-                                  }
-                                  tmpOUT
+        }
+        tmpOUT
 
-                                }, error = (function(e) {
-                                  print(e)
-                                  try(parallel::stopCluster(cl), silent = TRUE)
-                                  return(NULL)
-                                }))
+      },
+      error = (function(e) {
+        print(e)
+        try(parallel::stopCluster(cl), silent = TRUE)
+        return(NULL)
+      }
+    ))
 
     message("Done!", appendLF = TRUE)
     try({suppressWarnings(parallel::stopCluster(cl))}, silent = TRUE)
@@ -3601,7 +3815,11 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
         bii <- all_results[[ii]]$b
         cntii <- all_results[[ii]]$cnt
         VisualizeImg(img_mtx = bii, las = 1, main = paste0("Stack num. ", ii))
-        VisualizeCntr(centroids = cntii, width_px = ncol(bii), height_px = nrow(bii))
+        VisualizeCntr(
+          centroids = cntii,
+          width_px = ncol(bii),
+          height_px = nrow(bii)
+        )
         bii<-NULL; cntii<-NULL
       }
     }
@@ -3618,8 +3836,10 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
   #    all_centroids[[ti]] <- all_centroids[[ti]] [, 1:2]
   #    all_centroids[[ti]]$tau <- ti
   #  }
-  med.celln.perfr <- tryCatch({median(do.call(c, lapply(all_centroids, nrow)), na.rm = TRUE)},
-                              error = function(e) {100})
+  med.celln.perfr <- tryCatch(
+    {median(do.call(c, lapply(all_centroids, nrow)), na.rm = TRUE)},
+    error = function(e) {100}
+  )
   max.celln <- med.celln.perfr * 1.55
   min.celln <- med.celln.perfr * 0.45
   keepXX <- do.call(c, lapply(all_centroids, function(xx){
@@ -3637,13 +3857,16 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
     }
   }
 
-  # create a matrix that contains centroid data in sequential order by frame(tau)
-  #pos <- do.call(rbind, all_centroids)
+  # create a matrix that contains centroid data in sequential
+  # order by frame(tau)
   pos <- do.call(rbind, all_centroids2)
 
   tracks2 <- NULL
   if (!is.null(maxDisp)) {
-    tracks2 <- tryCatch(track(xyzs = pos, maxdisp = maxDisp, params = track_params), error = function(e) NULL)
+    tracks2 <- tryCatch(
+      track(xyzs = pos, maxdisp = maxDisp, params = track_params),
+      error = function(e) NULL
+    )
   }
 
   if (is.null(tracks2)) {
@@ -3653,12 +3876,20 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
     jj0 <- 1
     while(is.null(tracks2) && jj0 < length(allDisp) ) {
       tracks2 <- tryCatch(
-        suppressMessages(track(xyzs = pos, maxdisp = allDisp[jj0], params = track_params)), error = function(e) NULL)
+        suppressMessages(
+          track(xyzs = pos, maxdisp = allDisp[jj0], params = track_params)),
+          error = function(e) NULL
+        )
       jj0 <- jj0 + 1
     }
     if (!is.null(tracks2)) {
       track_params$maxDisp <- allDisp[jj0]
-      message(paste0("The following maxDisp value was used for this analysis: ", allDisp[jj0]))
+      message(
+        paste0(
+          "The following maxDisp value was used for this analysis: ",
+          allDisp[jj0]
+        )
+      )
 
     } else {
       message("a reasonable MaxDisp value couldn't be found! Sorry!")
@@ -3701,7 +3932,14 @@ CellTracker <- function(tc_obj, import_optiParam_from = NULL,
     sink(file = NULL, type = "message")),
            error = function(e) {NULL})
 
-  message(paste0("Tot num of cells detected in the image stack: ", init.cell.n, "; Cells retained after filtering: ", end.cell.n))
+  message(
+    paste0(
+      "Tot num of cells detected in the image stack: ",
+      init.cell.n,
+      "; Cells retained after filtering: ",
+      end.cell.n
+    )
+  )
 
   ### generate tracks
   #tracks <- track(xyzs = pos, maxdisp = maxDisp, params = track_params)
@@ -3804,7 +4042,10 @@ getPopulationStats <- function(tc_obj)
   if (tc_obj@ops$stats == 1) {
     return(tc_obj@stats$population)
   } else {
-    message("Stats have not been computed yet. Please, run `ComputeTracksStats()`. Thanks.")
+    message(
+      "Stats have not been computed yet. ",
+      "Please, run `ComputeTracksStats()`. Thanks."
+    )
   }
 }
 
@@ -3842,7 +4083,10 @@ getCellsStats <- function(tc_obj)
   if (tc_obj@ops$stats == 1) {
     return(tc_obj@stats$cells)
   } else {
-    message("Stats have not been computed yet. Please, run `ComputeTracksStats()`. Thanks.")
+    message(
+      "Stats have not been computed yet. ",
+      "Please, run `ComputeTracksStats()`. Thanks."
+    )
   }
 }
 
@@ -3853,7 +4097,8 @@ getCellsStats <- function(tc_obj)
 #'
 #' @param tc_obj a trackedCells object
 #'
-#' @return a list including four items: tiff filename, experiment name, condition label, and replicate ID.
+#' @return a list including four items:
+#' tiff filename, experiment name, condition label, and replicate ID.
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
@@ -3905,7 +4150,8 @@ getImageStacks <- function(tc_obj)
 #'
 #' @param tc_obj a \code{trackedCells} object
 #'
-#' @return a list including optimized parameter values (lnoise, diameter, and threshold)
+#' @return a list including optimized parameter values
+#' (lnoise, diameter, and threshold)
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
@@ -3940,11 +4186,15 @@ getOptimizedParams <- function(tc_obj)
 #' Write/Replace MetaData of a trackedCells object
 #'
 #' @param tc_obj a \code{trackedCells} object
-#' @param experiment string, a label to describe the experiment (optional). Can be NULL
-#' @param condition string, a label to describe the experimental condition (optional). Can be NULL
-#' @param replicate string, a label to identify the replicate (optional). Can be NULL
+#' @param experiment string, a label to describe the experiment
+#' (optional). Can be NULL
+#' @param condition string, a label to describe the experimental
+#' condition (optional). Can be NULL
+#' @param replicate string, a label to identify the replicate
+#' (optional). Can be NULL
 #'
-#' @return a list including three items: experiment name, condition label, and replicate ID.
+#' @return a list including three items: experiment name, condition label,
+#' and replicate ID.
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
@@ -3993,23 +4243,35 @@ setCellsMeta <- function(tc_obj, experiment = NULL,
 
 #' Aggregate trackedCells Objects
 #'
-#' Aggregate two or more trackedCells-class objects together. Input objects must carry information of cell
-#' tracks (otherwise an error will be raised). All tracks form the different experiments/images are returned in a
-#' large data.frame. A new unique ID is assigned to specifically identify each cell track from each image/experiment.
+#' Aggregate two or more trackedCells-class objects together.
+#' Input objects must carry information of cell
+#' tracks (otherwise an error will be raised). All tracks form
+#' the different experiments/images are returned in a
+#' large data.frame. A new unique ID is assigned to specifically
+#' identify each cell track from each image/experiment.
 #'
-#' @param x a \code{trackedCells}-class object where cells have already been tracked
-#' @param ... one or more trackedCells-class object(s) where cells have already been tracked
-#' @param meta_id_field string, can take one of the following values, c("tiff_file", "experiment",
-#' "condition", "replicate"). Indicates the meta-data column used as unique ID for the image/experiment.
+#' @param x a \code{trackedCells}-class object where cells have already
+#' been tracked
+#' @param ... one or more trackedCells-class object(s) where cells
+#' have already been tracked
+#' @param meta_id_field string, can take one of the following values,
+#' c("tiff_file", "experiment", "condition", "replicate"). Indicates
+#' the meta-data column used as unique ID for the image/experiment.
 #' Can be abbreviated. Defaults to "tiff_file".
 #'
-#' @return An aggregate data.frame including all cells that were tracked over two or more images/experiments.
-#' The data.frame includes the following columns: "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name",
-#' "experiment", "condition", "replicate". The "new.ID" uniquely identifies a cell in a given image/experiment.
+#' @return An aggregate data.frame including all cells that were
+#' tracked over two or more images/experiments.
+#' The data.frame includes the following columns: "new.ID", "frame.ID",
+#' "X", "Y", "cell.ID", "tiff_name",
+#' "experiment", "condition", "replicate". The "new.ID" uniquely
+#' identifies a cell in a given image/experiment.
 #'
-#' @details each trackedCells-class object passed to this function requires a unique identifier (such as a unique
-#' tiff_file name). Any of the metadata columns can be used as unique ID for an image/experiment. The function
-#' will raise an error if non-unique identifiers are found across the input objects.
+#' @details each trackedCells-class object passed to this function
+#' requires a unique identifier (such as a unique
+#' tiff_file name). Any of the metadata columns can be used as
+#' unique ID for an image/experiment. The function
+#' will raise an error if non-unique identifiers are found across
+#' the input objects.
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
@@ -4069,7 +4331,10 @@ aggregateTrackedCells <- function(x, ...,
   }
 
   # Chek names are different
-  all_ids <- do.call(c, lapply(big.list, function(xx) {xx@metadata[[meta_id_field]] }))
+  all_ids <- do.call(
+    c,
+    lapply(big.list, function(xx) {xx@metadata[[meta_id_field]] })
+  )
   all_ids <- as.character(all_ids)
   unq_ids <- unique(all_ids)
 
@@ -4083,11 +4348,14 @@ aggregateTrackedCells <- function(x, ...,
   my_tracks[,"new.ID"] <- factor(my_tracks[,meta_id_field], levels = unq_ids)
   my_tracks[,"new.ID"] <- as.numeric(my_tracks[,"new.ID"])
   my.mult <- compute_mult(max(my_tracks[, "cell.ID"], na.rm = TRUE))
-  my_tracks[,"new.ID"] <- (my.mult * my_tracks[,"new.ID"]) + my_tracks[, "cell.ID"]
+  my_tracks[,"new.ID"] <-
+    (my.mult * my_tracks[,"new.ID"]) + my_tracks[, "cell.ID"]
 
   # Adjust as per S request
-  #keep.colz <- c('new.ID', 'frame.ID', 'X', 'Y', 'cell.ID', 'tiff_file', 'experiment', 'condition', 'replicate')
-  keep.colz <- c('new.ID', 'X', 'Y', 'frame.ID', 'cell.ID', 'tiff_file', 'experiment', 'condition', 'replicate')
+  keep.colz <- c(
+    'new.ID', 'X', 'Y', 'frame.ID', 'cell.ID', 'tiff_file',
+    'experiment', 'condition', 'replicate'
+  )
   out <- my_tracks[, keep.colz]
   rownames(out) <- NULL
 
@@ -4097,15 +4365,20 @@ aggregateTrackedCells <- function(x, ...,
 
 #' Filter an Aggregated Table of Cell Tracks
 #'
-#' Filter an Aggregated Table (data.frame) of cell tracks (from multiple images/experiments) and
+#' Filter an Aggregated Table (data.frame) of cell tracks
+#' (from multiple images/experiments) and
 #' retain cell tracks from images/experiments of interest
 #'
-#' @param x data.frame, is an aggregated Table of Cell Tracks. Must include the following columns:
-#' "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name", "experiment", "condition", "replicate"
-#' @param id_list character vector, indicates the IDs (such as tiff_filenames) to be retained in the
+#' @param x data.frame, is an aggregated Table of Cell Tracks.
+#' Must include the following columns:
+#' "new.ID", "frame.ID", "X", "Y", "cell.ID", "tiff_name",
+#' "experiment", "condition", "replicate"
+#' @param id_list character vector, indicates the IDs (such as
+#' tiff_filenames) to be retained in the
 #' output data.frame
-#' @param meta_id_field string, can take one of the following values, c("tiff_file", "experiment",
-#' "condition", "replicate"). Indicates the meta-data column used as unique ID for the image/experiment.
+#' @param meta_id_field string, can take one of the following values,
+#' c("tiff_file", "experiment", "condition", "replicate"). Indicates
+#' the meta-data column used as unique ID for the image/experiment.
 #' Can be abbreviated. Defaults to "tiff_file".
 #'
 #' @return data.frame, a filtered aggregated Table of Cell Tracks
@@ -4148,13 +4421,17 @@ FilterTrackedCells <- function(x, id_list,
 
 #' @title Data preprocessing for random migration (RM)
 #'
-#' @description This function allows preprocessing of the trajectory data from random
+#' @description This function allows preprocessing of the trajectory
+#' data from random
 #' migration (RM) experiments.
 #'
 #' @param object \code{CellMig} class object.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack. Default is 10 min.
-#' @param PixelSize A numeric value of the physical size of a pixel. Default is 1.24.
-#' @param FrameN A numeric value of the number of frames. Default is NULL
+#' @param TimeInterval A numeric value of the time elapsed
+#' between successive frames in the time-lapse stack. Default is 10 min.
+#' @param PixelSize A numeric value of the physical size of a pixel.
+#' Default is 1.24.
+#' @param FrameN A numeric value of the number of frames.
+#' Default is NULL
 #' @param ExpName string, name of the experiment. Can be NULL
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
@@ -4177,12 +4454,20 @@ rmPreProcessing = function(object, PixelSize=1.24,
   if ( ! is.data.frame(object@trajdata)){
     msg <- c(msg, "input data must be data.frame")
   }
-  if ( ! is.numeric(PixelSize)) stop( "PixelSize has to be a positive number" ) else if ( PixelSize<= 0 ) stop( "PixelSize has to be a positive number" )
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
+  if (!is.numeric(PixelSize)) {
+    stop("PixelSize has to be a positive number")
+  } else if ( PixelSize<= 0 ) {
+    stop( "PixelSize has to be a positive number" )
+  }
+  if (!is.numeric(TimeInterval)) {
+    stop( "TimeInterval has to be a positive number" )
+  } else if ( TimeInterval<= 0 ) {
+    stop( "TimeInterval has to be a positive number" )
+  }
 
   object@adjDS <- object@trajdata
   df<-object@adjDS
-  df<-df[,1:3]                                        # Removing the unnecessary columns
+  df<-df[,1:3]  # Removing the unnecessary columns
   spl<-split(df,df[,1])
   cat("This dataset contains:", length(spl), "cell(s) in total\n")
 
@@ -4210,7 +4495,7 @@ rmPreProcessing = function(object, PixelSize=1.24,
   tbd<-c()
   LENspl<-length(spl)
   for (i in 1: LENspl){
-    if (length(spl[[i]][,1])<4){                     # Removing cells with less than 4 tracked frames
+    if (length(spl[[i]][,1])<4){ # Removing cells with < 4 tracked frames
       tbd<-c(tbd,i)
     }
   }
@@ -4219,21 +4504,37 @@ rmPreProcessing = function(object, PixelSize=1.24,
 
   L<-length(df[,1])
   df[,4:26]<-rep(0,L)
-  df[,27]<-rep(NA,L)                                  # to be used for migration type
-  colnames(df)<-c("ID","x","y","X","Y","dx","dy","dis","abs.ang","rel.ang.P","Cos.P","Persist.Time","Square Speed","cumDis","Dir.R","NewDX","NewDY","New.Abs.ang","Ang.Diff","New.Cos.diff","rel.ang.F","Cos.F","Forward.Persist.Time","MSD(lag)","VAC(lag)","Acceleration","M-type")
-  ID_split <- split(df, df$ID)                        #Splitting the data frame based on the ID
-  cat("This dataset contains:", length(ID_split), "cell(s) with more than three steps in their tracks\n")
+  df[,27]<-rep(NA,L)  # to be used for migration type
+  colnames(df)<-c(
+    "ID","x","y","X","Y","dx","dy","dis","abs.ang","rel.ang.P","Cos.P",
+    "Persist.Time","Square Speed","cumDis","Dir.R","NewDX","NewDY",
+    "New.Abs.ang","Ang.Diff","New.Cos.diff","rel.ang.F","Cos.F",
+    "Forward.Persist.Time","MSD(lag)","VAC(lag)","Acceleration","M-type"
+  )
+  ID_split <- split(df, df$ID)  #Splitting the data frame based on the ID
+  cat(
+    "This dataset contains:",
+    length(ID_split),
+    "cell(s) with more than three steps in their tracks\n"
+  )
 
-  for(j in 1:length(ID_split)){                        # Having the ID =group order
+  for(j in 1:length(ID_split)){  # Having the ID =group order
     ID_split[[j]][1]=j
   }
 
-  for(j in seq_len(length(ID_split))){                        # adjusting x and y (starting from 0 & being multiplied by H)
+  # adjusting x and y (starting from 0 & being multiplied by H)
+  for(j in seq_len(length(ID_split))){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res <- t(vapply(seq(from = 2, to = MM, by = 1L), function(i){
-      ID_split[[j]][i,4]=PixelSize*((ID_split[[j]][i,2])-( ID_split[[j]][1,2]))      # x2-x1
-      ID_split[[j]][i,5]=PixelSize*(( ID_split[[j]][1,3])-(ID_split[[j]][i,3]))      # y2-y1
+      # x2-x1
+      ID_split[[j]][i,4]=PixelSize*(
+        (ID_split[[j]][i,2])-( ID_split[[j]][1,2])
+      )
+      # y2-y1
+      ID_split[[j]][i,5]=PixelSize*(
+        ( ID_split[[j]][1,3])-(ID_split[[j]][i,3])
+      )
       return(as.numeric(ID_split[[j]][i,4:5]))
     }, FUN.VALUE = numeric(2)))
     ID_split[[j]][2:MM,4:5] <- as.data.frame(res)
@@ -4242,25 +4543,32 @@ rmPreProcessing = function(object, PixelSize=1.24,
 
 
 
-  for(j in 1:length(ID_split)){                    # removing the old x and y
-    ID_split[[j]]=ID_split[[j]][-2]            # removing x column
-    ID_split[[j]]=ID_split[[j]][-2]            # removing the y column [-2] is used because x column is gone.
+  for(j in 1:length(ID_split)){  # removing the old x and y
+    ID_split[[j]]=ID_split[[j]][-2]  # removing x column
+    ID_split[[j]]=ID_split[[j]][-2]  # removing y col [-2]because x[-2] is gone.
   }
 
 
 
-  for(j in seq_len(length(ID_split))){                    # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
+  # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
+  for(j in seq_len(length(ID_split))){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res <- t(vapply(seq_len(MM), function(i){
-      ID_split[[j]][i,4]=(ID_split[[j]][i+1,2])-( ID_split[[j]][i,2])                                         # creating values for dx
+      # creating values for dx
+      ID_split[[j]][i,4]=(ID_split[[j]][i+1,2])-( ID_split[[j]][i,2])
       ID_split[[j]][,4][is.na(ID_split[[j]][,4])] <- 0
-      ID_split[[j]][i,5]= ( ID_split[[j]][i+1,3])-(ID_split[[j]][i,3])                                        # creating values for dy
-      ID_split[[j]][,5][is.na(ID_split[[j]][,5])] <- 0                                                        # to remove NA and replace it with 0
-      ID_split[[j]][i,6]=sqrt((ID_split[[j]][i,4])^2 + (ID_split[[j]][i,5])^2)                                # creating values for dis
+      # creating values for dy
+      ID_split[[j]][i,5]= ( ID_split[[j]][i+1,3])-(ID_split[[j]][i,3])
+      # to remove NA and replace it with 0
+      ID_split[[j]][,5][is.na(ID_split[[j]][,5])] <- 0
+      # creating values for dis
+      ID_split[[j]][i,6]=sqrt((ID_split[[j]][i,4])^2 + (ID_split[[j]][i,5])^2)
       ID_split[[j]][i,7]= acos((ID_split[[j]][i,4])/(ID_split[[j]][i,6]))
-      ID_split[[j]][,7][is.na(ID_split[[j]][,7])] <- 0                                                        # to remove NA and replace it with 0
-      ID_split[[j]][i,11]=((ID_split[[j]][i,6])/TimeInterval)^2                                               # creating values for Square Speed
+      # to remove NA and replace it with 0
+      ID_split[[j]][,7][is.na(ID_split[[j]][,7])] <- 0
+      # creating values for Square Speed
+      ID_split[[j]][i,11]=((ID_split[[j]][i,6])/TimeInterval)^2
       return(as.numeric(ID_split[[j]][i,c(4:7, 11)]))
     }, FUN.VALUE = numeric(5)))
 
@@ -4272,35 +4580,57 @@ rmPreProcessing = function(object, PixelSize=1.24,
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res1 <- t(vapply(seq_len(MM), function(i){
-      ID_split[[j]][,12]=cumsum(ID_split[[j]][,6])                                                            # creating values for cumsum
-      ID_split[[j]][i,13]= sqrt(((ID_split[[j]][i+1,2])^2)+((ID_split[[j]][i+1,3])^2))/(ID_split[[j]][i,12])  # creating values for cumulative directionality ratio
+      # creating values for cumsum
+      ID_split[[j]][,12]=cumsum(ID_split[[j]][,6])
+      # creating values for cumulative directionality ratio
+      ID_split[[j]][i,13]= sqrt(
+        ((ID_split[[j]][i+1,2])^2)+((ID_split[[j]][i+1,3])^2)
+        ) / (ID_split[[j]][i,12])
       return(as.numeric(ID_split[[j]][i,12:13]))
     }, FUN.VALUE = numeric(2)))
     ID_split[[j]][1:MM,12:13] <- res1
     ID_split[[j]][,12:13] <- lapply(ID_split[[j]][,12:13], as.numeric)
   }
 
-  for(j in seq_len(length(ID_split))){              # creating values for  rel.ang.P  (step to the previous)
+  # creating values for  rel.ang.P  (step to the previous)
+  for(j in seq_len(length(ID_split))){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     MM1<-MM-1
     res <- vapply(seq_len(MM1), function(i){
 
-      if((ID_split[[j]][i+1,5]<0) && (ID_split[[j]][i,5]>=0)||(ID_split[[j]][i+1,5]>=0) && (ID_split[[j]][i,5]<0) ){
+      if(
+        (ID_split[[j]][i+1,5]<0) &&
+        (ID_split[[j]][i,5]>=0)||(ID_split[[j]][i+1,5]>=0) &&
+        (ID_split[[j]][i,5]<0)
+      ){
         ID_split[[j]][i,8]= abs(ID_split[[j]][i+1,7])+abs(ID_split[[j]][i,7])
       }
-      if((ID_split[[j]][i+1,5]<0) && (ID_split[[j]][i,5]<0)||(ID_split[[j]][i+1,5]>=0) && (ID_split[[j]][i,5]>=0) ){
+      if(
+        (ID_split[[j]][i+1,5]<0) &&
+        (ID_split[[j]][i,5]<0)||(ID_split[[j]][i+1,5]>=0) &&
+        (ID_split[[j]][i,5]>=0)
+      ){
         ID_split[[j]][i,8]=ID_split[[j]][i+1,7]-ID_split[[j]][i,7]
       }
-      ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])<= (-pi), 2*pi+(ID_split[[j]][i,8]),(ID_split[[j]][i,8]))    # adjusting the rel.ang
-      ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])> pi,(ID_split[[j]][i,8])-2*pi,(ID_split[[j]][i,8]))
+      ID_split[[j]][i,8]<-ifelse(
+        (ID_split[[j]][i,8])<= (-pi),
+        2*pi+(ID_split[[j]][i,8]),
+        (ID_split[[j]][i,8])
+      )    # adjusting the rel.ang
+      ID_split[[j]][i,8]<-ifelse(
+        (ID_split[[j]][i,8])> pi,
+        (ID_split[[j]][i,8])-2*pi,
+        (ID_split[[j]][i,8])
+      )
       return(ID_split[[j]][i, 8])
     }, FUN.VALUE = numeric(1))
     ID_split[[j]][1:MM1, 8] <- res
   }
 
   cosine.P<-data.frame()
-  for(j in seq_along(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
+  # creating values for  cosine.P  based on rel.ang.P
+  for(j in seq_along(ID_split)){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res <- vapply(seq_len(MM), function(i){
@@ -4312,7 +4642,8 @@ rmPreProcessing = function(object, PixelSize=1.24,
   }
 
 
-  for(j in seq_along(ID_split)){              # Computing persistence time   (based on rel.ang.P)
+  # Computing persistence time   (based on rel.ang.P)
+  for(j in seq_along(ID_split)){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res <- vapply(seq_len(MM), function(i){
@@ -4333,7 +4664,9 @@ rmPreProcessing = function(object, PixelSize=1.24,
     MM<-length(M[,1])
     MM2<-MM-2
     res <- vapply(seq_len(MM2), function(i){
-      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/TimeInterval
+      ID_split[[j]][i,24]= (
+        sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11])
+      )/TimeInterval
       return(ID_split[[j]][i,24])
     }, FUN.VALUE = numeric(1))
     ID_split[[j]][1:MM2, 24] <- res
@@ -4358,14 +4691,23 @@ rmPreProcessing = function(object, PixelSize=1.24,
 
     cat("The minimum number of steps: ",S[1],"\n")
     cat("The maximum number of steps: ",S[6],"\n")
-    cat("Number of cells with a total number of steps less than ",S[6],"steps",":",length(IncompleteTracks),"\n")
+    cat(
+      "Number of cells with a total number of steps less than ",S[6],
+      "steps",":",length(IncompleteTracks),"\n"
+    )
     cat("All the tracks are adjusted to have only ",S[1]," steps","\n")
     PreprocessedData<-ID_split
     object@preprocessedDS<-PreprocessedData
 
   }else{
-    if ( ! is.numeric(FrameN)) stop( "FrameN has to be a positive number" ) else if ( FrameN<= 0 ) stop( "FrameN has to be a positive number" )
-    if (FrameN>S[6]) stop( paste0("No cells have ",FrameN, " steps in their tracks"))
+    if ( ! is.numeric(FrameN)) {
+      stop( "FrameN has to be a positive number" )
+    } else if ( FrameN<= 0 ) {
+      stop( "FrameN has to be a positive number" )
+    }
+    if (FrameN>S[6]) {
+      stop( paste0("No cells have ",FrameN, " steps in their tracks"))
+    }
     okTracks<-c()
     for(j in 1:length(ID_split)){
       if (length(ID_split[[j]][,1])>=FrameN){
@@ -4385,7 +4727,10 @@ rmPreProcessing = function(object, PixelSize=1.24,
     cat("The maximum number of steps: ",S[6],"\n")
     cat("Only: ", length(ID_split), " cells were selected","\n")
 
-    cat("All the tracks of the selected cells are adjusted to have only ",FrameN," steps","\n")
+    cat(
+      "All the tracks of the selected cells are adjusted to have only ",
+      FrameN," steps","\n"
+    )
     PreprocessedData<-ID_split
     object@preprocessedDS<-PreprocessedData
 
@@ -4396,24 +4741,29 @@ rmPreProcessing = function(object, PixelSize=1.24,
 
 #' @title Data preprocessing for wound scratch assay (WSA).
 #'
-#' @description This function allows filtering of cells and preprocessing of the trajectory data from wound scratch assay (WSA) experiments.
+#' @description This function allows filtering of cells and preprocessing
+#' of the trajectory data from wound scratch assay (WSA) experiments.
 #' @param object \code{CellMig} class object.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
+#' @param TimeInterval A numeric value of the time elapsed between
+#' successive frames in the time-lapse stack.
 #' @param PixelSize A numeric value of the physical size of a pixel.
 #' @param FrameN A numeric value of the number of frames. Default is NULL
 #' @param imageH A numeric value of the image height.
 #' @param woundH A numeric value of the image height.
 #' @param upperE A numeric value of the upper edge of the wound.
 #' @param lowerE A numeric value of the lower edge of the wound.
-#' @param mar A numeric value of the margin to be used to narrow the clearing zone inside the zone.
-#' @param clearW A logical vector that allows removing the cells within the wound. Default is TRUE.
+#' @param mar A numeric value of the margin to be used to narrow
+#' the clearing zone inside the zone.
+#' @param clearW A logical vector that allows removing the cells
+#' within the wound. Default is TRUE.
 #' @param ExpName string, name of the experiment. Can be NULL
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
-#' @return An CellMig class object with filtered, annotated and preprocessed data.
+#' @return An CellMig class object with filtered, annotated
+#' and preprocessed data.
 #' @examples
 #'
 #' data(WSADataset)
@@ -4431,27 +4781,67 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   if ( ! is.data.frame(object@trajdata)){
     msg <- c(msg, "input data must be data.frame")
   }
-  if ( ! is.numeric(PixelSize)) stop( "PixelSize has to be a positive number" ) else if ( PixelSize<= 0 ) stop( "PixelSize has to be a positive number" )
-  if ( ! is.numeric(imageH)) stop( "imageH has to be a positive number" ) else if ( imageH<= 0 ) stop( "PixelSize has to be a positive number" )
-  if ( ! is.numeric(woundH)) stop( "woundH has to be a positive number" ) else if ( woundH<= 0 ) stop( "woundH has to be a positive number" )
-  if ( ! is.numeric(upperE) ) stop( "upperE has to be a positive number" ) else if ( upperE<= 0 ) stop( "upperE has to be a positive number" )
-  if ( ! is.numeric(lowerE) ) stop( "lowerE has to be a positive number" ) else if ( lowerE<= 0 ) stop( "PixelSize has to be a positive number" )
-  if ( ! is.numeric(mar)) stop( "mar has to be a positive number" ) else if ( mar<= 0 ) stop( "mar has to be a positive number" )
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
+  if ( ! is.numeric(PixelSize)) {
+    stop( "PixelSize has to be a positive number" )
+  } else if ( PixelSize<= 0 ) {
+    stop( "PixelSize has to be a positive number" )
+  }
+  if ( ! is.numeric(imageH)) {
+    stop( "imageH has to be a positive number" )
+  } else if ( imageH<= 0 ) {
+    stop( "PixelSize has to be a positive number" )
+  }
+  if ( ! is.numeric(woundH)) {
+    stop( "woundH has to be a positive number" )
+  } else if ( woundH<= 0 ) {
+    stop( "woundH has to be a positive number" )
+  }
+  if ( ! is.numeric(upperE) ) {
+    stop( "upperE has to be a positive number" )
+  } else if ( upperE<= 0 ) {
+    stop( "upperE has to be a positive number" )
+  }
+  if ( ! is.numeric(lowerE) ) {
+    stop( "lowerE has to be a positive number" )
+  } else if ( lowerE<= 0 ) {
+    stop( "PixelSize has to be a positive number" )
+  }
+  if ( ! is.numeric(mar)) {
+    stop( "mar has to be a positive number" )
+  } else if ( mar<= 0 ) {
+    stop( "mar has to be a positive number" )
+  }
+  if ( ! is.numeric(TimeInterval) ) {
+    stop( "TimeInterval has to be a positive number" )
+  } else if ( TimeInterval<= 0 ) {
+    stop( "TimeInterval has to be a positive number" )
+  }
 
   if (clearW == TRUE){
     dff<-object@trajdata
-    dff<-dff[,1:4]                                        # Removing the unnecessary columns
+    dff<-dff[,1:4] # Removing the unnecessary columns
     splitFORu<-split(dff,dff[,1])
     for (i in 1:length(splitFORu)){
-      if ((splitFORu[[i]][1,3]>= (upperE + mar) & splitFORu[[i]][1,3]<= (lowerE -mar)) & (splitFORu[[i]][1,4]<=20 )){   # to remove cells within the wound
+      if (
+        (
+          splitFORu[[i]][1,3]>= (upperE + mar) &
+          splitFORu[[i]][1,3]<= (lowerE -mar)
+        ) &
+        (splitFORu[[i]][1,4]<=20 )
+      ) {   # to remove cells within the wound
         splitFORu[[i]]<-NA
       }
     }
-    deletedCells<-splitFORu[is.na(splitFORu)]   ########## To get the deleted cells
-    cat(paste0(length(deletedCells)," cells were inside the wound and they have been removed"),"\n")
+    deletedCells<-splitFORu[is.na(splitFORu)]  # To get the deleted cells
+    cat(
+      paste0(
+        length(deletedCells),
+        " cells were inside the wound and they have been removed"
+      ),
+      "\n"
+    )
     Ftable<-splitFORu[!is.na(splitFORu)]
-    Ftable<-do.call(rbind.data.frame, Ftable)    ########## to convert the list to a data frame
+    Ftable<-do.call(rbind.data.frame, Ftable) # convert the list to data frame
     rownames(Ftable)<-NULL
     object@adjDS <- Ftable
   }else{
@@ -4494,14 +4884,14 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   object@cellpos<-CellOr
 
   df<-object@adjDS
-  df<-df[,1:3]                                        # Removing the unnecessary columns
+  df<-df[,1:3] # Removing the unnecessary columns
   spl<-split(df,df[,1])
   cat("This dataset contains:", length(spl), "cell(s) in total\n")
 
   tbd<-c()
   LENspl<-length(spl)
   for (i in 1: LENspl){
-    if (length(spl[[i]][,1])<4){                     # Removing cells with less than 4 tracked frames
+    if (length(spl[[i]][,1])<4){ # Removing cells with < 4 tracked frames
       tbd<-c(tbd,i)
     }
   }
@@ -4510,21 +4900,34 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 
   L<-length(df[,1])
   df[,4:26]<-rep(0,L)
-  df[,27]<-rep(NA,L)                                  # to be used for migration type
-  colnames(df)<-c("ID","x","y","X","Y","dx","dy","dis","abs.ang","rel.ang.P","Cos.P","Persist.Time","Square Speed","cumDis","Dir.R","NewDX","NewDY","New.Abs.ang","Ang.Diff","New.Cos.diff","rel.ang.F","Cos.F","Forward.Persist.Time","MSD(lag)","VAC(lag)","Acceleration","M-type")
-  ID_split <- split(df, df$ID)                        #Splitting the data frame based on the ID
-  cat("This dataset contains: ",length(ID_split),"Cells with more than three steps in their tracks","\n")
+  df[,27]<-rep(NA,L) # to be used for migration type
+  colnames(df)<-c(
+    "ID","x","y","X","Y","dx","dy","dis","abs.ang","rel.ang.P","Cos.P",
+    "Persist.Time","Square Speed","cumDis","Dir.R","NewDX","NewDY",
+    "New.Abs.ang","Ang.Diff","New.Cos.diff","rel.ang.F","Cos.F",
+    "Forward.Persist.Time","MSD(lag)","VAC(lag)","Acceleration","M-type"
+  )
+  ID_split <- split(df, df$ID) #Splitting the data frame based on the ID
+  cat(
+    "This dataset contains: ",
+    length(ID_split),
+    "Cells with more than three steps in their tracks",
+    "\n"
+  )
 
-  for(j in 1:length(ID_split)){                        # Having the ID =group order
+  for(j in 1:length(ID_split)){ # Having the ID =group order
     ID_split[[j]][1]=j
   }
 
-  for(j in seq_along(ID_split)){                        # adjusting x and y (starting from 0 & being multiplied by H)
+  # adjusting x and y (starting from 0 & being multiplied by H)
+  for(j in seq_along(ID_split)){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res <- t(vapply(seq(from = 2, to = MM, by = 1L), function(i){
-      ID_split[[j]][i,4]=PixelSize*((ID_split[[j]][i,2])-( ID_split[[j]][1,2]))      # x2-x1
-      ID_split[[j]][i,5]=PixelSize*(( ID_split[[j]][1,3])-(ID_split[[j]][i,3]))      # y2-y1
+      # x2-x1
+      ID_split[[j]][i,4]=PixelSize*((ID_split[[j]][i,2])-( ID_split[[j]][1,2]))
+      # y2-y1
+      ID_split[[j]][i,5]=PixelSize*(( ID_split[[j]][1,3])-(ID_split[[j]][i,3]))
       return(as.numeric(ID_split[[j]][i,4:5]))
     }, FUN.VALUE = numeric(2)))
     ID_split[[j]][2:MM,4:5] <- res
@@ -4533,25 +4936,30 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 
 
 
-  for(j in 1:length(ID_split)){                    # removing the old x and y
-    ID_split[[j]]=ID_split[[j]][-2]            # removing x column
-    ID_split[[j]]=ID_split[[j]][-2]            # removing the y column [-2] is used because x column is gone.
+  for(j in 1:length(ID_split)){ # removing the old x and y
+    ID_split[[j]]=ID_split[[j]][-2] # removing x column
+    ID_split[[j]]=ID_split[[j]][-2] # removing y[, 2] because x[2] is gone.
   }
 
-
-
-  for(j in seq_along(ID_split)){                    # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
+  # creating values for dx, dy, dis, abs.ang,cumsum, Dir.R
+  for(j in seq_along(ID_split)){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res <- t(vapply(seq_len(MM), function(i){
-      ID_split[[j]][i,4]=(ID_split[[j]][i+1,2])-( ID_split[[j]][i,2])                                         # creating values for dx
+      # creating values for dx
+      ID_split[[j]][i,4]=(ID_split[[j]][i+1,2])-( ID_split[[j]][i,2])
       ID_split[[j]][,4][is.na(ID_split[[j]][,4])] <- 0
-      ID_split[[j]][i,5]= ( ID_split[[j]][i+1,3])-(ID_split[[j]][i,3])                                        # creating values for dy
-      ID_split[[j]][,5][is.na(ID_split[[j]][,5])] <- 0                                                        # to remove NA and replace it with 0
-      ID_split[[j]][i,6]=sqrt((ID_split[[j]][i,4])^2 + (ID_split[[j]][i,5])^2)                                # creating values for dis
+      # creating values for dy
+      ID_split[[j]][i,5]= ( ID_split[[j]][i+1,3])-(ID_split[[j]][i,3])
+      # to remove NA and replace it with 0
+      ID_split[[j]][,5][is.na(ID_split[[j]][,5])] <- 0
+      # creating values for dis
+      ID_split[[j]][i,6]=sqrt((ID_split[[j]][i,4])^2 + (ID_split[[j]][i,5])^2)
       ID_split[[j]][i,7]= acos((ID_split[[j]][i,4])/(ID_split[[j]][i,6]))
-      ID_split[[j]][,7][is.na(ID_split[[j]][,7])] <- 0                                                        # to remove NA and replace it with 0
-      ID_split[[j]][i,11]=((ID_split[[j]][i,6])/TimeInterval)^2                                               # creating values for Square Speed
+      # to remove NA and replace it with 0
+      ID_split[[j]][,7][is.na(ID_split[[j]][,7])] <- 0
+      # creating values for Square Speed
+      ID_split[[j]][i,11]=((ID_split[[j]][i,6])/TimeInterval)^2
       return(as.numeric(ID_split[[j]][i,c(4:7, 11)]))
     }, FUN.VALUE = numeric(5)))
 
@@ -4563,35 +4971,55 @@ wsaPreProcessing = function(object, PixelSize=1.24,
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res1 <- t(vapply(seq_len(MM), function(i){
-      ID_split[[j]][,12]=cumsum(ID_split[[j]][,6])                                                            # creating values for cumsum
-      ID_split[[j]][i,13]= sqrt(((ID_split[[j]][i+1,2])^2)+((ID_split[[j]][i+1,3])^2))/(ID_split[[j]][i,12])  # creating values for cumulative directionality ratio
+      ID_split[[j]][,12]=cumsum(ID_split[[j]][,6]) # creating values for cumsum
+      ID_split[[j]][i,13]=sqrt(
+        ((ID_split[[j]][i+1,2])^2)+((ID_split[[j]][i+1,3])^2)
+      )/(ID_split[[j]][i,12])  # creating values for cum directionality ratio
       return(as.numeric(ID_split[[j]][i,12:13]))
     }, FUN.VALUE = numeric(2)))
     ID_split[[j]][1:MM,12:13] <- res1
     ID_split[[j]][,12:13] <- lapply(ID_split[[j]][,12:13], as.numeric)
   }
 
-  for(j in seq_along(ID_split)){              # creating values for  rel.ang.P  (step to the previous)
+  # creating values for  rel.ang.P  (step to the previous)
+  for(j in seq_along(ID_split)){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     MM1<-MM-1
     res <- vapply(seq_len(MM1), function(i){
 
-      if((ID_split[[j]][i+1,5]<0) && (ID_split[[j]][i,5]>=0)||(ID_split[[j]][i+1,5]>=0) && (ID_split[[j]][i,5]<0) ){
+      if(
+        (ID_split[[j]][i+1,5]<0) &&
+        (ID_split[[j]][i,5]>=0)||(ID_split[[j]][i+1,5]>=0) &&
+        (ID_split[[j]][i,5]<0)
+      ){
         ID_split[[j]][i,8]= abs(ID_split[[j]][i+1,7])+abs(ID_split[[j]][i,7])
       }
-      if((ID_split[[j]][i+1,5]<0) && (ID_split[[j]][i,5]<0)||(ID_split[[j]][i+1,5]>=0) && (ID_split[[j]][i,5]>=0) ){
+      if(
+        (ID_split[[j]][i+1,5]<0) &&
+        (ID_split[[j]][i,5]<0)||(ID_split[[j]][i+1,5]>=0) &&
+        (ID_split[[j]][i,5]>=0)
+      ){
         ID_split[[j]][i,8]=ID_split[[j]][i+1,7]-ID_split[[j]][i,7]
       }
-      ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])<= (-pi), 2*pi+(ID_split[[j]][i,8]),(ID_split[[j]][i,8]))    # adjusting the rel.ang
-      ID_split[[j]][i,8]<-ifelse((ID_split[[j]][i,8])> pi,(ID_split[[j]][i,8])-2*pi,(ID_split[[j]][i,8]))
+      ID_split[[j]][i,8]<-ifelse(
+        (ID_split[[j]][i,8])<= (-pi),
+        2*pi+(ID_split[[j]][i,8]),
+        (ID_split[[j]][i,8])
+      )    # adjusting the rel.ang
+      ID_split[[j]][i,8]<-ifelse(
+        (ID_split[[j]][i,8])> pi,
+        (ID_split[[j]][i,8])-2*pi,
+        (ID_split[[j]][i,8])
+      )
       return(as.numeric(ID_split[[j]][i, 8]))
     }, FUN.VALUE = numeric(1))
     ID_split[[j]][1:MM1, 8] <- res
   }
 
   cosine.P<-data.frame()
-  for(j in seq_along(ID_split)){              # creating values for  cosine.P  based on rel.ang.P
+  # creating values for  cosine.P  based on rel.ang.P
+  for(j in seq_along(ID_split)){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res <- vapply(seq_len(MM), function(i){
@@ -4603,7 +5031,9 @@ wsaPreProcessing = function(object, PixelSize=1.24,
   }
 
 
-  for(j in seq_along(ID_split)){              # Computing persistence time   (based on rel.ang.P)
+
+  # Computing persistence time   (based on rel.ang.P)
+  for(j in seq_along(ID_split)){
     M<- ID_split[[j]][1]
     MM<-length(M[,1])
     res <- vapply(seq_len(MM), function(i){
@@ -4624,7 +5054,9 @@ wsaPreProcessing = function(object, PixelSize=1.24,
     MM<-length(M[,1])
     MM2<-MM-2
     res <- vapply(seq_len(MM2), function(i){
-      ID_split[[j]][i,24]= (sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11]))/TimeInterval
+      ID_split[[j]][i,24]= (
+        sqrt(ID_split[[j]][i+1,11])-sqrt(ID_split[[j]][i,11])
+      )/TimeInterval
       return(as.numeric(ID_split[[j]][i,24]))
     }, FUN.VALUE = numeric(1))
     ID_split[[j]][1:MM2, 24] <- res
@@ -4647,14 +5079,23 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 
     cat("The minimum number of steps: ",S[1],"\n")
     cat("The maximum number of steps: ",S[6],"\n")
-    cat("Number of cells with a total number of steps less than ",S[6],"steps",":",length(IncompleteTracks),"\n")
+    cat(
+      "Number of cells with a total number of steps less than ",
+      S[6],"steps",":",length(IncompleteTracks),"\n"
+    )
     cat("All the tracks are adjusted to have only ",S[1]," steps","\n")
     PreprocessedData<-ID_split
     object@preprocessedDS<-PreprocessedData
 
   }else{
-    if ( ! is.numeric(FrameN)) stop( "FrameN has to be a positive number" ) else if ( FrameN<= 0 ) stop( "FrameN has to be a positive number" )
-    if (FrameN>S[6]) stop( paste0("No cells have ",FrameN, " steps in their tracks"))
+    if ( ! is.numeric(FrameN)) {
+      stop( "FrameN has to be a positive number" )
+    } else if ( FrameN<= 0 ) {
+      stop( "FrameN has to be a positive number" )
+    }
+    if (FrameN>S[6]) {
+      stop( paste0("No cells have ",FrameN, " steps in their tracks"))
+    }
     okTracks<-c()
     for(j in 1:length(ID_split)){
       if (length(ID_split[[j]][,1])>=FrameN){
@@ -4674,7 +5115,10 @@ wsaPreProcessing = function(object, PixelSize=1.24,
     cat("The maximum number of steps: ",S[6],"\n")
     cat("Only: ", length(ID_split), " cells were selected","\n")
 
-    cat("All the tracks of the selected cells are adjusted to have only ",FrameN," steps","\n")
+    cat(
+      "All the tracks of the selected cells are adjusted to have only ",
+      FrameN," steps","\n"
+    )
     PreprocessedData<-ID_split
     object@preprocessedDS<-PreprocessedData
 
@@ -4686,17 +5130,21 @@ wsaPreProcessing = function(object, PixelSize=1.24,
 #'
 #' @description Plotting the trajectory data of all cells.
 #'
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list
+#' of data frames resulted from the PreProcessing.
 #' @param Type has to be one of the following: c("p", "l", "b", "o")
 #' "p": Points
 #' "l": Lines
 #' "b": Both
 #' "o": Both "overplotted"
-#' @param FixedField logical(1) Allows generating a plot with fixed field 800um x 800um. Default is TRUE.
+#' @param FixedField logical(1) Allows generating a plot with
+#' fixed field 800um x 800um. Default is TRUE.
 #' @param export if `TRUE` (default), exports plot to JPG file
 #' @return A 2D rose-plot showing the tracks of all cells.
 #' @param ExpName string, name of the experiment. Can be NULL
-#' @details  The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+#' @details  The visualization shows centered trajectories where
+#' the starting point of each track is located at the origin
+#' of the coordinate system (X=0,Y=0).
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -4717,11 +5165,20 @@ plotAllTracks= function(object, Type="l",
                         FixedField=TRUE,
                         export=FALSE, ExpName = NULL) {
 
-  if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
+  if ( ! ( Type %in% c("p","l","b","o") ) ) {
+    stop("Type has to be one of the following: p, l, b, o")
+  }
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    msg <- c(
+      msg,
+      paste(
+        "Input data must be a list.",
+        "Please run the PreProcessing step first",
+        "either rmPreProcessing() or wsaPreProcessing()"
+      )
+    )
   }
 
 
@@ -4776,7 +5233,12 @@ plotAllTracks= function(object, Type="l",
     x=c(0,0)
     y=c(-500,500)
     graphics::lines(x, y, type='l', col="black")
-    if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
+    if (export) {
+      grDevices::jpeg(
+        paste0(ExpName,"_All_tracks_plot.jpg"),
+        width = 4, height = 4, units = 'in', res = 300
+      )
+    }
     graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3], type=Type,
                    xlab="X (um)", ylab="Y (um)", col=color[1],
                    las=1, xlim=c(-400,400), ylim=c(-400,400), main=ExpName)
@@ -4824,7 +5286,12 @@ plotAllTracks= function(object, Type="l",
     y=c(min(RangeY)-100,max(RangeY)+100)
     graphics::lines(x, y, type='l', col="black")
 
-    if (export) grDevices::jpeg(paste0(ExpName,"_All_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
+    if (export) {
+      grDevices::jpeg(
+        paste0(ExpName,"_All_tracks_plot.jpg"),
+        width = 4, height = 4, units = 'in', res = 300
+      )
+    }
     graphics::plot(Object[[1]][1:Step,2], Object[[1]][1:Step,3], type=Type,
                    xlab="X (um)", ylab="Y (um)", col=color[1],
                    las=1, xlim=range(RangeX), ylim=range(RangeY), main=ExpName)
@@ -4850,18 +5317,25 @@ plotAllTracks= function(object, Type="l",
 #'
 #' @description Plotting the trajectory data of some cells.
 #'
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
 #' @param Type has to be one of the following: c("p", "l", "b", "o")
 #' @param export if `TRUE` (default), exports plot to JPG file
 #' "p": Points
 #' "l": Lines
 #' "b": Both
 #' "o": Both "overplotted"
-#' @param FixedField logical(1) Allows generating a plot with fixed field 800um x 800um. Default is TRUE.
-#' @param celNum A numeric value showing the desired number of cells to be plotted.
-#' @return A 2D rose-plot showing the tracks of sample cells selected randomly based on the desired number of cells selected by the user.
+#' @param FixedField logical(1) Allows generating a plot with
+#' fixed field 800um x 800um. Default is TRUE.
+#' @param celNum A numeric value showing the desired number of cells
+#' to be plotted.
+#' @return A 2D rose-plot showing the tracks of sample cells
+#' selected randomly based on the desired number of cells selected
+#' by the user.
 #' @param ExpName string, name of the experiment. Can be NULL
-#' @details  The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+#' @details  The visualization shows centered trajectories where
+#' the starting point of each track is located at the
+#' origin of the coordinate system (X=0,Y=0).
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -4873,7 +5347,9 @@ plotAllTracks= function(object, Type="l",
 #' rmDF=TrajectoryDataset[1:1000,]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD,FrameN=100)
-#' plotSampleTracks(rmTD,Type="l", FixedField=TRUE, celNum=5, export=FALSE,ExpName = NULL)
+#' plotSampleTracks(
+#'   rmTD,Type="l", FixedField=TRUE, celNum=5, export=FALSE,ExpName = NULL
+#' )
 #'
 #' @importFrom grDevices rainbow jpeg dev.off
 #' @importFrom graphics plot points lines
@@ -4881,12 +5357,21 @@ plotAllTracks= function(object, Type="l",
 plotSampleTracks= function(object, Type="l", celNum=35,
                            FixedField=TRUE,export=FALSE,
                            ExpName = NULL) {
-  if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
+  if ( ! ( Type %in% c("p","l","b","o") ) ) {
+    stop("Type has to be one of the following: p, l, b, o")
+  }
 
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    msg <- c(
+      msg,
+      paste(
+        "Input data must be a list.",
+        "Please run the PreProcessing step first",
+        "either rmPreProcessing() or wsaPreProcessing()"
+      )
+    )
   }
 
 
@@ -4913,7 +5398,11 @@ plotSampleTracks= function(object, Type="l", celNum=35,
   ExpName<-object@meta$expName
 
   Len<-length(Object)
-  if ( ! is.numeric(celNum) ) stop( "celNum has to be a positive number" ) else if ( celNum > Len ) stop( "The cellNum should be less than the total number of cells" )
+  if ( ! is.numeric(celNum) ) {
+    stop( "celNum has to be a positive number" )
+  } else if ( celNum > Len ) {
+    stop( "The cellNum should be less than the total number of cells" )
+  }
   Step<-length(Object[[1]][,1])
 
   color <-c()
@@ -4948,10 +5437,17 @@ plotSampleTracks= function(object, Type="l", celNum=35,
     x=c(0,0)
     y=c(-500,500)
     graphics::lines(x, y, type='l', col="black")
-    if (export) grDevices::jpeg(paste0(ExpName,"_Sample_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
-    graphics::plot(Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3],type=Type,
-                   xlab="X (um)", ylab="Y (um)", col=color[1],
-                   las=1, xlim=c(-400,400), ylim=c(-400,400), main=ExpName)
+    if (export) {
+      grDevices::jpeg(
+        paste0(ExpName,"_Sample_tracks_plot.jpg"),
+        width = 4, height = 4, units = 'in', res = 300
+      )
+    }
+    graphics::plot(
+      Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3],type=Type,
+      xlab="X (um)", ylab="Y (um)", col=color[1],
+      las=1, xlim=c(-400,400), ylim=c(-400,400), main=ExpName
+    )
     CELLS<-cells[-1]
     for(n in CELLS){
       graphics::points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
@@ -4998,10 +5494,17 @@ plotSampleTracks= function(object, Type="l", celNum=35,
     y=c(min(RangeY)-100,max(RangeY)+100)
     graphics::lines(x, y, type='l', col="black")
 
-    if (export) grDevices::jpeg(paste0(ExpName,"_Sample_tracks_plot.jpg"),width = 4, height = 4, units = 'in', res = 300)
-    graphics::plot(Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3], type=Type,
-                   xlab="X (um)", ylab="Y (um)", col=color[1],
-                   las=1, xlim=range(RangeX), ylim=range(RangeY), main=ExpName)
+    if (export) {
+      grDevices::jpeg(
+        paste0(ExpName,"_Sample_tracks_plot.jpg"),
+        width = 4, height = 4, units = 'in', res = 300
+      )
+    }
+    graphics::plot(
+      Object[[cells[1]]][1:Step,2], Object[[cells[1]]][1:Step,3], type=Type,
+      xlab="X (um)", ylab="Y (um)", col=color[1],
+      las=1, xlim=range(RangeX), ylim=range(RangeY), main=ExpName
+    )
     CELLS<-cells[-1]
     for(n in CELLS){
       graphics::points(Object[[n]][,2],Object[[n]][,3], type=Type,col=color[n])
@@ -5026,13 +5529,16 @@ plotSampleTracks= function(object, Type="l", celNum=35,
 #'
 #' @description Plotting the trajectory data of all cells in 3D.
 #'
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list
+#' of data frames resulted from the PreProcessing.
 #' @param VS A numeric value of the vertical separator between cells.
 #' @param size A numeric value of the point's size.
 #'
 #'
 #' @return A 3D rose-plot showing the tracks of all cells.
-#' @details  The 3D visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+#' @details The 3D visualization shows centered trajectories where
+#' the starting point of each track is located at the origin
+#' of the coordinate system (X=0,Y=0).
 #'
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
@@ -5058,11 +5564,26 @@ plot3DAllTracks= function(object, VS=3, size=2) {
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    msg <- c(
+      msg,
+      paste(
+        "Input data must be a list.",
+        "Please run the PreProcessing step first",
+        "either rmPreProcessing() or wsaPreProcessing()"
+      )
+    )
   }
 
-  if ( ! is.numeric(VS) ) stop( "VS has to be a positive number" ) else if ( VS<= 0 ) stop( "VS has to be a positive number" )
-  if ( ! is.numeric(size) ) stop( "size has to be a positive number" ) else if ( size<= 0 ) stop( "size has to be a positive number" )
+  if ( ! is.numeric(VS) ) {
+    stop( "VS has to be a positive number" )
+  } else if ( VS<= 0 ) {
+    stop( "VS has to be a positive number" )
+  }
+  if ( ! is.numeric(size) ) {
+    stop( "size has to be a positive number" )
+  } else if ( size<= 0 ) {
+    stop( "size has to be a positive number" )
+  }
 
   plotTable<-data.frame()
   Len<-length(Object)
@@ -5088,20 +5609,26 @@ plot3DAllTracks= function(object, VS=3, size=2) {
     col= c(rep(color[i],Step))
     coll=c(coll,col)
   }
-  rgl::plot3d(plotTable, col=coll, type="p", size=size, axes=FALSE,xlab=" ", ylab=" ",zlab=" ")
+  rgl::plot3d(
+    plotTable, col=coll, type="p", size=size, axes=FALSE,
+    xlab=" ", ylab=" ",zlab=" "
+  )
 }
 
 
 #' @title A 3D rose-plot
 #' @description Plotting the trajectory data of particular cells in 3D.
 #'
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
 #' @param VS A numeric value of the vertical separator between cells.
 #' @param size A numeric value of the point's size.
 #' @param cells A numeric vector containing the cell's numbers to be plotted.
 #'
 #' @return A 3D rose-plot showing the tracks of particular cells.
-#' @details  The 3D visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+#' @details  The 3D visualization shows centered trajectories
+#' where the starting point of each track is located at the origin
+#' of the coordinate system (X=0,Y=0).
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -5124,10 +5651,25 @@ plot3DTracks= function(object, VS=3, size=2, cells) {
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    msg <- c(
+      msg,
+      paste(
+        "Input data must be a list.",
+        "Please run the PreProcessing step first",
+        "either rmPreProcessing() or wsaPreProcessing()"
+      )
+    )
   }
-  if ( ! is.numeric(VS) ) stop( "VS has to be a positive number" ) else if ( VS<= 0 ) stop( "VS has to be a positive number" )
-  if ( ! is.numeric(size) ) stop( "size has to be a positive number" ) else if ( size<= 0 ) stop( "size has to be a positive number" )
+  if ( ! is.numeric(VS) ) {
+    stop( "VS has to be a positive number" )
+  } else if ( VS<= 0 ) {
+    stop( "VS has to be a positive number" )
+  }
+  if ( ! is.numeric(size) ) {
+    stop( "size has to be a positive number" )
+  } else if ( size<= 0 ) {
+    stop( "size has to be a positive number" )
+  }
 
   plotTable<-data.frame()
   Len<-length(Object)
@@ -5156,23 +5698,30 @@ plot3DTracks= function(object, VS=3, size=2, cells) {
     NewplotTable<-plotTable[stats::complete.cases(plotTable),]
 
   }
-  rgl::plot3d(NewplotTable, col=coll, type="p", size=size, axes=FALSE,xlab=" ", ylab=" ",zlab=" ")
+  rgl::plot3d(
+    NewplotTable, col=coll, type="p", size=size, axes=FALSE,
+    xlab=" ", ylab=" ",zlab=" "
+  )
 }
 
 
 #' @title A graphical display of the track of each cell.
 #' @description Plotting the trajectory data of each cell.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list
+#' of data frames resulted from the PreProcessing.
 #' @param Type has to be one of the following: [p, l, b, o]
 #' "p": Points
 #' "l": Lines
 #' "b": Both
 #' "o": Both "overplotted"
-#' @param FixedField logical(1) Allows generating individual plots with fixed field. Default is TRUE.
+#' @param FixedField logical(1) Allows generating individual plots
+#' with fixed field. Default is TRUE.
 #' @param export if `TRUE` (default), exports plot to JPG file
 #' @param ExpName string, name of the experiment. Can be NULL
 #' @return 2D rose-plots of the cells' track Separately.
-#' @details  The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+#' @details  The visualization shows centered trajectories where the
+#' starting point of each track is located at the origin of
+#' the coordinate system (X=0,Y=0).
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -5190,13 +5739,24 @@ plot3DTracks= function(object, VS=3, size=2, cells) {
 #' @importFrom graphics plot points title
 #'
 #'@export
-PlotTracksSeparately= function(object,Type="l", FixedField=TRUE, export=FALSE,ExpName = NULL){
+PlotTracksSeparately= function(
+  object,Type="l", FixedField=TRUE, export=FALSE,ExpName = NULL
+){
 
-  if ( ! ( Type %in% c("p","l","b","o") ) ) stop("Type has to be one of the following: p, l, b, o")
+  if ( ! ( Type %in% c("p","l","b","o") ) ) {
+    stop("Type has to be one of the following: p, l, b, o")
+  }
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    msg <- c(
+      msg,
+      paste(
+        "Input data must be a list.",
+        "Please run the PreProcessing step first",
+        "either rmPreProcessing() or wsaPreProcessing()"
+      )
+    )
   }
 
 
@@ -5236,7 +5796,12 @@ PlotTracksSeparately= function(object,Type="l", FixedField=TRUE, export=FALSE,Ex
   }
   new.fld <-paste0(ExpName,"_Tracks")
   if (export) {
-    cat(paste0(Len," plots will be generated in a folder called:",ExpName,"_Tracks","\n"))
+    cat(
+      paste0(
+        Len," plots will be generated in a folder called:",
+        ExpName,"_Tracks","\n"
+      )
+    )
 
     if (dir.exists(new.fld)) {
       unlink(new.fld, recursive = TRUE, force = TRUE)
@@ -5267,10 +5832,14 @@ PlotTracksSeparately= function(object,Type="l", FixedField=TRUE, export=FALSE,Ex
       if (export){
         plot_name <-  paste0(ExpName,"_Track_Plot_",n,".jpg")
         file_path <- file.path(new.fld, plot_name)
-        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
-        graphics::plot(Object[[n]][1:Step,2], Object[[n]][1:Step,3],
-                     type=Type, xlab="x (um)", ylab="y (um)",
-                     col=color[n], las=1, xlim=range(RangeX), ylim=range(RangeY))
+        grDevices::jpeg(
+          filename = file_path,width = 4, height = 4, units = 'in', res = 300
+        )
+        graphics::plot(
+          Object[[n]][1:Step,2], Object[[n]][1:Step,3],
+          type=Type, xlab="x (um)", ylab="y (um)",
+          col=color[n], las=1, xlim=range(RangeX), ylim=range(RangeY)
+        )
         x=c(min(RangeX)-100,max(RangeX)+100)
         y=c(0,0)
         graphics::lines(x, y, type='l', col="black")
@@ -5290,8 +5859,14 @@ PlotTracksSeparately= function(object,Type="l", FixedField=TRUE, export=FALSE,Ex
       if (export){
         plot_name <-  paste0(ExpName,"_Track_Plot_",n,".jpg")
         file_path <- file.path(new.fld, plot_name)
-        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
-        graphics::plot(Object[[n]][1:Step,2],Object[[n]][1:Step,3],type=Type,xlab="x (um)",ylab="y (um)",col=color[n],las=1,xlim=range(RangeX),ylim=range(RangeY))
+        grDevices::jpeg(
+          filename = file_path,width = 4, height = 4, units = 'in', res = 300
+        )
+        graphics::plot(
+          Object[[n]][1:Step,2],Object[[n]][1:Step,3],
+          type=Type,xlab="x (um)",ylab="y (um)",col=color[n],las=1,
+          xlim=range(RangeX),ylim=range(RangeY)
+        )
         x=c(min(RangeX)-100,max(RangeX)+100)
         y=c(0,0)
         graphics::lines(x, y, type='l', col="black")
@@ -5310,17 +5885,26 @@ PlotTracksSeparately= function(object,Type="l", FixedField=TRUE, export=FALSE,Ex
 
 
 #' @title Persistence and Speed
-#' @description The PerAndSpeed() generates data and plots for persistence and speed.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
-#' @param PtSplot A logical vector that allows generating individual plots of persistence time vs speed per cell. Default is TRUE.
-#' @param AllPtSplot  A logical vector that allows generating a plot of persistence time vs speed for all cells. Default is TRUE.
-#' @param ApSplot A logical vector that allows generating individual plots of angular persistence vs speed per cell. Default is TRUE.
-#' @param AllApSplot A logical vector that allows generating a plot of angular persistence vs speed of all cells. Default is TRUE.
+#' @description The PerAndSpeed() generates data and plots for
+#' persistence and speed.
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
+#' @param TimeInterval A numeric value of the time elapsed between
+#' successive frames in the time-lapse stack.
+#' @param PtSplot A logical vector that allows generating individual
+#' plots of persistence time vs speed per cell. Default is TRUE.
+#' @param AllPtSplot  A logical vector that allows generating a plot
+#' of persistence time vs speed for all cells. Default is TRUE.
+#' @param ApSplot A logical vector that allows generating individual
+#' plots of angular persistence vs speed per cell. Default is TRUE.
+#' @param AllApSplot A logical vector that allows generating a plot
+#' of angular persistence vs speed of all cells. Default is TRUE.
 #' @param export if `TRUE` (default), exports function output
-#' @param ExpName string, indicates the name of the experiment. Can be NULL
+#' @param ExpName string, indicates the name of the experiment.
+#' Can be NULL
 #'
-#' @return An CellMig class object with a data frame and plots. The data frame is stored in the PerAanSpeedtable slot.
+#' @return An CellMig class object with a data frame and plots.
+#' The data frame is stored in the PerAanSpeedtable slot.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -5371,9 +5955,20 @@ PerAndSpeed= function(object, TimeInterval=10,
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    msg <- c(
+      msg,
+      paste(
+        "Input data must be a list.",
+        "Please run the PreProcessing step first",
+        "either rmPreProcessing() or wsaPreProcessing()"
+      )
+    )
   }
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
+  if ( ! is.numeric(TimeInterval) ) {
+    stop( "TimeInterval has to be a positive number" )
+  } else if ( TimeInterval<= 0 ) {
+    stop( "TimeInterval has to be a positive number" )
+  }
 
   #ExpName<-substitute(object)
   ExpName<-object@meta$expName
@@ -5399,19 +5994,24 @@ PerAndSpeed= function(object, TimeInterval=10,
   }else{
     color <- grDevices::rainbow(Len)
   }
-  PerResultsTable<-data.frame()                             # creating a table to store the persistence results
-  for(j in 1:length(Object)){                               # creating values (NA and persistence time )for  persistence    (step to the original)
+  # creating a table to store the persistence results
+  PerResultsTable<-data.frame()
+  # creating values (NA and persistence time )for  persistence
+  # (step to the original)
+  for(j in 1:length(Object)){
     MM<-length(Object[[j]][,1])
     MM2<-MM-1
     Ptime<-Object[[j]][1:MM2,10]
-    MeanPerTime<-round(mean(Ptime),digits=2)             # computing mean persistence time
-    PerTimLen<-Ptime                                     # computing the number of persistence steps to be used in computing the persistence ratio
+    MeanPerTime<-round(mean(Ptime),digits=2) # computing mean persistence time
+    # computing the number of persistence steps to be used in computing
+    # the persistence ratio
+    PerTimLen<-Ptime
     PerTimLen[PerTimLen==0]<-NA
     PerTimLen<-PerTimLen[!is.na(PerTimLen)]
     PerTimLen<-length(PerTimLen)
-    PerRatio<-round(PerTimLen/MM2, digits=2)              # computing persistence ratio
-    DD.Ptime<-Object[[j]][1:MM,10]                        # computing the direction deviating time
-    DD.Ptime[DD.Ptime==0]<-1                              # replacing the 0 with 5 and the 5 with 0
+    PerRatio<-round(PerTimLen/MM2, digits=2)# computing persistence ratio
+    DD.Ptime<-Object[[j]][1:MM,10] # computing the direction deviating time
+    DD.Ptime[DD.Ptime==0]<-1 # replacing the 0 with 5 and the 5 with 0
     DD.Ptime[DD.Ptime==TimeInterval]<-0
     DD.Ptime[DD.Ptime==1]<-TimeInterval
     MeanDD.PerTime<-round(mean(DD.Ptime),digits=2)
@@ -5421,31 +6021,32 @@ PerAndSpeed= function(object, TimeInterval=10,
     PerResultsTable[3,j]<-MeanDD.PerTime
     PerResultsTable[4,j]<-PerRatio
   }
-
-  VelPerTable<-data.frame()               # creating a table to store the mean velocity with correspondence with the persistence time
+  # creating a table to store the mean velocity with correspondence
+  # with the persistence time
+  VelPerTable<-data.frame()
   for(j in seq_along(Object)){
     MM=length(Object[[j]][,1])
     Ptime<-Object[[j]][1:MM,10]
-    Ptime0<-c(0,Ptime)                      #adding a "0" value in the beginning
-    Ptime0[Ptime0==TimeInterval]<-NA        #replacing the "TimeInterval" values with NAs
+    Ptime0<-c(0,Ptime) #adding a "0" value in the beginning
+    Ptime0[Ptime0==TimeInterval]<-NA #replacing "TimeInterval" values with NAs
     Ptime0TF<- !is.na(Ptime0)
     MM1<-MM+1
     rowN<-c(1:MM1)
     Tval <- rowN[Ptime0TF]
 
     fillIdx <- cumsum(Ptime0TF)
-    s<-Tval[fillIdx]                     #replacing the NAs with the previous true value
+    s<-Tval[fillIdx] #replacing the NAs with the previous true value
     justTrueVal<-Tval
-    s[Ptime0TF]=0                        #replacing the true values with 0
-    finalID<-s[-1]                       # removing the first added value
+    s[Ptime0TF]=0 #replacing the true values with 0
+    finalID<-s[-1] # removing the first added value
 
     Vel<-Object[[j]][1:MM,11]
     Per<-Object[[j]][1:MM,10]
     Per[Per==0]<-NA
     tab<-data.frame(Vel,Per,finalID)
     tab<-tab[-nrow(tab),]
-    finalIDD<-finalID[-MM]         # to exclude the last row since it has no velocity
-    tabb<-split(tab, finalIDD)     #to avoid taking the last row
+    finalIDD<-finalID[-MM] # to exclude the last row since it has no velocity
+    tabb<-split(tab, finalIDD) #to avoid taking the last row
 
     meanVEL<-c()
     Per.time<-c()
@@ -5466,9 +6067,11 @@ PerAndSpeed= function(object, TimeInterval=10,
     PerResultsTable[5,j]<-Per.time[w]
 
 
-    Ptime<-Object[[j]][1:MM,10]           # computing the "meanVel.for0"
-    Ptime00<-c(1,Ptime)                   # adding a "1" value in the beginning  this value should not be 0 because we will not catch 0 persistence if it is in the beginning.
-    Ptime00[Ptime00==0]<-NA               # replacing the "0" values with NAs
+    Ptime<-Object[[j]][1:MM,10] # computing the "meanVel.for0"
+    # adding a "1" value in the beginning  this value should not be 0
+    # because we will not catch 0 persistence if it is in the beginning.
+    Ptime00<-c(1,Ptime)
+    Ptime00[Ptime00==0]<-NA # replacing the "0" values with NAs
     Ptime00TF<- !is.na(Ptime00)
     MM1<-MM+1
     rowN<-c(1:MM1)
@@ -5518,23 +6121,34 @@ PerAndSpeed= function(object, TimeInterval=10,
     PT<-VelPerTable[,j+j]
     c<-  suppressWarnings(
           stats::cor.test( ~ VelPerTable[,j+j-1]+ PT, method = "spearman",
-                           exact=FALSE))               #testing the correlation
+                           exact=FALSE)) #testing the correlation
     cc<-unlist(c[4])
     ccPV<-round(cc, digits = 3)
-    PerResultsTable[6,j]<-ccPV               # Speed vs  persistence time  Spearman correlation
+    PerResultsTable[6,j]<-ccPV # Speed vs persistence time Spearman correlation
 
 
     if ( PtSplot == TRUE){
       if (export){
         plot_name <-  paste0(ExpName," Persist Time vs Speed",j,".jpg")
         file_path <- file.path(new.fld, plot_name)
-        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+        grDevices::jpeg(
+          filename = file_path,width = 4, height = 4, units = 'in', res = 300
+        )
       }
-      graphics::plot(VelPerTable[,j+j]*60,VelPerTable[,j+j-1],
-                     pch=16,type="p",ylab="Persistence Time (min)",
-                     xlab=" Mean Speed during persistence time  (um/h)",col=color[j],las=1)
+      graphics::plot(
+        VelPerTable[,j+j]*60,VelPerTable[,j+j-1],
+        pch=16,type="p",ylab="Persistence Time (min)",
+        xlab=" Mean Speed during persistence time  (um/h)",col=color[j],las=1
+      )
       reg<-stats::lm(PT~VelPerTable[,j+j-1])
-      graphics::title(main=paste0("Cell Number  ", j,"   Speed vs Persistence Time"),cex.main =0.7 ,sub=paste0("Spearman's rank correlation coefficient = ",ccPV),col.sub="red")
+      graphics::title(
+        main=paste0(
+          "Cell Number  ", j,"   Speed vs Persistence Time"
+        ),
+        cex.main =0.7,
+        sub=paste0("Spearman's rank correlation coefficient = ",ccPV),
+        col.sub="red"
+      )
       if (export) grDevices::dev.off()
 
     }
@@ -5554,28 +6168,44 @@ PerAndSpeed= function(object, TimeInterval=10,
   all.per.vel.table<-data.frame(allper,allvel)
   reg<-stats::lm(allper~allvel)
   c<-  suppressWarnings(
-        stats::cor.test( ~ allper+ allvel, method = "spearman",exact=FALSE))                 #testing the correlation
+    #testing the correlation
+    stats::cor.test( ~ allper+ allvel, method = "spearman",exact=FALSE)
+  )
   cc<-unlist(c[4])
   ccP<-round(cc, digits = 3)
-  PerResultsTable[6,(length(Object)+1)]<-ccP                                          # Speed vs  persistence time  Spearman correlation
+  # Speed vs  persistence time  Spearman correlation
+  PerResultsTable[6,(length(Object)+1)]<-ccP
 
   if ( AllPtSplot == TRUE){
     if (export) {
       plot_name <-  paste0(ExpName,"_Persist_Time_vs_Speed-All_Cells.jpg")
       file_path <- file.path(new.fld, plot_name)
-      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+      grDevices::jpeg(
+        filename = file_path,width = 4, height = 4, units = 'in', res = 300
+      )
     }
-    graphics::plot(allvel,allper,type="p",pch=16,ylab="Persist_Time (min)",xlab=" Mean Speed during persistence time (um/h)",col="black",las=1)
+    graphics::plot(
+      allvel,allper,type="p",pch=16,ylab="Persist_Time (min)",
+      xlab=" Mean Speed during persistence time (um/h)",col="black",las=1
+    )
     graphics::abline(reg,untf=FALSE,col="red")
-    graphics::title("Speed vs Persist Time (All cells)",cex.main = 0.7,sub=paste0("Spearman's rank correlation coefficient = ",ccP),col.sub="red")
+    graphics::title(
+      "Speed vs Persist Time (All cells)",
+      cex.main = 0.7,
+      sub=paste0("Spearman's rank correlation coefficient = ",ccP),
+      col.sub="red"
+    )
     if (export) grDevices::dev.off()
 
   }
 
-  for(j in 1:length(Object)){    # calculating the Mean.Square.velocity for each cell
+  # calculating the Mean.Square.velocity for each cell
+  for(j in 1:length(Object)){
     MM<-length(Object[[j]][,1])
     MM2<-MM-1
-    Root.Median.Square.Speed<-round(sqrt(stats::median(Object[[j]][1:MM2,11])),digits = 3)*60
+    Root.Median.Square.Speed<-round(
+      sqrt(stats::median(Object[[j]][1:MM2,11])),digits = 3
+    )*60
     PerResultsTable[7,j]<-Root.Median.Square.Speed
 
     wma<-which.max(sqrt(Object[[j]][,11]))
@@ -5586,8 +6216,10 @@ PerAndSpeed= function(object, TimeInterval=10,
 
     mean.cosineP<-round(mean(Object[[j]][1:(MM2-1),9],na.rm = TRUE),digits = 3)
     PerResultsTable[10,j]<-mean.cosineP
-    s<-  suppressWarnings(stats::cor.test( ~ sqrt(Object[[j]][1:MM2,11])+ Object[[j]][1:MM2,9],
-                        method = "spearman",exact=FALSE))            #testing the correlation
+    s<-  suppressWarnings(
+      stats::cor.test( ~ sqrt(Object[[j]][1:MM2,11])+ Object[[j]][1:MM2,9],
+      method = "spearman",exact=FALSE)
+    )            #testing the correlation
     ss<-unlist(s[4])
     VEvsCOSP<-round(ss, digits = 3)
     PerResultsTable[11,j]<-VEvsCOSP
@@ -5625,20 +6257,39 @@ PerAndSpeed= function(object, TimeInterval=10,
 
 
     PerResultsTable[15,j]=round(sum(abs(Object[[j]][,8]))/6.28,digits=3)
-    PerResultsTable[16,j]=round(sum(abs(Object[[j]][,8]))/6.28,digits=3) - abs(round(sum(Object[[j]][,8])/6.28,digits=3))
+    PerResultsTable[16,j]=round(sum(abs(Object[[j]][,8]))/6.28,digits=3) -
+      abs(round(sum(Object[[j]][,8])/6.28,digits=3))
 
 
     if ( ApSplot == TRUE){
       if (export) {
         plot_name <-  paste0(ExpName,"_Angular_Persistence_vs_Speed",j,".jpg")
         file_path <- file.path(new.fld, plot_name)
-        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+        grDevices::jpeg(
+          filename = file_path,width = 4, height = 4, units = 'in', res = 300
+        )
       }
       Speed=sqrt(Object[[j]][1:MM2,11])*60
-      graphics::plot(Speed,Object[[j]][1:MM2,9],pch=16,type="p",ylab="Angular Persistence (cosine)",xlab=" Instantaneous Speed (um/h)",col=color[j],las=1)
+      graphics::plot(
+        Speed,
+        Object[[j]][1:MM2,9],
+        pch=16,
+        type="p",
+        ylab="Angular Persistence (cosine)",
+        xlab=" Instantaneous Speed (um/h)",
+        col=color[j],
+        las=1
+      )
       reg<-stats::lm(Object[[j]][1:MM2,9]~Speed)
       graphics::abline(reg,untf=FALSE,col="black")
-      graphics::title(main=paste0("Cell Number  ", j," Instantaneous Speeds vs Angular Persistence "),cex.main = 0.7,sub=paste0("Spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
+      graphics::title(
+        main=paste0(
+          "Cell Number  ", j," Instantaneous Speeds vs Angular Persistence "
+        ),
+        cex.main = 0.7,
+        sub=paste0("Spearman's rank correlation coefficient = ",VEvsCOSP),
+        col.sub="red"
+      )
       if (export) grDevices::dev.off()
     }
 
@@ -5661,7 +6312,8 @@ PerAndSpeed= function(object, TimeInterval=10,
   MM<-length(Object[[1]][,1])
   MM2<-MM-1
   cosine.P<-data.frame()
-  for(j in seq_along(Object)){              # creating values for  cosine.P  based on rel.ang.P
+  # creating values for  cosine.P  based on rel.ang.P
+  for(j in seq_along(Object)){
     M<- Object[[j]][1]
     MM<-length(M[,1])
     res <- vapply(seq_len(MM), function(i){
@@ -5671,72 +6323,115 @@ PerAndSpeed= function(object, TimeInterval=10,
     cosine.P[1:MM,j]<-Object[[j]][,9]
   }
 
-  RM<-round(matrixStats::rowMedians(as.matrix(cosine.P[1:MM2,]),na.rm = TRUE),digits=3)
+  RM<-round(
+    matrixStats::rowMedians(as.matrix(cosine.P[1:MM2,]),na.rm = TRUE),digits=3
+  )
   Speed<-data.frame()
-  for (j in 1:length(Object)){    # calculating the Mean.Square.velocity for each cell
+  # calculating the Mean.Square.velocity for each cell
+  for (j in 1:length(Object)){
     Speed[1:MM2,j]<-round(sqrt(Object[[j]][1:MM2,11]),digits = 3)
   }
-  RowmeanSpeed<-round(matrixStats::rowMedians(as.matrix(Speed),na.rm = TRUE),digits=3)
-  s<-stats::cor.test( ~ RM+ RowmeanSpeed, method = "spearman",exact=FALSE)                 #testing the correlation
+  RowmeanSpeed<-round(
+    matrixStats::rowMedians(as.matrix(Speed),na.rm = TRUE),digits=3
+  )
+  #testing the correlation
+  s<-stats::cor.test( ~ RM+ RowmeanSpeed, method = "spearman",exact=FALSE)
   ss<-unlist(s[4])
   VEvsCOSP<-round(ss, digits = 3)
   PerResultsTable[11,(length(Object)+1)]<-VEvsCOSP
 
   if ( AllApSplot == TRUE){
     if (export) {
-      plot_name <-  paste0(ExpName," All_Cells_Average_Angular_Persistence_vs_Average_Speed.jpg")
+      plot_name <-  paste0(
+        ExpName," All_Cells_Average_Angular_Persistence_vs_Average_Speed.jpg"
+      )
       file_path <- file.path(new.fld, plot_name)
-      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+      grDevices::jpeg(
+        filename = file_path,width = 4, height = 4, units = 'in', res = 300
+      )
     }
     MS<-max(RowmeanSpeed)*60
-    graphics::plot(RowmeanSpeed*60,RM,pch=16,type="p",ylab="Average Angular Persistence (cosine)",xlab=" Average Instantaneous Speed (um/h)",col="black",las=1,xlim=c(0,MS))
+    graphics::plot(
+      RowmeanSpeed*60,RM,pch=16,type="p",
+      ylab="Average Angular Persistence (cosine)",
+      xlab=" Average Instantaneous Speed (um/h)",col="black",las=1,xlim=c(0,MS)
+    )
     NewSpeed=RowmeanSpeed*60
     reg<-stats::lm(RM~NewSpeed)
     graphics::abline(reg,untf=FALSE,col="red")
-    graphics::title(main=paste0("All Cells Instantaneous Speed vs Angular Persistence "),cex.main = 0.7,
-                    sub=paste0("Spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
+    graphics::title(
+      main=paste0("All Cells Instantaneous Speed vs Angular Persistence "),
+      cex.main = 0.7,
+      sub=paste0("Spearman's rank correlation coefficient = ",VEvsCOSP),
+      col.sub="red"
+    )
     if (export) grDevices::dev.off()
   }
 
-  rownames(PerResultsTable)<-c("Cell Number","Mean Persist Time (min)","Mean persist Deviating Time (min)","Persistence Ratio",
-                               "Maximum Persistence period (min)","Persistence Time vs Speed (SCC)","RMSS (um per h)","Maximum Speed (um per h)","Minimum Speed (um per h)",
-                               "Mean Angular Persistence (cosine)","Instantaneous Speed vs Angular Persistence (SCC)","Covered Area (um2)","Segmented Covered Area (um2)","Empty Area (um2)","Number of complete rotations",
-                               "Number of canceled rotations","Mean Persistence Angle (cosine)","Mean Deviating Angle (cosine)","Median Speed","Speed QBCV",
-                               "Mean Speed (um per h)","Speed standard deviation (um per h)")
+  rownames(PerResultsTable)<-c(
+    "Cell Number","Mean Persist Time (min)","Mean persist Deviating Time (min)",
+    "Persistence Ratio", "Maximum Persistence period (min)",
+    "Persistence Time vs Speed (SCC)","RMSS (um per h)",
+    "Maximum Speed (um per h)","Minimum Speed (um per h)",
+    "Mean Angular Persistence (cosine)",
+    "Instantaneous Speed vs Angular Persistence (SCC)","Covered Area (um2)",
+    "Segmented Covered Area (um2)","Empty Area (um2)",
+    "Number of complete rotations",
+    "Number of canceled rotations","Mean Persistence Angle (cosine)",
+    "Mean Deviating Angle (cosine)","Median Speed","Speed QBCV",
+    "Mean Speed (um per h)","Speed standard deviation (um per h)"
+  )
 
 
 
-  RM1<-round(matrixStats::rowMedians(as.matrix(PerResultsTable),na.rm = TRUE),digits=3)
+  RM1<-round(
+    matrixStats::rowMedians(as.matrix(PerResultsTable),na.rm = TRUE),digits=3
+  )
   PerResultsTable[c(2:5,7:10,12:22),(length(Object)+1)]<-RM1[c(2:5,7:10,12:22)]
 
   RMSS<-as.numeric(PerResultsTable[7,1:length(PerResultsTable[1,])-1])
   if (export) {
     plot_name <- paste0(ExpName,"_RMSS_profile_of_all_cells.jpg")
     file_path <- file.path(new.fld, plot_name)
-    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+    grDevices::jpeg(
+      filename = file_path,width = 4, height = 4, units = 'in', res = 300
+    )
   }
 
   if (export) {
     plot_name <-  paste0(ExpName,"_RMSS_profile_of_all_cells.jpg")
     file_path <- file.path(new.fld, plot_name)
-    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+    grDevices::jpeg(
+      filename = file_path,width = 4, height = 4, units = 'in', res = 300
+    )
   }
 
   cells<-c(1:(length(PerResultsTable[1,])-1))
   MS<-max(RMSS)
-  graphics::plot(cells,RMSS,pch=16,type="o",ylab = 'RMSS(um/h)',xlab = 'Cells',las=1,ylim = c(0, MS))
+  graphics::plot(
+    cells,RMSS,pch=16,type="o",ylab = 'RMSS(um/h)',xlab = 'Cells',las=1,
+    ylim = c(0, MS)
+  )
   graphics::title(main="RMSS Profile of all cells",cex.main = 1)
   graphics::abline(h=stats::median(RMSS[which(!is.na(RMSS))]),col="red")
   graphics::abline(h=mean(RMSS[which(!is.na(RMSS))]),col="blue")
-  graphics::legend(1, y=200, legend=c("Mean RMSSs","Median RMSSs"), col=c("blue","red"),lty=1, cex=0.8)
+  graphics::legend(
+    1, y=200, legend=c("Mean RMSSs","Median RMSSs"), col=c("blue","red"),
+    lty=1, cex=0.8
+  )
   if (export) grDevices::dev.off()
 
   if (export) {
     plot_name <-  paste0(ExpName,"_RMSS_ViolinPlot_of_all_cells.jpg")
     file_path <- file.path(new.fld, plot_name)
-    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+    grDevices::jpeg(
+      filename = file_path,width = 4, height = 4, units = 'in', res = 300
+    )
   }
-  graphics::plot(1, 1, xlim = c(0, 2), ylim = c(0, MS), type = 'n', xlab = '', ylab = 'RMSS(um/h)', xaxt = 'n',las=1)
+  graphics::plot(
+    1, 1, xlim = c(0, 2), ylim = c(0, MS), type = 'n', xlab = '',
+    ylab = 'RMSS(um/h)', xaxt = 'n',las=1
+  )
   graphics::title("RMSS of all cells",cex.main = 1)
   vioplot::vioplot(RMSS, at = 1, add = TRUE, col = "gray")
   if (export) grDevices::dev.off()
@@ -5746,45 +6441,72 @@ PerAndSpeed= function(object, TimeInterval=10,
   if (export) {
     plot_name <-  paste0(ExpName,"_Speed_profile_of_all_cells.jpg")
     file_path <- file.path(new.fld, plot_name)
-    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+    grDevices::jpeg(
+      filename = file_path,width = 4, height = 4, units = 'in', res = 300
+    )
   }
   cells<-c(1:(length(PerResultsTable[1,])-1))
   MS<-max(SPEED)
-  graphics::plot(cells,SPEED,pch=16,type="o",ylab = 'Speed(um/h)',xlab = 'Cells',las=1,ylim = c(0, MS))
+  graphics::plot(
+    cells,SPEED,pch=16,type="o",ylab = 'Speed(um/h)',xlab = 'Cells',
+    las=1,ylim = c(0, MS)
+  )
   graphics::title(main="Speed Profile of all cells",cex.main = 0.7)
   graphics::abline(h=stats::median(SPEED[which(!is.na(SPEED))]),col="red")
   graphics::abline(h=mean(SPEED[which(!is.na(SPEED))]),col="blue")
-  graphics::legend(1, y=200, legend=c("Mean Speed","Median Speed"), col=c("blue","red"),lty=1, cex=0.8)
+  graphics::legend(
+    1, y=200, legend=c("Mean Speed","Median Speed"),
+    col=c("blue","red"),lty=1, cex=0.8
+  )
   if (export) grDevices::dev.off()
 
   if (export) {
     plot_name <-  paste0(ExpName,"_Speed_ViolinPlot_of_all_cells.jpg")
     file_path <- file.path(new.fld, plot_name)
-    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+    grDevices::jpeg(
+      filename = file_path,width = 4, height = 4, units = 'in', res = 300
+    )
   }
-  graphics::plot(1, 1, xlim = c(0, 2), ylim = c(0, MS), type = 'n', xlab = '', ylab = 'Speed(um/h)', xaxt = 'n',las=1)
+  graphics::plot(
+    1, 1, xlim = c(0, 2), ylim = c(0, MS), type = 'n', xlab = '',
+    ylab = 'Speed(um/h)', xaxt = 'n',las=1
+  )
   graphics::title("Speed of all cells",cex.main = 1)
   vioplot::vioplot(SPEED, at = 1, add = TRUE, col = "gray")
   if (export) grDevices::dev.off()
 
   if (export) {
-    plot_name <-  paste0(ExpName,"_Instantaneous_Speed_VS_Persistence Ratio_all_cells.jpg")
+    plot_name <-  paste0(
+      ExpName,"_Instantaneous_Speed_VS_Persistence Ratio_all_cells.jpg"
+    )
     file_path <- file.path(new.fld, plot_name)
-    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+    grDevices::jpeg(
+      filename = file_path,width = 4, height = 4, units = 'in', res = 300
+    )
   }
 
   SPEED<-as.numeric(PerResultsTable[21,1:length(PerResultsTable[1,])-1])
   PerR<- as.numeric(PerResultsTable[4,1:length(PerResultsTable[1,])-1])
   MS<-max(SPEED)
-  graphics::plot(SPEED,PerR,pch=16,type="p",xlab="Average Instantaneous Speed (um/h)",ylab=" Persistence Ratio",col="black",las=1,xlim=c(0,MS),ylim=c(0,1))
+  graphics::plot(
+    SPEED,PerR,pch=16,type="p",xlab="Average Instantaneous Speed (um/h)",
+    ylab=" Persistence Ratio",col="black",las=1,xlim=c(0,MS),ylim=c(0,1)
+  )
   reg<-stats::lm(PerR~SPEED)
   graphics::abline(reg,untf=FALSE,col="red")
-  RowmeanSpeed<-round(matrixStats::rowMedians(as.matrix(Speed),na.rm = TRUE),digits=3)
-  s<-cor.test( ~ SPEED+ PerR, method = "spearman",exact=FALSE)                 # testing the correlation
+  RowmeanSpeed<-round(
+    matrixStats::rowMedians(as.matrix(Speed),na.rm = TRUE),digits=3
+  )
+  # testing the correlation
+  s<-cor.test( ~ SPEED+ PerR, method = "spearman",exact=FALSE)
   ss<-unlist(s[4])
   SCC<-round(ss, digits = 3)
-  graphics::title(main=paste0("All Cells Average Speed vs Persistence Ratio "),
-                  cex.main =0.7,sub=paste0("Spearman's rank correlation coefficient = ",SCC),col.sub="red")
+  graphics::title(
+    main=paste0("All Cells Average Speed vs Persistence Ratio "),
+    cex.main =0.7,
+    sub=paste0("Spearman's rank correlation coefficient = ",SCC),
+    col.sub="red"
+  )
   if (export) grDevices::dev.off()
 
   PerResultsTable[1,(length(Object)+1)]<-"All Cells"
@@ -5809,13 +6531,24 @@ PerAndSpeed= function(object, TimeInterval=10,
 
 
 #' @title Directionality Table
-#' @description Directionality Ratio is the displacement divided by the total length of the total path distance, where displacement is the straight line length between the start point and the endpoint of the migration trajectory,
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
-#' @param export if `TRUE` (default), exports function output to CSV file
+#' @description Directionality Ratio is the displacement divided by
+#' the total length of the total path distance, where displacement is
+#' the straight line length between the start point and the endpoint
+#' of the migration trajectory,
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
+#' @param TimeInterval A numeric value of the time elapsed between
+#' successive frames in the time-lapse stack.
+#' @param export if `TRUE` (default), exports function output to
+#' CSV file
 #' @param ExpName string
 #'
-#' @return An CellMig class object with a data frame stored in the DRtable slot. It contains nine rows: "Cell Number","Directionality Ratio","Mean Cumulative Directionality Ratio","Stable Directionality Ratio", "Number of returns","Min CumDR","Location of Min CumDR, Steps with less CumDR than DR","Directional Persistence"
+#' @return An CellMig class object with a data frame stored in the
+#' DRtable slot. It contains nine rows: "Cell Number",
+#' "Directionality Ratio","Mean Cumulative Directionality Ratio",
+#' "Stable Directionality Ratio", "Number of returns","Min CumDR",
+#' "Location of Min CumDR, Steps with less CumDR than DR",
+#' "Directional Persistence"
 #'
 #'
 #' @details  Directionality Ratio and Directional persistence
@@ -5858,23 +6591,36 @@ DiRatio = function(object,TimeInterval=10, export=FALSE, ExpName=NULL) {
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    msg <- c(
+      msg,
+      paste(
+        "Input data must be a list.",
+        "Please run the PreProcessing step first",
+        "either rmPreProcessing() or wsaPreProcessing()"
+      )
+    )
   }
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
+  if ( ! is.numeric(TimeInterval) ) {
+    stop( "TimeInterval has to be a positive number" )
+  } else if ( TimeInterval<= 0 ) {
+    stop( "TimeInterval has to be a positive number" )
+  }
   #ExpName<-substitute(object)
   ExpName<-object@meta$expName
 
   Step<-length(Object[[1]][,1])
   DRResultsTable<-data.frame()
   DIR.RATIO<-c()
-  for(j in 1:length(Object)){                             # calculating the cumsum of distance for each cell
+  for(j in 1:length(Object)){ # calculating the cumsum of distance for each cell
     MM<-Step
     MM2<-MM-1
-    end<-cbind(Object[[j]][MM,2],Object[[j]][MM,3])       # finding the cordinates of the final point in the track.
+    # finding the cordinates of the final point in the track.
+    end<-cbind(Object[[j]][MM,2],Object[[j]][MM,3])
+
     start<-cbind(0,0)
-    final.dis=SpatialTools::dist2(start, end)                               # calculating the final distance
-    total.dis=sum(Object[[j]][1:MM2,6])                     # calculating the total distance
-    Dir.Ratio=round(final.dis/total.dis ,digits = 3)          # calculating the Dir.Ratio
+    final.dis=SpatialTools::dist2(start, end)  # calculating the final distance
+    total.dis=sum(Object[[j]][1:MM2,6])  # calculating the total distance
+    Dir.Ratio=round(final.dis/total.dis ,digits = 3)  # calc the Dir.Ratio
     mean.Dir.Ratio<-round(mean(Object[[j]][1:MM2,13],na.rm = TRUE) ,digits = 3)
     StableDR<- (1-(mean.Dir.Ratio-Dir.Ratio))* mean.Dir.Ratio
     StableDR<-round(StableDR,digits = 3)
@@ -5887,11 +6633,12 @@ DiRatio = function(object,TimeInterval=10, export=FALSE, ExpName=NULL) {
   }
 
 
-  for(j in 1:length(Object)){                                   #### Adding min CumDR  and number of angles greater than .75
+  # Adding min CumDR  and number of angles greater than .75
+  for(j in 1:length(Object)){
     MM<-Step
     MM2<-MM-1
     p1<-Object[[j]][1:MM2,9]
-    returns<-subset(p1,p1<(-0.87))                            # greater than 150 degrees
+    returns<-subset(p1,p1<(-0.87)) # greater than 150 degrees
     DRResultsTable[5,j]<-length(returns)
 
     p2<-Object[[j]][1:MM2,13]
@@ -5899,11 +6646,14 @@ DiRatio = function(object,TimeInterval=10, export=FALSE, ExpName=NULL) {
     DRResultsTable[6,j]<-round(p2[w], digits=3)
     DRResultsTable[7,j]<-w
     DR<-as.numeric(DRResultsTable[2,j])
-    lessThanMINcumdr<-subset(p2,p2<DR)                        # number of the steps that have a cumdr less than the final dr
+    # number of the steps that have a cumdr less than the final dr
+    lessThanMINcumdr<-subset(p2,p2<DR)
     DRResultsTable[8,j]<-length(lessThanMINcumdr)
 
     Ptime<-Object[[j]][1:MM2,10]
-    PerTimLen<-Ptime                                     # computing the number of persistence steps to be used in computing the persistence ratio
+    # computing the number of persistence steps to be used in computing
+    # the persistence ratio
+    PerTimLen<-Ptime
     PerTimLen[PerTimLen==0]<-NA
     PerTimLen<-PerTimLen[!is.na(PerTimLen)]
     PerTimLen<-length(PerTimLen)
@@ -5911,9 +6661,16 @@ DiRatio = function(object,TimeInterval=10, export=FALSE, ExpName=NULL) {
     DRResultsTable[9,j]<- PerRatio + DRResultsTable[4,j]
 
   }
-  rownames(DRResultsTable)<-c("Cell Number","Directionality Ratio","Mean Cumulative Directionality Ratio","Stable Directionality Ratio",
-                              "Number of returns","Min CumDR",paste0("Location of Min CumDR (out of ",Step-1,")"),"Steps with less CumDR than DR","Directional Persistence")
-  RM1<-round(matrixStats::rowMedians(as.matrix(DRResultsTable),na.rm = TRUE),digits=3)
+  rownames(DRResultsTable)<-c(
+    "Cell Number","Directionality Ratio",
+    "Mean Cumulative Directionality Ratio","Stable Directionality Ratio",
+    "Number of returns","Min CumDR",
+    paste0("Location of Min CumDR (out of ",Step-1,")"),
+    "Steps with less CumDR than DR","Directional Persistence"
+  )
+  RM1<-round(
+    matrixStats::rowMedians(as.matrix(DRResultsTable),na.rm = TRUE),digits=3
+  )
   DRResultsTable[,(length(Object)+1)]<-RM1
   DRResultsTable[1,(length(Object)+1)]<-"All Cells"
   object@DRtable<-DRResultsTable
@@ -5936,9 +6693,14 @@ DiRatio = function(object,TimeInterval=10, export=FALSE, ExpName=NULL) {
 
 
 #' @title Directionality Ratio plots
-#' @description Directionality Ratio is the displacement divided by the total length of the total path distance, where displacement is the straightline length between the start point and the endpoint of the migration trajectory,
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
+#' @description Directionality Ratio is the displacement divided
+#' by the total length of the total path distance, where displacement
+#' is the straightline length between the start point and the endpoint
+#' of the migration trajectory,
+#' @param object \code{CellMig} class object, which is a list
+#' of data frames resulted from the PreProcessing.
+#' @param TimeInterval A numeric value of the time elapsed between
+#' successive frames in the time-lapse stack.
 #' @param export if `TRUE` (default), exports plot to JPG file
 #' @param ExpName string, name of the experiment. Can be NULL
 #' @return Directionality Ratio plots
@@ -5964,7 +6726,11 @@ DiRatio = function(object,TimeInterval=10, export=FALSE, ExpName=NULL) {
 #'
 #' @export
 DiRatioPlot = function(object,TimeInterval=10, export=FALSE,ExpName = NULL) {
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
+  if ( ! is.numeric(TimeInterval) ) {
+    stop( "TimeInterval has to be a positive number" )
+  } else if ( TimeInterval<= 0 ) {
+    stop( "TimeInterval has to be a positive number" )
+  }
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
@@ -6030,17 +6796,28 @@ DiRatioPlot = function(object,TimeInterval=10, export=FALSE,ExpName = NULL) {
     if (export){
       plot_name <-  paste0(ExpName,"-D.R.plot-",j,".jpg")
       file_path <- file.path(new.fld, plot_name)
-      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+      grDevices::jpeg(
+        filename = file_path,width = 4, height = 4, units = 'in', res = 300
+      )
     }
-    p<-graphics::plot(Time,Object[[j]][1:MM2,13], type="l",col=color[j],xlab="Time (hours)",xaxt="n",ylab="Directionality Ratio",lwd=2,las=1)
+    p<-graphics::plot(
+      Time,Object[[j]][1:MM2,13], type="l",col=color[j],
+      xlab="Time (hours)",xaxt="n",ylab="Directionality Ratio",lwd=2,las=1
+    )
     graphics::axis(1, at=xMMM1, cex.axis=0.8,labels=xMMM)
     graphics::title(main=paste0("Cell Number  ", j),col.main=color[j])
     grDevices::dev.off()
     DIR.RATIO.AllCells[1:MM2,j]<-Object[[j]][1:MM2,13]
   }
-  mycolblue <- grDevices::rgb(0, 0, 255, maxColorValue = 255, alpha = 100, names = "blue")    #transparent color
-  mean.DIR.RATIO.AllCells<-matrixStats::rowMedians(as.matrix(DIR.RATIO.AllCells),na.rm = TRUE)
-  SD.DIR.RATIO.AllCells<-matrixStats::rowSds(as.matrix(DIR.RATIO.AllCells),na.rm = TRUE)    # is a function in matrixStats
+  mycolblue <- grDevices::rgb(
+    0, 0, 255, maxColorValue = 255, alpha = 100, names = "blue"
+  ) #transparent color
+  mean.DIR.RATIO.AllCells<-matrixStats::rowMedians(
+    as.matrix(DIR.RATIO.AllCells),na.rm = TRUE
+  )
+  SD.DIR.RATIO.AllCells<-matrixStats::rowSds(
+    as.matrix(DIR.RATIO.AllCells),na.rm = TRUE
+  )    # is a function in matrixStats
   meanSDp<-mean.DIR.RATIO.AllCells+SD.DIR.RATIO.AllCells
   meanSDp=ifelse(meanSDp>=1,1,meanSDp)
   meanSDn<-mean.DIR.RATIO.AllCells-SD.DIR.RATIO.AllCells
@@ -6049,14 +6826,22 @@ DiRatioPlot = function(object,TimeInterval=10, export=FALSE,ExpName = NULL) {
   if (export) {
     plot_name <-  paste0(ExpName,"directionality ratio for all cells.jpg")
     file_path <- file.path(new.fld, plot_name)
-    grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+    grDevices::jpeg(
+      filename = file_path,width = 4, height = 4, units = 'in', res = 300
+    )
 
   }
-  p<-graphics::plot(Time,mean.DIR.RATIO.AllCells, type="l",col="black",xlab="Time (hours)",xaxt="n",ylab="Directionality Ratio",lwd=2,las=1)
+  p<-graphics::plot(
+    Time,mean.DIR.RATIO.AllCells, type="l",col="black",
+    xlab="Time (hours)",xaxt="n",ylab="Directionality Ratio",lwd=2,las=1
+  )
   graphics::axis(1, at=xMMM1, cex.axis=0.8,labels=xMMM)
   graphics::lines(Time,meanSDp, col="black")
   graphics::lines(Time,meanSDn, col="black")
-  graphics::polygon(c(Time, rev(Time)), c(meanSDp, rev(meanSDn)),col = mycolblue , border = NA)
+  graphics::polygon(
+    c(Time, rev(Time)), c(meanSDp, rev(meanSDn)),col = mycolblue ,
+    border = NA
+  )
   graphics::title(main="Directionality Ratio - All Cells",col.main="black")
   if (export) {
     grDevices::dev.off()
@@ -6067,20 +6852,37 @@ DiRatioPlot = function(object,TimeInterval=10, export=FALSE,ExpName = NULL) {
 
 
 #' @title Mean Square Displacement
-#' @description The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
+#' @description The MSD function automatically computes the mean
+#' square displacements across several sequential time intervals.
+#'  MSD parameters are used to assess the area explored by cells over time.
 #'
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
-#' @param sLAG A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.
-#' @param ffLAG A numeric value to be used to get the number of lags for the  Furth formula fitting. Default is 0.25, which represents 25 percent of the steps.
-#' @param SlopePlot A logical vector that allows generating individual plots showing the slope of the mean square displacement of the movement of individual cells. Default is TRUE.
-#' @param AllSlopesPlot A logical vector that allows generating a plot showing the slope of the mean square displacement of the movement of all cells. Default is TRUE.
-#' @param FurthPlot A logical vector that allows generating individual plots fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method per cell. Default is TRUE.
-#' @param AllFurthPlot A logical vector that allows generating a plot fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method for all cells. Default is TRUE.
+#' @param object \code{CellMig} class object, which is a list
+#' of data frames resulted from the PreProcessing.
+#' @param TimeInterval A numeric value of the time elapsed between
+#' successive frames in the time-lapse stack.
+#' @param sLAG A numeric value to be used to get the number of lags
+#' for the slope fitting. Default is 0.25, which represents 25 percent
+#' of the steps.
+#' @param ffLAG A numeric value to be used to get the number of lags
+#' for the  Furth formula fitting. Default is 0.25, which represents
+#' 25 percent of the steps.
+#' @param SlopePlot A logical vector that allows generating individual
+#' plots showing the slope of the mean square displacement of the
+#' movement of individual cells. Default is TRUE.
+#' @param AllSlopesPlot A logical vector that allows generating a plot
+#' showing the slope of the mean square displacement of the movement of
+#' all cells. Default is TRUE.
+#' @param FurthPlot A logical vector that allows generating individual
+#' plots fitting the Furth formula using generalized regression by the
+#' Nelder–Mead method simplex method per cell. Default is TRUE.
+#' @param AllFurthPlot A logical vector that allows generating a plot
+#' fitting the Furth formula using generalized regression by the
+#' Nelder–Mead method simplex method for all cells. Default is TRUE.
 #' @param export if `TRUE` (default), exports function output
 #' @param ExpName string, anem of the Experiment. Can be NULL
 #'
-#' @return An CellMig class object with a data frame and plots. The data frame is stored in the MSDtable slot.
+#' @return An CellMig class object with a data frame and plots.
+#' The data frame is stored in the MSDtable slot.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -6171,13 +6973,14 @@ MSD <- function(object, TimeInterval=10,
   }
 
   MSDResultsTable<-data.frame()
-  MSD.table<-data.frame() # creating a table that has all the MSDs to be able to compute the mean and sd
+  MSD.table<-data.frame() # table that has all MSDs to compute the mean and sd
   for(j in seq_along(Object)){
     meanSD<-c()
     LAG<-round(Step*sLAG) # number of lags is based on sLAG
     for(lag in 1:LAG){
       res <- vapply(seq_len(Step), function(i){
-        ((Object[[j]][i+lag,2]- Object[[j]][i,2])^2)+((Object[[j]][i+lag,3]- Object[[j]][i,3])^2)
+        ((Object[[j]][i+lag,2]- Object[[j]][i,2])^2) +
+        ((Object[[j]][i+lag,3]- Object[[j]][i,3])^2)
       }, FUN.VALUE = numeric(1))
       Object[[j]][1:Step, 22] <- res
       Object[[j]][,22][is.na(Object[[j]][,22])] <- 0
@@ -6189,10 +6992,13 @@ MSD <- function(object, TimeInterval=10,
     MSD.table[1:LAG,j]<-meanSD
     Yaxis<-assign(paste0("MSD.Cell.",j),meanSD)
     Xaxis<-c(1:LAG)
-    NewrowMeans<-meanSD[1:(round(LAG*sLAG))]                                    # plotting the regression line based on sLAG
+    # plotting the regression line based on sLAG
+    NewrowMeans<-meanSD[1:(round(LAG*sLAG))]
     NewXaxis<-Xaxis[1:(round(LAG*sLAG))]
     reg<-stats::lm(NewrowMeans~ NewXaxis)
-    reg1<-round(stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2)
+    reg1<-round(
+      stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2
+    )
     MSDResultsTable[3,j]<-reg1
     # --------------------------------------------------------------------------
     # Generating separate slope plots
@@ -6206,8 +7012,14 @@ MSD <- function(object, TimeInterval=10,
       }
       xn <- expression(paste("MSD (um"^2, ")"))
       graphics::par(mar=c(5.1, 5.9, 4.1, 1.1), mgp=c(3.5, 0.5, 0), las=0)
-      graphics::plot(Xaxis,Yaxis, type="p",col=color[j],xlab="Lag",ylab=xn,pch=19,las=1,log="xy",cex=1.2)
-      graphics::title(main=paste0("Cell Number  ", j," -  MSD Slope = ",reg1),col.main="black",cex.main=0.8)
+      graphics::plot(
+        Xaxis,Yaxis, type="p",col=color[j],xlab="Lag",ylab=xn,pch=19,las=1,
+        log="xy",cex=1.2
+      )
+      graphics::title(
+        main=paste0("Cell Number  ", j," -  MSD Slope = ",reg1),
+        col.main="black",cex.main=0.8
+      )
       graphics::abline(reg,untf=TRUE,col="black")
       if (export) grDevices::dev.off()
     }
@@ -6229,16 +7041,26 @@ MSD <- function(object, TimeInterval=10,
     }
     xn <- expression(paste("MSD (um"^2, ")"))
     graphics::par(mar=c(5.1, 5.5, 4.1, 0.9), mgp=c(3.5, .5, 0), las=0)
-    graphics::plot(Xaxis,RM1, type="p",col="black",xlab="Lag",ylab=xn,pch=19,las=1,cex=1.2,log="xy")
-    NewrowMeans<-RM1[1:(round(LAG*sLAG)+1)]                                  # best fit based on sLAG *sLAG
+    graphics::plot(
+      Xaxis,RM1, type="p",col="black",xlab="Lag",ylab=xn,pch=19,
+      las=1,cex=1.2,log="xy"
+    )
+    NewrowMeans<-RM1[1:(round(LAG*sLAG)+1)] # best fit based on sLAG *sLAG
     NewXaxis<-Xaxis[1:(round(LAG*sLAG)+1)]
     reg<-stats::lm(NewrowMeans~ NewXaxis)
-    reg1<-round(stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2)
+    reg1<-round(
+      stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2
+    )
     graphics::abline(reg,untf=TRUE,col="red")
-    graphics::title(main=paste0("All Cells -  MSD Slope = ",reg1),col.main="black",cex.main=0.8)
+    graphics::title(
+      main=paste0("All Cells -  MSD Slope = ",reg1),col.main="black",
+      cex.main=0.8
+    )
     if (export) grDevices::dev.off()
   }
-  for (j in 1: length(MSD.table[1,])){                      # Fitting the Furth formula using generalized regression by the Nelder–Mead method simplex method
+  # Fitting the Furth formula using generalized regression by
+  # the Nelder–Mead method simplex method
+  for (j in 1: length(MSD.table[1,])){
     LAG<-round(Step*ffLAG)
     y=MSD.table[1:LAG,j]
     t <- c(1:length(y))
@@ -6254,7 +7076,10 @@ MSD <- function(object, TimeInterval=10,
       out <- cbind(time = t, y = (D*4*(t-P*(1-(exp(-t/P))))))
       return(FME::modCost(obs = Data, model = out))
     }
-    Fit<-FME::modFit(p = c(D = 1, P = 1), lower = c(0,0),upper=c(100,100),f = Cost,method = "Nelder-Mead")
+    Fit<-FME::modFit(
+      p = c(D = 1, P = 1), lower = c(0,0),upper=c(100,100),
+      f = Cost,method = "Nelder-Mead"
+    )
     Summary<-summary(Fit)
     MSDResultsTable[4,j]<-round(Fit$par[1],digits=3)
     MSDResultsTable[5,j]<-round(Fit$par[2],digits=3)
@@ -6271,13 +7096,24 @@ MSD <- function(object, TimeInterval=10,
                         width = 4, height = 4, units = 'in', res = 300)
       }
 
-      graphics::plot(Data, pch = 16,col=color[j], cex = 1.2, xlab = "Lags", ylab = "MSD")
+      graphics::plot(
+        Data, pch = 16,col=color[j], cex = 1.2, xlab = "Lags", ylab = "MSD"
+      )
       x<-seq(0,LAG,1)
-      Model <- function(p, x) return(data.frame(x = x, y = p[1]*4*(x- p[2]*(1-(exp(-x/p[2]))))))
+      Model <- function(p, x) {
+        return(data.frame(x = x, y = p[1]*4*(x- p[2]*(1-(exp(-x/p[2]))))))
+      }
       graphics::lines(Model(Fit$par, x),col="black")
-      graphics::title(main=paste0("Cell Number  ", j,"    Nelder-Mead best-fit"),col.main="black",
-                      cex.main=0.8,sub=paste0("D = ",round(Fit$par[1],digits=3),
-                                              "          P = ", round(Fit$par[2],digits=3)),col.sub="red")
+      graphics::title(
+        main=paste0("Cell Number  ", j,"    Nelder-Mead best-fit"),
+        col.main="black",
+        cex.main=0.8,
+        sub=paste0(
+          "D = ",round(Fit$par[1],digits=3),
+          "          P = ", round(Fit$par[2],digits=3)
+        ),
+        col.sub="red"
+      )
       if (export) grDevices::dev.off()
     }
   }
@@ -6288,11 +7124,13 @@ MSD <- function(object, TimeInterval=10,
 
   RM<-c(0,RM1)
   Xaxis<-c(1:round(Step*ffLAG))
-  NewrowMeans<-RM1[1:(round(LAG*ffLAG)+1)]                                  # best fit based on ffLAG *ffLAG
+  NewrowMeans<-RM1[1:(round(LAG*ffLAG)+1)] # best fit based on ffLAG *ffLAG
   NewXaxis<-Xaxis[1:(round(LAG*ffLAG)+1)]
 
   reg<-stats::lm(NewrowMeans~ NewXaxis)
-  reg1<-round(stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2)
+  reg1<-round(
+    stats::coef(stats::lm(log10(NewrowMeans)~ log10(NewXaxis)))[2],digits=2
+  )
   MSDResultsTable[3,(length(Object)+1)]<-reg1
   y=RM1[1:round(Step*ffLAG)]
   t <- c(1:length(y))
@@ -6308,7 +7146,10 @@ MSD <- function(object, TimeInterval=10,
     out <- cbind(time = t, y = (D*4*(t-P*(1-(exp(-t/P))))))
     return(FME::modCost(obs = Data, model = out))
   }
-  Fit<-FME::modFit(p = c(D = 1, P = 1), lower = c(0, 0),upper=c(100,100),f = Cost,method = "Nelder-Mead")
+  Fit<-FME::modFit(
+    p = c(D = 1, P = 1), lower = c(0, 0),upper=c(100,100),f = Cost,
+    method = "Nelder-Mead"
+  )
   MSDResultsTable[4,(length(Object)+1)]<-round(Fit$par[1],digits=3)
   MSDResultsTable[5,(length(Object)+1)]<-round(Fit$par[2],digits=3)
   MSDResultsTable[6,(length(Object)+1)]<-round(Summary$par[1,4],digits=3)
@@ -6323,17 +7164,31 @@ MSD <- function(object, TimeInterval=10,
       grDevices::jpeg(filename = file_path,
                       width = 4, height = 4, units = 'in', res = 300)
     }
-    graphics::plot(Data, pch = 16,col="black", cex = 1.2, xlab = "Lags", ylab = "MSD")
+    graphics::plot(
+      Data, pch = 16,col="black", cex = 1.2, xlab = "Lags", ylab = "MSD"
+    )
     x<-seq(0,LAG,1)
-    Model <- function(p, x) return(data.frame(x = x, y = p[1]*4*(x- p[2]*(1-(exp(-x/p[2]))))))
+    Model <- function(p, x) {
+      return(data.frame(x = x, y = p[1]*4*(x- p[2]*(1-(exp(-x/p[2]))))))
+    }
     graphics::lines(Model(Fit$par, x),col="red")
-    graphics::title(main=paste0("All Cells Nelder-Mead best-fit"),col.main="black",
-                    cex.main=0.8,sub=paste0("D = ",round(Fit$par[1],digits=3),
-                                            "          P = ", round(Fit$par[2],digits=3)),col.sub="red")
+    graphics::title(
+      main=paste0("All Cells Nelder-Mead best-fit"),col.main="black",
+      cex.main=0.8,
+      sub=paste0(
+        "D = ",round(Fit$par[1],digits=3),
+        "          P = ", round(Fit$par[2],digits=3)
+      ),
+      col.sub="red"
+    )
     if (export) grDevices::dev.off()
   }
 
-  rownames(MSDResultsTable)<-c("Cell Number","MSD (lag=1)", "MSD slope", "N-M best fit (Furth) [D]","N-M best fit (Furth) [P]","The significance of fitting D","The significance of fitting P")
+  rownames(MSDResultsTable)<-c(
+    "Cell Number","MSD (lag=1)", "MSD slope", "N-M best fit (Furth) [D]",
+    "N-M best fit (Furth) [P]","The significance of fitting D",
+    "The significance of fitting P"
+  )
   object@MSDtable<-MSDResultsTable
   if (export) {
     utils::write.csv(
@@ -6350,16 +7205,30 @@ MSD <- function(object, TimeInterval=10,
 
 #' @title Direction AutoCorrelation
 #'
-#' @description The DiAutoCor function automatically compute the angular persistence across several sequantial time intervals.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
-#' @param sLAG A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.
-#' @param sPLOT A logical vector that allows generating individual plots showing the angular persistence across several sequantial time intervals. Default is TRUE.
-#' @param aPLOT A logical vector that allows generating a plot showing the angular persistence across several sequantial time intervals of all cells. Default is TRUE.
+#' @description The DiAutoCor function automatically compute the
+#' angular persistence across several sequantial time intervals.
+#' @param object \code{CellMig} class object, which is a list of
+#'  data frames resulted from the PreProcessing.
+#' @param TimeInterval A numeric value of the time elapsed between
+#' successive frames in the time-lapse stack.
+#' @param sLAG A numeric value to be used to get the number of lags
+#' for the slope fitting. Default is 0.25, which represents 25
+#' percent of the steps.
+#' @param sPLOT A logical vector that allows generating individual
+#' plots showing the angular persistence across several sequantial
+#' time intervals. Default is TRUE.
+#' @param aPLOT A logical vector that allows generating a plot
+#' showing the angular persistence across several sequantial time
+#' intervals of all cells. Default is TRUE.
 #' @param export if `TRUE` (default), exports function output to CSV file
 #' @param ExpName, string, name of the experiment. Can be NULL
 #'
-#' @return An CellMig class Object with a data frame and plots. The data frame, which contains six rows: "Cell Number", "Angular Persistence", "Intercept of DA quadratic model","Mean Direction AutoCorrelation (all lags)", "Stable Direction AutoCorrelation through the track" and "Difference between Mean DA and Intercept DA".
+#' @return An CellMig class Object with a data frame and plots.
+#' The data frame, which contains six rows: "Cell Number",
+#' "Angular Persistence", "Intercept of DA quadratic model",
+#' "Mean Direction AutoCorrelation (all lags)",
+#' "Stable Direction AutoCorrelation through the track" and
+#' "Difference between Mean DA and Intercept DA".
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -6407,12 +7276,24 @@ DiAutoCor= function(object, TimeInterval=10,
   }
 
 
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
-  if ( ! is.numeric(sLAG) ) stop( "sLAG has to be a positive number" ) else if ( sLAG<= 0 ) stop( "sLAG has to be a positive number" )
+  if ( ! is.numeric(TimeInterval) ) {
+    stop( "TimeInterval has to be a positive number" )
+  } else if ( TimeInterval<= 0 ) {
+    stop( "TimeInterval has to be a positive number" )
+  }
+  if ( ! is.numeric(sLAG) ) {
+    stop( "sLAG has to be a positive number" )
+  } else if ( sLAG<= 0 ) {
+    stop( "sLAG has to be a positive number" )
+  }
   Object<-object@preprocessedDS
 
   if ( ! is.list(Object) ){
-    stop("Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    stop(
+      "Input data must be a list. ",
+      "Please run the PreProcessing step first either ",
+      "rmPreProcessing() or wsaPreProcessing()"
+    )
   }
   #ExpName<-substitute(object)
   ExpName<-object@meta$expName
@@ -6445,9 +7326,10 @@ DiAutoCor= function(object, TimeInterval=10,
 
   for(j in seq_along(Object)){
     cos.diff<-c()
-    LAG<-round(Step*sLAG)     #taking only the first 12.5%
+    LAG<-round(Step*sLAG) #taking only the first 12.5%
     for(lag in seq_len(LAG)){
-      res <- t(vapply(1:Step, function(i){                      # starting from 2 to exclude the first cosine which is always 1.
+      # starting from 2 to exclude the first cosine which is always 1.
+      res <- t(vapply(1:Step, function(i){
         Object[[j]][i,14]= Object[[j]][i+lag,2]-Object[[j]][i,2]    # newdx
         Object[[j]][i,15]= Object[[j]][i+lag,3]-Object[[j]][i,3]    # newdy
         return(as.numeric(Object[[j]][i,14:15]))
@@ -6456,28 +7338,51 @@ DiAutoCor= function(object, TimeInterval=10,
 
 
       Object[[j]][,14:15] <- lapply(Object[[j]][,14:15], as.numeric)
-      Object[[j]][,14][is.na(Object[[j]][,14])] <- 0                                # to remove NA and replace it with 0
-      Object[[j]][,15][is.na(Object[[j]][,15])] <- 0                                # to remove NA and replace it with 0
+      Object[[j]][,14][is.na(Object[[j]][,14])] <- 0 # remove NA, replace with 0
+      Object[[j]][,15][is.na(Object[[j]][,15])] <- 0 # idem
 
       res1 <- vapply(seq_len(Step), function(i){
-        acos((Object[[j]][i+lag,2]-Object[[j]][i,2])/sqrt((Object[[j]][i+lag,2]-Object[[j]][i,2])^2 +(Object[[j]][i+lag,3]-Object[[j]][i,3])^2)) # to find the abs angle
+        acos(
+          (Object[[j]][i+lag,2]-Object[[j]][i,2]) /
+          sqrt(
+            (Object[[j]][i+lag,2]-Object[[j]][i,2])^2 +
+            (Object[[j]][i+lag,3]-Object[[j]][i,3])^2
+          )
+        ) # to find the abs angle
       }, FUN.VALUE = numeric(1))
       Object[[j]][1:(Step),16] <- res1
-      Object[[j]][,16][is.na(Object[[j]][,16])] <- 0                                # to remove NA and replace it with 0
+      # to remove NA and replace it with 0
+      Object[[j]][,16][is.na(Object[[j]][,16])] <- 0
 
 
       res2 <- vapply(seq_len(Step - lag), function(i){
-        if((Object[[j]][i+1,15]<0) && (Object[[j]][i,15]>=0)||(Object[[j]][i+1,15]>=0) && (Object[[j]][i,15]<0)){
+        if(
+          (Object[[j]][i+1,15]<0) &&
+          (Object[[j]][i,15]>=0)||(Object[[j]][i+1,15]>=0) &&
+          (Object[[j]][i,15]<0)
+        ){
           abs(Object[[j]][i+1,16])+abs(Object[[j]][i,16])
-        } else if((Object[[j]][i+1,15]<0) && (Object[[j]][i,15]<0)||(Object[[j]][i+1,15]>=0) && (Object[[j]][i,15]>=0) ){
+        } else if(
+          (Object[[j]][i+1,15]<0) &&
+          (Object[[j]][i,15]<0)||(Object[[j]][i+1,15]>=0) &&
+          (Object[[j]][i,15]>=0)
+        ){
           Object[[j]][i+1,16]-Object[[j]][i,16]
         }
       }, FUN.VALUE = numeric(1))
       Object[[j]][1:(Step - lag),17] <- res2
 
       res3 <- t(vapply(seq_len(Step - lag), function(i){
-        Object[[j]][i,17]<-ifelse((Object[[j]][i,17])<= (-pi), 2*pi+(Object[[j]][i,17]),(Object[[j]][i,17]))    # adjusting the ang.diff
-        Object[[j]][i,17]<-ifelse((Object[[j]][i,17])>= pi,(Object[[j]][i,17])-2*pi,(Object[[j]][i,17]))
+        Object[[j]][i,17]<-ifelse(
+          (Object[[j]][i,17])<= (-pi),
+          2*pi+(Object[[j]][i,17]),
+          (Object[[j]][i,17])
+        )    # adjusting the ang.diff
+        Object[[j]][i,17]<-ifelse(
+          (Object[[j]][i,17])>= pi,
+          (Object[[j]][i,17])-2*pi,
+          (Object[[j]][i,17])
+        )
         Object[[j]][i,18]<-cos(Object[[j]][i,17])
         return(as.numeric(Object[[j]][i,17:18]))
       }, FUN.VALUE = numeric(2)))
@@ -6485,7 +7390,8 @@ DiAutoCor= function(object, TimeInterval=10,
       Object[[j]][,17:18] <- lapply(Object[[j]][,17:18], as.numeric)
 
       for(i in 1:LAG){
-        cos.diff[lag]<-mean(Object[[j]][1:(Step-lag)-1,18], na.rm=TRUE)  # computing the cosine mean
+        # computing the cosine mean
+        cos.diff[lag]<-mean(Object[[j]][1:(Step-lag)-1,18], na.rm=TRUE)
       }
     }
     DA.table[1:LAG,j]<-cos.diff
@@ -6502,27 +7408,44 @@ DiAutoCor= function(object, TimeInterval=10,
     DA.ResultsTable[3,j]<-round(unlist(cc[1]),digits=3)
     ccc<-unlist(cc[1])
     DA.ResultsTable[4,j]<-round(mean(DA.table[1:LAG,j]),digits=3)
-    DA.ResultsTable[5,j]<-round((1-(mean(DA.table[1:LAG,j])-unlist(cc[1])))* mean(DA.table[1:LAG,j]),digits=3)
+    DA.ResultsTable[5,j]<-round(
+      (1-(mean(DA.table[1:LAG,j])-unlist(cc[1])))* mean(DA.table[1:LAG,j]),
+      digits=3
+    )
     DA.ResultsTable[6,j]<-round(mean(DA.table[1:LAG,j])-unlist(cc[1]),digits=3)
 
     timevalues <- seq(1, length(lags), 1)
-    predictedcounts <- stats::predict(quadratic.m,list(Time=timevalues, Time2=timevalues^2))
+    predictedcounts <- stats::predict(
+      quadratic.m,list(Time=timevalues, Time2=timevalues^2)
+    )
 
     if ( sPLOT == TRUE){
       Xaxis<-c(1:LAG)
       Yaxis<-cos.diff
       if (export) {
-        plot_name <-  paste0(ExpName,"Direction Autocorrelation.plot.Cell",j,".jpg")
+        plot_name <-  paste0(
+          ExpName,"Direction Autocorrelation.plot.Cell",j,".jpg"
+        )
         file_path <- file.path(new.fld, plot_name)
-        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+        grDevices::jpeg(
+          filename = file_path,width = 4, height = 4, units = 'in', res = 300
+        )
       }
-      graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Cosine",pch=19,las=1,cex=1.2)
+      graphics::plot(
+        Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col=color[j],
+        xlab="Lag",ylab="Cosine",pch=19,las=1,cex=1.2
+      )
       xx<-c(0,1)
       yy<-c(1,cos.diff[1])
       graphics::lines(xx,yy, type='l',col=color[j])
       graphics::lines(timevalues, predictedcounts, col = "black", lwd = 3)
-      graphics::title(main=paste0("Cell Number  ", j, "   DA quadratic model"),col.main="darkgreen",
-                      cex.main=0.8,sub=paste0(" Intercept of DA quadratic model = ",round(ccc, digits=3)),col.sub="red")
+      graphics::title(
+        main=paste0("Cell Number  ", j, "   DA quadratic model"),
+        col.main="darkgreen",
+        cex.main=0.8,
+        sub=paste0(" Intercept of DA quadratic model = ",round(ccc, digits=3)),
+        col.sub="red"
+      )
       if (export) grDevices::dev.off()
     }
 
@@ -6539,13 +7462,28 @@ DiAutoCor= function(object, TimeInterval=10,
   cc<-unlist(c)
   quadratic.model[j]<-cc[1]
   DA.ResultsTable[3,(length(Object)+1)]<-round(unlist(cc[1]),digits=3)
-  DA.ResultsTable[4,(length(Object)+1)]<-round(stats::median(as.numeric(DA.ResultsTable[4,1:length(Object)])),digits=3)
-  DA.ResultsTable[5,(length(Object)+1)]<-round((1-(stats::median(as.numeric(DA.ResultsTable[4,1:length(Object)]))-unlist(cc[1])))* stats::median(as.numeric(DA.ResultsTable[4,1:length(Object)])),digits=3)
-  DA.ResultsTable[6,(length(Object)+1)]<-round(median(as.numeric(DA.ResultsTable[4,1:length(Object)]))-unlist(cc[1]),digits=3)
+  DA.ResultsTable[4,(length(Object)+1)]<-round(
+    stats::median(as.numeric(DA.ResultsTable[4,1:length(Object)])),digits=3
+  )
+  DA.ResultsTable[5,(length(Object)+1)]<-round(
+    (
+      1 -
+      (
+        stats::median(as.numeric(DA.ResultsTable[4,1:length(Object)])) -
+        unlist(cc[1])
+      )
+    ) * stats::median(as.numeric(DA.ResultsTable[4,1:length(Object)])),digits=3
+  )
+  DA.ResultsTable[6,(length(Object)+1)]<-round(
+    median(as.numeric(DA.ResultsTable[4,1:length(Object)])) -
+    unlist(cc[1]),digits=3
+  )
 
   ccc<-unlist(cc[1])
   timevalues <- seq(1, length(lags), 1)
-  predictedcounts <- stats::predict(quadratic.m,list(Time=timevalues, Time2=timevalues^2))
+  predictedcounts <- stats::predict(
+    quadratic.m,list(Time=timevalues, Time2=timevalues^2)
+  )
 
   if ( aPLOT == TRUE){
     Xaxis<-c(1:LAG)
@@ -6554,24 +7492,45 @@ DiAutoCor= function(object, TimeInterval=10,
     if (export) {
       plot_name <-  paste0(ExpName,"-Direction Autocorrelation All Cells.jpg")
       file_path <- file.path(new.fld, plot_name)
-      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+      grDevices::jpeg(
+        filename = file_path,width = 4, height = 4, units = 'in', res = 300
+      )
     }
 
-    graphics::plot(Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Cosine",pch=19,las=1,cex=1.2)
+    graphics::plot(
+      Xaxis,Yaxis, type="o",ylim=c(-1,1),xlim=c(0,lag),col="black",
+      xlab="Lag",ylab="Cosine",pch=19,las=1,cex=1.2
+    )
     xx<-c(0,1)
     yy<-c(1,RM1[1])
     graphics::lines(xx,yy, type='l',col="black")
     graphics::lines(timevalues, predictedcounts, col = "darkgreen", lwd = 3)
-    MDA<-round(stats::median(as.numeric(DA.ResultsTable[4,1:length(Object)])),digits=2)
+    MDA<-round(
+      stats::median(as.numeric(DA.ResultsTable[4,1:length(Object)])),digits=2
+    )
     graphics::abline(h=MDA,col="blue",lwd = 2)
-    graphics::title(main=paste0("All Cells - DA quadratic model"),col.main="darkgreen",
-                    cex.main=0.8,sub=paste0(" Intercept of DA quadratic model = ",round(ccc, digits=3)),col.sub="red")
-    graphics::legend(1, y=-0.82, legend=c("Mean Direction AutoCorrelation","Quadratic model"), col=c("blue","darkgreen"),lty=1, cex=0.8)
+    graphics::title(
+      main=paste0("All Cells - DA quadratic model"),
+      col.main="darkgreen",
+      cex.main=0.8,
+      sub=paste0(" Intercept of DA quadratic model = ",round(ccc, digits=3)),
+      col.sub="red"
+    )
+    graphics::legend(
+      1,
+      y=-0.82,
+      legend=c("Mean Direction AutoCorrelation","Quadratic model"),
+      col=c("blue","darkgreen"),lty=1, cex=0.8
+    )
     if (export) grDevices::dev.off()
   }
 
-  rownames(DA.ResultsTable)<-c("Cell Number","Angular Persistence","Intercept of DA quadratic model","Mean Direction AutoCorrelation (all lags)","Stable Direction AutoCorrelation through the track",
-                               "Difference between Mean DA and Intercept DA" )
+  rownames(DA.ResultsTable)<-c(
+    "Cell Number","Angular Persistence","Intercept of DA quadratic model",
+    "Mean Direction AutoCorrelation (all lags)",
+    "Stable Direction AutoCorrelation through the track",
+    "Difference between Mean DA and Intercept DA"
+  )
   object@DACtable<-DA.ResultsTable
   if (export) {
     utils::write.csv(
@@ -6588,18 +7547,32 @@ DiAutoCor= function(object, TimeInterval=10,
 
 #' @title Velocity AutoCorrelation
 #'
-#' @description The VeAutoCor function automatically compute the changes in both speed and direction across several sequantial time intervals.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
-#' @param sLAG A numeric value to be used to get the number of lags for the slope fitting. Default is 0.25, which represents 25 percent of the steps.
-#' @param sPLOT A logical vector that allows generating individual plots showing the velocity across several sequantial time intervals. Default is TRUE.
-#' @param aPLOT A logical vector that allows generating a plot showing the velocity across several sequantial time intervals of all cells. Default is TRUE.
-#' @param export if `TRUE` (default), exports function output to CSV file
+#' @description The VeAutoCor function automatically compute the
+#'  changes in both speed and direction across several sequantial time
+#'  intervals.
+#' @param object \code{CellMig} class object, which is a list of data
+#'  frames resulted from the PreProcessing.
+#' @param TimeInterval A numeric value of the time elapsed between
+#'  successive frames in the time-lapse stack.
+#' @param sLAG A numeric value to be used to get the number of lags
+#'  for the slope fitting. Default is 0.25, which represents 25
+#' percent of the steps.
+#' @param sPLOT A logical vector that allows generating individual
+#' plots showing the velocity across several sequantial time
+#' intervals. Default is TRUE.
+#' @param aPLOT A logical vector that allows generating a plot
+#' showing the velocity across several sequantial time intervals
+#'  of all cells. Default is TRUE.
+#' @param export if `TRUE` (default), exports function output to
+#'  CSV file
 #' @param ExpName string, name of the experiment. Can be NULL
 #'
-#' @return Plots and a data frame, which contains six rows: "Cell Number", "Velocity AutoCorrelation (lag=1)",
-#' "2nd normalized Velocity AutoCorrelation", "Intercept of VA quadratic model",
-#' "Mean Velocity AutoCorrelation (all lags)", "Mean |Acceleration|" and "Average Speed".
+#' @return Plots and a data frame, which contains six rows:
+#' "Cell Number", "Velocity AutoCorrelation (lag=1)",
+#' "2nd normalized Velocity AutoCorrelation",
+#' "Intercept of VA quadratic model",
+#' "Mean Velocity AutoCorrelation (all lags)", "Mean |Acceleration|"
+#' and "Average Speed".
 
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
@@ -6644,12 +7617,27 @@ VeAutoCor = function(object, TimeInterval=10,
   }
 
 
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
-  if ( ! is.numeric(sLAG) ) stop( "sLAG has to be a positive number" ) else if ( sLAG<= 0 ) stop( "sLAG has to be a positive number" )
+  if ( ! is.numeric(TimeInterval) ) {
+    stop( "TimeInterval has to be a positive number" )
+  } else if ( TimeInterval<= 0 ) {
+    stop( "TimeInterval has to be a positive number" )
+  }
+  if ( ! is.numeric(sLAG) ) {
+    stop( "sLAG has to be a positive number" )
+  } else if ( sLAG<= 0 ) {
+    stop( "sLAG has to be a positive number" )
+  }
   Object<-object@preprocessedDS
   msg <- NULL
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    msg <- c(
+      msg,
+      paste(
+        "Input data must be a list.",
+        "Please run the PreProcessing step first",
+        "either rmPreProcessing() or wsaPreProcessing()"
+      )
+    )
   }
   #ExpName<-substitute(object)
   ExpName<-object@meta$expName
@@ -6676,26 +7664,34 @@ VeAutoCor = function(object, TimeInterval=10,
   }
 
   VA.ResultsTable<-data.frame()
-  VAC.table<-data.frame()     # creating a table that has all the VAC to be able to compute the mean
-  VAC.first.value<-c()        # to save the fist VAC non-normalized value for all cells
-  VAC.second.value<-c()        # to save the second VAC non-normalized value for all cells
+  # creating a table that has all the VAC to be able to compute the mean
+  VAC.table<-data.frame()
+  # to save the fist VAC non-normalized value for all cells
+  VAC.first.value<-c()
+  # to save the second VAC non-normalized value for all cells
+  VAC.second.value<-c()
 
   for(j in seq_along(Object)){
     meanVAC<-c()
     LAG<-round(Step*sLAG)              #taking only the first 12.5%
     for(lag in seq_len(LAG)){
-      res <- t(vapply(seq_len(Step - 1), function(i){                      # starting from 2 to exclude the first cosine which is always 1.
+      # starting from 2 to exclude the first cosine which is always 1.
+      res <- t(vapply(seq_len(Step - 1), function(i){
         Object[[j]][i,14]= Object[[j]][i+lag,2]-Object[[j]][i,2]    # newdx
         Object[[j]][i,15]= Object[[j]][i+lag,3]-Object[[j]][i,3]    # newdy
         return(as.numeric(Object[[j]][i,14:15]))
       }, FUN.VALUE = numeric(2)))
       Object[[j]][1:(Step -1),14:15] <- res
       Object[[j]][,14:15] <- lapply(Object[[j]][,14:15], as.numeric)
-      Object[[j]][,14][is.na(Object[[j]][,14])] <- 0                                # to remove NA and replace it with 0
-      Object[[j]][,15][is.na(Object[[j]][,15])] <- 0                                # to remove NA and replace it with 0
+      Object[[j]][,14][is.na(Object[[j]][,14])] <- 0 # remove NA, replace with 0
+      Object[[j]][,15][is.na(Object[[j]][,15])] <- 0 # remove NA, replace with 0
 
-      res1 <- vapply(seq_len(Step - lag), function(i){                                               # starting from 2 to exclude the first cosine which is always 1.
-        ((Object[[j]][i,14]* Object[[j]][i+lag,14])+ (Object[[j]][i,15]* Object[[j]][i+lag,15]))/ ((lag*TimeInterval)^2)
+      # starting from 2 to exclude the first cosine which is always 1.
+      res1 <- vapply(seq_len(Step - lag), function(i){
+        (
+          (Object[[j]][i,14]* Object[[j]][i+lag,14]) +
+          (Object[[j]][i,15]* Object[[j]][i+lag,15])
+        ) / ((lag*TimeInterval)^2)
       }, FUN.VALUE = numeric(1))
       Object[[j]][1:(Step - lag),23] <- res1
       meanVAC[lag]<-mean(Object[[j]][1:(Step - lag),23])
@@ -6722,22 +7718,36 @@ VeAutoCor = function(object, TimeInterval=10,
 
     ccc<-unlist(cc[1])
     VA.ResultsTable[4,j]<-round(ccc,digits=3)
-    VA.ResultsTable[5,j]<-round(mean(meanVAC),digits=3)      # mean VA (all lags)
+    VA.ResultsTable[5,j]<-round(mean(meanVAC),digits=3) # mean VA (all lags)
     timevalues <- seq(1, length(lags), 1)
-    predictedcounts <- stats::predict(quadratic.m,list(Time=timevalues, Time2=timevalues^2))
+    predictedcounts <- stats::predict(
+      quadratic.m,list(Time=timevalues, Time2=timevalues^2)
+    )
 
     if (sPLOT == TRUE){
       Xaxis<-c(1:LAG)
       Yaxis<-meanVAC
       if (export) {
-        plot_name <-  paste0(ExpName,"Velocity Autocorrelation.plot.Cell",j,".jpg")
+        plot_name <-  paste0(
+          ExpName,"Velocity Autocorrelation.plot.Cell",j,".jpg"
+        )
         file_path <- file.path(new.fld, plot_name)
-        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+        grDevices::jpeg(
+          filename = file_path,width = 4, height = 4, units = 'in', res = 300
+        )
       }
-      graphics::plot(Xaxis,Yaxis, type="o",ylim=range(meanVAC),xlim=c(0,lag),col=color[j],xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=1.2)
+      graphics::plot(
+        Xaxis,Yaxis, type="o",ylim=range(meanVAC),xlim=c(0,lag),col=color[j],
+        xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=1.2
+      )
       graphics::lines(timevalues, predictedcounts, col = "black", lwd = 3)
-      graphics::title(main=paste0("Cell Number  ", j, "   VA quadratic model"),col.main="darkgreen",
-                      cex.main=0.8, sub=paste0(" Intercept of VA quadratic model = ",round(ccc, digits=3)),col.sub="red")
+      graphics::title(
+        main=paste0("Cell Number  ", j, "   VA quadratic model"),
+        col.main="darkgreen",
+        cex.main=0.8,
+        sub=paste0(" Intercept of VA quadratic model = ",round(ccc, digits=3)),
+        col.sub="red"
+      )
       if (export) grDevices::dev.off()
     }
 
@@ -6746,8 +7756,12 @@ VeAutoCor = function(object, TimeInterval=10,
 
   RM1<-matrixStats::rowMedians(as.matrix(VAC.table),na.rm = TRUE)
   VA.ResultsTable[1,(length(Object)+1)]<-"All Cells"
-  VA.ResultsTable[2,(length(Object)+1)]<-round(median(VAC.first.value),digits=3)
-  VA.ResultsTable[3,(length(Object)+1)]<-round(median(VAC.second.value),digits=3)
+  VA.ResultsTable[2,(length(Object)+1)]<-round(
+    median(VAC.first.value),digits=3
+  )
+  VA.ResultsTable[3,(length(Object)+1)]<-round(
+    median(VAC.second.value),digits=3
+  )
 
   lags<-c(1:length(VAC.table[,1]))
   lags2<- lags^2
@@ -6757,11 +7771,15 @@ VeAutoCor = function(object, TimeInterval=10,
   cc<-unlist(c)
   quadratic.model[j]<-cc[1]
   VA.ResultsTable[4,(length(Object)+1)]<-round(unlist(cc[1]),digits=3)
-  VA.ResultsTable[5,(length(Object)+1)]<-round(stats::median(as.numeric(VA.ResultsTable[5,1:length(Object)])),digits=3)
+  VA.ResultsTable[5,(length(Object)+1)]<-round(
+    stats::median(as.numeric(VA.ResultsTable[5,1:length(Object)])),digits=3
+  )
 
   ccc<-unlist(cc[1])
   timevalues <- seq(1, length(lags), 1)
-  predictedcounts <- predict(quadratic.m,list(Time=timevalues, Time2=timevalues^2))
+  predictedcounts <- predict(
+    quadratic.m,list(Time=timevalues, Time2=timevalues^2)
+  )
 
   if ( aPLOT == TRUE){
     Xaxis<-c(1:LAG)
@@ -6769,19 +7787,35 @@ VeAutoCor = function(object, TimeInterval=10,
     if (export) {
       plot_name <-  paste0(ExpName,"-Velocity.Autocorrelation.All.Cells.jpg")
       file_path <- file.path(new.fld, plot_name)
-      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+      grDevices::jpeg(
+        filename = file_path,width = 4, height = 4, units = 'in', res = 300
+      )
     }
-    graphics::plot(Xaxis,Yaxis, type="o",ylim=range(RM1),xlim=c(0,lag),col="black",xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=1.2)
+    graphics::plot(
+      Xaxis,Yaxis, type="o",ylim=range(RM1),xlim=c(0,lag),col="black",
+      xlab="Lag",ylab="Velocity  Autocorrelation",pch=19,las=1,cex=1.2
+    )
     graphics::lines(timevalues, predictedcounts, col = "darkgreen", lwd = 3)
-    MVA<-round(stats::median(as.numeric(VA.ResultsTable[5,1:length(Object)])),digits=2)
+    MVA<-round(
+      stats::median(as.numeric(VA.ResultsTable[5,1:length(Object)])),digits=2
+    )
     graphics::abline(h=MVA,col="blue",lwd = 2)
-    graphics::title(main=paste0("All Cells - VA quadratic model"),col.main="darkgreen",
-                    cex.main=0.8,sub=paste0(" Intercept of VA quadratic model = ",round(ccc, digits=3)),col.sub="red")
+    graphics::title(
+      main=paste0("All Cells - VA quadratic model"),
+      col.main="darkgreen",
+      cex.main=0.8,
+      sub=paste0(" Intercept of VA quadratic model = ",round(ccc, digits=3)),
+      col.sub="red"
+    )
     if (export) grDevices::dev.off()
   }
 
-  rownames(VA.ResultsTable)<-c("Cell Number","Velocity AutoCorrelation (lag=1)","2nd normalized Velocity AutoCorrelation",
-                               "Intercept of VA quadratic model","Mean Velocity AutoCorrelation (all lags)")
+  rownames(VA.ResultsTable)<-c(
+    "Cell Number","Velocity AutoCorrelation (lag=1)",
+    "2nd normalized Velocity AutoCorrelation",
+    "Intercept of VA quadratic model",
+    "Mean Velocity AutoCorrelation (all lags)"
+  )
   object@VACtable<-VA.ResultsTable
   if (export) {
     utils::write.csv(
@@ -6796,17 +7830,25 @@ VeAutoCor = function(object, TimeInterval=10,
 
 #' @title Forward Migration
 #'
-#' @description The ForwardMigration function automatically generates data and plots for forward persistence and speed.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
-#' @param sfptPLOT A logical vector that allows generating individual plots of persistence time vs speed per cell. Default is TRUE.
-#' @param afptPLOT  A logical vector that allows generating a plot of persistence time vs speed for all cells. Default is TRUE.
-#' @param sfpPLOT A logical vector that allows generating individual plots of angular persistence vs speed per cell. Default is TRUE.
-#' @param afpPLOT A logical vector that allows generating a plot of angular persistence vs speed of all cells. Default is TRUE.
+#' @description The ForwardMigration function automatically generates
+#'  data and plots for forward persistence and speed.
+#' @param object \code{CellMig} class object, which is a list of data
+#' frames resulted from the PreProcessing.
+#' @param TimeInterval A numeric value of the time elapsed between
+#'  successive frames in the time-lapse stack.
+#' @param sfptPLOT A logical vector that allows generating individual
+#' plots of persistence time vs speed per cell. Default is TRUE.
+#' @param afptPLOT  A logical vector that allows generating a plot of
+#' persistence time vs speed for all cells. Default is TRUE.
+#' @param sfpPLOT A logical vector that allows generating individual
+#' plots of angular persistence vs speed per cell. Default is TRUE.
+#' @param afpPLOT A logical vector that allows generating a plot of
+#' angular persistence vs speed of all cells. Default is TRUE.
 #' @param export if `TRUE` (default), exports function output to CSV file
 #' @param ExpName string, name of the experiment. Can be NULL
 #'
-#' @return  An CellMig class Object with a data frame and plots. The data frame is stored in the ForMigtable slot.
+#' @return  An CellMig class Object with a data frame and plots.
+#' The data frame is stored in the ForMigtable slot.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -6908,15 +7950,31 @@ ForwardMigration <- function(
     MM1 <- MM - 1
     res <- vapply(seq_len(MM1), function(i) {
 
-      if((Object[[j]][1,25]==0) && (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]<0)){
+      if(
+        (Object[[j]][1,25]==0) &&
+        (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) &&
+        (Object[[j]][i,5]<0)
+      ){
         Object[[j]][i,19]= 1.5707963268 - abs(Object[[j]][i,7])
       }
-      if((Object[[j]][1,25]==0) && (Object[[j]][i,5]<0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]>0)){
+      if(
+        (Object[[j]][1,25]==0) &&
+        (Object[[j]][i,5]<0) || (Object[[j]][1,25]==1) &&
+        (Object[[j]][i,5]>0)
+      ){
         Object[[j]][i,19]= abs(Object[[j]][i,7])+1.5707963268
 
       }
-      Object[[j]][i,19]<-ifelse((Object[[j]][i,19])<= (-pi), 2*pi+(Object[[j]][i,19]),(Object[[j]][i,19]))    # adjusting the rel.ang
-      Object[[j]][i,19]<-ifelse((Object[[j]][i,19])>= pi,(Object[[j]][i,19])-2*pi,(Object[[j]][i,19]))
+      Object[[j]][i,19]<-ifelse(
+        (Object[[j]][i,19])<= (-pi),
+        2*pi+(Object[[j]][i,19]),
+        (Object[[j]][i,19])
+      )    # adjusting the rel.ang
+      Object[[j]][i,19]<-ifelse(
+        (Object[[j]][i,19])>= pi,
+        (Object[[j]][i,19])-2*pi,
+        (Object[[j]][i,19])
+      )
       return(as.numeric(Object[[j]][i, 19]))
     }, FUN.VALUE = numeric(1))
     Object[[j]][1:MM1, 19] <- res
@@ -6924,16 +7982,24 @@ ForwardMigration <- function(
 
 
   cosine.FP<-data.frame()
-  for(j in seq_along(Object)){              # creating values for  cosine based on rel.ang.F
+  for(j in seq_along(Object)){ # creating values for  cosine based on rel.ang.F
     MM<-Step
     MM1<-MM-1
 
     res <- vapply(seq_len(MM), function(i){
-      if((Object[[j]][1,25]==0) && (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]<0)){   # upper cell going up or lower cell going down
+      if(
+        (Object[[j]][1,25]==0) &&
+        (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) &&
+        (Object[[j]][i,5]<0)
+      ){   # upper cell going up or lower cell going down
         Object[[j]][i,20]<-(-1*abs(cos(Object[[j]][i,19])))
       }
 
-      if((Object[[j]][1,25]==0) && (Object[[j]][i,5]<0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]>0)){
+      if(
+        (Object[[j]][1,25]==0) &&
+        (Object[[j]][i,5]<0) || (Object[[j]][1,25]==1) &&
+        (Object[[j]][i,5]>0)
+      ){
         Object[[j]][i,20]<-cos(Object[[j]][i,19])
       }
       return(as.numeric(Object[[j]][i,20]))
@@ -6943,7 +8009,8 @@ ForwardMigration <- function(
     cosine.FP[1:MM,j]<-Object[[j]][,20]
   }
 
-  for(j in 1:length(Object)){             ## Forward Pesrsistence time, FP deviating time and FP ratio #
+  ## Forward Pesrsistence time, FP deviating time and FP ratio #
+  for(j in 1:length(Object)){
     MM<-Step
     MM1<-MM-1
 
@@ -6962,18 +8029,25 @@ ForwardMigration <- function(
   }
 
 
-  FMResultsTable<-data.frame()                                  # creating a table to store the forward migration results
-  for(j in 1:length(Object)){                                   # creating values (NA and forward persistence time )for  forward persistence    (step to the forward movement)
+  # creating a table to store the forward migration results
+  FMResultsTable<-data.frame()
+  # creating values (NA and forward persistence time )for
+  # forward persistence    (step to the forward movement)
+  for(j in 1:length(Object)){
     MM<-Step
     F.P.time<-Object[[j]][1:MM,21]
-    MeanF.P.time<-round(mean(F.P.time),digits=2)             # computing mean  Forward Pesrsistence time
-    F.P.time.Len<-F.P.time                                   # computing the number of FP steps to be used in computing the FP ratio
+    # computing mean  Forward Pesrsistence time
+    MeanF.P.time<-round(mean(F.P.time),digits=2)
+    # computing the number of FP steps to be used in computing the FP ratio
+    F.P.time.Len<-F.P.time
     F.P.time.Len[F.P.time.Len==0]<-NA
     F.P.time.Len<-F.P.time.Len[!is.na(F.P.time.Len)]
     F.P.time.Len<-length(F.P.time.Len)
-    F.P.Ratio<- round(F.P.time.Len/MM, digits=2)               # computing FP ratio
+    # computing FP ratio
+    F.P.Ratio<- round(F.P.time.Len/MM, digits=2)
 
-    DD.F.P.time<-Object[[j]][1:MM,21]                        # computing the FP deviating time
+    # computing the FP deviating time
+    DD.F.P.time<-Object[[j]][1:MM,21]
     DD.F.P.time[DD.F.P.time==0]<-1
     DD.F.P.time[DD.F.P.time==TimeInterval]<-0
     DD.F.P.time[DD.F.P.time==1]<-TimeInterval
@@ -6985,13 +8059,14 @@ ForwardMigration <- function(
     FMResultsTable[4,j]<-F.P.Ratio
   }
 
-
-  VelFPTable<-data.frame()               # creating a table to store the mean velocity with correspondence with the FP time
+  # creating a table to store the mean velocity with
+  # correspondence with the FP time
+  VelFPTable<-data.frame()
   for(j in 1:length(Object)){
-    MM=Step          ###########computing the "finalID" to be used for the splitting
+    MM=Step          #computing the "finalID" to be used for the splitting
     FPtime<-Object[[j]][1:MM,21]
-    FPtime0<-c(0,FPtime)                   #adding a "0" value in the beginning
-    FPtime0[FPtime0==TimeInterval]<-NA                #replacing the "5" values with NAs
+    FPtime0<-c(0,FPtime) #adding a "0" value in the beginning
+    FPtime0[FPtime0==TimeInterval]<-NA #replacing the "5" values with NAs
     FPtime0TF<- !is.na(FPtime0)
     MM1<-Step+1
     rowN<-c(1:MM1)
@@ -6999,18 +8074,18 @@ ForwardMigration <- function(
 
 
     fillIdx <- cumsum(FPtime0TF)
-    s<-Tval[fillIdx]                     #replacing the NAs with the previous true value
+    s<-Tval[fillIdx]  #replacing the NAs with the previous true value
     justTrueVal<-Tval
-    s[FPtime0TF]=0                       #replacing the true values with 0
-    finalID<-s[-1]                       # removing the first added value
+    s[FPtime0TF]=0  #replacing the true values with 0
+    finalID<-s[-1]  # removing the first added value
 
     Vel<-Object[[j]][1:MM,11]
     FP<-Object[[j]][1:MM,21]
     FP[FP==0]<-NA
     tab<-data.frame(Vel,FP,finalID)
     tab<-tab[-nrow(tab),]
-    finalIDD<-finalID[-MM]               # to exclude the last row since it has no velocity
-    tabb<-split(tab, finalIDD)           # to avoid taking the last row
+    finalIDD<-finalID[-MM]  # to exclude the last row since it has no velocity
+    tabb<-split(tab, finalIDD)  # to avoid taking the last row
 
     meanVEL<-c()
     FP.time<-c()
@@ -7030,9 +8105,11 @@ ForwardMigration <- function(
 
 
 
-    FPtime<-Object[[j]][1:MM,21]        # computing the "meanVel.for0"
-    FPtime00<-c(1,FPtime)                   #adding a "1" value in the beginning  this value should not be 0 because we will not catch 0 persistence if it is in the beginning.
-    FPtime00[FPtime00==0]<-NA                #replacing the "0" values with NAs
+    FPtime<-Object[[j]][1:MM,21]  # computing the "meanVel.for0"
+    #adding a "1" value in the beginning  this value should not be 0
+    # because we will not catch 0 persistence if it is in the beginning.
+    FPtime00<-c(1,FPtime)
+    FPtime00[FPtime00==0]<-NA #replacing the "0" values with NAs
     FPtime00TF<- !is.na(FPtime00)
 
     MM1<-MM+1
@@ -7078,10 +8155,12 @@ ForwardMigration <- function(
     rowNum<-c(1:length(meanVEL1))
     VelFPTable[rowNum,colNumP]<-FP.time1
     VelFPTable[rowNum,colNumV]<-meanVEL1
-    c<-stats::cor.test( ~ VelFPTable[,j+j-1]+ VelFPTable[,j+j], method = "spearman",exact=FALSE)             #testing the correlation
+    c<-stats::cor.test(
+      ~ VelFPTable[,j+j-1]+ VelFPTable[,j+j], method = "spearman",exact=FALSE
+    )             #testing the correlation
     cc<-unlist(c[4])
     ccPV<-round(cc, digits = 3)
-    FMResultsTable[6,j]<-ccPV               # Speed vs  persistence time  Spearman correlation
+    FMResultsTable[6,j]<-ccPV # Speed vs persistence time Spearman correlation
 
 
 
@@ -7089,13 +8168,22 @@ ForwardMigration <- function(
       if (export){
         plot_name <-  paste0(ExpName,"_FP_Time _VS_Speed_",j,".jpg")
         file_path <- file.path(new.fld, plot_name)
-        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+        grDevices::jpeg(
+          filename = file_path,width = 4, height = 4, units = 'in', res = 300
+        )
       }
-      graphics::plot(VelFPTable[,j+j]*60,VelFPTable[,j+j-1],pch=16,type="p",ylab="Forward Persistence Time (min)",
-                     xlab=" Mean Speed during FP time (um/h)",col=color[j],las=1)
+      graphics::plot(
+        VelFPTable[,j+j]*60,VelFPTable[,j+j-1],pch=16,type="p",
+        ylab="Forward Persistence Time (min)",
+        xlab=" Mean Speed during FP time (um/h)",col=color[j],las=1
+      )
       reg<-stats::lm(VelFPTable[,j+j]~VelFPTable[,j+j-1])
-      graphics::title(main=paste0("Cell Number  ", j,"   Speed vs Forward Persistence Time"),cex.main = 0.8,
-                      sub=paste0("Spearman's rank correlation coefficient = ",ccPV),col.sub="red")
+      graphics::title(
+        main=paste0("Cell Number  ", j,"   Speed vs Forward Persistence Time"),
+        cex.main = 0.8,
+        sub=paste0("Spearman's rank correlation coefficient = ",ccPV),
+        col.sub="red"
+      )
       if (export) grDevices::dev.off()
 
     }
@@ -7113,25 +8201,36 @@ ForwardMigration <- function(
   allvel<-allvel[!is.na(allvel)]
   all.per.vel.table<-data.frame(allper,allvel)
   reg<-stats::lm(allper~allvel)
-  c<-stats::cor.test( ~ allper+ allvel, method = "spearman",exact=FALSE)                 #testing the correlation
+  #testing the correlation
+  c<-stats::cor.test( ~ allper+ allvel, method = "spearman",exact=FALSE)
   cc<-unlist(c[4])
   ccP<-round(cc, digits = 3)
-  FMResultsTable[6,(length(Object)+1)]<-ccP                                          # Speed vs  persistence time  Spearman correlation
+  # Speed vs  persistence time  Spearman correlation
+  FMResultsTable[6,(length(Object)+1)]<-ccP
 
   if ( afptPLOT == TRUE){
     if (export) {
       plot_name <-  paste0(ExpName,"_FP_Time_VS_Speed_All_Cells.jpg")
       file_path <- file.path(new.fld, plot_name)
-      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+      grDevices::jpeg(
+        filename = file_path,width = 4, height = 4, units = 'in', res = 300
+      )
     }
-    graphics::plot(allvel*60,allper,type="p",pch=16,ylab="FP Time (min)",xlab=" Mean Speed during FP time (um/h)",col="black",las=1)
+    graphics::plot(
+      allvel*60,allper,type="p",pch=16,ylab="FP Time (min)",
+      xlab=" Mean Speed during FP time (um/h)",col="black",las=1
+    )
     graphics::abline(reg,untf=FALSE,col="red")
-    graphics::title("Speed vs FP Time (All cells)",cex.main = 1,sub=paste0("Spearman's rank correlation coefficient = ",ccP),col.sub="red")
+    graphics::title(
+      "Speed vs FP Time (All cells)",cex.main = 1,
+      sub=paste0("Spearman's rank correlation coefficient = ",ccP),
+      col.sub="red"
+    )
     if (export) grDevices::dev.off()
 
   }
 
-  for(j in 1:length(Object)){    # calculating the Mean.Square.speed for each cell
+  for(j in 1:length(Object)){  # calculating the Mean.Square.speed for each cell
     MM<-Step
     MM2<-MM-1
     Root.Mean.Square.Speed<-round(sqrt(mean(Object[[j]][1:MM2,11])),digits = 3)
@@ -7139,7 +8238,10 @@ ForwardMigration <- function(
 
     mean.cosineFP<-round(mean(Object[[j]][1:MM2,20],na.rm = TRUE),digits = 3)
     FMResultsTable[8,j]<-mean.cosineFP
-    s<-stats::cor.test( ~ sqrt(Object[[j]][1:MM2,11])+ Object[[j]][1:MM2,20], method = "spearman",exact=FALSE)                 #testing the correlation
+    s<-stats::cor.test(
+      ~ sqrt(Object[[j]][1:MM2,11])+ Object[[j]][1:MM2,20],
+      method = "spearman",exact=FALSE
+    )                 #testing the correlation
     ss<-unlist(s[4])
     VEvsCOSP<-round(ss, digits = 3)
     FMResultsTable[9,j]<-VEvsCOSP
@@ -7148,27 +8250,40 @@ ForwardMigration <- function(
       if (export){
         plot_name <-  paste0(ExpName,"_FP_VS_Speed_",j,".jpg")
         file_path <- file.path(new.fld, plot_name)
-        grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+        grDevices::jpeg(
+          filename = file_path,width = 4, height = 4, units = 'in', res = 300
+        )
       }
       graphics::plot(sqrt(Object[[j]][1:MM2,11])*60,Object[[j]][1:MM2,20],
                      pch=16,type="p",ylab="Forward Persistence Time (min)",
                      xlab=" Instantaneous Speed (um/h)",col=color[j],las=1)
       reg<-stats::lm(Object[[j]][1:MM2,20]~sqrt(Object[[j]][1:MM2,11]))
       graphics::abline(reg,untf=FALSE,col="red")
-      graphics::title(main=paste0("Cell Number  ", j,"   Speed vs Forward Persistence "),cex.main = 0.8,
-                      sub=paste0("spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
+      graphics::title(
+        main=paste0("Cell Number  ", j,"   Speed vs Forward Persistence "),
+        cex.main = 0.8,
+        sub=paste0("spearman's rank correlation coefficient = ",VEvsCOSP),
+        col.sub="red"
+      )
       if (export) grDevices::dev.off()
     }
   }
-  RM<-round(matrixStats::rowMedians(as.matrix(cosine.FP[1:(Step-1),]),na.rm = TRUE),digits=3)
+  RM<-round(
+    matrixStats::rowMedians(as.matrix(cosine.FP[1:(Step-1),]),na.rm = TRUE),
+    digits=3
+  )
   Speed<-data.frame()
-  for (j in 1:length(Object)){    # calculating the Mean.Square.velocity for each cell
+  # calculating the Mean.Square.velocity for each cell
+  for (j in 1:length(Object)){
     MM<-Step
     MM2<-MM-1
     Speed[1:MM2,j]<-round(sqrt(Object[[j]][1:MM2,11]),digits = 3)
   }
-  RowmeanSpeed<-round(matrixStats::rowMedians(as.matrix(Speed),na.rm = TRUE),digits=3)
-  s<-stats::cor.test( ~ RM+ RowmeanSpeed, method = "spearman",exact=FALSE)                 #testing the correlation
+  RowmeanSpeed<-round(
+    matrixStats::rowMedians(as.matrix(Speed),na.rm = TRUE),digits=3
+  )
+  #testing the correlation
+  s<-stats::cor.test( ~ RM+ RowmeanSpeed, method = "spearman",exact=FALSE)
   ss<-unlist(s[4])
   VEvsCOSP<-round(ss, digits = 3)
   FMResultsTable[9,(length(Object)+1)]<-VEvsCOSP
@@ -7177,28 +8292,39 @@ ForwardMigration <- function(
     if (export){
       plot_name <-  paste0(ExpName,"_All_Cells_FP_VS_Speed.jpg")
       file_path <- file.path(new.fld, plot_name)
-      grDevices::jpeg(filename = file_path,width = 4, height = 4, units = 'in', res = 300)
+      grDevices::jpeg(
+        filename = file_path,width = 4, height = 4, units = 'in', res = 300
+      )
     }
 
-    graphics::plot(RowmeanSpeed*60,RM,pch=16,type="p",ylab="Forward Persistence Time (min)",
-                   xlab=" Instantaneous Speed (um/h)",col="black",las=1)
+    graphics::plot(
+      RowmeanSpeed*60,RM,pch=16,type="p",ylab="Forward Persistence Time (min)",
+      xlab=" Instantaneous Speed (um/h)",col="black",las=1
+    )
     reg<-stats::lm(RM~RowmeanSpeed)
     graphics::abline(reg,untf=FALSE,col="red")
-    graphics::title(main=paste0("All Cells Speed vs Forward Persistence "),cex.main = 0.8,
-                    sub=paste0("spearman's rank correlation coefficient = ",VEvsCOSP),col.sub="red")
+    graphics::title(
+      main=paste0("All Cells Speed vs Forward Persistence "),cex.main = 0.8,
+      sub=paste0("spearman's rank correlation coefficient = ",VEvsCOSP),
+      col.sub="red"
+    )
     if (export) grDevices::dev.off()
   }
 
-  RM1<-round(matrixStats::rowMedians(as.matrix(FMResultsTable),na.rm = TRUE),digits=3)
+  RM1<-round(
+    matrixStats::rowMedians(as.matrix(FMResultsTable),na.rm = TRUE),digits=3
+  )
   FMResultsTable[c(2:5,7:8),(length(Object)+1)]<-RM1[c(2:5,7:8)]
   FMResultsTable[1,(length(Object)+1)]<-"All Cells"
-  rownames(FMResultsTable)<-c("Cell Number","Mean Forward Persist Time (min)",
-                              "Mean Forward Persist Deviating Time (min)",
-                              "Forward Persistence Ratio",
-                              "Maximum Forward Persistence period",
-                              "Forward Persistence Time vs Speed (SCC)",
-                              "RMSS (um/h)","Mean Forward Angular Persistence (mean cos.F)",
-                              "Instantaneous Speed vs Forward Persistence (SCC)")
+  rownames(FMResultsTable)<-c(
+    "Cell Number","Mean Forward Persist Time (min)",
+    "Mean Forward Persist Deviating Time (min)",
+    "Forward Persistence Ratio",
+    "Maximum Forward Persistence period",
+    "Forward Persistence Time vs Speed (SCC)",
+    "RMSS (um/h)","Mean Forward Angular Persistence (mean cos.F)",
+    "Instantaneous Speed vs Forward Persistence (SCC)"
+  )
   FMResultsTable<-FMResultsTable[-7,]
   object@ForMigtable=FMResultsTable
 
@@ -7224,13 +8350,18 @@ ForwardMigration <- function(
 
 #' @title Forward Migration Index
 #'
-#' @description The FMI function automatically generates data for the forward migration index
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param TimeInterval A numeric value of the time elapsed between successive frames in the time-lapse stack.
-#' @param export if `TRUE` (default), exports function output to CSV file
+#' @description The FMI function automatically generates data for
+#' the forward migration index
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
+#' @param TimeInterval A numeric value of the time elapsed between
+#' successive frames in the time-lapse stack.
+#' @param export if `TRUE` (default), exports function output to
+#' CSV file
 #' @param ExpName string, name of the experiment. Can be NULL
 #'
-#' @return  An CellMig class Object with a data frame. The data frame is stored in the FMItable slot.
+#' @return  An CellMig class Object with a data frame. The data
+#' frame is stored in the FMItable slot.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -7271,12 +8402,23 @@ FMI= function(object, TimeInterval=10, export=FALSE, ExpName=NULL){
   }
 
 
-  if ( ! is.numeric(TimeInterval) ) stop( "TimeInterval has to be a positive number" ) else if ( TimeInterval<= 0 ) stop( "TimeInterval has to be a positive number" )
+  if ( ! is.numeric(TimeInterval) ) {
+    stop( "TimeInterval has to be a positive number" )
+  } else if ( TimeInterval<= 0 ) {
+    stop( "TimeInterval has to be a positive number" )
+  }
   Object<-object@preprocessedDS
   UPorDO<-object@cellpos
   msg <- NULL
   if ( ! is.list(Object) ){
-    msg <- c(msg, "Input data must be a list. Please run the PreProcessing step first either rmPreProcessing() or wsaPreProcessing()")
+    msg <- c(
+      msg,
+      paste(
+        "Input data must be a list.",
+        "Please run the PreProcessing step first",
+        "either rmPreProcessing() or wsaPreProcessing()"
+      )
+    )
   }
   #ExpName<-substitute(object)
   ExpName<-object@meta$expName
@@ -7292,28 +8434,39 @@ FMI= function(object, TimeInterval=10, export=FALSE, ExpName=NULL){
   }else{
     color <- grDevices::rainbow(Len)
   }
-  for(j in 1:length(Object)){                             # Defining if the cell is ubove (1) the wound or below (0) it
+  # Defining if the cell is ubove (1) the wound or below (0) it
+  for(j in 1:length(Object)){
     Object[[j]][,25]<-UPorDO[j]
   }
 
   FMIResultsTable<-data.frame()
-  for(j in seq_along(Object)){                             # calculating the cumsum of distance for each cell
+  # calculating the cumsum of distance for each cell
+  for(j in seq_along(Object)){
     MM<-Step
     MM1<-MM-1
 
     res <- vapply(seq_len(MM), function(i){
-      if((Object[[j]][1,25]==0) && (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]<0)){   # upper cell going up or lower cell going down
+      if (
+        (Object[[j]][1,25]==0) &&
+        (Object[[j]][i,5]>0) || (Object[[j]][1,25]==1) &&
+        (Object[[j]][i,5]<0)
+      ){   # upper cell going up or lower cell going down
         Object[[j]][i,20]<-(-1*abs(cos(Object[[j]][i,19])))
       }
 
-      if((Object[[j]][1,25]==0) && (Object[[j]][i,5]<0) || (Object[[j]][1,25]==1) && (Object[[j]][i,5]>0)){
+      if (
+        (Object[[j]][1,25]==0) &&
+        (Object[[j]][i,5]<0) || (Object[[j]][1,25]==1) &&
+        (Object[[j]][i,5]>0)
+      ){
         Object[[j]][i,20]<-cos(Object[[j]][i,19])
       }
       return(Object[[j]][i,20])
     }, FUN.VALUE = numeric(1))
 
     Object[[j]][1:MM, 20] <- as.data.frame(res)
-    end<-cbind(Object[[j]][MM,2],Object[[j]][MM,3])       # finding the cordinates of the final point in the track.
+    # finding the cordinates of the final point in the track.
+    end<-cbind(Object[[j]][MM,2],Object[[j]][MM,3])
     start<-cbind(0,0)
     final.dis=SpatialTools::dist2(start, end)
     alpha<-acos(Object[[j]][MM,2]/final.dis)
@@ -7331,7 +8484,8 @@ FMI= function(object, TimeInterval=10, export=FALSE, ExpName=NULL){
     cumDis=Object[[j]][MM1,12]
     FMIy=round(y/cumDis,digits=3)
     MMM<-round(MM/2)
-    mid<-cbind(Object[[j]][MMM,2],Object[[j]][MMM,3])       # finding the cordinates of the final point in the mid track.
+    # finding the cordinates of the final point in the mid track.
+    mid<-cbind(Object[[j]][MMM,2],Object[[j]][MMM,3])
     start<-cbind(0,0)
     mid.dis=SpatialTools::dist2(start, mid)
     alphaM<-acos(Object[[j]][MMM,2]/mid.dis)
@@ -7360,21 +8514,33 @@ FMI= function(object, TimeInterval=10, export=FALSE, ExpName=NULL){
     FMIResultsTable[6,j]<-round(abs(Object[[j]][MM,3]),digits=2)
     FMIResultsTable[7,j]<-round(length(returns))
   }
-  for(j in 1:length(Object)){                            # creating values for  rel.ang.F  (step to the original)
+  # creating values for  rel.ang.F  (step to the original)
+  for(j in 1:length(Object)){
     MM<-Step
-    if((Object[[j]][1,25]==0) && (Object[[j]][MM,3]>0) || (Object[[j]][1,25]==1) && (Object[[j]][MM,3]<0)){
+    if(
+      (Object[[j]][1,25]==0) &&
+      (Object[[j]][MM,3]>0) || (Object[[j]][1,25]==1) &&
+      (Object[[j]][MM,3]<0)
+    ){
       FMIResultsTable[6,j]<- (-1) * FMIResultsTable[6,j]
     } else {
       FMIResultsTable[6,j]<- FMIResultsTable[6,j]
     }
 
   }
-  RM1<-round(matrixStats::rowMedians(as.matrix(FMIResultsTable),na.rm = TRUE),digits=3)
+  RM1<-round(
+    matrixStats::rowMedians(as.matrix(FMIResultsTable),na.rm = TRUE),digits=3
+  )
   FMIResultsTable[,(length(Object)+1)]<-RM1
-  FMIResultsTable[6,(length(Object)+1)]<-round(FMIResultsTable[6,(length(Object)+1)])
+  FMIResultsTable[6,(length(Object)+1)]<-round(
+    FMIResultsTable[6,(length(Object)+1)]
+  )
   FMIResultsTable[1,(length(Object)+1)]<-"All Cells"
 
-  rownames(FMIResultsTable)<-c("Cell Number","FMI","FMIy", "MTFMI","MTFMIy","Deepness (um)","Number of backwards")
+  rownames(FMIResultsTable)<-c(
+    "Cell Number","FMI","FMIy", "MTFMI","MTFMIy","Deepness (um)",
+    "Number of backwards"
+  )
 
   if (export) {
     utils::write.csv(
@@ -7396,10 +8562,14 @@ FMI= function(object, TimeInterval=10, export=FALSE, ExpName=NULL){
 
 #' @title Final Results
 #'
-#' @description The FinRes function automatically generates a data frame that contains all the results.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param ParCor A logical vector that allows generating a correlation table. Default is TRUE.
-#' @param export if `TRUE` (default), exports function output to CSV file
+#' @description The FinRes function automatically generates a
+#' data frame that contains all the results.
+#' @param object \code{CellMig} class object, which is a list of data
+#'  frames resulted from the PreProcessing.
+#' @param ParCor A logical vector that allows generating a
+#' correlation table. Default is TRUE.
+#' @param export if `TRUE` (default), exports function output
+#' to CSV file
 #' @param ExpName string, name of the experiment. Can be NULL
 #' @return  A data frame that contains all the results.
 #'
@@ -7477,7 +8647,9 @@ FinRes <- function(
   # Exporting results
   # ============================================================================
   if (export) {
-    utils::write.csv(object@results, file = paste0(ExpName,"-Final_Results.csv"))
+    utils::write.csv(
+      object@results, file = paste0(ExpName,"-Final_Results.csv")
+    )
     cat("The table of the final results is saved as: ",paste0(ExpName,
             "-Final_Results.csv")," in your directory [use getwd()]","\n")
   }
@@ -7508,9 +8680,13 @@ FinRes <- function(
 
 #' @title PCA
 #'
-#' @description The CellMigPCA function automatically generates Principal Component Analysis.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param parameters A numeric vector contains the parameters to be included in the Principal Component Analysis. These numbers can be obtained from the outcome of the FinRes() function.
+#' @description The CellMigPCA function automatically generates
+#'  Principal Component Analysis.
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
+#' @param parameters A numeric vector contains the parameters to
+#' be included in the Principal Component Analysis. These numbers
+#' can be obtained from the outcome of the FinRes() function.
 #'
 #' @return  PCA Graph of cells and PCA Graph of variables.
 #'
@@ -7551,7 +8727,9 @@ CellMigPCA = function(object, parameters=c(1,2,3)){
   ExpName<-object@meta$expName
 
   df1<- object@results
-  df1=df1[,-length(object@results[1,])]    #### excluding the last column since it is the avarage of all the cells
+  #### excluding the last column since it is the avarage of all the cells
+  df1=df1[,-length(object@results[1,])]
+
   tt<-t(df1)
   tt1=tt[,parameters]
   res <- FactoMineR::PCA(tt1)
@@ -7560,10 +8738,15 @@ CellMigPCA = function(object, parameters=c(1,2,3)){
 
 #' @title PCA Clusters
 #'
-#' @description The CellMigPCAclust function automatically generates clusters based on the Principal Component Analysis.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param parameters A numeric vector contains the parameters to be included in the Principal Component Analysis. These numbers can be obtained from the outcome of the FinRes() function.
-#' @param export if `TRUE` (default), exports function output to CSV file
+#' @description The CellMigPCAclust function automatically generates
+#' clusters based on the Principal Component Analysis.
+#' @param object \code{CellMig} class object, which is a list of data
+#'  frames resulted from the PreProcessing.
+#' @param parameters A numeric vector contains the parameters to be
+#' included in the Principal Component Analysis. These numbers can
+#' be obtained from the outcome of the FinRes() function.
+#' @param export if `TRUE` (default), exports function output to
+#' CSV file
 #'
 #' @return  PCA Graph of cells and PCA Graph of variables.
 #'
@@ -7606,7 +8789,9 @@ CellMigPCAclust = function(object, parameters=c(1,2,3), export=FALSE){
   ExpName<-object@meta$expName
 
   df1<- object@results
-  df1=df1[,-length(object@results[1,])]    #### excluding the last column since it is the avarage of all the cells
+  #### excluding the last column since it is the avarage of all the cells
+  df1=df1[,-length(object@results[1,])]
+
   tt<-t(df1)
   tt1=tt[,parameters]
   res <- FactoMineR::PCA(tt1)
@@ -7631,18 +8816,27 @@ CellMigPCAclust = function(object, parameters=c(1,2,3), export=FALSE){
 
 #' @title Aggregating the outcome of several experiments or conditions.
 #' @description Aggregate two or more CellMig-class objects together.
-#' Input objects must carry information of trajectory analyses (otherwise an error will be raised).
-#' All trajectory results form the different experiments/conditions are returned in two data frames.
-#' @param x \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param ... one or more CellMig-class object(s) where cells' trajectories have already been analyzed.
+#' Input objects must carry information of trajectory analyses
+#' (otherwise an error will be raised).
+#' All trajectory results form the different experiments/conditions
+#'  are returned in two data frames.
+#' @param x \code{CellMig} class object, which is a list of data
+#' frames resulted from the PreProcessing.
+#' @param ... one or more CellMig-class object(s) where cells'
+#' trajectories have already been analyzed.
 #' @param export if `TRUE` (default), exports function output to CSV file
 #'
 #' @return two data frames:
-#' The first data frame shows the average of each parameter per experiment/condition.
-#' The second data frame shows the parameters of individual cells of all experiments/conditions.
-#' @details  The visualization shows centered trajectories where the starting point of each track is located at the origin of the coordinate system (X=0,Y=0).
+#' The first data frame shows the average of each parameter per
+#' experiment/condition.
+#' The second data frame shows the parameters of individual cells
+#'  of all experiments/conditions.
+#' @details  The visualization shows centered trajectories where the
+#' starting point of each track is located at the origin of the
+#' coordinate system (X=0,Y=0).
 #'
-#' @author Damiano Fantini and Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
+#' @author Damiano Fantini and
+#' Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
@@ -7763,10 +8957,14 @@ aggregateFR<-function(x, ..., export=FALSE){
 
   # rearrange rows
   all.glob.rows <- table(do.call("c", lapply(all.glob, rownames)))
-  all.glob.rows <- names(all.glob.rows[all.glob.rows == max(all.glob.rows, na.rm = TRUE)])
+  all.glob.rows <- names(
+    all.glob.rows[all.glob.rows == max(all.glob.rows, na.rm = TRUE)]
+  )
 
   all.indiv.rows <- table(do.call("c", lapply(all.indiv, rownames)))
-  all.indiv.rows <- names(all.indiv.rows[all.indiv.rows == max(all.indiv.rows, na.rm = TRUE)])
+  all.indiv.rows <- names(
+    all.indiv.rows[all.indiv.rows == max(all.indiv.rows, na.rm = TRUE)]
+  )
 
   tmp.all.glob <- list()
   for (xx in all.glob) {
@@ -7821,10 +9019,15 @@ aggregateFR<-function(x, ..., export=FALSE){
 
 #' @title PCA Clusters of different conditions
 #'
-#' @description The CellMigPCAclust function automatically generates clusters based on the Principal Component Analysis.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @param ExpName A character string. The ExpName will be appended to all exported tracks and statistics data.
-#' @param parameters A numeric vector contains the parameters to be included in the Principal Component Analysis. These numbers can be obtained from the outcome of the FinRes() function.
+#' @description The CellMigPCAclust function automatically generates
+#' clusters based on the Principal Component Analysis.
+#' @param object \code{CellMig} class object, which is a list of data
+#'  frames resulted from the PreProcessing.
+#' @param ExpName A character string. The ExpName will be appended
+#'  to all exported tracks and statistics data.
+#' @param parameters A numeric vector contains the parameters to be
+#' included in the Principal Component Analysis. These numbers can be
+#'  obtained from the outcome of the FinRes() function.
 #' @param export if `TRUE` (default), exports function output to CSV file
 #'
 #' @return  PCA Graph of cells and PCA Graph of variables.
@@ -7869,7 +9072,8 @@ CellMigPCAclustALL = function(object, ExpName="PCA_Clusters",
     stop("At least two parameters are required to run the PCA")
   }
   df1<- obj
-  df1=df1[,-length(obj[1,])]    #### excluding the last column since it is the avarage of all the cells
+  #### excluding the last column since it is the avarage of all the cells
+  df1=df1[,-length(obj[1,])]
   tt<-t(df1)
   tt1=tt[,parameters]
   res <- FactoMineR::PCA(tt1)
@@ -7897,9 +9101,17 @@ CellMigPCAclustALL = function(object, ExpName="PCA_Clusters",
 
 
 #' @title Getting the Directionality Table
-#' @description Directionality Ratio is the displacement divided by the total length of the total path distance, where displacement is the straight line length between the start point and the endpoint of the migration trajectory,
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @return A data frame. It contains nine rows: "Cell Number","Directionality Ratio","Mean Cumulative Directionality Ratio","Stable Directionality Ratio", "Number of returns","Min CumDR","Location of Min CumDR, Steps with less CumDR than DR","Directional Persistence".
+#' @description Directionality Ratio is the displacement divided by the
+#'  total length of the total path distance, where displacement is the
+#' straight line length between the start point and the endpoint of
+#' the migration trajectory,
+#' @param object \code{CellMig} class object, which is a list of data
+#' frames resulted from the PreProcessing.
+#' @return A data frame. It contains nine rows: "Cell Number",
+#' "Directionality Ratio","Mean Cumulative Directionality Ratio",
+#' "Stable Directionality Ratio", "Number of returns","Min CumDR",
+#' "Location of Min CumDR, Steps with less CumDR than DR",
+#' "Directional Persistence".
 #'
 #' @details  Directionality Ratio and Directional persistence
 #'
@@ -7927,8 +9139,10 @@ getDiRatio <- function(object)
 
 
 #' @title Getting the table of Persistence and Speed.
-#' @description The PerAndSpeed() generates data and plots for persistence and speed.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @description The PerAndSpeed() generates data and plots for
+#' persistence and speed.
+#' @param object \code{CellMig} class object, which is a list of
+#'  data frames resulted from the PreProcessing.
 #' @return A data frame of Persistence and Speed.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
@@ -7947,15 +9161,21 @@ getDiRatio <- function(object)
 #' @export
 getPerAndSpeed <- function(object)
 {
-  if (length(object@PerAanSpeedtable) < 1)stop( "Please run the PerAndSpeed() first" )
+  if (length(object@PerAanSpeedtable) < 1) {
+    stop( "Please run the PerAndSpeed() first" )
+  }
   PerAanSpeedtable <- object@PerAanSpeedtable
   return(PerAanSpeedtable)
 }
 
 #' @title Getting the Mean Square Displacement
-#' @description The MSD function automatically computes the mean square displacements across several sequential time intervals. MSD parameters are used to assess the area explored by cells over time.
+#' @description The MSD function automatically computes the
+#' mean square displacements across several sequential time intervals.
+#' MSD parameters are used to assess the area explored by cells over
+#' time.
 #'
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @param object \code{CellMig} class object, which is a list of data
+#' frames resulted from the PreProcessing.
 #'
 #' @return A data frame of MSD values.
 #'
@@ -7981,9 +9201,15 @@ getMSDtable <- function(object)
 
 #' @title Getting the Direction AutoCorrelation
 #'
-#' @description The DiAutoCor function automatically compute the angular persistence across several sequantial time intervals.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @return A data frame which contains six rows: "Cell Number", "Angular Persistence", "Intercept of DA quadratic model","Mean Direction AutoCorrelation (all lags)", "Stable Direction AutoCorrelation through the track" and "Difference between Mean DA and Intercept DA".
+#' @description The DiAutoCor function automatically compute the
+#' angular persistence across several sequantial time intervals.
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
+#' @return A data frame which contains six rows: "Cell Number",
+#' "Angular Persistence", "Intercept of DA quadratic model",
+#' "Mean Direction AutoCorrelation (all lags)",
+#' "Stable Direction AutoCorrelation through the track"
+#' and "Difference between Mean DA and Intercept DA".
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -8010,11 +9236,17 @@ getDACtable <- function(object)
 
 #' @title Getting the Velocity AutoCorrelation
 #'
-#' @description The VeAutoCor function automatically compute the changes in both speed and direction across several sequantial time intervals.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @return A data frame, which contains six rows: "Cell Number", "Velocity AutoCorrelation (lag=1)",
-#' "2nd normalized Velocity AutoCorrelation", "Intercept of VA quadratic model",
-#' "Mean Velocity AutoCorrelation (all lags)", "Mean |Acceleration|" and "Average Speed".
+#' @description The VeAutoCor function automatically compute the
+#' changes in both speed and direction across several sequantial
+#' time intervals.
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
+#' @return A data frame, which contains six rows: "Cell Number",
+#' "Velocity AutoCorrelation (lag=1)",
+#' "2nd normalized Velocity AutoCorrelation",
+#' "Intercept of VA quadratic model",
+#' "Mean Velocity AutoCorrelation (all lags)", "Mean |Acceleration|"
+#' and "Average Speed".
 
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
@@ -8041,9 +9273,12 @@ getVACtable<- function(object)
 
 #' @title Getting the Forward Migration
 #'
-#' @description The ForwardMigration function automatically generates data and plots for forward persistence and speed.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
-#' @return  A data frame inclusing values of the forward migration analysis.
+#' @description The ForwardMigration function automatically generates
+#' data and plots for forward persistence and speed.
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
+#' @return  A data frame inclusing values of the forward migration
+#' analysis.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
@@ -8062,7 +9297,9 @@ getVACtable<- function(object)
 #' @export
 getForMigtable<- function(object)
 {
-  if (length(object@ForMigtable) < 1)stop( "Please run the ForwardMigration() first" )
+  if (length(object@ForMigtable) < 1) {
+    stop( "Please run the ForwardMigration() first" )
+  }
   ForMigtable<- object@ForMigtable
   return(ForMigtable)
 }
@@ -8073,8 +9310,10 @@ getForMigtable<- function(object)
 
 #' @title Getting the Forward Migration Index
 #'
-#' @description The FMI function automatically generates data for the forward migration index
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @description The FMI function automatically generates data
+#' for the forward migration index
+#' @param object \code{CellMig} class object, which is a list of
+#' data frames resulted from the PreProcessing.
 #' @return  A data frame for the FMI.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
@@ -8101,8 +9340,10 @@ getFMItable<- function(object)
 
 #' @title Final Results
 #'
-#' @description The FinRes function automatically generates a data frame that contains all the results.
-#' @param object \code{CellMig} class object, which is a list of data frames resulted from the PreProcessing.
+#' @description The FinRes function automatically generates a data
+#' frame that contains all the results.
+#' @param object \code{CellMig} class object, which is a list of data
+#' frames resulted from the PreProcessing.
 #' @return  A data frame that contains all the results.
 #'
 #' @author Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
@@ -8130,12 +9371,14 @@ getResults<- function(object)
 
 #' @title Get Available Aggregate Cell Metrics
 #'
-#' @description Retrieve a list of metrics computed for an aggregated result object.
+#' @description Retrieve a list of metrics computed for an aggregated
+#' result object.
 #' This getter function takes the output of aggregateFR() as input.
 #' @param object list of length 2, returned by the aggregateFR() function
 #' @return  character vector listing all available metrics
 #'
-#' @author Damiano Fantini and Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
+#' @author Damiano Fantini and
+#' Salim Ghannoum \email{salim.ghannoum@@medisin.uio.no}
 #' @references
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
@@ -8159,7 +9402,9 @@ getResults<- function(object)
 #' @export
 getAvailableAggrMetrics <- function(object)
 {
-  if (!is.list(object) || length(object) < 2) stop ( "Wrong input! Is this the output of aggregateFR()?" )
+  if (!is.list(object) || length(object) < 2) {
+    stop ( "Wrong input! Is this the output of aggregateFR()?" )
+  }
   results <- rownames(object[[2]])
   return(results)
 }
