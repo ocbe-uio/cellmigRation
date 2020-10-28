@@ -66,12 +66,26 @@ setMethod("show", signature(object = "trackedCells"),
             LNS <- list(
               " ~~~ An S4 trackedCells object ~~~",
               "",
-              paste0("      + Num of images: ", object@images$dim$NumberImages),
-              paste0("      + Optimized Params: ", ifelse(object@ops$optimized_params == 1, "Yes", "No")),
-              paste0("      + Run w/ Custom Params: ", ifelse(object@ops$custom_params == 1, "Yes", "No")),
-              paste0("      + Cells Tracked: ", ifelse(object@ops$track == 1, "Yes", "No")),
-              paste0("      + Stats Computed: ", ifelse(object@ops$stats == 1, "Yes", "No")),
-              "")
+              paste0(
+                "      + Num of images: ", object@images$dim$NumberImages
+              ),
+              paste0(
+                "      + Optimized Params: ",
+                ifelse(object@ops$optimized_params == 1, "Yes", "No")
+              ),
+              paste0(
+                "      + Run w/ Custom Params: ",
+                ifelse(object@ops$custom_params == 1, "Yes", "No")
+              ),
+              paste0(
+                "      + Cells Tracked: ",
+                ifelse(object@ops$track == 1, "Yes", "No")
+              ),
+              paste0(
+                "      + Stats Computed: ",
+                ifelse(object@ops$stats == 1, "Yes", "No")
+              ),
+            "")
 
             for(lni in LNS){
               cat(lni, sep = "\n")
@@ -92,7 +106,8 @@ setMethod("show", signature(object = "trackedCells"),
 #' @rdname CellMig-class
 #' @param .Object the CellMig object being built
 #' @param trajdata data frame including trajectory data
-#' @param expName string (character vector of length of 1) with the name of the experiment
+#' @param expName string (character vector of length of 1) with the name
+#' of the experiment
 #' @aliases initialize,CellMig-method
 #' @import methods
 #'
