@@ -12,7 +12,7 @@ ui <- fluidPage(
 	titlePanel(
 		title = div(
 			img(
-				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+				src = "https://raw.githubusercontent.com/ocbe-uio/cellmigRation/master/cell_migration_logo.png",
 				width = "5%"
 			),
 			"cellmigRation"
@@ -158,10 +158,10 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "!output.slider",
 			img(
-				src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+				src = "https://raw.githubusercontent.com/ocbe-uio/cellmigRation/master/cell_migration_logo.png",
 				width = "50%"
 			),
-			h4("Welcome to the CellMigRation Shiny app!"), p(),
+			h4("Welcome to the cellmigRation Shiny app!"), p(),
 			"Please load a proper TIFF file using the 'Browse' button on the",
 			"left. After the file is loaded, you will be presented with more",
 			"options and a help page."
@@ -181,10 +181,10 @@ ui <- fluidPage(
 				),
 				tabPanel("Help!",
 					img(
-						src = "https://raw.githubusercontent.com/ocbe-uio/CellMigRation/master/cell_migration_logo.png",
+						src = "https://raw.githubusercontent.com/ocbe-uio/cellmigRation/master/cell_migration_logo.png",
 						width = "30%"
 					),
-					h4("Welcome to the CellMigRation Shiny app!"), p(),
+					h4("Welcome to the cellmigRation Shiny app!"), p(),
 					"- Frame selection on the slider and autoplay is disabled", "for the processed image for performance purposes.",
 					"Use the 'Previous/Next frame' buttons instead.",
 					"You can also select a frame on the slider and then press",
@@ -298,7 +298,7 @@ server <- function(input, output, session) {
 	# --------------------------------------------------------------------------
 	output$processed_image <- renderPlot({
 		req(input$imported_tiff)
-		x1 <- CellMigRation::LoadTiff(
+		x1 <- cellmigRation::LoadTiff(
 			tiff_file  = input$imported_tiff$datapath,
 			experiment = input$project_name,
 			condition  = input$project_condition,
@@ -333,7 +333,7 @@ server <- function(input, output, session) {
 				lnoise    <- x1@optimized$auto_params$lnoise
 				diameter  <- x1@optimized$auto_params$diameter
 				threshold <- x1@optimized$auto_params$threshold
-				b <- CellMigRation:::bpass(
+				b <- cellmigRation:::bpass(
 					image_array = x1@images$images[[frame$out]],
 					lnoise = lnoise,
 					lobject = diameter,
