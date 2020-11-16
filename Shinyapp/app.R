@@ -174,7 +174,7 @@ ui <- fluidPage(
 				tabPanel("Model estimation",
 					"Estimating parameters usually takes several minutes.",
 					"Please click the 'Submit' button on the left and wait",
-					"for the centroid plot to appear below."
+					"for the centroid plot to appear below.",
 					h1("Matrix image"),
 					p(),
 					plotOutput("VisualizeImg"),
