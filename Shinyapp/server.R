@@ -101,6 +101,7 @@ server <- function(input, output, session) {
 			condition  = input$project_condition,
 			replicate  = input$replicate
 		)
+		# FIXME: doesn't reselect if frame is changed on the slider (only buttons work)
 		# X1 <- readRDS(...) # ASK: what is this about?
 		# Store in variables for now
 		time_var <- input$frame_duration
