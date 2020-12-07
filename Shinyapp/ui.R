@@ -4,8 +4,6 @@
 library(shiny)
 library(tiff)
 library(png)
-library(BiocManager)
-options(repos = BiocManager::repositories())
 
 # ==============================================================================
 # Defining the user interface
