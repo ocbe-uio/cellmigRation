@@ -1,7 +1,14 @@
 # ==============================================================================
+# Loading necessary packages and options
+# ==============================================================================
+library(remotes)
+remotes::install_github("ocbe-uio/cellmigRation")
+library(cellmigRation)
+options(shiny.maxRequestSize = 1024*1024^2)  # file limit: 1 GB
+
+# ==============================================================================
 # Defining the server logic
 # ==============================================================================
-options(shiny.maxRequestSize = 1024*1024^2)  # file limit: 1 GB
 server <- function(input, output, session) {
 	# --------------------------------------------------------------------------
 	# Reactive values

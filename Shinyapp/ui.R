@@ -4,7 +4,9 @@
 library(shiny)
 library(tiff)
 library(png)
-library(cellmigRation)
+library(BiocManager)
+options(repos = BiocManager::repositories())
+
 # ==============================================================================
 # Defining the user interface
 # ==============================================================================
