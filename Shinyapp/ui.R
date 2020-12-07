@@ -4,7 +4,7 @@
 library(shiny)
 library(tiff)
 library(png)
-library(cellmigRation)
+
 # ==============================================================================
 # Defining the user interface
 # ==============================================================================
@@ -172,20 +172,28 @@ ui <- fluidPage(
 				tabPanel("Original image", imageOutput("image_frame")),
 				tabPanel("Processed image", plotOutput("processed_image")),
 				tabPanel("Model estimation",
+					h1("Instructions"),
 					"Estimating parameters usually takes several minutes.",
 					"Please click the 'Submit' button on the left and wait",
 					"for the centroid plot to appear below.",
+					"This operation can take several minutes to complete."
+					p(),
+					"When running this application locally, you may want to",
+					"adjust the number of CPU threads to match your processor",
+					"so operations run in parallel and produce output faster.",
+					"We recommend leaving one thread for your computer's",
+					"internal operations",
 					h1("Matrix image"),
 					p(),
 					plotOutput("VisualizeImg"),
 				),
-				tabPanel("Help!",
+				tabPanel("About/Help",
 					img(
 						src = "https://raw.githubusercontent.com/ocbe-uio/cellmigRation/master/cell_migration_logo.png",
 						width = "30%"
 					),
-					h4("Welcome to the cellmigRation Shiny app!"), p(),
-					"- Frame selection on the slider and autoplay is disabled", "for the processed image for performance purposes.",
+					h1("Welcome to the cellmigRation Shiny app!"), p(),
+					"Frame selection on the slider and autoplay is disabled", "for the processed image for performance purposes.",
 					"Use the 'Previous/Next frame' buttons instead.",
 					"You can also select a frame on the slider and then press",
 					"one of the aforementioned buttons to load a slide."
