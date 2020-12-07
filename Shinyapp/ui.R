@@ -195,7 +195,8 @@ ui <- fluidPage(
 						width = "30%"
 					),
 					h1("Welcome to the cellmigRation Shiny app!"), p(),
-					"Frame selection on the slider and autoplay is disabled", "for the processed image for performance purposes.",
+					"Frame selection on the slider and autoplay is disabled",
+					"for the processed image for performance purposes.",
 					"Use the 'Previous/Next frame' buttons instead.",
 					"You can also select a frame on the slider and then press",
 					"one of the aforementioned buttons to load a slide."
