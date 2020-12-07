@@ -161,7 +161,7 @@ ui <- fluidPage(
 				src = "https://raw.githubusercontent.com/ocbe-uio/cellmigRation/master/cell_migration_logo.png",
 				width = "50%"
 			),
-			h4("Welcome to the cellmigRation Shiny app!"), p(),
+			h1("Welcome to the cellmigRation Shiny app!"), p(),
 			"Please load a proper TIFF file using the 'Browse' button on the",
 			"left. After the file is loaded, you will be presented with more",
 			"options and a help page."
@@ -182,7 +182,9 @@ ui <- fluidPage(
 					"adjust the number of CPU threads to match your processor",
 					"so operations run in parallel and produce output faster.",
 					"We recommend leaving one thread for your computer's",
-					"internal operations",
+					"internal operations. In other words, if your CPU has $X$",
+					"threads, we recommend setting the number of CPU threads",
+					"to use by this app to $X - 1$.",
 					h1("Matrix image"),
 					p(),
 					plotOutput("VisualizeImg"),
