@@ -176,7 +176,7 @@ ui <- fluidPage(
 					"Estimating parameters usually takes several minutes.",
 					"Please click the 'Submit' button on the left and wait",
 					"for the centroid plot to appear below.",
-					"This operation can take several minutes to complete."
+					"This operation can take several minutes to complete.",
 					p(),
 					"When running this application locally, you may want to",
 					"adjust the number of CPU threads to match your processor",
