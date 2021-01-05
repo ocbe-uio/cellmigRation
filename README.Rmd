@@ -58,6 +58,8 @@ Some cellmigRation features are also available as a standalone web application p
 
 To access the cellmigRation Shiny app, visit https://ocbe.shinyapps.io/cellmigRation/.
 
+Alternatively, you can run the Shiny app locally on your computer. To do so, download a copy of this repository and either run `make runshiny` or `R -e "shiny::runApp('Shinyapp', port=3029)"` from its root directory.
+
 # Statistics for developers
 
 <!-- badges: start -->
