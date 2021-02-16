@@ -5,16 +5,16 @@
 \title{Prepare For Parameter Optimization}
 \usage{
 Prep4OptimizeParams(
-    stack_img,
-    lnoise_range = NULL,
-    min.px.diam = 5,
-    diameter_range = NULL,
-    threshold_range = NULL,
-    target_cell_num = NULL,
-    quantile.val = NULL,
-    px.margin = NULL,
-    plot = FALSE,
-    verbose = FALSE
+  stack_img,
+  lnoise_range = NULL,
+  min.px.diam = 5,
+  diameter_range = NULL,
+  threshold_range = NULL,
+  target_cell_num = NULL,
+  quantile.val = NULL,
+  px.margin = NULL,
+  plot = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{

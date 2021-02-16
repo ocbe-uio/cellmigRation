@@ -16,19 +16,8 @@ data.frame including cell migration stats
 Extract cell migration statistics from a trackedCells object
 }
 \examples{
-<<<<<<< HEAD
-message("this example may take up to several mins to complete")
-\dontrun{
-x <- cellmigRation::TrackCellsDataset
-x <- OptimizeParams(x)
-x <- CellTracker(x)
-x <- ComputeTracksStats(x, 10, 10)
-getCellsStats(x)[1:10,]
-}
-=======
 x <- cellmigRation::TrackCellsDataset
 getCellsStats(x)
->>>>>>> BiocNewVersion
 
 
 

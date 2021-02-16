@@ -18,18 +18,8 @@ a data.frame including cell tracks data
 Extract Track Data from a trackedCells object
 }
 \examples{
-<<<<<<< HEAD
-message("this example may take up to several mins to complete")
-\dontrun{
-x <- cellmigRation::TrackCellsDataset
-x <- OptimizeParams(x)
-x <- CellTracker(x)
-getTracks(x)[1:10,]
-}
-=======
 x <- cellmigRation::TrackCellsDataset
 getTracks(x)[seq(1,10,by=1),]
->>>>>>> BiocNewVersion
 
 
 }

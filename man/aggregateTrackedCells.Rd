@@ -5,9 +5,9 @@
 \title{Aggregate trackedCells Objects}
 \usage{
 aggregateTrackedCells(
-    x,
-    ...,
-    meta_id_field = c("tiff_file", "experiment", "condition", "replicate")
+  x,
+  ...,
+  meta_id_field = c("tiff_file", "experiment", "condition", "replicate")
 )
 }
 \arguments{
@@ -52,13 +52,6 @@ the input objects.
 # Please, see the package vignette
 # for an example of how to use this function.
 # A pseudo-code example is shown below
-<<<<<<< HEAD
-# Let x0, x1, and x2 be trackedCells-class objects
-# with a non-empty tracks slot.
-\dontrun{
-y <- aggregateTrackedCells(x0, x1, x2)
-}
-=======
 # Let x0, x1, x2, ... be trackedCells-class objects
 # with a non-empty tracks slot.
 x0 <- cellmigRation::TrackCellsDataset
@@ -69,7 +62,6 @@ y <- aggregateTrackedCells(x0, x1, x2, meta_id_field = "condition")
 utils::head(y, 50)
 
 
->>>>>>> BiocNewVersion
 }
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}

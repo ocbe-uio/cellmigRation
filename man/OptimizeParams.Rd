@@ -5,7 +5,6 @@
 \title{Optimize Detection Params}
 \usage{
 OptimizeParams(
-<<<<<<< HEAD
   tc_obj,
   lnoise_range = NULL,
   min.px.diam = 5,
@@ -16,21 +15,8 @@ OptimizeParams(
   quantile.val = NULL,
   px.margin = NULL,
   plot = FALSE,
-  verbose = FALSE
-=======
-    tc_obj,
-    lnoise_range = NULL,
-    min.px.diam = 5,
-    diameter_range = NULL,
-    threshold_range = NULL,
-    target_cell_num = NULL,
-    threads = 1,
-    quantile.val = NULL,
-    px.margin = NULL,
-    plot = FALSE,
-    verbose = FALSE,
-    dryrun = FALSE
->>>>>>> BiocNewVersion
+  verbose = FALSE,
+  dryrun = FALSE
 )
 }
 \arguments{
@@ -60,14 +46,6 @@ EstimateDiameterRange(). If NULL, it is defaulted to 0.99}
 
 \item{px.margin}{numeric, argument passed to
 EstimateDiameterRange(). If NULL, it ia defaulted to 2}
-<<<<<<< HEAD
-
-\item{plot}{if `TRUE`, plots results in the end}
-
-\item{verbose}{shall information about the progress of the
-operation
-be printed to screen/console}
-=======
 
 \item{plot}{if `TRUE`, plots results in the end}
 
@@ -75,7 +53,6 @@ be printed to screen/console}
 operation be printed to screen/console}
 
 \item{dryrun}{shall a dryrun be performed}
->>>>>>> BiocNewVersion
 }
 \value{
 a trackedCells object
@@ -85,12 +62,7 @@ Optimize Detection Parameters for running a cell tracking job
 }
 \details{
 The lnoise param is used to guide a lowpass blurring
-<<<<<<< HEAD
-operation,
-while the lobject param is used
-=======
 operation, while the lobject param is used
->>>>>>> BiocNewVersion
 to guide a highpass background subtraction. The threshold param
 is used for a background correction following
 the initial image convolution
@@ -120,20 +92,11 @@ for removing stray noise or small particles.
 }
 }
 \examples{
-<<<<<<< HEAD
-message("this example may take up to several mins to complete")
-\dontrun{
-x <- cellmigRation::TrackCellsDataset
-x <- OptimizeParams(tc_obj = x)
-getOptimizedParams(x)
-}
-=======
 x <- cellmigRation::TrackCellsDataset
 x <- OptimizeParams(tc_obj = x, lnoise_range = c(5,7,10),
                     diameter_range = c(12,14,18),
                     threshold_range = c(4,7), dryrun = TRUE)
 getOptimizedParameters(x)
->>>>>>> BiocNewVersion
 
 
 }

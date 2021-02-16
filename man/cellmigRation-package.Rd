@@ -13,13 +13,8 @@ motility and movement characteristics of a population of cells.
 \seealso{
 Useful links:
 \itemize{
-<<<<<<< HEAD
   \item \url{https://github.com/ocbe-uio/cellmigRation/}
   \item Report bugs at \url{https://github.com/ocbe-uio/cellmigRation/issues}
-=======
-    \item \url{https://github.com/ocbe-uio/cellmigRation/}
-    \item Report bugs at \url{https://github.com/ocbe-uio/cellmigRation/issues}
->>>>>>> BiocNewVersion
 }
 
 }

@@ -28,11 +28,7 @@ the forward migration index
 }
 \examples{
 data(WSADataset)
-<<<<<<< HEAD
-wasDF=WSADataset[1:300,]
-=======
 wasDF=WSADataset[seq(1,300,by=1),]
->>>>>>> BiocNewVersion
 wsaTD <- CellMig(wasDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=55)
 wsaTD <-FMI(wsaTD,TimeInterval=10, export=FALSE)

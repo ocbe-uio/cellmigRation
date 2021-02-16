@@ -19,11 +19,7 @@ and coerces all the elements to integer.
 Row names and column names are removed.
 }
 \examples{
-<<<<<<< HEAD
-tmp <- data.frame(A = 1:4, B=c(3.1, 2.8, 3.3, 9.1), C = FALSE)
-=======
 tmp <- data.frame(A = c(1,2,3,4), B=c(3.1, 2.8, 3.3, 9.1), C = FALSE)
->>>>>>> BiocNewVersion
 cellmigRation:::matfix(tmp)
 
 }

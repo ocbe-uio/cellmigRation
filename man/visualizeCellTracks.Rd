@@ -5,7 +5,6 @@
 \title{Visualize Cell Tracks originating at an Image Stack}
 \usage{
 visualizeCellTracks(
-<<<<<<< HEAD
   tc_obj,
   stack = 1,
   pnt.cex = 1.2,
@@ -13,15 +12,6 @@ visualizeCellTracks(
   col = "red2",
   col.untracked = "gray45",
   main = NULL
-=======
-    tc_obj,
-    stack = 1,
-    pnt.cex = 1.2,
-    lwd = 1.6,
-    col = "red2",
-    col.untracked = "gray45",
-    main = NULL
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -36,12 +26,7 @@ visualizeCellTracks(
 \item{col}{color of the points and the tracks, e.g.: "red2"}
 
 \item{col.untracked}{color of the points that were not tracked
-<<<<<<< HEAD
-further,
-e.g.: "gray45"}
-=======
 further, e.g.: "gray45"}
->>>>>>> BiocNewVersion
 
 \item{main}{string used as plot title, can be NULL}
 }
@@ -52,17 +37,8 @@ None
 Visualize Cell Tracks that originated at an Image Stack of interest
 }
 \examples{
-<<<<<<< HEAD
-message("The following example will take few min to complete")
-\dontrun{
-x <- cellmigRation::TrackCellsDataset
-x <- CellTracker(x, lnoise = 5, diameter = 16, threshold = 10)
-visualizeCellTracks(tc_obj = x, stack = 2)
-}
-=======
 x <- cellmigRation::TrackCellsDataset
 visualizeCellTracks(tc_obj = x, stack = 2)
->>>>>>> BiocNewVersion
 
 
 }

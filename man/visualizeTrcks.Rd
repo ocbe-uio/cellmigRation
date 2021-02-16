@@ -5,7 +5,6 @@
 \title{Visualize Cell Tracks}
 \usage{
 visualizeTrcks(
-<<<<<<< HEAD
   tracks,
   width_px,
   height_px,
@@ -13,15 +12,6 @@ visualizeTrcks(
   pnt.cex = 1.2,
   lwd = 1.2,
   col = "red"
-=======
-    tracks,
-    width_px,
-    height_px,
-    i.slice = 1,
-    pnt.cex = 1.2,
-    lwd = 1.2,
-    col = "red"
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -48,20 +38,10 @@ and drawing cell tracks
 }
 \examples{
 x1 <- data.frame(c(10, 30, 25, 55, 43, 39, 75, 72),
-<<<<<<< HEAD
-c(22, 28, 35, 24, 31, 39, 65, 73),
-c( 1,    2,    3,    4,    5,    6,    7,    8),
-c( 1,    1,    1,    1,    1,    1,    1,    1))
-plot(
-2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "",
-las = 2
-)
-=======
-                    c(22, 28, 35, 24, 31, 39, 65, 73),
-                    c( 1,  2,  3,  4,  5,  6,  7,  8),
-                    c( 1,  1,  1,  1,  1,  1,  1,  1))
+                 c(22, 28, 35, 24, 31, 39, 65, 73),
+                 c( 1,  2,  3,  4,  5,  6,  7,  8),
+                 c( 1,  1,  1,  1,  1,  1,  1,  1))
 plot(2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "", las = 2)
->>>>>>> BiocNewVersion
 cellmigRation:::visualizeTrcks(x1, width_px = 100, height_px = 100)
 
 

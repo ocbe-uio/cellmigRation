@@ -5,17 +5,17 @@
 \title{Forward Migration Sixst Part}
 \usage{
 fixFM6(
-    Object,
-    FMResultsTable,
-    Step,
-    sfptPLOT,
-    afptPLOT,
-    export,
-    color,
-    TimeInterval,
-    sfpPLOT,
-    ExpName,
-    new.fld
+  Object,
+  FMResultsTable,
+  Step,
+  sfptPLOT,
+  afptPLOT,
+  export,
+  color,
+  TimeInterval,
+  sfpPLOT,
+  ExpName,
+  new.fld
 )
 }
 \arguments{

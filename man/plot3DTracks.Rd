@@ -16,11 +16,8 @@ data frames resulted from the PreProcessing.}
 
 \item{cells}{A numeric vector containing the cell's numbers to be
 plotted.}
-<<<<<<< HEAD
-=======
 
 \item{interactive}{logical, shall a 3D plot built in an interactive way.}
->>>>>>> BiocNewVersion
 }
 \value{
 A 3D rose-plot showing the tracks of particular cells.

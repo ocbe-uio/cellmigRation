@@ -16,19 +16,8 @@ data.frame including cell population stats
 Extract cell population statistics from a trackedCells object
 }
 \examples{
-<<<<<<< HEAD
-message("this example may take up to several mins to complete")
-\dontrun{
-x <- cellmigRation::TrackCellsDataset
-x <- OptimizeParams(x)
-x <- CellTracker(x)
-x <- ComputeTracksStats(x, 10, 10)
-getPopulationStats(x)
-}
-=======
 x <- cellmigRation::TrackCellsDataset
 getPopulationStats(x)
->>>>>>> BiocNewVersion
 
 
 }

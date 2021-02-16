@@ -5,7 +5,6 @@
 \title{Velocity AutoCorrelation}
 \usage{
 VeAutoCor(
-<<<<<<< HEAD
   object,
   TimeInterval = 10,
   sLAG = 0.25,
@@ -13,15 +12,6 @@ VeAutoCor(
   aPLOT = TRUE,
   export = FALSE,
   ExpName = NULL
-=======
-    object,
-    TimeInterval = 10,
-    sLAG = 0.25,
-    sPLOT = TRUE,
-    aPLOT = TRUE,
-    export = FALSE,
-    ExpName = NULL
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -67,14 +57,9 @@ rmDF=TrajectoryDataset[1:300,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=55)
 rmTD <- VeAutoCor(rmTD, TimeInterval=10, sLAG=0.25, sPLOT=FALSE,
-<<<<<<< HEAD
-aPLOT=FALSE, export=FALSE
-)
-=======
-                    aPLOT=FALSE, export=FALSE)
+                  aPLOT=FALSE, export=FALSE)
 
 
->>>>>>> BiocNewVersion
 }
 \references{
 \url{https://www.data-pulse.com/dev_site/cellmigration/}

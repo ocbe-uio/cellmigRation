@@ -5,12 +5,12 @@
 \title{Visualize Cells in an Image Stack}
 \usage{
 VisualizeStackCentroids(
-    tc_obj,
-    stack = 1,
-    pnt.cex = 1.2,
-    txt.cex = 0.9,
-    offset = 0.18,
-    main = NULL
+  tc_obj,
+  stack = 1,
+  pnt.cex = 1.2,
+  txt.cex = 0.9,
+  offset = 0.18,
+  main = NULL
 )
 }
 \arguments{
@@ -34,18 +34,9 @@ Visualize objects that were identified as cells in a given image
 stack
 }
 \examples{
-<<<<<<< HEAD
-message("The following example will take few min to complete")
-\dontrun{
-x <- cellmigRation::TrackCellsDataset
-x <- CellTracker(x, lnoise = 5, diameter = 16, threshold = 10)
-VisualizeStackCentroids(tc_obj = x, stack = 2)
-}
-=======
 # Representative output
 x <- cellmigRation::TrackCellsDataset
 VisualizeStackCentroids(tc_obj = x, stack = 2, pnt.cex = 5, offset = 1.3)
->>>>>>> BiocNewVersion
 
 
 }

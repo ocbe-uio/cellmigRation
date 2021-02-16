@@ -18,13 +18,7 @@ and LEN indicates the diameter size
 Estimates the diameters of particles in a numeric or logical vector
 }
 \examples{
-<<<<<<< HEAD
-cellmigRation:::DetectRadii(
-c(0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1)
-)
-=======
 cellmigRation:::DetectRadii(c(0,0,1,1,0,1,1,1,1,0,0, 1,0,0,1,1))
->>>>>>> BiocNewVersion
 
 }
 \references{

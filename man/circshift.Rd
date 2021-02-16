@@ -23,11 +23,7 @@ of positions. This emulates the behavior of the corresponding
 Matlab Circhsift function.
 }
 \examples{
-<<<<<<< HEAD
-cellmigRation:::circshift(1:10, -2)
-=======
 cellmigRation:::circshift(seq(1,10,by=1), -2)
->>>>>>> BiocNewVersion
 
 }
 \references{

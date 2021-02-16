@@ -5,7 +5,6 @@
 \title{Persistence and Speed}
 \usage{
 PerAndSpeed(
-<<<<<<< HEAD
   object,
   TimeInterval = 10,
   PtSplot = TRUE,
@@ -14,16 +13,6 @@ PerAndSpeed(
   AllApSplot = TRUE,
   export = FALSE,
   ExpName = NULL
-=======
-    object,
-    TimeInterval = 10,
-    PtSplot = TRUE,
-    AllPtSplot = TRUE,
-    ApSplot = TRUE,
-    AllApSplot = TRUE,
-    export = FALSE,
-    ExpName = NULL
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -59,14 +48,7 @@ The PerAndSpeed() generates data and plots for
 persistence and speed.
 }
 \examples{
-<<<<<<< HEAD
-data(TrajectoryDataset)
-rmDF=TrajectoryDataset[1:1000,]
-rmTD <- CellMig(rmDF)
-rmTD <- rmPreProcessing(rmTD,FrameN=100)
-=======
 rmTD <- cellmigRation::preProcCellMig
->>>>>>> BiocNewVersion
 rmTD <- PerAndSpeed(rmTD,TimeInterval=10, export=FALSE)
 
 }

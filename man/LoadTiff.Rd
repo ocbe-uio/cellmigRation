@@ -31,17 +31,9 @@ arguments
 and can be NULL.
 }
 \examples{
-<<<<<<< HEAD
-\dontrun{
-# Let `path/to/tiff_file.tiff` be the path to tiff file we want to
-import
-x <- LoadTiff(tiff_file = "path/to/tiff_file.tiff")
-}
-=======
 # Let `path/to/tiff_file.tiff` be the path to tiff file we want to
 # import. If an error is thrown, NULL is returned.
 x <- LoadTiff(tiff_file = "path/to/tiff_file.tiff")
->>>>>>> BiocNewVersion
 
 }
 \references{

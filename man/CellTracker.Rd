@@ -5,7 +5,6 @@
 \title{Compute Cell Tracks}
 \usage{
 CellTracker(
-<<<<<<< HEAD
   tc_obj,
   import_optiParam_from = NULL,
   min_frames_per_cell = 1,
@@ -17,22 +16,8 @@ CellTracker(
   goodenough = 0,
   threads = 1,
   show_plots = FALSE,
-  verbose = FALSE
-=======
-    tc_obj,
-    import_optiParam_from = NULL,
-    min_frames_per_cell = 1,
-    lnoise = NULL,
-    diameter = NULL,
-    threshold = NULL,
-    maxDisp = NULL,
-    memory_b = 0,
-    goodenough = 0,
-    threads = 1,
-    show_plots = FALSE,
-    verbose = FALSE,
-    dryrun = FALSE
->>>>>>> BiocNewVersion
+  verbose = FALSE,
+  dryrun = FALSE
 )
 }
 \arguments{
@@ -76,17 +61,11 @@ is accepted}
 
 \item{show_plots}{logical, shall cells detected in each frame of
 the image stack be visualized}
-<<<<<<< HEAD
-
-\item{verbose}{logical, shall info about the progress of the cell
-tracking job be printed}
-=======
 
 \item{verbose}{logical, shall info about the progress of the cell
 tracking job be printed}
 
 \item{dryrun}{logical, shall a dryrun be performed}
->>>>>>> BiocNewVersion
 }
 \value{
 a trackedCells object
@@ -125,19 +104,9 @@ for removing stray noise or small particles.
 }
 }
 \examples{
-<<<<<<< HEAD
-message("this example may take up to several mins to complete")
-\dontrun{
-x <- cellmigRation::TrackCellsDataset
-x <- OptimizeParams(x)
-x <- CellTracker(x)
-getTracks(x)[1:10,]
-}
-=======
 x <- cellmigRation::TrackCellsDataset
 x <- CellTracker(x, dryrun=TRUE)
 getTracks(x)[seq(1,12,by=1),]
->>>>>>> BiocNewVersion
 
 }
 \references{

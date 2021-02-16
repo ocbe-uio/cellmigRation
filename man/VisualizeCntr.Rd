@@ -5,13 +5,13 @@
 \title{Visualize Centroids}
 \usage{
 VisualizeCntr(
-    centroids,
-    width_px,
-    height_px,
-    pnt.cex = 1.2,
-    txt.cex = 0.9,
-    offset = 0.18,
-    col = "red2"
+  centroids,
+  width_px,
+  height_px,
+  pnt.cex = 1.2,
+  txt.cex = 0.9,
+  offset = 0.18,
+  col = "red2"
 )
 }
 \arguments{
@@ -36,19 +36,10 @@ None
 Annotates centroids over an image
 }
 \examples{
-<<<<<<< HEAD
-x1 <- data.frame(row = c(50, 80, 20, 65, 99),
-col = c(15, 25, 50, 65, 86))
-plot(
-2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "",
-las = 2
-)
-=======
 x1 <- data.frame(
     row = c(50, 80, 20, 65, 99),
     col = c(15, 25, 50, 65, 86))
 plot(2, 2, xlim = c(0,1), ylim = c(0,1), xlab = "", ylab = "", las = 2)
->>>>>>> BiocNewVersion
 cellmigRation:::VisualizeCntr(x1, width_px = 100, height_px = 100)
 
 

@@ -14,11 +14,8 @@ than a typical object}
 
 \item{threshold}{the minimum brightness of a pixel that might be
 local maxima}
-<<<<<<< HEAD
-=======
 
 \item{dryrun}{logical, shall the execution be skipped}
->>>>>>> BiocNewVersion
 }
 \value{
 data.frame of centroids, with 4 columns corresponding to
@@ -31,20 +28,10 @@ Create an array containing centroid data for particles identified
 in each frame of the imported TIFF image stack
 }
 \examples{
-<<<<<<< HEAD
-# the following example may take up to several minutes to run
-\dontrun{
-x0 <- cellmigRation::TrackCellsDataset@images
-y0 <- cellmigRation:::CentroidArray(x0, 16, 10)
-class(y0)
-y0[[1]][1:10,]
-}
-=======
 # by default, the dryrun argument is set to FALSE
 x0 <- getCellImages(cellmigRation::TrackCellsDataset)
 y0 <- cellmigRation:::CentroidArray(x0, 16, 10, TRUE)
 y0
->>>>>>> BiocNewVersion
 
 
 }

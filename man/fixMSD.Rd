@@ -5,18 +5,18 @@
 \title{Mean Square Displacement}
 \usage{
 fixMSD(
-    Object,
-    Step,
-    SlopePlot,
-    AllSlopesPlot,
-    FurthPlot,
-    AllFurthPlot,
-    sLAG,
-    ffLAG,
-    color,
-    export,
-    ExpName,
-    new.fld
+  Object,
+  Step,
+  SlopePlot,
+  AllSlopesPlot,
+  FurthPlot,
+  AllFurthPlot,
+  sLAG,
+  ffLAG,
+  color,
+  export,
+  ExpName,
+  new.fld
 )
 }
 \arguments{

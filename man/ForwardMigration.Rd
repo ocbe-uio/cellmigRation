@@ -5,7 +5,6 @@
 \title{Forward Migration}
 \usage{
 ForwardMigration(
-<<<<<<< HEAD
   object,
   TimeInterval = 10,
   sfptPLOT = TRUE,
@@ -14,16 +13,6 @@ ForwardMigration(
   afpPLOT = TRUE,
   export = FALSE,
   ExpName = NULL
-=======
-    object,
-    TimeInterval = 10,
-    sfptPLOT = TRUE,
-    afptPLOT = TRUE,
-    sfpPLOT = TRUE,
-    afpPLOT = TRUE,
-    export = FALSE,
-    ExpName = NULL
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -60,22 +49,13 @@ data and plots for forward persistence and speed.
 }
 \examples{
 data(WSADataset)
-<<<<<<< HEAD
-wsaDF <- WSADataset[1:1000,]
-wsaTD <- CellMig(wsaDF)
-wsaTD <- wsaPreProcessing(wsaTD,FrameN=95)
-wsaTD <-ForwardMigration(wsaTD, TimeInterval=10,
-sfptPLOT=FALSE, afptPLOT= FALSE,sfpPLOT= FALSE,afpPLOT= FALSE,
-export=FALSE)
-=======
 wsaDF <- WSADataset[seq(1,500,by=1),]
 wsaTD <- CellMig(wsaDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=55)
 wsaTD <-ForwardMigration(wsaTD, TimeInterval=10, sfptPLOT=FALSE,
-                            afptPLOT= FALSE,sfpPLOT= FALSE,
-                            afpPLOT= FALSE, export=FALSE)
+                         afptPLOT= FALSE,sfpPLOT= FALSE,
+                         afpPLOT= FALSE, export=FALSE)
 
->>>>>>> BiocNewVersion
 
 }
 \references{

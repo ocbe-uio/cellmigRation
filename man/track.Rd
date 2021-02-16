@@ -7,19 +7,6 @@
 track(xyzs, maxdisp, params)
 }
 \arguments{
-<<<<<<< HEAD
-\item{xyzs}{an array listing the scrambled coordinates and data of
-the
-different particles at different times}
-
-\item{maxdisp}{an estimate of the maximum distance that a particle
-would
-move in a single time interval}
-
-\item{params}{a list containing a few tracking parameters that are
-needed
-for the analysis}
-=======
 \item{xyzs}{an array listing the xy coordinates and data of
 the different particles at different times}
 
@@ -28,33 +15,19 @@ would move in a single time interval}
 
 \item{params}{a list containing a few tracking parameters that are
 needed for the analysis}
->>>>>>> BiocNewVersion
 }
 \value{
 data.frame including cell tracks data
 }
 \description{
 Constructs n-dimensional trajectories from a scrambled list of
-<<<<<<< HEAD
-particle
-coordinates determined at discrete times (e.g. in consecutive
-image frames)
-}
-\examples{
-x0 <- data.frame(
-row = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
-col = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
-tau = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4)
-)
-=======
 particle coordinates determined at discrete times (e.g. in consecutive
 image frames)
 }
 \examples{
 x0 <- data.frame(row = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
-                    col = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
-                    tau = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4))
->>>>>>> BiocNewVersion
+                 col = c(1, 30, 50, 5, 35, 55, 6, 56, 7, 58),
+                 tau = c(1, 1, 1, 2, 2, 2, 3, 3, 4, 4))
 cellmigRation:::track(x0, maxdisp = 10, params = NULL)
 
 

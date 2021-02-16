@@ -5,7 +5,6 @@
 \title{Direction AutoCorrelation}
 \usage{
 DiAutoCor(
-<<<<<<< HEAD
   object,
   TimeInterval = 10,
   sLAG = 0.25,
@@ -13,15 +12,6 @@ DiAutoCor(
   aPLOT = TRUE,
   export = FALSE,
   ExpName = NULL
-=======
-    object,
-    TimeInterval = 10,
-    sLAG = 0.25,
-    sPLOT = TRUE,
-    aPLOT = TRUE,
-    export = FALSE,
-    ExpName = NULL
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -62,23 +52,13 @@ angular persistence across several sequantial time intervals.
 }
 \examples{
 
-<<<<<<< HEAD
-data(TrajectoryDataset)
-rmDF=TrajectoryDataset[1:300,]
-rmTD <- CellMig(rmDF)
-rmTD <- rmPreProcessing(rmTD,FrameN=55)
-rmTD <- DiAutoCor(rmTD, TimeInterval=10, sLAG=0.25, sPLOT=FALSE,
-aPLOT=FALSE, export=FALSE
-)
-=======
 
 data(TrajectoryDataset)
 rmDF=TrajectoryDataset[seq(1,220,by=1),]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=55)
 rmTD <- DiAutoCor(rmTD, TimeInterval=10, sLAG=0.25, sPLOT=FALSE,
-                    aPLOT=FALSE, export=FALSE)
->>>>>>> BiocNewVersion
+                  aPLOT=FALSE, export=FALSE)
 
 }
 \references{

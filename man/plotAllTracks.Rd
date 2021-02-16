@@ -5,19 +5,11 @@
 \title{A 2D rose-plot}
 \usage{
 plotAllTracks(
-<<<<<<< HEAD
   object,
   Type = "l",
   FixedField = TRUE,
   export = FALSE,
   ExpName = NULL
-=======
-    object,
-    Type = "l",
-    FixedField = TRUE,
-    export = FALSE,
-    ExpName = NULL
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -25,17 +17,10 @@ plotAllTracks(
 of data frames resulted from the PreProcessing.}
 
 \item{Type}{has to be one of the following: c("p", "l", "b", "o")
-<<<<<<< HEAD
-"p": Points
-"l": Lines
-"b": Both
-"o": Both "overplotted"}
-=======
 "p": Points;
 "l": Lines;
 "b": Both;
 "o": Both "overplotted".}
->>>>>>> BiocNewVersion
 
 \item{FixedField}{logical(1) Allows generating a plot with
 fixed field 800um x 800um. Default is TRUE.}
@@ -56,16 +41,8 @@ the starting point of each track is located at the origin
 of the coordinate system (X=0,Y=0).
 }
 \examples{
-<<<<<<< HEAD
-data(TrajectoryDataset)
-rmDF=TrajectoryDataset[1:1000,]
-rmTD <- CellMig(rmDF)
-rmTD <- rmPreProcessing(rmTD,FrameN=100)
-plotAllTracks(rmTD,Type="l", FixedField=TRUE,export=FALSE)
-=======
 rmTD <- cellmigRation::preProcCellMig
 plotAllTracks(object=rmTD, Type="l", FixedField=TRUE,export=FALSE)
->>>>>>> BiocNewVersion
 
 }
 \references{

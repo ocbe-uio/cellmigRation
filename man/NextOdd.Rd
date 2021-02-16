@@ -18,11 +18,7 @@ as
 the argument
 }
 \examples{
-<<<<<<< HEAD
-cellmigRation:::NextOdd(2:5)
-=======
 cellmigRation:::NextOdd(seq(2,5,by=1))
->>>>>>> BiocNewVersion
 
 }
 \references{

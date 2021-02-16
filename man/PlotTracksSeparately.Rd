@@ -5,19 +5,11 @@
 \title{A graphical display of the track of each cell.}
 \usage{
 PlotTracksSeparately(
-<<<<<<< HEAD
   object,
   Type = "l",
   FixedField = TRUE,
   export = FALSE,
   ExpName = NULL
-=======
-    object,
-    Type = "l",
-    FixedField = TRUE,
-    export = FALSE,
-    ExpName = NULL
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -49,14 +41,7 @@ starting point of each track is located at the origin of
 the coordinate system (X=0,Y=0).
 }
 \examples{
-<<<<<<< HEAD
-data(TrajectoryDataset)
-rmDF=TrajectoryDataset[1:1000,]
-rmTD <- CellMig(rmDF)
-rmTD <- rmPreProcessing(rmTD,FrameN=100)
-=======
 rmTD <- cellmigRation::preProcCellMig
->>>>>>> BiocNewVersion
 PlotTracksSeparately(rmTD,Type="b", FixedField=FALSE, export = FALSE)
 
 }

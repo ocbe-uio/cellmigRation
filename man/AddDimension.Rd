@@ -21,13 +21,9 @@ for each element in y. Elements in y are added as
 the first column in the returned matrix.
 }
 \examples{
-<<<<<<< HEAD
-cellmigRation:::AddDimension(x = cbind(1:4, 4:1), y = c(9, 7))
-=======
 cellmigRation:::AddDimension(
     x = cbind(seq(1,4,by=1), seq(4,1,by=-1)),
     y = c(9, 7))
->>>>>>> BiocNewVersion
 
 }
 \references{

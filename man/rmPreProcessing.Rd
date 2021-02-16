@@ -5,19 +5,11 @@
 \title{Data preprocessing for random migration (RM)}
 \usage{
 rmPreProcessing(
-<<<<<<< HEAD
   object,
   PixelSize = 1.24,
   TimeInterval = 10,
   FrameN = NULL,
   ExpName = NULL
-=======
-    object,
-    PixelSize = 1.24,
-    TimeInterval = 10,
-    FrameN = NULL,
-    ExpName = NULL
->>>>>>> BiocNewVersion
 )
 }
 \arguments{

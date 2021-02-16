@@ -5,15 +5,15 @@
 \title{Persistence and Speed Second Part}
 \usage{
 fixPER2(
-    Object,
-    PerResultsTable,
-    PtSplot,
-    AllPtSplot,
-    export,
-    color,
-    TimeInterval,
-    ExpName,
-    new.fld
+  Object,
+  PerResultsTable,
+  PtSplot,
+  AllPtSplot,
+  export,
+  color,
+  TimeInterval,
+  ExpName,
+  new.fld
 )
 }
 \arguments{

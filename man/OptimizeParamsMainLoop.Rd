@@ -5,10 +5,10 @@
 \title{Main Loop to Parameter Optimization}
 \usage{
 OptimizeParamsMainLoop(
-    tmp_img = tmp_img,
-    all_params = all_params,
-    threads = threads,
-    verbose = verbose
+  tmp_img = tmp_img,
+  all_params = all_params,
+  threads = threads,
+  verbose = verbose
 )
 }
 \arguments{

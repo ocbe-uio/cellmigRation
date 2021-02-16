@@ -16,11 +16,8 @@
 }
 \value{
 An S4-class object
-<<<<<<< HEAD
-=======
 
 a trackedCells object
->>>>>>> BiocNewVersion
 }
 \description{
 An S4 class to represent a set of cells whose movements were

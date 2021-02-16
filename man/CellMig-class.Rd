@@ -8,7 +8,7 @@
 \usage{
 CellMig(..., ExpName = NULL)
 
-\S4method{initialize}{CellMig}(.Object, trajdata, expName = NULL)
+\S4method{initialize}{CellMig}(.Object, trajdata)
 
 CellMig(..., ExpName = NULL)
 }
@@ -20,13 +20,6 @@ CellMig(..., ExpName = NULL)
 \item{.Object}{the CellMig object being built}
 
 \item{trajdata}{data frame including trajectory data}
-
-\item{expName}{string (character vector of length of 1) with the
-name
-of the experiment}
-}
-\value{
-An S4-class object
 }
 \value{
 An S4-class object

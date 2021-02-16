@@ -5,15 +5,15 @@
 \title{Validate Tracking Arguments}
 \usage{
 ValidateTrackingArgs(
-    import_optiParam_from = NULL,
-    lnoise = NULL,
-    diameter = NULL,
-    threshold = NULL,
-    maxDisp = NULL,
-    memory_b = 0,
-    goodenough = 0,
-    show_plots = FALSE,
-    verbose = FALSE
+  import_optiParam_from = NULL,
+  lnoise = NULL,
+  diameter = NULL,
+  threshold = NULL,
+  maxDisp = NULL,
+  memory_b = 0,
+  goodenough = 0,
+  show_plots = FALSE,
+  verbose = FALSE
 )
 }
 \arguments{

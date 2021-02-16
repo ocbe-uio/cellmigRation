@@ -19,11 +19,7 @@ Extract Images Stacks from a trackedCells object
 \examples{
 x0 <- cellmigRation::TrackCellsDataset
 y0 <- getImageStacks(x0)
-<<<<<<< HEAD
-graphics::image(y0[[1]][200:400, 100:300])
-=======
 graphics::image(y0[[1]])
->>>>>>> BiocNewVersion
 
 }
 \references{

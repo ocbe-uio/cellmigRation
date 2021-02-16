@@ -23,15 +23,9 @@ corresponds to the presence of cells, or cell-like particles.
 }
 \examples{
 x <- vapply(
-<<<<<<< HEAD
-seq_len(20),
-function(i) {runif(n = 20, min = 0, max = 10)},
-FUN.VALUE = numeric(20)
-=======
     seq_len(20),
     function(i) {runif(n = 20, min = 0, max = 10)},
     FUN.VALUE = numeric(20)
->>>>>>> BiocNewVersion
 )
 cellmigRation:::VisualizeImg(x)
 

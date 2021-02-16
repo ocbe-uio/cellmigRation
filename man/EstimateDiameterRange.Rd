@@ -5,19 +5,11 @@
 \title{Detect Paricle Diameters in a Numeric matrix}
 \usage{
 EstimateDiameterRange(
-<<<<<<< HEAD
   x,
   px.margin = 2,
   min.px.diam = 5,
   quantile.val = 0.99,
   plot = TRUE
-=======
-    x,
-    px.margin = 2,
-    min.px.diam = 5,
-    quantile.val = 0.99,
-    plot = TRUE
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -47,17 +39,10 @@ Estimates the diameters of particles in a numeric matrix
 }
 \examples{
 a <- cbind(c(1, 1, 1, 0, 0, 0, 0, 0, 1, 1),
-<<<<<<< HEAD
-c(1, 1, 0, 0, 0, 0, 0, 0, 1, 1),
-c(1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-c(0, 0, 0, 0, 1, 1, 0, 0, 0, 0),
-c(0, 0, 0, 1, 1, 1, 0, 0, 0, 0))
-=======
-            c(1, 1, 0, 0, 0, 0, 0, 0, 1, 1),
-            c(1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-            c(0, 0, 0, 0, 1, 1, 0, 0, 0, 0),
-            c(0, 0, 0, 1, 1, 1, 0, 0, 0, 0))
->>>>>>> BiocNewVersion
+           c(1, 1, 0, 0, 0, 0, 0, 0, 1, 1),
+           c(1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+           c(0, 0, 0, 0, 1, 1, 0, 0, 0, 0),
+           c(0, 0, 0, 1, 1, 1, 0, 0, 0, 0))
 graphics::image(a)
 b <- EstimateDiameterRange(a, min.px.diam = 2)
 print(b$estim.cell.num)

@@ -5,11 +5,11 @@
 \title{Cell Tracker Main Loop}
 \usage{
 CellTrackerMainLoop(
-    FinalImage,
-    threads,
-    tc_obj,
-    min_frames_per_cell,
-    track_params
+  FinalImage,
+  threads,
+  tc_obj,
+  min_frames_per_cell,
+  track_params
 )
 }
 \arguments{

@@ -5,9 +5,9 @@
 \title{Non Paralle Parameter Optimization}
 \usage{
 NonParallel4OptimizeParams(
-    tmp_img = tmp_img,
-    all_params = all_params,
-    verbose = verbose
+  tmp_img = tmp_img,
+  all_params = all_params,
+  verbose = verbose
 )
 }
 \arguments{

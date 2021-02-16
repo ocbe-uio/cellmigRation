@@ -30,23 +30,12 @@ Filter an Aggregated Table (data.frame) of cell tracks
 retain cell tracks from images/experiments of interest
 }
 \examples{
-<<<<<<< HEAD
-A <- data.frame(new.ID = 1:10,
-frame.ID = 10:1,
-X = sample(1:100, size = 10),
-Y = sample(1:100, size = 10),
-cell.ID = c(rep(1, 5), rep(2, 5)),
-tiff_file= c(rep("ii", 3), rep("jj", 5), rep('kk', 2))
-)
-FilterTrackedCells(A, id_list = c("ii", "kk"))
-=======
 A <- data.frame(new.ID = seq(1,10,by=1), frame.ID = seq(10,1,by=(-1)),
                 X = sample(seq(1,100,by=1), size = 10),
                 Y = sample(seq(1,100,by=1), size = 10),
                 cell.ID = c(rep(1, 5), rep(2, 5)),
                 tiff_file= c(rep("ii", 3), rep("jj", 5), rep('kk', 2)))
 FilterTrackedCells(A, id_list = c("jj", "kk"), "tiff_file")
->>>>>>> BiocNewVersion
 
 }
 \references{

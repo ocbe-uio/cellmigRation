@@ -26,8 +26,8 @@ Set Optimized Params of a \code{trackedCells} object.
 \examples{
 data("TrackCellsDataset")
 setOptimizedParams(
-    TrackCellsDataset,
-    auto_params = list(lnoise = 6, diameter = 20, threshold = 10),
-    results = list())
+  TrackCellsDataset,
+  auto_params = list(lnoise = 6, diameter = 20, threshold = 10),
+  results = list())
 
 }

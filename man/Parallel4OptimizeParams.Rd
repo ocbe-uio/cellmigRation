@@ -5,10 +5,10 @@
 \title{Paralle Parameter Optimization}
 \usage{
 Parallel4OptimizeParams(
-    tmp_img = tmp_img,
-    all_params = all_params,
-    use.cores = use.cores,
-    verbose = verbose
+  tmp_img = tmp_img,
+  all_params = all_params,
+  use.cores = use.cores,
+  verbose = verbose
 )
 }
 \arguments{

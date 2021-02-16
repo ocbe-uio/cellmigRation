@@ -32,27 +32,13 @@ further ported to R.
 CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
 }
 \examples{
-<<<<<<< HEAD
-message("the following example may take up to one minute to run")
-\dontrun{
-x0 <- cellmigRation::TrackCellsDataset@images$images[[1]][100:500, 200:600]
-b <- cellmigRation:::bpass(image_array = x0,
-lnoise = 1,
-lobject = 15,
-threshold = 10)
-pk <- cellmigRation:::pkfnd(b, 10, 17)
-cnt <- cellmigRation:::cntrd(im = b, mx = pk, sz = 17)
-cnt[1:10,]
-}
-=======
 x0 <- getCellImages(cellmigRation::TrackCellsDataset)
 x0 <- x0$images[[1]][seq(80,150,by=1), seq(80,150,by=1)]
 b <- cellmigRation:::bpass(image_array = x0, lnoise = 2,
-                            lobject = 15, threshold = 1)
+                           lobject = 15, threshold = 1)
 pk <- cellmigRation:::pkfnd(b, th = 2, sz = 5)
 cnt <- cellmigRation:::cntrd(im = b, mx = pk, sz = 5)
 cnt
->>>>>>> BiocNewVersion
 
 }
 \references{

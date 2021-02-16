@@ -5,7 +5,6 @@
 \title{Mean Square Displacement}
 \usage{
 MSD(
-<<<<<<< HEAD
   object,
   TimeInterval = 10,
   sLAG = 0.25,
@@ -16,18 +15,6 @@ MSD(
   AllFurthPlot = TRUE,
   export = FALSE,
   ExpName = NULL
-=======
-    object,
-    TimeInterval = 10,
-    sLAG = 0.25,
-    ffLAG = 0.25,
-    SlopePlot = TRUE,
-    AllSlopesPlot = TRUE,
-    FurthPlot = TRUE,
-    AllFurthPlot = TRUE,
-    export = FALSE,
-    ExpName = NULL
->>>>>>> BiocNewVersion
 )
 }
 \arguments{
@@ -76,11 +63,7 @@ MSD parameters are used to assess the area explored by cells over time.
 }
 \examples{
 data(TrajectoryDataset)
-<<<<<<< HEAD
-rmDF <- TrajectoryDataset[1:600, ]
-=======
 rmDF <- TrajectoryDataset[seq(1,220,by=1), ]
->>>>>>> BiocNewVersion
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=100)
 rmTD <- MSD(rmTD, sLAG=0.25, ffLAG=0.25, export=FALSE)

@@ -26,11 +26,7 @@ All possible combination of values are included in
 the resulting hyper cube.
 }
 \examples{
-<<<<<<< HEAD
-cellmigRation:::MakeHypercube(1:3, 3)
-=======
 cellmigRation:::MakeHypercube(seq(1,3,by=1), 3)
->>>>>>> BiocNewVersion
 
 }
 \references{

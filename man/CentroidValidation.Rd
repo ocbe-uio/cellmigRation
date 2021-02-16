@@ -5,13 +5,13 @@
 \title{Validate Centroids}
 \usage{
 CentroidValidation(
-    stack,
-    slice,
-    lobject,
-    threshold,
-    pnt.cex = 1.2,
-    txt.cex = 0.85,
-    offset = 0.18
+  stack,
+  slice,
+  lobject,
+  threshold,
+  pnt.cex = 1.2,
+  txt.cex = 0.85,
+  offset = 0.18
 )
 }
 \arguments{
@@ -47,22 +47,10 @@ using
 VisualizeStackCentroids() or visualizeCellTracks() instead.
 }
 \examples{
-<<<<<<< HEAD
-message("the following example may take up to one minute to run")
-\dontrun{
-x <- cellmigRation::TrackCellsDataset
-y <- cellmigRation:::CentroidValidation(
-stack = x@images, slice = 1,
-lobject = 6, threshold = 20
-)
-y[1:10,]
-}
-=======
 x <- cellmigRation::TrackCellsDataset
 x <- getCellImages(x)
 x$images[[1]] <- x$images[[1]][seq(110,160,by=1), seq(100,160,by=1)]
 cellmigRation:::CentroidValidation(x, slice = 1, lobject =10, threshold = 5)
->>>>>>> BiocNewVersion
 
 }
 \references{
