@@ -256,8 +256,7 @@ x2 <- CellTracker(
 # Track cell movements using CUSTOM params, show plots
 x3 <- CellTracker(
     tc_obj = ThreeConditions$drug01,
-    import_optiParam_from = x1,
-    lnoise = 6, diameter = 18, 
+    lnoise = 5, diameter = 22, threshold = 6,
     threads = 2, maxDisp = 10,
     show_plots = TRUE)
 ```
@@ -483,12 +482,24 @@ an *MSD* analysis and *Velocity autocorrelation*.
 
 
 **Directionality Analysis**. This analysis is performed via the `DiRatio()` 
-function. Results are saved in a *CSV* file.
+function. Results are saved in a *CSV* file. Plots can be generated using the 
+`DiRatioPlot()` function. Plots are saved in a newly created folder with the 
+following extension: `-DR_Results`.
+
 
 ```{r echo=TRUE, include=TRUE, eval=TRUE}
 ## Directionality
 srmTD <- DiRatio(rmTD, export=TRUE)
+DiRatioPlot(srmTD, export=TRUE)
 ```
+
+
+```{r, echo=FALSE, out.width="50%", fig.cap="Controldirectionality"}
+knitr::include_graphics(
+    "Control-DR_Results/Controldirectionality ratio for all cells.jpg")
+```
+
+
 
 **Mean Square Displacement**.  The MSD function automatically computes the mean
 square displacements across several sequential time intervals. MSD parameters
