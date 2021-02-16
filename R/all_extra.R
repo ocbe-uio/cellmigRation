@@ -58,12 +58,24 @@
 #' @title Intermediates and Results from Cell Tracking Analyses
 #' @description Intermediates and Results from Cell Tracking Analyses,
 #' used to build the package vignette.
-#' @usage data(VignBuilderDataset)
+#' @usage data(ThreeConditions)
+#' @format a list including 3 elements
+#'
+#' @examples
+#' data(ThreeConditions)
+#'
+#' @keywords internal
+"ThreeConditions"
+
+#' @title Trajectories of 11 cells
+#' @description Intermediates and Results from Cell Tracking Analyses,
+#' used as a representative example of a S4 CellMig object
+#' @usage data(preProcCellMig)
 #' @format a list including 21 elements
 #'
 #' @examples
-#' data(VignBuilderDataset)
+#' data(preProcCellMig)
 #'
 #' @keywords internal
-"VignBuilderDataset"
+"preProcCellMig"
 

@@ -1,0 +1,9 @@
+## cellmigRation
+cellmigRation: An R package for tracking cells and analyzing their trajectories.
+
+## Installation
+cellmigRation is under active development and a stable version is yet to be
+released. However, you can install the current development version of
+cellmigRation from GitHub. The repo is: "ocbe-uio/cellmigRation"
+
+Date: 2021-02-08

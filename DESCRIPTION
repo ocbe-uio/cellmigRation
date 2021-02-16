@@ -1,7 +1,7 @@
 Package: cellmigRation
 Type: Package
 Title: Track Cells, Analyze Cell Trajectories and Compute Migration Statistics
-Version: 0.99.1.9010
+Version: 0.99.2
 Authors@R:
 	c(
 		person(
@@ -34,7 +34,7 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.0), methods, foreach
 Imports: tiff, graphics, stats, utils, reshape2, parallel, doParallel, grDevices, matrixStats, FME, SpatialTools, rgl, sp, vioplot, FactoMineR, Hmisc
-Suggests: testthat, knitr, rmarkdown, dplyr, grid, ggplot2
+Suggests: knitr, rmarkdown, dplyr, kableExtra, ggplot2, RUnit, BiocGenerics, BiocManager
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 BugReports: https://github.com/ocbe-uio/cellmigRation/issues
