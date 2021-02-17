@@ -21,6 +21,10 @@ test_module_01 <- function() {
     #checkEqualsNumeric(divideBy(4, 1.2345), 3.24, tolerance=1.0e-4)
 }
 
+test_module_02 <- function() {
+    df <- TrajectoryDataset
+    rmTD <- CellMig(df)
+    RUnit::checkTrue(is(rmTD, "CellMig"))
 
-
+}
 
