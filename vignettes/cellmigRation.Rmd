@@ -190,16 +190,17 @@ run `OptimizeParams()` manually specifying the ranges to be tested. By default,
 the function determines automatically a reasonable range of values to be tested
 for each argument based on the empirical distribution of signal and sizes of
 particles detected in the frame with median signal from a TIFF stack. This
-operation supports parallelization.
+operation supports parallelization (**recommended**: parallelize by 
+setting the `threads` argument to a value bigger than 1).
 
 **Note**: the user may request to visualize a plot. The output plot shows how
 many cells were detected for each combination of parameter values. By default,
 the *pick #1* is selected for the downstream steps.
 
 ```{r echo=TRUE, include=TRUE, eval=TRUE, fig.height=7.8}
-# Optimize parameters using 2 cores
+# Optimize parameters using 1 core
 x1 <- OptimizeParams(
-    ThreeConditions$ctrl01, threads = 2, lnoise_range = c(5, 12),
+    ThreeConditions$ctrl01, threads = 1, lnoise_range = c(5, 12),
     diameter_range = c(16, 22), threshold_range = c(5, 15, 30), 
     verbose = FALSE, plot = TRUE)
 ```
@@ -240,6 +241,8 @@ of parameter values.
 a minimum number of frames by setting the `min_frames_per_cell` argument. If so,
 cells detected in a small number of frames will be removed from the output.
 
+**Note 3**: the user may parallelize (**recommended** when possible) this 
+step by setting the `threads` argument to a value bigger than 1.
 
 ```{r echo=TRUE, include=TRUE, eval=TRUE, fig.keep='last'}
 # Track cell movements using optimized params
@@ -249,7 +252,7 @@ x1 <- CellTracker(
 # Track cell movements using params from a different object
 x2 <- CellTracker(
     ThreeConditions$ctrl02, import_optiParam_from = x1,
-    min_frames_per_cell = 3, threads = 2)
+    min_frames_per_cell = 3, threads = 1)
 ```
 
 ```{r fig.height=4, fig.width=4, fig.align='center'}
@@ -257,7 +260,7 @@ x2 <- CellTracker(
 x3 <- CellTracker(
     tc_obj = ThreeConditions$drug01,
     lnoise = 5, diameter = 22, threshold = 6,
-    threads = 2, maxDisp = 10,
+    threads = 1, maxDisp = 10,
     show_plots = TRUE)
 ```
 
