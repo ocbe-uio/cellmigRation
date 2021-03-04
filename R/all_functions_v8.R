@@ -448,7 +448,7 @@ VisualizeCntr <- function(
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
-#' \url{https://www.data-pulse.com/dev_site/celltracker/}
+#' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
@@ -533,7 +533,7 @@ visualizeCellTracks <- function(
 #'
 #' @author Damiano Fantini, \email{damiano.fantini@@gmail.com}
 #' @references
-#' \url{https://www.data-pulse.com/dev_site/celltracker/}
+#' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
