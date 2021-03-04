@@ -197,7 +197,12 @@ setting the `threads` argument to a value bigger than 1).
 many cells were detected for each combination of parameter values. By default,
 the *pick #1* is selected for the downstream steps.
 
-**Note 2**: for larger datasets, the user may wish to set the `threads` argument below to a larger integer in order to benefit from paralellized operations. A theoretical upper bound to this argument would be the number of threads in your CPU---which you can check with `parallel::detectCores()`---, but it is considered good practice to leave at least one thread for other system operations.
+**Note 2**: for larger datasets, the user may wish to set the `threads` 
+argument below to a larger integer in order to benefit from paralellized 
+operations. A theoretical upper bound to this argument would be the number 
+of threads in your CPU ---which you can check with `parallel::detectCores()`---, 
+but it is considered good practice to leave at least one thread for 
+other system operations.
 
 ```{r echo=TRUE, include=TRUE, eval=TRUE, fig.height=7.8}
 # Optimize parameters using 1 core
