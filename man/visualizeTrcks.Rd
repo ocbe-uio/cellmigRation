@@ -47,7 +47,7 @@ cellmigRation:::visualizeTrcks(x1, width_px = 100, height_px = 100)
 
 }
 \references{
-\url{https://www.data-pulse.com/dev_site/celltracker/}
+\url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 }
 \author{
