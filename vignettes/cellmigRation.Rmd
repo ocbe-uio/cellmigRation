@@ -193,7 +193,7 @@ particles detected in the frame with median signal from a TIFF stack. This
 operation supports parallelization (**recommended**: parallelize by
 setting the `threads` argument to a value bigger than 1).
 
-**Note 1**: the user may request to visualize a plot. The output plot shows how
+**Note**: the user may request to visualize a plot. The output plot shows how
 many cells were detected for each combination of parameter values. By default,
 the *pick #1* is selected for the downstream steps.
 
@@ -577,4 +577,3 @@ sessionInfo()
 
 **Success!** For questions about `cellmigRation`, don't hesitate to email the
 authors or the maintainer.
-
