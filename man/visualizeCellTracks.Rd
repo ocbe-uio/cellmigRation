@@ -43,7 +43,7 @@ visualizeCellTracks(tc_obj = x, stack = 2)
 
 }
 \references{
-\url{https://www.data-pulse.com/dev_site/celltracker/}
+\url{https://www.data-pulse.com/dev_site/cellmigration/}
 \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 }
 \author{
