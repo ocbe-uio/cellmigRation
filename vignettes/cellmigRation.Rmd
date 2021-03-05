@@ -95,7 +95,7 @@ Damiano Fantini (Northwestern University, Chicago, IL, USA); Salim Ghannoum
 
 ### More resources
 
-- An exhaustive vignette is available at: 
+- An exhaustive vignette is available at:
 <https://www.data-pulse.com/projects/2020/cellmigRation/cellmigRation_v01.html>
 
 - GitHub page: <https://github.com/ocbe-uio/cellmigRation>
@@ -134,7 +134,7 @@ library(kableExtra)
 #### Importing TIFF files
 
 In this vignette, we are going to analyze three images with the aim of
-illustrating the functions included in *cellmigRation*. 
+illustrating the functions included in *cellmigRation*.
 The original TIFF files are available at the following URLs:
 
 - <https://www.data-pulse.com/projects/2020/cellmigRation/ctrl_001.tif>
@@ -144,11 +144,11 @@ The original TIFF files are available at the following URLs:
 - <https://www.data-pulse.com/projects/2020/cellmigRation/drug_001.tif>
 
 
-**Note**. TIFF files can be imported using the `LoadTiff()` function. 
-This function includes a series of (optional) arguments to attach 
-meta-information to a TIFF image, for example the `experiment` and 
-`condition` arguments. Imported numeric images are stored as 
-a *trackedCells*-class object. 
+**Note**. TIFF files can be imported using the `LoadTiff()` function.
+This function includes a series of (optional) arguments to attach
+meta-information to a TIFF image, for example the `experiment` and
+`condition` arguments. Imported numeric images are stored as
+a *trackedCells*-class object.
 
 Three sample `trackedCells` objects (imported from the corresponding TIFF files)
 are available as a list in the `cellmigRation` package
@@ -190,23 +190,30 @@ run `OptimizeParams()` manually specifying the ranges to be tested. By default,
 the function determines automatically a reasonable range of values to be tested
 for each argument based on the empirical distribution of signal and sizes of
 particles detected in the frame with median signal from a TIFF stack. This
-operation supports parallelization (**recommended**: parallelize by 
+operation supports parallelization (**recommended**: parallelize by
 setting the `threads` argument to a value bigger than 1).
 
 **Note**: the user may request to visualize a plot. The output plot shows how
 many cells were detected for each combination of parameter values. By default,
 the *pick #1* is selected for the downstream steps.
 
+**Note 2**: for larger datasets, the user may wish to set the `threads`
+argument below to a larger integer in order to benefit from paralellized
+operations. A theoretical upper bound to this argument would be the number of
+threads in your CPU---which you can check with `parallel::detectCores()`---,
+but it is considered good practice to leave at least one thread for other
+system operations.
+
 ```{r echo=TRUE, include=TRUE, eval=TRUE, fig.height=7.8}
 # Optimize parameters using 1 core
 x1 <- OptimizeParams(
     ThreeConditions$ctrl01, threads = 1, lnoise_range = c(5, 12),
-    diameter_range = c(16, 22), threshold_range = c(5, 15, 30), 
+    diameter_range = c(16, 22), threshold_range = c(5, 15, 30),
     verbose = FALSE, plot = TRUE)
 ```
 
-**Note**: the `getOptimizedParams()` is a *getter* function to obtain the values
-of each optimized parameter.
+**Note 3**: the `getOptimizedParams()` is a *getter* function to obtain the
+values of each optimized parameter.
 
 ```{r echo=TRUE, include=TRUE, eval=TRUE}
 # obtain optimized params
@@ -241,7 +248,7 @@ of parameter values.
 a minimum number of frames by setting the `min_frames_per_cell` argument. If so,
 cells detected in a small number of frames will be removed from the output.
 
-**Note 3**: the user may parallelize (**recommended** when possible) this 
+**Note 3**: the user may parallelize (**recommended** when possible) this
 step by setting the `threads` argument to a value bigger than 1.
 
 ```{r echo=TRUE, include=TRUE, eval=TRUE, fig.keep='last'}
@@ -476,17 +483,17 @@ following metrics:
 
 - Velocity AutoCorrelation: `VeAutoCor()` function
 
-These steps are meant to be run on larger datasets, including a larger number 
-of cells. Here, we only show an example of how to run a *DiRatio* analysis, 
-an *MSD* analysis and *Velocity autocorrelation*. 
+These steps are meant to be run on larger datasets, including a larger number
+of cells. Here, we only show an example of how to run a *DiRatio* analysis,
+an *MSD* analysis and *Velocity autocorrelation*.
 
 **For more examples about Deep Trajectory Analysis, please visit:**
 <https://www.data-pulse.com/projects/2020/cellmigRation/cellmigRation_v01.html>
 
 
-**Directionality Analysis**. This analysis is performed via the `DiRatio()` 
-function. Results are saved in a *CSV* file. Plots can be generated using the 
-`DiRatioPlot()` function. Plots are saved in a newly created folder with the 
+**Directionality Analysis**. This analysis is performed via the `DiRatio()`
+function. Results are saved in a *CSV* file. Plots can be generated using the
+`DiRatioPlot()` function. Plots are saved in a newly created folder with the
 following extension: `-DR_Results`.
 
 
@@ -539,7 +546,7 @@ rmTD <-FinRes(rmTD, ParCor=TRUE, export=FALSE)
 Below, the first 5 columns of the output data.frame are shown.
 
 ```{r echo=FALSE, include=TRUE, results='asis'}
-head(getCellMigSlot(rmTD, "results"), 5) %>% 
+head(getCellMigSlot(rmTD, "results"), 5) %>%
     kable() %>% kable_styling(bootstrap_options = 'striped')
 ```
 
@@ -548,7 +555,7 @@ head(getCellMigSlot(rmTD, "results"), 5) %>%
 The `CellMigPCA()` function automatically generates Principal Component Analysis
 based on a set of parameters selected by the user.
 The `CellMigPCAclust()` function automatically generates clusters based on the
-Principal Component Analysis. This analysis is supposed to be run in an 
+Principal Component Analysis. This analysis is supposed to be run in an
 interactive session via the `CellMigPCA()` function.
 
 
