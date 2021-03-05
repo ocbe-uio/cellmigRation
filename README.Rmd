@@ -8,13 +8,17 @@ output: github_document
 ###############################################################################
 
 README.md is generated from README.Rmd. Please edit the README.Rmd file and
-regenerate README.md by running `rmarkdown::render("README.Rmd)` in R.
+regenerate README.md by running the following in R:
+
+rmarkdown::render('README.Rmd', output_format = 'github_document')
+
+If you have GNU Make installed, you can also simply run "make" and Make will
+automatically update README.md if it sees changes in README.Rmd.
 
 ###############################################################################
 # DO NOT EDIT README.md. YOU WILL LOSE YOUR CHANGES. PLEASE SEE COMMENT ABOVE #
 ###############################################################################
 -->
-
 
 # cellmigRation
 
@@ -31,6 +35,12 @@ knitr::opts_chunk$set(
 
 An R package for tracking cells and analyzing their trajectories.
 
+<!--
+###############################################################################
+#  DO NOT EDIT README.md. YOU WILL LOSE YOUR CHANGES. PLEASE SEE TOP COMMENT  #
+###############################################################################
+-->
+
 # Installation
 
 cellmigRation is under active development and a stable version is yet to be released. However, you can install the current development version of cellmigRation from [GitHub](https://github.com/) with:
@@ -39,6 +49,12 @@ cellmigRation is under active development and a stable version is yet to be rele
 # install.packages("remotes")
 remotes::install_github("ocbe-uio/cellmigRation")
 ```
+
+<!--
+###############################################################################
+#  DO NOT EDIT README.md. YOU WILL LOSE YOUR CHANGES. PLEASE SEE TOP COMMENT  #
+###############################################################################
+-->
 
 # Example
 
@@ -52,14 +68,35 @@ df <- CellMig(TrajectoryDataset[1:100, ])
 preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 100)
 ```
 
+<!--
+###############################################################################
+#  DO NOT EDIT README.md. YOU WILL LOSE YOUR CHANGES. PLEASE SEE TOP COMMENT  #
+###############################################################################
+-->
+
 # Shiny application
+
 
 Some cellmigRation features are also available as a standalone web application powered by an R package called Shiny. **The Shiny app is still under construction**, so it is not feature-complete and is not guaranteed to perform as expected. Until release, we advise you to use the R package directly.
 
 To access the cellmigRation Shiny app, visit https://ocbe.shinyapps.io/cellmigRation/.
+
+Alternatively, you can run the Shiny app locally on your computer. To do so, download a copy of this repository and either run `make runshiny` or `R -e "shiny::runApp('Shinyapp', port=3029)"` from its root directory.
+
+<!--
+###############################################################################
+#  DO NOT EDIT README.md. YOU WILL LOSE YOUR CHANGES. PLEASE SEE TOP COMMENT  #
+###############################################################################
+-->
 
 # Statistics for developers
 
 <!-- badges: start -->
 [![Build Status](https://travis-ci.org/ocbe-uio/cellmigRation.svg?branch=master)](https://travis-ci.org/ocbe-uio/cellmigRation)
 <!-- badges: end -->
+
+<!--
+###############################################################################
+#  DO NOT EDIT README.md. YOU WILL LOSE YOUR CHANGES. PLEASE SEE TOP COMMENT  #
+###############################################################################
+-->
