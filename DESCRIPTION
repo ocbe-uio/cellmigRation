@@ -32,7 +32,7 @@ biocViews: CellBiology, DataRepresentation, DataImport
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 4.0), methods, foreach
+Depends: R (>= 4.1), methods, foreach
 Imports: tiff, graphics, stats, utils, reshape2, parallel, doParallel, grDevices, matrixStats, FME, SpatialTools, rgl, sp, vioplot, FactoMineR, Hmisc, kableExtra
 Suggests: knitr, rmarkdown, dplyr, ggplot2, RUnit, BiocGenerics, BiocManager
 RoxygenNote: 7.1.1
