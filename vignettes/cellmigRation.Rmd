@@ -20,8 +20,6 @@ knitr::opts_chunk$set(
 )
 
 Tim0 <- Sys.time()
-set.seed(1234)
-
 library(ggplot2)
 library(dplyr)
 library(cellmigRation)
@@ -100,9 +98,13 @@ Damiano Fantini (Northwestern University, Chicago, IL, USA); Salim Ghannoum
 
 - GitHub page: <https://github.com/ocbe-uio/cellmigRation>
 
+### Reproducibility
 
+For reproducibility of the output on this document, please run the following command in your R session before proceeding:
 
-
+```{r setting_seed}
+set.seed(1234)
+```
 
 ## Installation
 
