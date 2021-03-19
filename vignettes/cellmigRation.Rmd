@@ -100,7 +100,8 @@ Damiano Fantini (Northwestern University, Chicago, IL, USA); Salim Ghannoum
 
 ### Reproducibility
 
-For reproducibility of the output on this document, please run the following command in your R session before proceeding:
+For reproducibility of the output on this document, please run the following
+command in your R session before proceeding:
 
 ```{r setting_seed}
 set.seed(1234)
