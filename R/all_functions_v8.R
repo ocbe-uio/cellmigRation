@@ -352,7 +352,7 @@ VisualizeImg <- function(img_mtx, col = NULL, ...)
 #'
 #' @examples
 #' # Representative output
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' VisualizeStackCentroids(tc_obj = x, stack = 2, pnt.cex = 5, offset = 1.3)
 #'
 #'
@@ -452,7 +452,7 @@ VisualizeCntr <- function(
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' visualizeCellTracks(tc_obj = x, stack = 2)
 #'
 #'
@@ -736,7 +736,7 @@ LoadTiff <- function(
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' x <- getCellImages(x)
 #' x$images[[1]] <- x$images[[1]][seq(110,160,by=1), seq(100,160,by=1)]
 #' cellmigRation:::CentroidValidation(x, slice = 1, lobject =10, threshold = 5)
@@ -926,7 +926,7 @@ bpass <- function(image_array, lnoise, lobject = NULL, threshold)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x0 <- getCellImages(cellmigRation::TrackCellsDataset)
+#' x0 <- getCellImages(get(data(TrackCellsDataset)))
 #' x0 <- x0$images[[1]][seq(80,150,by=1), seq(80,150,by=1)]
 #' b <- cellmigRation:::bpass(image_array = x0, lnoise = 2,
 #'                            lobject = 15, threshold = 1)
@@ -1086,7 +1086,7 @@ cntrd <- function(im, mx, sz, interactive = NULL)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x0 <- getCellImages(cellmigRation::TrackCellsDataset)
+#' x0 <- getCellImages(get(data(TrackCellsDataset)))
 #' x0 <- x0$images[[1]][seq(80,150,by=1), seq(80,150,by=1)]
 #' b <- cellmigRation:::bpass(image_array = x0, lnoise = 2,
 #'                            lobject = 15, threshold = 1)
@@ -1224,7 +1224,8 @@ pkfnd <- function(im, th, sz=NULL)
 #'
 #' @examples
 #' # by default, the dryrun argument is set to FALSE
-#' x0 <- getCellImages(cellmigRation::TrackCellsDataset)
+#' df <- get(data(TrackCellsDataset))
+#' x0 <- getCellImages(df)
 #' y0 <- cellmigRation:::CentroidArray(x0, 16, 10, TRUE)
 #' y0
 #'
@@ -3152,7 +3153,7 @@ MigrationStats <- function(tracks, interval_time, pixel_micron) {
 #'
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' x <- ComputeTracksStats(x, time_between_frames = 10,
 #'                         resolution_pixel_per_micron = 20)
 #' getCellsStats(x)
@@ -3296,7 +3297,7 @@ GenAllCombos <- function(...){
 #' @importFrom stats quantile
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' x <- cellmigRation::getCellImages(x = x)
 #' y <- cellmigRation:::Prep4OptimizeParams(stack_img = x)
 #' y$success
@@ -3830,7 +3831,7 @@ FianlizeOptiParams <- function(all_results, all_params, target_cell_num, plot)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' x <- OptimizeParams(tc_obj = x, lnoise_range = c(5,7,10),
 #'                     diameter_range = c(12,14,18),
 #'                     threshold_range = c(4,7), dryrun = TRUE)
@@ -4538,7 +4539,7 @@ CellTrackerMainLoop <- function(
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' x <- CellTracker(x, dryrun=TRUE)
 #' getTracks(x)[seq(1,12,by=1),]
 #'
@@ -4671,7 +4672,7 @@ CellTracker <- function(
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' getTracks(x)[seq(1,10,by=1),]
 #'
 #'
@@ -4713,7 +4714,7 @@ getTracks <- function(tc_obj, attach_meta = FALSE)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' getPopulationStats(x)
 #'
 #'
@@ -4747,7 +4748,7 @@ getPopulationStats <- function(tc_obj)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' getCellsStats(x)
 #'
 #'
@@ -4781,7 +4782,7 @@ getCellsStats <- function(tc_obj)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x0 <- cellmigRation::TrackCellsDataset
+#' x0 <- get(data(TrackCellsDataset))
 #' getCellsMeta(x0)
 #'
 #' @export
@@ -4807,7 +4808,7 @@ getCellsMeta <- function(tc_obj)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x0 <- cellmigRation::TrackCellsDataset
+#' x0 <- get(data(TrackCellsDataset))
 #' y0 <- getImageStacks(x0)
 #' graphics::image(y0[[1]])
 #'
@@ -4835,7 +4836,7 @@ getImageStacks <- function(tc_obj)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x <- cellmigRation::TrackCellsDataset
+#' x <- get(data(TrackCellsDataset))
 #' getOptimizedParameters(x)
 #'
 #'
@@ -4874,7 +4875,7 @@ getOptimizedParameters <- function(tc_obj)
 #' \url{https://www.mathworks.com/matlabcentral/fileexchange/60349-fasttracks}
 #'
 #' @examples
-#' x0 <- cellmigRation::TrackCellsDataset
+#' x0 <- get(data(TrackCellsDataset))
 #' x0 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DMSO")
 #' getCellsMeta(x0)
 #'
@@ -4963,7 +4964,7 @@ setCellsMeta <- function(
 #' # A pseudo-code example is shown below
 #' # Let x0, x1, x2, ... be trackedCells-class objects
 #' # with a non-empty tracks slot.
-#' x0 <- cellmigRation::TrackCellsDataset
+#' x0 <- get(data(TrackCellsDataset))
 #' x0 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "CTRL")
 #' x1 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DMSO")
 #' x2 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DRUG")
@@ -5123,7 +5124,7 @@ FilterTrackedCells <- function(x, id_list, meta_id_field) {
 #' @return An CellMig class object with preprocessed data.
 #'
 #' @examples
-#' TrajectoryDataset <- cellmigRation::TrajectoryDataset
+#' TrajectoryDataset <- get(data(TrajectoryDataset))
 #' rmDF=TrajectoryDataset[seq(1,40,by=1),]
 #' rmTD <- CellMig(rmDF)
 #' rmTD <- rmPreProcessing(rmTD, FrameN=30)
@@ -5297,7 +5298,7 @@ rmPreProcessing = function(
 #' and preprocessed data.
 #'
 #' @examples
-#' WSADataset <- cellmigRation::WSADataset
+#' WSADataset <- get(data(WSADataset))
 #' wasDF=WSADataset[seq(1,30,by=1),]
 #' wsaTD <- CellMig(wasDF)
 #' wsaTD <- wsaPreProcessing(wsaTD,FrameN=20)
@@ -5516,7 +5517,7 @@ wsaPreProcessing = function(
 #'
 #'
 #' @examples
-#' rmTD <- cellmigRation::preProcCellMig
+#' rmTD <- get(data(preProcCellMig))
 #' plotAllTracks(object=rmTD, Type="l", FixedField=TRUE,export=FALSE)
 #'
 #' @importFrom grDevices rainbow jpeg dev.off
@@ -5693,7 +5694,7 @@ plotAllTracks= function(
 #'
 #'
 #' @examples
-#' preProcCellMig <- cellmigRation::preProcCellMig
+#' preProcCellMig <- get(data(preProcCellMig))
 #' plotSampleTracks(preProcCellMig, Type="l", FixedField=TRUE,
 #'                  celNum=5, export=FALSE, ExpName = NULL)
 #'
@@ -5890,7 +5891,7 @@ plotSampleTracks= function(
 #'
 #' @examples
 #' # interactive shall be set to TRUE (default)
-#' rmTD <- cellmigRation::preProcCellMig
+#' rmTD <- get(data(preProcCellMig))
 #' plot3DAllTracks(rmTD, VS=3, size=2, interactive = FALSE)
 #'
 #'
@@ -5980,7 +5981,7 @@ plot3DAllTracks= function(object, VS=3, size=2, interactive = TRUE) {
 #'
 #' @examples
 #' # interactive shall be set to TRUE (default)
-#' rmTD <- cellmigRation::preProcCellMig
+#' rmTD <- get(data(preProcCellMig))
 #' plot3DTracks(rmTD, VS=3, size=2, cells=seq(1,5,by=1), interactive = FALSE)
 #'
 #' @importFrom grDevices rainbow
@@ -6074,7 +6075,7 @@ plot3DTracks= function(object, VS=3, size=2, cells, interactive=TRUE) {
 #'
 #'
 #' @examples
-#' rmTD <- cellmigRation::preProcCellMig
+#' rmTD <- get(data(preProcCellMig))
 #' PlotTracksSeparately(rmTD,Type="b", FixedField=FALSE, export = FALSE)
 #'
 #' @importFrom grDevices rainbow jpeg dev.off
@@ -6242,7 +6243,7 @@ PlotTracksSeparately= function(
 #'
 #'
 #' @examples
-#' rmTD <- cellmigRation::preProcCellMig
+#' rmTD <- get(data(preProcCellMig))
 #' rmTD <- PerAndSpeed(rmTD,TimeInterval=10, export=FALSE)
 #'
 #' @importFrom grDevices rainbow jpeg dev.off chull
@@ -6497,7 +6498,7 @@ PerAndSpeed= function(
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' rmTD <- cellmigRation::preProcCellMig
+#' rmTD <- get(data(preProcCellMig))
 #' rmTD <- DiRatio(rmTD, export=FALSE)
 #'
 #'
@@ -6629,7 +6630,7 @@ DiRatio = function(object,TimeInterval=10, export=FALSE, ExpName=NULL) {
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' rmTD <- cellmigRation::preProcCellMig
+#' rmTD <- get(data(preProcCellMig))
 #' DiRatioPlot(object=rmTD, export=FALSE)
 #'
 #'
@@ -8045,6 +8046,7 @@ aggregateFR<-function(x, ..., export=FALSE){
 #' @examples
 #' ## The analysis only supports the interactive method!
 #' ## If interactive=FALSE, the function will return NULL
+#' data(WSADataset)
 #' wasDF1 <- WSADataset[seq(1,300,by=1), ]
 #' wsaTD1 <- CellMig(wasDF1)
 #' wsaTD1 <- wsaPreProcessing(wsaTD1,FrameN=55)
@@ -8126,7 +8128,7 @@ CellMigPCAclustALL <- function(
 #' \url{https://www.data-pulse.com/dev_site/cellmigration/}
 #'
 #' @examples
-#' rmTD <- cellmigRation::preProcCellMig
+#' rmTD <- get(data(preProcCellMig))
 #' rmTD <- DiRatio(rmTD, export=FALSE)
 #' head(getDiRatio(rmTD))
 #'
@@ -8155,7 +8157,7 @@ getDiRatio <- function(object)
 #'
 #'
 #' @examples
-#' rmTD <- cellmigRation::preProcCellMig
+#' rmTD <- get(data(preProcCellMig))
 #' rmTD <- PerAndSpeed(rmTD,TimeInterval=10, export=FALSE)
 #' head(getPerAndSpeed(rmTD))
 #'

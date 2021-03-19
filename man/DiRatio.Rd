@@ -36,7 +36,7 @@ of the migration trajectory,
 Directionality Ratio and Directional persistence
 }
 \examples{
-rmTD <- cellmigRation::preProcCellMig
+rmTD <- get(data(preProcCellMig))
 rmTD <- DiRatio(rmTD, export=FALSE)
 
 

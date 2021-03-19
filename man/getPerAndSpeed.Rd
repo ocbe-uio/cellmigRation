@@ -18,7 +18,7 @@ The PerAndSpeed() generates data and plots for
 persistence and speed.
 }
 \examples{
-rmTD <- cellmigRation::preProcCellMig
+rmTD <- get(data(preProcCellMig))
 rmTD <- PerAndSpeed(rmTD,TimeInterval=10, export=FALSE)
 head(getPerAndSpeed(rmTD))
 

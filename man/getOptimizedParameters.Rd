@@ -17,7 +17,7 @@ a list including optimized parameter values
 Extract Parameters that were automatically optimized
 }
 \examples{
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 getOptimizedParameters(x)
 
 

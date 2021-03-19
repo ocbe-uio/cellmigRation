@@ -18,7 +18,7 @@ a data.frame including cell tracks data
 Extract Track Data from a trackedCells object
 }
 \examples{
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 getTracks(x)[seq(1,10,by=1),]
 
 

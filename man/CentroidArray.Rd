@@ -29,7 +29,8 @@ in each frame of the imported TIFF image stack
 }
 \examples{
 # by default, the dryrun argument is set to FALSE
-x0 <- getCellImages(cellmigRation::TrackCellsDataset)
+df <- get(data(TrackCellsDataset))
+x0 <- getCellImages(df)
 y0 <- cellmigRation:::CentroidArray(x0, 16, 10, TRUE)
 y0
 

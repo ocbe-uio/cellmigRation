@@ -22,7 +22,7 @@ test_module_01 <- function() {
 }
 
 test_module_02 <- function() {
-    df <- TrajectoryDataset
+    df <- get(data(TrajectoryDataset))
     rmTD <- CellMig(df)
     RUnit::checkTrue(is(rmTD, "CellMig"))
 

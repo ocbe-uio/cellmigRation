@@ -55,7 +55,7 @@ preprocessing
 of the trajectory data from wound scratch assay (WSA) experiments.
 }
 \examples{
-WSADataset <- cellmigRation::WSADataset
+WSADataset <- get(data(WSADataset))
 wasDF=WSADataset[seq(1,30,by=1),]
 wsaTD <- CellMig(wasDF)
 wsaTD <- wsaPreProcessing(wsaTD,FrameN=20)

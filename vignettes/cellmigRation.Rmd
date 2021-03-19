@@ -20,8 +20,6 @@ knitr::opts_chunk$set(
 )
 
 Tim0 <- Sys.time()
-set.seed(1234)
-
 library(ggplot2)
 library(dplyr)
 library(cellmigRation)
@@ -100,19 +98,24 @@ Damiano Fantini (Northwestern University, Chicago, IL, USA); Salim Ghannoum
 
 - GitHub page: <https://github.com/ocbe-uio/cellmigRation>
 
+### Reproducibility
 
+For reproducibility of the output on this document, please run the following
+command in your R session before proceeding:
 
-
+```{r setting_seed}
+set.seed(1234)
+```
 
 ## Installation
 
 The package is currently available on Bioconductor. It can be installed using
 the following command:
 
-```{r}
-try(
-    BiocManager::install("cellmigRation", update = FALSE),
-    silent = TRUE)
+```{r installing_cellmigRation, eval=FALSE}
+if(!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("cellmigRation")
 ```
 
 
@@ -193,7 +196,7 @@ particles detected in the frame with median signal from a TIFF stack. This
 operation supports parallelization (**recommended**: parallelize by
 setting the `threads` argument to a value bigger than 1).
 
-**Note 1**: the user may request to visualize a plot. The output plot shows how
+**Note**: the user may request to visualize a plot. The output plot shows how
 many cells were detected for each combination of parameter values. By default,
 the *pick #1* is selected for the downstream steps.
 

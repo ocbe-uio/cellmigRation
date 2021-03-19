@@ -36,7 +36,7 @@ data from random
 migration (RM) experiments.
 }
 \examples{
-TrajectoryDataset <- cellmigRation::TrajectoryDataset
+TrajectoryDataset <- get(data(TrajectoryDataset))
 rmDF=TrajectoryDataset[seq(1,40,by=1),]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD, FrameN=30)

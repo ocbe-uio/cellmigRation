@@ -39,7 +39,7 @@ Grier and Crocker's.
 CREATED: Eric R. Dufresne, Yale University, Feb 4 2005.
 }
 \examples{
-x0 <- getCellImages(cellmigRation::TrackCellsDataset)
+x0 <- getCellImages(get(data(TrackCellsDataset)))
 x0 <- x0$images[[1]][seq(80,150,by=1), seq(80,150,by=1)]
 b <- cellmigRation:::bpass(image_array = x0, lnoise = 2,
                            lobject = 15, threshold = 1)
