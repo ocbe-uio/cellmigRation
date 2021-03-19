@@ -111,10 +111,10 @@ set.seed(1234)
 The package is currently available on Bioconductor. It can be installed using
 the following command:
 
-```{r}
-try(
-    BiocManager::install("cellmigRation", update = FALSE),
-    silent = TRUE)
+```{r installing_cellmigRation, eval=FALSE}
+if(!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("cellmigRation")
 ```
 
 
