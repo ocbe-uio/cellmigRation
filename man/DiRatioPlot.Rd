@@ -30,7 +30,7 @@ of the migration trajectory,
 Directionality Ratio
 }
 \examples{
-rmTD <- cellmigRation::preProcCellMig
+rmTD <- get(data(preProcCellMig))
 DiRatioPlot(object=rmTD, export=FALSE)
 
 

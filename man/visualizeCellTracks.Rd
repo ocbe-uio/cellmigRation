@@ -37,7 +37,7 @@ None
 Visualize Cell Tracks that originated at an Image Stack of interest
 }
 \examples{
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 visualizeCellTracks(tc_obj = x, stack = 2)
 
 

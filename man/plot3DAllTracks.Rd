@@ -30,7 +30,7 @@ of the coordinate system (X=0,Y=0).
 }
 \examples{
 # interactive shall be set to TRUE (default)
-rmTD <- cellmigRation::preProcCellMig
+rmTD <- get(data(preProcCellMig))
 plot3DAllTracks(rmTD, VS=3, size=2, interactive = FALSE)
 
 

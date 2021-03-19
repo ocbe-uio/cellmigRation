@@ -49,7 +49,7 @@ This is an internal function supporting the Optimization Parameter
 steps
 }
 \examples{
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 x <- cellmigRation::getCellImages(x = x)
 y <- cellmigRation:::Prep4OptimizeParams(stack_img = x)
 y$success

@@ -35,7 +35,7 @@ stack
 }
 \examples{
 # Representative output
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 VisualizeStackCentroids(tc_obj = x, stack = 2, pnt.cex = 5, offset = 1.3)
 
 

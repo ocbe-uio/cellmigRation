@@ -54,7 +54,7 @@ the input objects.
 # A pseudo-code example is shown below
 # Let x0, x1, x2, ... be trackedCells-class objects
 # with a non-empty tracks slot.
-x0 <- cellmigRation::TrackCellsDataset
+x0 <- get(data(TrackCellsDataset))
 x0 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "CTRL")
 x1 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DMSO")
 x2 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DRUG")
