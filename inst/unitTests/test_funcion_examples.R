@@ -1,7 +1,7 @@
 # To manually check these tests, run BiocGenerics:::testPackage("cellmigRation")
 
 test_OptimizeParams_getOptimizedParams <- function() {
-    x <- cellmigRation::TrackCellsDataset
+    x <- get(data(TrackCellsDataset))
     x <- OptimizeParams(
         tc_obj = x, lnoise_range = c(5,7,10),
         diameter_range = c(12,14,18),
@@ -14,7 +14,7 @@ test_OptimizeParams_getOptimizedParams <- function() {
 }
 
 test_CellTracker_getTracks <- function() {
-    x <- cellmigRation::TrackCellsDataset
+    x <- get(data(TrackCellsDataset))
     x <- CellTracker(x, dryrun=TRUE)
     RUnit::checkEquals(
         getTracks(x)[1, ],
@@ -24,7 +24,7 @@ test_CellTracker_getTracks <- function() {
 }
 
 test_ComputeTracksStats_getCellStats <- function() {
-    x <- cellmigRation::TrackCellsDataset
+    x <- get(data(TrackCellsDataset))
     x <- ComputeTracksStats(
         x, time_between_frames = 10,
         resolution_pixel_per_micron = 20
@@ -42,7 +42,7 @@ test_ComputeTracksStats_getCellStats <- function() {
 }
 
 test_aggregateTrackedCells <- function() {
-    x0 <- cellmigRation::TrackCellsDataset
+    x0 <- get(data(TrackCellsDataset))
     x0 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "CTRL")
     x1 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DMSO")
     x2 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DRUG")
@@ -59,7 +59,7 @@ test_aggregateTrackedCells <- function() {
 }
 
 test_DiRatio <- function() {
-    rmTD <- cellmigRation::preProcCellMig
+    rmTD <- get(data(preProcCellMig))
     rmTD <- DiRatio(rmTD, export=FALSE)
     RUnit::checkTrue(is(rmTD, "CellMig"))
 }
