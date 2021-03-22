@@ -24,7 +24,7 @@ for a
 trackedCells object where cells have already been tracked.
 }
 \examples{
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 x <- ComputeTracksStats(x, time_between_frames = 10,
                         resolution_pixel_per_micron = 20)
 getCellsStats(x)

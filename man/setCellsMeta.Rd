@@ -26,7 +26,7 @@ and replicate ID.
 Write/Replace MetaData of a trackedCells object
 }
 \examples{
-x0 <- cellmigRation::TrackCellsDataset
+x0 <- get(data(TrackCellsDataset))
 x0 <- setCellsMeta(x0, experiment = "my_exp_01", condition = "DMSO")
 getCellsMeta(x0)
 

@@ -47,7 +47,7 @@ using
 VisualizeStackCentroids() or visualizeCellTracks() instead.
 }
 \examples{
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 x <- getCellImages(x)
 x$images[[1]] <- x$images[[1]][seq(110,160,by=1), seq(100,160,by=1)]
 cellmigRation:::CentroidValidation(x, slice = 1, lobject =10, threshold = 5)

@@ -104,7 +104,7 @@ for removing stray noise or small particles.
 }
 }
 \examples{
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 x <- CellTracker(x, dryrun=TRUE)
 getTracks(x)[seq(1,12,by=1),]
 

@@ -47,7 +47,7 @@ the starting point of each track is located at the
 origin of the coordinate system (X=0,Y=0).
 }
 \examples{
-preProcCellMig <- cellmigRation::preProcCellMig
+preProcCellMig <- get(data(preProcCellMig))
 plotSampleTracks(preProcCellMig, Type="l", FixedField=TRUE,
                  celNum=5, export=FALSE, ExpName = NULL)
 

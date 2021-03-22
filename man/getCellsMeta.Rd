@@ -17,7 +17,7 @@ tiff filename, experiment name, condition label, and replicate ID.
 Extract MetaData from a trackedCells object
 }
 \examples{
-x0 <- cellmigRation::TrackCellsDataset
+x0 <- get(data(TrackCellsDataset))
 getCellsMeta(x0)
 
 }

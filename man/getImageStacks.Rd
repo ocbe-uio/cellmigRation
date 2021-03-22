@@ -17,7 +17,7 @@ matrices)
 Extract Images Stacks from a trackedCells object
 }
 \examples{
-x0 <- cellmigRation::TrackCellsDataset
+x0 <- get(data(TrackCellsDataset))
 y0 <- getImageStacks(x0)
 graphics::image(y0[[1]])
 

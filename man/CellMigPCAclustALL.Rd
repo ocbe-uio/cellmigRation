@@ -39,6 +39,7 @@ clusters based on the Principal Component Analysis.
 \examples{
 ## The analysis only supports the interactive method!
 ## If interactive=FALSE, the function will return NULL
+data(WSADataset)
 wasDF1 <- WSADataset[seq(1,300,by=1), ]
 wsaTD1 <- CellMig(wasDF1)
 wsaTD1 <- wsaPreProcessing(wsaTD1,FrameN=55)

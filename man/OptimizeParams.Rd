@@ -92,7 +92,7 @@ for removing stray noise or small particles.
 }
 }
 \examples{
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 x <- OptimizeParams(tc_obj = x, lnoise_range = c(5,7,10),
                     diameter_range = c(12,14,18),
                     threshold_range = c(4,7), dryrun = TRUE)

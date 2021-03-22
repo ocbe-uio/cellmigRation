@@ -16,7 +16,7 @@ data.frame including cell migration stats
 Extract cell migration statistics from a trackedCells object
 }
 \examples{
-x <- cellmigRation::TrackCellsDataset
+x <- get(data(TrackCellsDataset))
 getCellsStats(x)
 
 
