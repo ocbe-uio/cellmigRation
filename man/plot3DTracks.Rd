@@ -31,6 +31,10 @@ The 3D visualization shows centered trajectories
 where the starting point of each track is located at the origin
 of the coordinate system (X=0,Y=0).
 }
+\note{
+This function requires the \code{rgl} package to be installed on your
+system.
+}
 \examples{
 # interactive shall be set to TRUE (default)
 rmTD <- get(data(preProcCellMig))
