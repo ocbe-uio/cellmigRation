@@ -5894,12 +5894,19 @@ plotSampleTracks= function(
 #' rmTD <- get(data(preProcCellMig))
 #' plot3DAllTracks(rmTD, VS=3, size=2, interactive = FALSE)
 #'
+#' @note This function requires the \code{rgl} package to be installed on your
+#' system.
 #'
 #' @importFrom grDevices rainbow
-#' @importFrom rgl plot3d
 #'
 #' @export
 plot3DAllTracks= function(object, VS=3, size=2, interactive = TRUE) {
+    if (!requireNamespace("rgl", quietly=TRUE)) {
+        stop(
+            "Could not load the rgl package. Please install ",
+            "the rgl package in order to use plot3DAllTracks()."
+        )
+    }
     if(!interactive) {
         message("Modality not supported")
         return(NULL)
@@ -5984,12 +5991,20 @@ plot3DAllTracks= function(object, VS=3, size=2, interactive = TRUE) {
 #' rmTD <- get(data(preProcCellMig))
 #' plot3DTracks(rmTD, VS=3, size=2, cells=seq(1,5,by=1), interactive = FALSE)
 #'
+#' @note This function requires the \code{rgl} package to be installed on your
+#' system.
+#'
 #' @importFrom grDevices rainbow
-#' @importFrom rgl plot3d
 #' @importFrom stats complete.cases
 #'
 #' @export
 plot3DTracks= function(object, VS=3, size=2, cells, interactive=TRUE) {
+    if (!requireNamespace("rgl", quietly=TRUE)) {
+        stop(
+            "Could not load the rgl package. Please install ",
+            "the rgl package in order to use plot3DTracks()."
+        )
+    }
     Object<- getCellMigSlot(object, "preprocessedDS")
     msg <- NULL
     if (!interactive) {
