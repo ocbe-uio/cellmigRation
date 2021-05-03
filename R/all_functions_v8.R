@@ -5890,9 +5890,11 @@ plotSampleTracks= function(
 #'
 #'
 #' @examples
-#' # interactive shall be set to TRUE (default)
-#' rmTD <- get(data(preProcCellMig))
-#' plot3DAllTracks(rmTD, VS=3, size=2, interactive = FALSE)
+#' \donttest{
+#'   # interactive shall be set to TRUE (default)
+#'   rmTD <- get(data(preProcCellMig))
+#'   plot3DAllTracks(rmTD, VS=3, size=2, interactive = FALSE)
+#' }
 #'
 #' @note This function requires the \code{rgl} package to be installed on your
 #' system.
@@ -5987,9 +5989,11 @@ plot3DAllTracks= function(object, VS=3, size=2, interactive = TRUE) {
 #'
 #'
 #' @examples
-#' # interactive shall be set to TRUE (default)
-#' rmTD <- get(data(preProcCellMig))
-#' plot3DTracks(rmTD, VS=3, size=2, cells=seq(1,5,by=1), interactive = FALSE)
+#' \donttest{
+#'   # interactive shall be set to TRUE (default)
+#'   rmTD <- get(data(preProcCellMig))
+#'   plot3DTracks(rmTD, VS=3, size=2, cells=seq(1,5,by=1), interactive = FALSE)
+#' }
 #'
 #' @note This function requires the \code{rgl} package to be installed on your
 #' system.
