@@ -33,9 +33,11 @@ This function requires the \code{rgl} package to be installed on your
 system.
 }
 \examples{
-# interactive shall be set to TRUE (default)
-rmTD <- get(data(preProcCellMig))
-plot3DAllTracks(rmTD, VS=3, size=2, interactive = FALSE)
+\donttest{
+  # interactive shall be set to TRUE (default)
+  rmTD <- get(data(preProcCellMig))
+  plot3DAllTracks(rmTD, VS=3, size=2, interactive = FALSE)
+}
 
 }
 \references{
