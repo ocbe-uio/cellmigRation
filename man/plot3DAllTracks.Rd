@@ -33,7 +33,7 @@ This function requires the \code{rgl} package to be installed on your
 system.
 }
 \examples{
-\donttest{
+if (Sys.info()[["sysname"]] != "Darwin") {
   # interactive shall be set to TRUE (default)
   rmTD <- get(data(preProcCellMig))
   plot3DAllTracks(rmTD, VS=3, size=2, interactive = FALSE)
