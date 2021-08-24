@@ -162,7 +162,7 @@ ui <- fluidPage(
 				width = "50%"
 			),
 			h1("Welcome to the cellmigRation Shiny app!"), p(),
-			"Please load a proper TIFF file using the 'Browse' button on the",
+			"Please load a suitable TIFF file using the 'Browse' button on the",
 			"left. After the file is loaded, you will be presented with more",
 			"options and a help page."
 		),
@@ -195,11 +195,31 @@ ui <- fluidPage(
 						width = "30%"
 					),
 					h1("Welcome to the cellmigRation Shiny app!"), p(),
+					"cellmigRation is an R package for tracking cells",
+					"and analyzing their trajectories. This Shiny app",
+					"provides a graphical version of the package, allowing for",
+					"easier access to some of its most important features. To",
+					"access all the features of cellmigRation, please use the",
+					a(
+						href="https://bioconductor.org/packages/cellmigRation/",
+						"R package published on Bioconductor"
+					), ".",
+					h2("Troubleshooting"), p(),
+					h3("Frame selection is not working as expected"), p(),
 					"Frame selection on the slider and autoplay is disabled",
 					"for the processed image for performance purposes.",
 					"Use the 'Previous/Next frame' buttons instead.",
 					"You can also select a frame on the slider and then press",
-					"one of the aforementioned buttons to load a slide."
+					"one of the aforementioned buttons to load a slide.",
+					h3("Form fields are too tiny"), p(),
+					"Try increasing the screenspace the app is taking,",
+					"for example by setting the window to fullscreen.",
+					h3("Something else is wrong"), p(),
+					"Please file a bug report on",
+					a(
+						href="https://github.com/ocbe-uio/CellMigRation/issues",
+						"https://github.com/ocbe-uio/CellMigRation/issues"
+					)
 				),
 				id = "post_load"
 			)
