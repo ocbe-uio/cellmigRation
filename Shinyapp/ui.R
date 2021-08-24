@@ -124,7 +124,7 @@ ui <- fluidPage(
 				column(4, numericInput("threshold", "Threshold", 0, step = .1))
 			),
 			numericInput("num_threads", "Number of CPU threads to use", 2, 1),
-			actionButton("fit_model", "Submit")
+			actionButton("fit_model", "Fit model") # TODO: add some "please wait" text
 		),
 		# ----------------------------------------------------------------------
 		# Cell tracking
@@ -169,9 +169,9 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "output.slider",
 			tabsetPanel(
-				tabPanel("Original image", imageOutput("image_frame")),
-				tabPanel("Processed image", plotOutput("processed_image")),
-				tabPanel("Model estimation",
+				tabPanel("1. Original image", imageOutput("image_frame")),
+				tabPanel("1. Processed image", plotOutput("processed_image")),
+				tabPanel("2. Model estimation",
 					h1("Instructions"),
 					"Estimating parameters usually takes several minutes.",
 					"Please click the 'Submit' button on the left and wait",

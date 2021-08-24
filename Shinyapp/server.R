@@ -98,7 +98,7 @@ server <- function(input, output, session) {
 		updateTabsetPanel(
 			session,
 			inputId = "post_load",
-			selected = "Model estimation"
+			selected = "2. Model estimation"
 		) # FIXME: tab selection works sporadically?
 		# Automated parameter optimization
 		x1 <- LoadTiff(
