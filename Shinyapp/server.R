@@ -8,7 +8,9 @@ options(shiny.maxRequestSize = 1024*1024^2)  # file limit: 1 GB
 server <- function(input, output, session) {
 	# Reactive values ------------------------------------------------------------
 	frame <- reactiveValues(out = 1)
-	# Load imported data -------------------------------------------------------
+	x <- reactiveValues(x1 = NULL, x2 = NULL)
+	parms <- reactiveValues(lnoise = NULL, diameter = NULL, threshold = NULL)
+	# Load imported data ---------------------------------------------------------
 		image <- reactive({
 		req(input$imported_tiff)
 		filename <- normalizePath(file.path(input$imported_tiff$datapath))
@@ -79,7 +81,7 @@ server <- function(input, output, session) {
 	# Displaying data ------------------------------------------------------------
 	output$processed_image <- renderPlot({
 		req(input$imported_tiff)
-		x1 <- cellmigRation::LoadTiff(
+		x$x1 <- cellmigRation::LoadTiff(
 			tiff_file  = input$imported_tiff$datapath,
 			experiment = input$project_name,
 			condition  = input$project_condition,
@@ -91,43 +93,50 @@ server <- function(input, output, session) {
 		time_var <- input$frame_duration
 		res_var <- input$pixel_size
 		invert_background <- input$invert_background
-		VisualizeImg(x1@images$images[[frame$out]], las = 1, main = paste("Stack num.", frame$out))
+		VisualizeImg(
+			img_mtx = x$x1@images$images[[frame$out]],
+			las = 1,
+			main = paste("Stack num.", frame$out)
+		)
 	})
 	# Fitting model ------------------------------------------------------------
 	observeEvent(input$fit_model, {
+		message("Fitting model")
 		updateTabsetPanel(
 			session,
 			inputId = "post_load",
 			selected = "2. Model estimation"
 		) # FIXME: tab selection works sporadically?
-		# Automated parameter optimization
-		x1 <- LoadTiff(
+		# Automated parameter optimization -------------------------------------
+		x$x1 <- LoadTiff(
 			tiff_file  =  input$imported_tiff$datapath,
 			experiment = input$project_name,
 			condition  = input$project_condition,
 			replicate  = input$replicate
-		) # TODO: DRY: move this and L:291 to one reactive function
-		x1 <- OptimizeParams(tc_obj = x1, threads = input$num_threads)
+		) # TODO: DRY: move this and L:291 to one reactive function?
+		message("Optimizing parameters. Please wait")
+		x$x1 <- OptimizeParams(tc_obj = x$x1, threads = input$num_threads)
+		message("Rendering plot")
 		output$VisualizeImg <- renderPlot({
-			if (length(x1@optimized) > 0) {
-				lnoise    <- x1@optimized$auto_params$lnoise
-				diameter  <- x1@optimized$auto_params$diameter
-				threshold <- x1@optimized$auto_params$threshold
+			if (length(x$x1@optimized) > 0) {
+				parms$lnoise <- x$x1@optimized$auto_params$lnoise
+				parms$diameter <- x$x1@optimized$auto_params$diameter
+				parms$threshold <- x$x1@optimized$auto_params$threshold
 				b <- cellmigRation:::bpass(
-					image_array = x1@images$images[[frame$out]],
-					lnoise = lnoise,
-					lobject = diameter,
-					threshold = threshold
+					image_array = x$x1@images$images[[frame$out]],
+					lnoise = parms$lnoise,
+					lobject = parms$diameter,
+					threshold = parms$threshold
 				)
 				pk <- cellmigRation:::pkfnd(
 					im = b,
-					th = threshold,
-					sz = cellmigRation:::NextOdd(diameter)
+					th = parms$threshold,
+					sz = cellmigRation:::NextOdd(parms$diameter)
 				)
 				cnt <- cellmigRation:::cntrd(
 					im = b,
 					mx = pk,
-					sz = cellmigRation:::NextOdd(diameter)
+					sz = cellmigRation:::NextOdd(parms$diameter)
 				)
 				# Visualize Centroids
 				VisualizeImg(
@@ -140,9 +149,35 @@ server <- function(input, output, session) {
 				)
 			}
 		})
+		message("Ready for cell tracking")
 	})
-	# Tracking cells -------------------------------------------------------------
-	eventReactive(input$track_cells, {
-		# TODO: track cells using cellmigRation functions
+	# Tracking cells -----------------------------------------------------------
+	observeEvent(input$track_cells, {
+		message("Tracking cells. Please wait")
+		print(str(x$x1))#TEMP
+		# FIXME: CellTracker unable to find an inherited method for function ‘setTrackedCentroids’ for signature ‘"trackedCells", "NULL"’
+		# Solution: remodel x$x1 (@optimize is empty, but it was calculated on step 2)
+		x$x2 <- cellmigRation:::CellTracker(
+			tc_obj = x$x1,
+			lnoise = parms$lnoise,
+			diameter = parms$diameter,
+			threshold = parms$threshold,
+			maxDisp = input$max_disp,
+			threads = input$num_threads,
+			show_plots = FALSE,
+			verbose = FALSE
+		)
+		output$VisualizeImgStep3 <- renderPlot({
+			VisualizeImg(
+				img_mtx = x$x2@proc_images$images[[frame$out]],
+				las = 1,
+				main = paste0("Stack num. ", frame$out)
+			)
+			cellmigRation:::VisualizeCntr(
+				centroids = x$x2@centroids[[frame$out]],
+				width_px = ncol(x$x2@proc_images$images[[frame$out]]),
+				height_px = nrow(x$x2@proc_images$images[[frame$out]])
+			)
+		})
 	})
 }
