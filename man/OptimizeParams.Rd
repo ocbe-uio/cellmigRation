@@ -14,7 +14,6 @@ OptimizeParams(
   threads = 1,
   quantile.val = NULL,
   px.margin = NULL,
-<<<<<<< HEAD
   plot = FALSE,
   verbose = FALSE,
   dryrun = FALSE
@@ -49,7 +48,6 @@ EstimateDiameterRange(). If NULL, it is defaulted to 0.99}
 EstimateDiameterRange(). If NULL, it ia defaulted to 2}
 
 \item{plot}{if `TRUE`, plots results in the end}
-<<<<<<< HEAD
 
 \item{verbose}{shall information about the progress of the
 operation be printed to screen/console}

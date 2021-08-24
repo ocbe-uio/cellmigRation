@@ -11,7 +11,6 @@ PerAndSpeed(
   AllPtSplot = TRUE,
   ApSplot = TRUE,
   AllApSplot = TRUE,
-<<<<<<< HEAD
   export = FALSE,
   ExpName = NULL
 )
@@ -36,7 +35,6 @@ plots of angular persistence vs speed per cell. Default is TRUE.}
 of angular persistence vs speed of all cells. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output}
-<<<<<<< HEAD
 
 \item{ExpName}{string, indicates the name of the experiment.
 Can be NULL}

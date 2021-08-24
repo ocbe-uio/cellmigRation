@@ -11,7 +11,6 @@ ForwardMigration(
   afptPLOT = TRUE,
   sfpPLOT = TRUE,
   afpPLOT = TRUE,
-<<<<<<< HEAD
   export = FALSE,
   ExpName = NULL
 )

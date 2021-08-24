@@ -6,17 +6,10 @@
 \usage{
 plotAllTracks(
   object,
-<<<<<<< HEAD
   Type = "l",
   FixedField = TRUE,
   export = FALSE,
   ExpName = NULL
-=======
-  ExpName = "ExpName",
-  Type = "l",
-  FixedField = TRUE,
-  export = FALSE
->>>>>>> shiny-page-4
 )
 }
 \arguments{
@@ -33,7 +26,6 @@ of data frames resulted from the PreProcessing.}
 fixed field 800um x 800um. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports plot to JPG file}
-<<<<<<< HEAD
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }

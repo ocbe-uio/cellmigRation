@@ -53,7 +53,6 @@ intervals.
 }
 \examples{
 data(TrajectoryDataset)
-<<<<<<< HEAD
 rmDF=TrajectoryDataset[1:300,]
 rmTD <- CellMig(rmDF)
 rmTD <- rmPreProcessing(rmTD,FrameN=55)

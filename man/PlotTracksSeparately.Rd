@@ -26,7 +26,6 @@ of data frames resulted from the PreProcessing.}
 with fixed field. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports plot to JPG file}
-<<<<<<< HEAD
 
 \item{ExpName}{string, name of the experiment. Can be NULL}
 }

@@ -18,7 +18,6 @@ a list including Optimized Parameters
 \description{
 Retrieve Optimized Params from a \code{trackedCells} object.
 }
-<<<<<<< HEAD
 \examples{
 data("TrackCellsDataset")
 getOptimizedParams(TrackCellsDataset)

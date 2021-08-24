@@ -13,7 +13,6 @@ MSD(
   AllSlopesPlot = TRUE,
   FurthPlot = TRUE,
   AllFurthPlot = TRUE,
-<<<<<<< HEAD
   export = FALSE,
   ExpName = NULL
 )
@@ -50,7 +49,6 @@ fitting the Furth formula using generalized regression by the
 Nelder–Mead method simplex method for all cells. Default is TRUE.}
 
 \item{export}{if `TRUE` (default), exports function output}
-<<<<<<< HEAD
 
 \item{ExpName}{string, anem of the Experiment. Can be NULL}
 }

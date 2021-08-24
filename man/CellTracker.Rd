@@ -8,8 +8,6 @@ CellTracker(
   tc_obj,
   import_optiParam_from = NULL,
   min_frames_per_cell = 1,
-=======
->>>>>>> shiny-page-4
   lnoise = NULL,
   diameter = NULL,
   threshold = NULL,
@@ -17,7 +15,6 @@ CellTracker(
   memory_b = 0,
   goodenough = 0,
   threads = 1,
-<<<<<<< HEAD
   show_plots = FALSE,
   verbose = FALSE,
   dryrun = FALSE
