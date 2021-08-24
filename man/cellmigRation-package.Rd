@@ -6,10 +6,20 @@
 \alias{cellmigRation-package}
 \title{Track And Analyze Cell Migrations}
 \description{
-Track Fluorescent Cells and Analyze their movements. Compute Migration Statistics and advanced
-metrics to understand motility and movement characteristics of a population of cells.
+Track Fluorescent Cells and Analyze their movements.
+Compute Migration Statistics and advanced metrics to understand
+motility and movement characteristics of a population of cells.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/ocbe-uio/cellmigRation/}
+  \item Report bugs at \url{https://github.com/ocbe-uio/cellmigRation/issues}
+}
+
 }
 \author{
-Salim Ghannoum \email{salim.ghannoum@medisin.uio.no}; Damiano Fantini, \email{damiano.fantini@gmail.com}
+Salim Ghannoum \email{salim.ghannoum@medisin.uio.no};
+Damiano Fantini, \email{damiano.fantini@gmail.com}
 }
 \keyword{internal}
