@@ -1,23 +1,15 @@
-# ==============================================================================
-# Loading necessary packages and options
-# ==============================================================================
+# Loading necessary packages and options ---------------------------------------
 library(remotes)
 remotes::install_github("ocbe-uio/cellmigRation")
 library(cellmigRation)
 options(shiny.maxRequestSize = 1024*1024^2)  # file limit: 1 GB
 
-# ==============================================================================
-# Defining the server logic
-# ==============================================================================
+# Defining the server logic ----------------------------------------------------
 server <- function(input, output, session) {
-	# --------------------------------------------------------------------------
-	# Reactive values
-	# --------------------------------------------------------------------------
+	# Reactive values ------------------------------------------------------------
 	frame <- reactiveValues(out = 1)
-	# --------------------------------------------------------------------------
-	# Load imported data
-	# --------------------------------------------------------------------------
-	image <- reactive({
+	# Load imported data -------------------------------------------------------
+		image <- reactive({
 		req(input$imported_tiff)
 		filename <- normalizePath(file.path(input$imported_tiff$datapath))
 		filepath <- gsub(
@@ -38,9 +30,7 @@ server <- function(input, output, session) {
 		file_list <- list.files(filepath, pattern = "*.png")
 		return(list(path = filepath, name = file_list))
 	})
-	# --------------------------------------------------------------------------
-	# Creating image controls
-	# --------------------------------------------------------------------------
+	# Creating image controls ----------------------------------------------------
 	tot_frames <- reactive(length(image()$name))
 	output$tot_frames <- renderText(tot_frames())
 	output$slider <- renderUI(
@@ -62,9 +52,7 @@ server <- function(input, output, session) {
 		if (is.null(tot_frames())) return()
 		actionButton("nxt", "Next frame")
 	})
-	# --------------------------------------------------------------------------
-	# Determining slide to show
-	# --------------------------------------------------------------------------
+	# Determining slide to show --------------------------------------------------
 	observeEvent(input$prev, {
 		frame$out <- max(input$frameSelector - 1, 1)
 	})
@@ -76,9 +64,7 @@ server <- function(input, output, session) {
 		out <- paste0(image()$path, filename)
 		return(out)
 	})
-	# --------------------------------------------------------------------------
-	# Render imported data
-	# --------------------------------------------------------------------------
+	# Render imported data -------------------------------------------------------
 	output$image_frame <- renderImage(
 		expr = {
 			req(input$imported_tiff)
@@ -90,9 +76,7 @@ server <- function(input, output, session) {
 		},
 		deleteFile = FALSE
 	)
-	# --------------------------------------------------------------------------
-	# Displaying data
-	# --------------------------------------------------------------------------
+	# Displaying data ------------------------------------------------------------
 	output$processed_image <- renderPlot({
 		req(input$imported_tiff)
 		x1 <- cellmigRation::LoadTiff(
@@ -109,9 +93,7 @@ server <- function(input, output, session) {
 		invert_background <- input$invert_background
 		VisualizeImg(x1@images$images[[frame$out]], las = 1, main = paste("Stack num.", frame$out))
 	})
-	# --------------------------------------------------------------------------
-	# Fitting model
-	# --------------------------------------------------------------------------
+	# Fitting model ------------------------------------------------------------
 	observeEvent(input$fit_model, {
 		updateTabsetPanel(
 			session,
@@ -159,9 +141,7 @@ server <- function(input, output, session) {
 			}
 		})
 	})
-	# --------------------------------------------------------------------------
-	# Tracking cells
-	# --------------------------------------------------------------------------
+	# Tracking cells -------------------------------------------------------------
 	eventReactive(input$track_cells, {
 		# TODO: track cells using cellmigRation functions
 	})
