@@ -176,12 +176,7 @@ server <- function(input, output, session) {
 			verbose    = FALSE
 		)
 		# Switching active tab -------------------------------------------------
-		updateTabsetPanel( # tab changing happens here, even if moved up or down
-			session,
-			inputId = "post_load",
-			selected = "3. Tracking cells"
-		)
-		output$VisualizeImgStep3 <- renderPlot({
+		output$VisualizeImg <- renderPlot({
 			message(Sys.time(), " - Plotting tracks")
 			VisualizeImg(
 				img_mtx = x$x2@proc_images$images[[frame$out]],

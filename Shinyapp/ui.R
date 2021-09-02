@@ -196,9 +196,6 @@ ui <- fluidPage(
 					p(),
 					plotOutput("VisualizeImg"),
 				),
-				tabPanel("3. Tracking cells",
-					plotOutput("VisualizeImgStep3"),
-				),
 				tabPanel("About/Help",
 					img(
 						src = "https://raw.githubusercontent.com/ocbe-uio/cellmigRation/master/cell_migration_logo.png",
