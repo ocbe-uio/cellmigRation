@@ -131,8 +131,6 @@ ui <- fluidPage(
 				min     = 1,
 				max     = parallel::detectCores()
 			),
-			# TODO: add some "please wait" text below. Alternatively, output all
-			# terminal messages on a dedicated box/tab
 			actionButton("fit_model", "Fit model")
 		),
 		# ----------------------------------------------------------------------
@@ -156,8 +154,8 @@ ui <- fluidPage(
 			condition = "output.step == '4'",
 			hr(),
 			h3("4. Output data"),
-			actionButton("extract_trajectories", "Extract Trajectories"),
-			actionButton("extract_summary", "Extract Summary")
+			actionButton("extract_trajectories", "Extract Trajectories"), # TODO #64: make this do something
+			actionButton("extract_summary", "Extract Summary") # TODO #64: make this do something
 		)
 	),
 	# --------------------------------------------------------------------------
@@ -179,8 +177,8 @@ ui <- fluidPage(
 			condition = "output.slider",
 			tabsetPanel(
 				tabPanel("1. Original image", imageOutput("image_frame")),
-				tabPanel("1. Processed image", plotOutput("processed_image")),
-				tabPanel("2. Model fit",
+				tabPanel("1. Processed image", plotOutput("processed_image")), # TODO: merge into previous or next tabPanel()
+				tabPanel("Model and tracking",
 					h1("Instructions"),
 					"Estimating parameters usually takes several minutes.",
 					"Please click the 'Submit' button on the left and wait",
@@ -264,7 +262,6 @@ ui <- fluidPage(
 		# outputOptions(output, "step", suspendWhenHidden=FALSE)
 		# (Source: https://stackoverflow.com/a/39827259/1169233)
 		verbatimTextOutput("step"),
-
-
+		# TODO: add a "Quit app" button
 	)
 )

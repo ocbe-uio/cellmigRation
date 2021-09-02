@@ -87,7 +87,7 @@ server <- function(input, output, session) {
 			condition  = input$project_condition,
 			replicate  = input$replicate
 		)
-		# FIXME: doesn't reselect if frame is changed on the slider (only buttons work)
+		# FIXME #68: doesn't reselect if frame is changed on the slider (only buttons work)
 		# X1 <- readRDS(...) # ASK: what is this about?
 		# Store in variables for now
 		time_var <- input$frame_duration
@@ -99,7 +99,7 @@ server <- function(input, output, session) {
 			main = paste("Stack num.", frame$out)
 		)
 	})
-	# 2. Model fit -------------------------------------------------------------
+	# Model and tracking -------------------------------------------------------------
 	observeEvent(input$fit_model, {
 		# Actually fitting model (or using user values) ------------------------
 		x$x1 <- LoadTiff(
@@ -124,7 +124,7 @@ server <- function(input, output, session) {
 		updateTabsetPanel( # tab changing happens here, even if moved up or down
 			session,
 			inputId = "post_load",
-			selected = "2. Model fit"
+			selected = "Model and tracking"
 		)
 		# Rendering plot -------------------------------------------------------
 		output$VisualizeImg <- renderPlot({
@@ -164,10 +164,7 @@ server <- function(input, output, session) {
 	})
 	# 3. Cell tracking ---------------------------------------------------------
 	observeEvent(input$track_cells, {
-		# FIXME: not doing anything if model fit was automated
 		message(Sys.time(), " - Tracking cells. Please wait")
-		# FIXME: CellTracker unable to find an inherited method for function ‘setTrackedCentroids’ for signature ‘"trackedCells", "NULL"’
-		# Solution: remodel x$x1 (@optimize is empty, but it was calculated on step 2)
 		x$x2 <- cellmigRation:::CellTracker(
 			tc_obj     = x$x1,
 			lnoise     = parms$lnoise,
@@ -178,7 +175,6 @@ server <- function(input, output, session) {
 			show_plots = FALSE,
 			verbose    = FALSE
 		)
-		print(str(x$x2, max.level=2))#TEMP
 		# Switching active tab -------------------------------------------------
 		updateTabsetPanel( # tab changing happens here, even if moved up or down
 			session,
