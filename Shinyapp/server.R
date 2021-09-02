@@ -109,10 +109,18 @@ server <- function(input, output, session) {
 			condition  = input$project_condition,
 			replicate  = input$replicate
 		) # TODO: DRY: move this and L:291 to one reactive function?
-		# TODO: skip OptimizeParams() if user inserts values
-		message(Sys.time(), " - Optimizing model parameters. Please wait")
-		x$x1 <- OptimizeParams(tc_obj = x$x1, threads = input$num_threads)
-		message(Sys.time(), " - Rendering plot")
+		if (input$who_estimates_parms == "auto") {
+			message(Sys.time(), " - Optimizing model parameters. Please wait")
+			x$x1 <- OptimizeParams(tc_obj = x$x1, threads = input$num_threads)
+			parms$lnoise    <- x$x1@optimized$auto_params$lnoise
+			parms$diameter  <- x$x1@optimized$auto_params$diameter
+			parms$threshold <- x$x1@optimized$auto_params$threshold
+		} else {
+			message(Sys.time(), " - Using model with given parameters")
+			parms$lnoise    <- input$lnoise
+			parms$diameter  <- input$diameter
+			parms$threshold <- input$threshold
+		}
 		# Switching active tab -------------------------------------------------
 		updateTabsetPanel( # tab changing happens here, even if moved up or down
 			session,
