@@ -101,7 +101,6 @@ server <- function(input, output, session) {
 	})
 	# Fitting model ------------------------------------------------------------
 	observeEvent(input$fit_model, {
-		message("Fitting model")
 		updateTabsetPanel(
 			session,
 			inputId = "post_load",
@@ -109,14 +108,15 @@ server <- function(input, output, session) {
 		) # FIXME: tab selection works sporadically?
 		# Automated parameter optimization -------------------------------------
 		x$x1 <- LoadTiff(
-			tiff_file  =  input$imported_tiff$datapath,
+			tiff_file  = input$imported_tiff$datapath,
 			experiment = input$project_name,
 			condition  = input$project_condition,
 			replicate  = input$replicate
 		) # TODO: DRY: move this and L:291 to one reactive function?
-		message("Optimizing parameters. Please wait")
+		# TODO: skip OptimizeParams() if user inserts values
+		message(Sys.time(), " - Optimizing model parameters. Please wait")
 		x$x1 <- OptimizeParams(tc_obj = x$x1, threads = input$num_threads)
-		message("Rendering plot")
+		message(Sys.time(), " - Rendering plot")
 		output$VisualizeImg <- renderPlot({
 			if (length(x$x1@optimized) > 0) {
 				parms$lnoise <- x$x1@optimized$auto_params$lnoise
@@ -149,11 +149,11 @@ server <- function(input, output, session) {
 				)
 			}
 		})
-		message("Ready for cell tracking")
+		message(Sys.time(), " - Ready for cell tracking")
 	})
 	# Tracking cells -----------------------------------------------------------
 	observeEvent(input$track_cells, {
-		message("Tracking cells. Please wait")
+		message(Sys.time(), " - Tracking cells. Please wait")
 		print(str(x$x1))#TEMP
 		# FIXME: CellTracker unable to find an inherited method for function ‘setTrackedCentroids’ for signature ‘"trackedCells", "NULL"’
 		# Solution: remodel x$x1 (@optimize is empty, but it was calculated on step 2)
