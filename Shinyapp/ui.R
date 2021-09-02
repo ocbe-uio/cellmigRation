@@ -123,7 +123,7 @@ ui <- fluidPage(
 				column(4, numericInput("diamenter", "Diameter", 0, step = .1)),
 				column(4, numericInput("threshold", "Threshold", 0, step = .1))
 			),
-			numericInput("num_threads", "Number of CPU threads to use", 2, 1),
+			numericInput("num_threads", "Number of CPU threads to use", parallel::detectCores() - 1, 1), # TODO: use parallel::detectCores() as default
 			actionButton("fit_model", "Fit model") # TODO: add some "please wait" text
 		),
 		# ----------------------------------------------------------------------
