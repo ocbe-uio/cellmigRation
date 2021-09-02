@@ -10,6 +10,7 @@ server <- function(input, output, session) {
 	frame <- reactiveValues(out = 1)
 	x     <- reactiveValues(x1 = NULL, x2 = NULL)
 	parms <- reactiveValues(lnoise = NULL, diameter = NULL, threshold = NULL)
+	step  <- reactiveValues(current=0)
 	# Load imported data -------------------------------------------------------
 		image <- reactive({
 		req(input$imported_tiff)
@@ -120,38 +121,39 @@ server <- function(input, output, session) {
 		)
 		# Rendering plot -------------------------------------------------------
 		output$VisualizeImg <- renderPlot({
-			if (length(x$x1@optimized) > 0) {
-				parms$lnoise <- x$x1@optimized$auto_params$lnoise
-				parms$diameter <- x$x1@optimized$auto_params$diameter
-				parms$threshold <- x$x1@optimized$auto_params$threshold
-				b <- cellmigRation:::bpass(
-					image_array = x$x1@images$images[[frame$out]],
-					lnoise = parms$lnoise,
-					lobject = parms$diameter,
-					threshold = parms$threshold
-				)
-				pk <- cellmigRation:::pkfnd(
-					im = b,
-					th = parms$threshold,
-					sz = cellmigRation:::NextOdd(parms$diameter)
-				)
-				cnt <- cellmigRation:::cntrd(
-					im = b,
-					mx = pk,
-					sz = cellmigRation:::NextOdd(parms$diameter)
-				)
-				# Visualize Centroids
-				VisualizeImg(
-					img_mtx = b,
-					las = 1,
-					main = paste0("Stack num. ", frame$out)
-				)
-				cellmigRation:::VisualizeCntr(
-					centroids = cnt, width_px = ncol(b), height_px = nrow(b)
-				)
-			}
+			message(Sys.time(), " - Performing bandpass")
+			b <- cellmigRation:::bpass(
+				image_array = x$x1@images$images[[frame$out]],
+				lnoise = parms$lnoise,
+				lobject = parms$diameter,
+				threshold = parms$threshold
+			)
+			message(Sys.time(), " - Finding signal peaks")
+			pk <- cellmigRation:::pkfnd(
+				im = b,
+				th = parms$threshold,
+				sz = cellmigRation:::NextOdd(parms$diameter)
+			)
+			message(Sys.time(), " - Calculating centroids")
+			cnt <- cellmigRation:::cntrd(
+				im = b,
+				mx = pk,
+				sz = cellmigRation:::NextOdd(parms$diameter)
+			)
+			# Visualize Centroids
+			message(Sys.time(), " - Plotting")
+			VisualizeImg(
+				img_mtx = b,
+				las = 1,
+				main = paste0("Stack num. ", frame$out)
+			)
+			cellmigRation:::VisualizeCntr(
+				centroids = cnt, width_px = ncol(b), height_px = nrow(b)
+			)
+			step$current <- 3
+			message(Sys.time(), " - Ready for cell tracking")
 		})
-		message(Sys.time(), " - Ready for cell tracking")
+		output$step <- renderText(step$current)
 	})
 	# 3. Cell tracking ---------------------------------------------------------
 	observeEvent(input$track_cells, {
@@ -188,6 +190,8 @@ server <- function(input, output, session) {
 				width_px = ncol(x$x2@proc_images$images[[frame$out]]),
 				height_px = nrow(x$x2@proc_images$images[[frame$out]])
 			)
+			message(Sys.time(), " - Ready for step 4")
+			step$current <- 4
 		})
 	})
 }

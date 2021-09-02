@@ -139,7 +139,7 @@ ui <- fluidPage(
 		# Cell tracking
 		# ----------------------------------------------------------------------
 		conditionalPanel(
-			condition = "input.fit_model",
+			condition = "output.step == '3'",
 			hr(),
 			h3("3. Cell tracking"),
 			numericInput(
@@ -153,7 +153,7 @@ ui <- fluidPage(
 		# Output data
 		# ----------------------------------------------------------------------
 		conditionalPanel(
-			condition = "input.track_cells",
+			condition = "output.step == '4'",
 			hr(),
 			h3("4. Output data"),
 			actionButton("extract_trajectories", "Extract Trajectories"),
@@ -258,6 +258,13 @@ ui <- fluidPage(
 					"Summary"
 				)
 			)
-		)
+		),
+		h3("Message box"),
+		# TODO: improve message box to show server messages. Alternatively, use
+		# outputOptions(output, "step", suspendWhenHidden=FALSE)
+		# (Source: https://stackoverflow.com/a/39827259/1169233)
+		verbatimTextOutput("step"),
+
+
 	)
 )
