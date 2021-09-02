@@ -116,17 +116,18 @@ ui <- fluidPage(
 				choices = list(
 					"Automated parameter estimation" = "auto",
 					"Use values below" = "user"
-				)
+				),
+				selected = "user"
 			),
 			fluidRow(
-				column(4, numericInput("lnoise", "L-noise", 0, step = .1)),
-				column(4, numericInput("diamenter", "Diameter", 0, step = .1)),
-				column(4, numericInput("threshold", "Threshold", 0, step = .1))
+				column(4, numericInput("lnoise", "L-noise", 1, step = .1)),
+				column(4, numericInput("diameter", "Diameter", 10, step = .1)),
+				column(4, numericInput("threshold", "Threshold", 5, step = .1))
 			),
 			numericInput(
 				inputId = "num_threads",
 				label   = "Number of CPU threads to use",
-				value   = parallel::detectCores() - 1,
+				value   = parallel::detectCores() - 2,
 				min     = 1,
 				max     = parallel::detectCores()
 			),
