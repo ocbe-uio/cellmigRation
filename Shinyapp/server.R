@@ -6,11 +6,11 @@ options(shiny.maxRequestSize = 1024*1024^2)  # file limit: 1 GB
 
 # Defining the server logic ----------------------------------------------------
 server <- function(input, output, session) {
-	# Reactive values ------------------------------------------------------------
+	# Reactive values ----------------------------------------------------------
 	frame <- reactiveValues(out = 1)
-	x <- reactiveValues(x1 = NULL, x2 = NULL)
+	x     <- reactiveValues(x1 = NULL, x2 = NULL)
 	parms <- reactiveValues(lnoise = NULL, diameter = NULL, threshold = NULL)
-	# Load imported data ---------------------------------------------------------
+	# Load imported data -------------------------------------------------------
 		image <- reactive({
 		req(input$imported_tiff)
 		filename <- normalizePath(file.path(input$imported_tiff$datapath))
@@ -32,7 +32,7 @@ server <- function(input, output, session) {
 		file_list <- list.files(filepath, pattern = "*.png")
 		return(list(path = filepath, name = file_list))
 	})
-	# Creating image controls ----------------------------------------------------
+	# Creating image controls --------------------------------------------------
 	tot_frames <- reactive(length(image()$name))
 	output$tot_frames <- renderText(tot_frames())
 	output$slider <- renderUI(
@@ -54,7 +54,7 @@ server <- function(input, output, session) {
 		if (is.null(tot_frames())) return()
 		actionButton("nxt", "Next frame")
 	})
-	# Determining slide to show --------------------------------------------------
+	# Determining slide to show ------------------------------------------------
 	observeEvent(input$prev, {
 		frame$out <- max(input$frameSelector - 1, 1)
 	})
@@ -66,7 +66,7 @@ server <- function(input, output, session) {
 		out <- paste0(image()$path, filename)
 		return(out)
 	})
-	# Render imported data -------------------------------------------------------
+	# Render imported data -----------------------------------------------------
 	output$image_frame <- renderImage(
 		expr = {
 			req(input$imported_tiff)
@@ -78,7 +78,7 @@ server <- function(input, output, session) {
 		},
 		deleteFile = FALSE
 	)
-	# Displaying data ------------------------------------------------------------
+	# 1. Displaying data -------------------------------------------------------
 	output$processed_image <- renderPlot({
 		req(input$imported_tiff)
 		x$x1 <- cellmigRation::LoadTiff(
@@ -99,14 +99,9 @@ server <- function(input, output, session) {
 			main = paste("Stack num.", frame$out)
 		)
 	})
-	# Fitting model ------------------------------------------------------------
+	# 2. Model fit -------------------------------------------------------------
 	observeEvent(input$fit_model, {
-		updateTabsetPanel(
-			session,
-			inputId = "post_load",
-			selected = "2. Model estimation"
-		) # FIXME: tab selection works sporadically?
-		# Automated parameter optimization -------------------------------------
+		# Actually fitting model (or using user values) ------------------------
 		x$x1 <- LoadTiff(
 			tiff_file  = input$imported_tiff$datapath,
 			experiment = input$project_name,
@@ -117,6 +112,13 @@ server <- function(input, output, session) {
 		message(Sys.time(), " - Optimizing model parameters. Please wait")
 		x$x1 <- OptimizeParams(tc_obj = x$x1, threads = input$num_threads)
 		message(Sys.time(), " - Rendering plot")
+		# Switching active tab -------------------------------------------------
+		updateTabsetPanel( # tab changing happens here, even if moved up or down
+			session,
+			inputId = "post_load",
+			selected = "2. Model fit"
+		)
+		# Rendering plot -------------------------------------------------------
 		output$VisualizeImg <- renderPlot({
 			if (length(x$x1@optimized) > 0) {
 				parms$lnoise <- x$x1@optimized$auto_params$lnoise
@@ -151,23 +153,31 @@ server <- function(input, output, session) {
 		})
 		message(Sys.time(), " - Ready for cell tracking")
 	})
-	# Tracking cells -----------------------------------------------------------
+	# 3. Cell tracking ---------------------------------------------------------
 	observeEvent(input$track_cells, {
+		# FIXME: not doing anything if model fit was automated
 		message(Sys.time(), " - Tracking cells. Please wait")
-		print(str(x$x1))#TEMP
 		# FIXME: CellTracker unable to find an inherited method for function ‘setTrackedCentroids’ for signature ‘"trackedCells", "NULL"’
 		# Solution: remodel x$x1 (@optimize is empty, but it was calculated on step 2)
 		x$x2 <- cellmigRation:::CellTracker(
-			tc_obj = x$x1,
-			lnoise = parms$lnoise,
-			diameter = parms$diameter,
-			threshold = parms$threshold,
-			maxDisp = input$max_disp,
-			threads = input$num_threads,
+			tc_obj     = x$x1,
+			lnoise     = parms$lnoise,
+			diameter   = parms$diameter,
+			threshold  = parms$threshold,
+			maxDisp    = input$max_disp,
+			threads    = input$num_threads,
 			show_plots = FALSE,
-			verbose = FALSE
+			verbose    = FALSE
+		)
+		print(str(x$x2, max.level=2))#TEMP
+		# Switching active tab -------------------------------------------------
+		updateTabsetPanel( # tab changing happens here, even if moved up or down
+			session,
+			inputId = "post_load",
+			selected = "3. Tracking cells"
 		)
 		output$VisualizeImgStep3 <- renderPlot({
+			message(Sys.time(), " - Plotting tracks")
 			VisualizeImg(
 				img_mtx = x$x2@proc_images$images[[frame$out]],
 				las = 1,

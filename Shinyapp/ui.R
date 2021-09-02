@@ -109,7 +109,7 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "output.slider",
 			hr(),
-			h3("2. Model estimation"),
+			h3("2. Model fit"),
 			radioButtons(
 				inputId = "who_estimates_parms",
 				label = "Model parameters",
@@ -179,7 +179,7 @@ ui <- fluidPage(
 			tabsetPanel(
 				tabPanel("1. Original image", imageOutput("image_frame")),
 				tabPanel("1. Processed image", plotOutput("processed_image")),
-				tabPanel("2. Model estimation",
+				tabPanel("2. Model fit",
 					h1("Instructions"),
 					"Estimating parameters usually takes several minutes.",
 					"Please click the 'Submit' button on the left and wait",
