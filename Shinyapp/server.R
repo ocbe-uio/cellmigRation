@@ -192,4 +192,21 @@ server <- function(input, output, session) {
 			step$current <- 4
 		})
 	})
+	# 4. Output data ----------------------------------------------------------
+	# TODO #64: after step 3 is done, call visualizeCellTracks() to plot
+	observeEvent(input$extract_trajectories, {
+		message(Sys.time(), " - Extracting trajectories")
+		tracks_df <- getTracks(x$x2) # FIXME: NULL
+		step$current <- 5
+		message(Sys.time(), " - Trajectories extracted")
+		print(str(tracks_df)) #TEMP
+	})
+	observeEvent(input$extract_summary, {
+		message(Sys.time(), " - Extracting summary")
+		x$x2 <- ComputeTracksStats(x$x2) #FIXME: Warning: Error in seq.default: feil forteikn i «by»-argument
+		cell_summary <- getCellsStats(x$x2)
+		step$current <- 6
+		message(Sys.time(), " - Summary extracted")
+		print(str(cell_summary)) #TEMP
+	})
 }

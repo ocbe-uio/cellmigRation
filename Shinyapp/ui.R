@@ -151,11 +151,11 @@ ui <- fluidPage(
 		# Output data
 		# ----------------------------------------------------------------------
 		conditionalPanel(
-			condition = "output.step == '4'",
+			condition = "output.step >= '4'",
 			hr(),
 			h3("4. Output data"),
-			actionButton("extract_trajectories", "Extract Trajectories"), # TODO #64: make this do something
-			actionButton("extract_summary", "Extract Summary") # TODO #64: make this do something
+			actionButton("extract_trajectories", "Extract Trajectories"),
+			actionButton("extract_summary", "Extract Summary")
 		)
 	),
 	# --------------------------------------------------------------------------
