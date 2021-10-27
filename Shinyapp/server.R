@@ -196,10 +196,10 @@ server <- function(input, output, session) {
 	# TODO #64: after step 3 is done, call visualizeCellTracks() to plot
 	observeEvent(input$extract_trajectories, {
 		message(Sys.time(), " - Extracting trajectories")
-		tracks_df <- getTracks(x$x2) # FIXME: NULL
+		tracks_df <- getTracks(x$x2)
 		step$current <- 5
 		message(Sys.time(), " - Trajectories extracted")
-		print(str(tracks_df)) #TEMP
+		# TODO: open up dialog box to save tracks_df
 	})
 	observeEvent(input$extract_summary, {
 		message(Sys.time(), " - Extracting summary")
@@ -211,6 +211,6 @@ server <- function(input, output, session) {
 		cell_summary <- getCellsStats(x$x2)
 		step$current <- 6
 		message(Sys.time(), " - Summary extracted")
-		print(str(cell_summary)) #TEMP
+		# TODO: open up dialog box to cell_summary
 	})
 }
