@@ -36,7 +36,7 @@ LazyData: false
 Depends: R (>= 4.1), methods, foreach
 Imports: tiff, graphics, stats, utils, reshape2, parallel, doParallel, grDevices, matrixStats, FME, SpatialTools, sp, vioplot, FactoMineR, Hmisc
 Suggests: knitr, rmarkdown, dplyr, ggplot2, RUnit, BiocGenerics, BiocManager, kableExtra, rgl
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 BugReports: https://github.com/ocbe-uio/cellmigRation/issues
 URL: https://github.com/ocbe-uio/cellmigRation/
