@@ -203,7 +203,11 @@ server <- function(input, output, session) {
 	})
 	observeEvent(input$extract_summary, {
 		message(Sys.time(), " - Extracting summary")
-		x$x2 <- ComputeTracksStats(x$x2) #FIXME: Warning: Error in seq.default: feil forteikn i «by»-argument
+		x$x2 <- ComputeTracksStats(
+			tc_obj = x$x2,
+			time_between_frames = 10,  # FIXME: hardcoded
+			resolution_pixel_per_micro = 20 # FIXME: hardcoded
+		)
 		cell_summary <- getCellsStats(x$x2)
 		step$current <- 6
 		message(Sys.time(), " - Summary extracted")
