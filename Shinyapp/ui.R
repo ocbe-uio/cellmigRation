@@ -131,7 +131,7 @@ ui <- fluidPage(
 				min     = 1,
 				max     = parallel::detectCores()
 			),
-			actionButton("fit_model", "Fit model"), br(),
+			actionButton("fit_model", "Fit model and plot"), br(),
 			"Note: automated parameter estimation can take several minutes to complete"
 		),
 		# ----------------------------------------------------------------------
@@ -203,12 +203,12 @@ ui <- fluidPage(
 					"adjust the number of CPU threads to match your processor",
 					"so operations run in parallel and produce output faster.",
 					"We recommend leaving one thread for your computer's",
-					"internal operations. In other words, if your CPU has $X$",
+					"internal operations. In other words, if your CPU has ", em("X"),
 					"threads, we recommend setting the number of CPU threads",
-					"to use by this app to $X - 1$.",
-					h1("Matrix image"),
+					"to use by this app to ", em("X − 1"), ".",
 					p(),
-					plotOutput("VisualizeImg"),
+					h1("Matrix image"),
+					plotOutput("VisualizeImg")
 				),
 				tabPanel("About/Help",
 					img(

@@ -181,7 +181,7 @@ server <- function(input, output, session) {
       maxDisp    = input$max_disp,
       threads    = input$num_threads,
       show_plots = FALSE,
-      verbose    = TRUE, # TEMP
+      verbose    = FALSE,
       dryrun     = TRUE # TEMP
     )
     # Switching active tab -----------------------------------------------------
