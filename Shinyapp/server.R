@@ -88,7 +88,6 @@ server <- function(input, output, session) {
 			replicate  = input$replicate
 		)
 		# FIXME #68: doesn't reselect if frame is changed on the slider (only buttons work)
-		# X1 <- readRDS(...) # ASK: what is this about?
 		# Store in variables for now
 		time_var <- input$frame_duration
 		res_var <- input$pixel_size
@@ -107,7 +106,7 @@ server <- function(input, output, session) {
 			experiment = input$project_name,
 			condition  = input$project_condition,
 			replicate  = input$replicate
-		) # TODO: DRY: move this and L:291 to one reactive function?
+		)
 		if (input$who_estimates_parms == "auto") {
 			message(Sys.time(), " - Optimizing model parameters. Please wait")
 			x$x1 <- OptimizeParams(tc_obj = x$x1, threads = input$num_threads)
@@ -173,7 +172,8 @@ server <- function(input, output, session) {
 			maxDisp    = input$max_disp,
 			threads    = input$num_threads,
 			show_plots = FALSE,
-			verbose    = FALSE
+			verbose    = TRUE, # TEMP
+			dryrun     = TRUE # TEMP
 		)
 		# Switching active tab -------------------------------------------------
 		output$VisualizeImg <- renderPlot({
@@ -199,18 +199,18 @@ server <- function(input, output, session) {
 		tracks_df <- getTracks(x$x2)
 		step$current <- 5
 		message(Sys.time(), " - Trajectories extracted")
-		# TODO: open up dialog box to save tracks_df
+		# TODO #64: open up dialog box to save tracks_df
 	})
 	observeEvent(input$extract_summary, {
 		message(Sys.time(), " - Extracting summary")
 		x$x2 <- ComputeTracksStats(
 			tc_obj = x$x2,
-			time_between_frames = 10,  # FIXME: hardcoded
-			resolution_pixel_per_micro = 20 # FIXME: hardcoded
+			time_between_frames = 10,  # TODO #64: hardcoded. Create input variable
+			resolution_pixel_per_micro = 20 # TODO #64: hardcoded
 		)
 		cell_summary <- getCellsStats(x$x2)
 		step$current <- 6
 		message(Sys.time(), " - Summary extracted")
-		# TODO: open up dialog box to cell_summary
+		# TODO #64: open up dialog box to cell_summary
 	})
 }

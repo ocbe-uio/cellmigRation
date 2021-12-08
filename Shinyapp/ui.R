@@ -177,7 +177,7 @@ ui <- fluidPage(
 			condition = "output.slider",
 			tabsetPanel(
 				tabPanel("1. Original image", imageOutput("image_frame")),
-				tabPanel("1. Processed image", plotOutput("processed_image")), # TODO: merge into previous or next tabPanel()
+				tabPanel("1. Processed image", plotOutput("processed_image")), # TODO #64: merge into previous or next tabPanel()
 				tabPanel("Model and tracking",
 					h1("Instructions"),
 					"Estimating parameters usually takes several minutes.",
@@ -255,10 +255,10 @@ ui <- fluidPage(
 			)
 		),
 		h3("Message box"),
-		# TODO: improve message box to show server messages. Alternatively, use
+		# TODO #64: improve message box to show server messages. Alternatively, use
 		# outputOptions(output, "step", suspendWhenHidden=FALSE)
 		# (Source: https://stackoverflow.com/a/39827259/1169233)
 		verbatimTextOutput("step"),
-		# TODO: add a "Quit app" button
+		# TODO #64: add a "Quit app" button
 	)
 )
