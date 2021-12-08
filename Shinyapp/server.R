@@ -223,8 +223,8 @@ server <- function(input, output, session) {
     message(Sys.time(), " - Extracting summary")
     x$x2 <- ComputeTracksStats(
       tc_obj = x$x2,
-      time_between_frames = 10,  # TODO #64: hardcoded. Create input variable
-      resolution_pixel_per_micro = 20 # TODO #64: hardcoded
+      time_between_frames = input$frame_duration,
+      resolution_pixel_per_micro = input$pixel_size
     )
     cell_summary <- getCellsStats(x$x2)
     step$number <- 6
