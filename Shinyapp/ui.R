@@ -23,6 +23,7 @@ ui <- fluidPage(
 	# Sidebar panel for inputs
 	# --------------------------------------------------------------------------
 	sidebarPanel(
+		actionButton("quit", "Quit app"),
 		# ----------------------------------------------------------------------
 		# Loading TIFF image
 		# ----------------------------------------------------------------------
@@ -261,6 +262,5 @@ ui <- fluidPage(
 		),
 		h3("Message box"),
 		verbatimTextOutput("message")
-		# TODO #64: add a "Quit app" button
 	)
 )

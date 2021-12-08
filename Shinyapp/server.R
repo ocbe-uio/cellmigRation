@@ -218,4 +218,7 @@ server <- function(input, output, session) {
 		message(Sys.time(), " - Summary extracted")
 		# TODO #64: open up dialog box to cell_summary
 	})
+
+	# Quit app -----------------------------------------------------------------
+	observe(if (input$quit) stopApp("Shiny app quit by user"))
 }
