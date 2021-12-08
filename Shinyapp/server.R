@@ -185,8 +185,9 @@ server <- function(input, output, session) {
       dryrun     = TRUE # TEMP
     )
     # Switching active tab -----------------------------------------------------
+    step$message <- "Plotting centroids"
+    message(Sys.time(), " - ", step$message)
     output$VisualizeImg <- renderPlot({
-      message(Sys.time(), " - Plotting centroids")
       VisualizeImg(
         img_mtx = x$x2@proc_images$images[[frame$out]],
         las = 1,
@@ -197,20 +198,20 @@ server <- function(input, output, session) {
         width_px = ncol(x$x2@proc_images$images[[frame$out]]),
         height_px = nrow(x$x2@proc_images$images[[frame$out]])
       )
-      step$message <- "Ready for extraction"
-      message(Sys.time(), " - Ready for step 4")
-      step$number <- 4
     })
-    # output$VisualizeCellTracks <- renderPlot({
-    #   message(Sys.time(), " - Plotting cell tracks")
-    #     visualizeCellTracks(
-    #       x$x2@proc_images$images[[frame$out]], stack = 1, pnt.cex = 1.2, lwd = 1.6,
-    #       col = "red2", col.untracked = "gray45", main = NULL
-    #     )
-    # })
+    step$message <- "Plotting trajectories"
+    message(Sys.time(), " - ", step$message)
+    output$VisualizeCellTracks <- renderPlot({
+        visualizeCellTracks(
+          x$x2, stack = frame$out, pnt.cex = 1.2, lwd = 1.6,
+          col = "red2", col.untracked = "gray45", main = NULL
+        )
+    })
+    step$message <- "Ready for extraction"
+    message(Sys.time(), " - ", step$message)
+    step$number <- 4
   })
   # 4. Output data -------------------------------------------------------------
-  # TODO #64: after step 3 is done, call visualizeCellTracks() to plot
   observeEvent(input$extract_trajectories, {
     message(Sys.time(), " - Extracting trajectories")
     tracks_df <- getTracks(x$x2)

@@ -261,10 +261,11 @@ ui <- fluidPage(
 			condition = "input.track_cells",
 			tabsetPanel(
 				tabPanel(
-					"Trajectories"
+					title = "Trajectories",
+					plotOutput("VisualizeCellTracks")
 				),
 				tabPanel(
-					"Summary"
+					title = "Summary"
 				)
 			)
 		)
