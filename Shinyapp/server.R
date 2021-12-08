@@ -114,7 +114,6 @@ server <- function(input, output, session) {
       replicate  = input$replicate
     )
     if (input$who_estimates_parms == "auto") {
-      step$message <- "Estimating model parameteres. This can take long. Please wait."
       message(Sys.time(), " - Optimizing model parameters. Please wait")
       x$x1 <- OptimizeParams(tc_obj = x$x1, threads = input$num_threads)
       parms$lnoise    <- x$x1@optimized$auto_params$lnoise

@@ -131,7 +131,8 @@ ui <- fluidPage(
 				min     = 1,
 				max     = parallel::detectCores()
 			),
-			actionButton("fit_model", "Fit model")
+			actionButton("fit_model", "Fit model"), br(),
+			"Note: automated parameter estimation can take several minutes to complete"
 		),
 		# ----------------------------------------------------------------------
 		# Cell tracking
