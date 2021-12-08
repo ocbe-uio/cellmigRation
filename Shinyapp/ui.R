@@ -176,8 +176,13 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "output.slider",
 			tabsetPanel(
-				tabPanel("1. Original image", imageOutput("image_frame")),
-				tabPanel("1. Processed image", plotOutput("processed_image")), # TODO #64: merge into previous or next tabPanel()
+				tabPanel("Images",
+					h1("Original image"),
+					imageOutput("image_frame"),
+					br(), br(), br(), br(), br(), br(),
+					h1("Processed image"),
+					plotOutput("processed_image")
+				),
 				tabPanel("Model and tracking",
 					h1("Instructions"),
 					"Estimating parameters usually takes several minutes.",
