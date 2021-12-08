@@ -23,7 +23,6 @@ ui <- fluidPage(
 	# Sidebar panel for inputs
 	# --------------------------------------------------------------------------
 	sidebarPanel(
-		actionButton("quit", "Quit app"),
 		# ----------------------------------------------------------------------
 		# Loading TIFF image
 		# ----------------------------------------------------------------------
@@ -163,6 +162,14 @@ ui <- fluidPage(
 	# Main panel for displaying outputs
 	# --------------------------------------------------------------------------
 	mainPanel(
+		fluidRow(
+			column(width = 9, h3("Message box")),
+			column(width = 3, actionLink("quit", "Exit app"))
+		),
+		fluidRow(
+			column(width = 1, verbatimTextOutput("step")),
+			column(width = 11, verbatimTextOutput("message"))
+		),
 		conditionalPanel(
 			condition = "!output.slider",
 			img(
@@ -259,8 +266,6 @@ ui <- fluidPage(
 					"Summary"
 				)
 			)
-		),
-		h3("Message box"),
-		verbatimTextOutput("message")
+		)
 	)
 )
