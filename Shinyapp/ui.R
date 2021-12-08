@@ -260,10 +260,7 @@ ui <- fluidPage(
 			)
 		),
 		h3("Message box"),
-		# TODO #64: improve message box to show server messages. Alternatively, use
-		# outputOptions(output, "step", suspendWhenHidden=FALSE)
-		# (Source: https://stackoverflow.com/a/39827259/1169233)
-		verbatimTextOutput("step"),
+		verbatimTextOutput("message")
 		# TODO #64: add a "Quit app" button
 	)
 )

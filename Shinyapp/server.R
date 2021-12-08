@@ -9,7 +9,7 @@ server <- function(input, output, session) {
 	frame <- reactiveValues(out = 1)
 	x     <- reactiveValues(x1 = NULL, x2 = NULL)
 	parms <- reactiveValues(lnoise = NULL, diameter = NULL, threshold = NULL)
-	step  <- reactiveValues(current=0)
+	step  <- reactiveValues(number = 0, message = "NULL")
 	# Load imported data -------------------------------------------------------
 		image <- reactive({
 		req(input$imported_tiff)
@@ -126,6 +126,7 @@ server <- function(input, output, session) {
 			selected = "Model and tracking"
 		)
 		# Rendering plot -------------------------------------------------------
+		step$message <- "Rendering plot. This could take a few minutes. Please wait."
 		output$VisualizeImg <- renderPlot({
 			message(Sys.time(), " - Performing bandpass")
 			b <- cellmigRation:::bpass(
@@ -156,14 +157,17 @@ server <- function(input, output, session) {
 			cellmigRation:::VisualizeCntr(
 				centroids = cnt, width_px = ncol(b), height_px = nrow(b)
 			)
-			step$current <- 3
-			message(Sys.time(), " - Ready for cell tracking")
+			step$number <- 3
+			step$message <- "Ready for cell tracking"
+			message(Sys.time(), " - ", step$message)
 		})
-		output$step <- renderText(step$current)
+		output$step <- renderText(step$number)
+		output$message <- renderText(step$message)
 	})
 	# 3. Cell tracking ---------------------------------------------------------
 	observeEvent(input$track_cells, {
-		message(Sys.time(), " - Tracking cells. Please wait")
+		step$message <- "Tracking cells. This should take several minutes. Please wait."
+		message(Sys.time(), " - ", step$message)
 		x$x2 <- cellmigRation:::CellTracker(
 			tc_obj     = x$x1,
 			lnoise     = parms$lnoise,
@@ -188,8 +192,9 @@ server <- function(input, output, session) {
 				width_px = ncol(x$x2@proc_images$images[[frame$out]]),
 				height_px = nrow(x$x2@proc_images$images[[frame$out]])
 			)
+			step$message <- "Ready for extraction"
 			message(Sys.time(), " - Ready for step 4")
-			step$current <- 4
+			step$number <- 4
 		})
 	})
 	# 4. Output data ----------------------------------------------------------
@@ -197,7 +202,7 @@ server <- function(input, output, session) {
 	observeEvent(input$extract_trajectories, {
 		message(Sys.time(), " - Extracting trajectories")
 		tracks_df <- getTracks(x$x2)
-		step$current <- 5
+		step$number <- 5
 		message(Sys.time(), " - Trajectories extracted")
 		# TODO #64: open up dialog box to save tracks_df
 	})
@@ -209,7 +214,7 @@ server <- function(input, output, session) {
 			resolution_pixel_per_micro = 20 # TODO #64: hardcoded
 		)
 		cell_summary <- getCellsStats(x$x2)
-		step$current <- 6
+		step$number <- 6
 		message(Sys.time(), " - Summary extracted")
 		# TODO #64: open up dialog box to cell_summary
 	})
