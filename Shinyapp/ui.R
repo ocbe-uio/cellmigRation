@@ -155,8 +155,10 @@ ui <- fluidPage(
 			condition = "output.step >= '4'",
 			hr(),
 			h3("4. Output data"),
-			actionButton("extract_trajectories", "Extract Trajectories"),
-			actionButton("extract_summary", "Extract Summary")
+			downloadButton("extract_trajectories", "Extract Trajectories"),
+			downloadButton("extract_summary", "Extract Summary"),
+			"Download the output data by clicking the buttons above, then click the",
+			"'Exit app' button on the top right corner of this page to close the app."
 		)
 	),
 	# --------------------------------------------------------------------------

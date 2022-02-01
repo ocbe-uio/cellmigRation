@@ -12,6 +12,7 @@ server <- function(input, output, session) {
   step  <- reactiveValues(
     number = 0, message = "Please load a TIFF file and fit a model"
   )
+  output_data <- reactiveValues(trajectories = NULL, summary = NULL)
 
   # Message box ----------------------------------------------------------------
   output$step <- renderText(step$number)
@@ -165,7 +166,7 @@ server <- function(input, output, session) {
         centroids = cnt, width_px = ncol(b), height_px = nrow(b)
       )
       step$number <- 3
-      step$message <- "Ready for cell tracking"
+      step$message <- "Ready for cell tracking. Click 'Track cells' and wait."
       message(Sys.time(), " - ", step$message)
     })
   })
@@ -182,7 +183,7 @@ server <- function(input, output, session) {
       threads    = input$num_threads,
       show_plots = FALSE,
       verbose    = FALSE,
-      dryrun     = TRUE # TEMP
+      dryrun     = FALSE
     )
     # Switching active tab -----------------------------------------------------
     step$message <- "Plotting centroids"
@@ -212,25 +213,25 @@ server <- function(input, output, session) {
     step$number <- 4
   })
   # 4. Output data -------------------------------------------------------------
-  observeEvent(input$extract_trajectories, {
-    message(Sys.time(), " - Extracting trajectories")
-    tracks_df <- getTracks(x$x2)
-    step$number <- 5
-    message(Sys.time(), " - Trajectories extracted")
-    # TODO #64: open up dialog box to save tracks_df
-  })
-  observeEvent(input$extract_summary, {
-    message(Sys.time(), " - Extracting summary")
-    x$x2 <- ComputeTracksStats(
-      tc_obj = x$x2,
-      time_between_frames = input$frame_duration,
-      resolution_pixel_per_micro = input$pixel_size
-    )
-    cell_summary <- getCellsStats(x$x2)
-    step$number <- 6
-    message(Sys.time(), " - Summary extracted")
-    # TODO #64: open up dialog box to cell_summary
-  })
+  output$extract_trajectories <- downloadHandler(
+    filename = "trajectories.rda",
+    content  = function(file) {
+      track_df <- getTracks(x$x2)
+      save(track_df, file = file)
+    }
+  )
+  output$extract_summary <- downloadHandler(
+    filename = "summary.rda",
+    content  = function(file) {
+        x$x2 <- ComputeTracksStats(
+        tc_obj = x$x2,
+        time_between_frames = input$frame_duration,
+        resolution_pixel_per_micro = input$pixel_size
+      )
+      cell_summary <- getCellsStats(x$x2)
+      save(cell_summary, file = file)
+    }
+  )
 
   # Quit app -------------------------------------------------------------------
   observe(if (input$quit) stopApp("Shiny app quit by user"))
