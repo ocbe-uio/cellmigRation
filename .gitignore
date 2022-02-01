@@ -8,4 +8,4 @@ inst/extdata/*racTable*
 doc
 Meta
 .Rproj.user
-Shinyapps/rsconnect
+Shinyapp/rsconnect/

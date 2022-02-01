@@ -109,28 +109,36 @@ ui <- fluidPage(
 		conditionalPanel(
 			condition = "output.slider",
 			hr(),
-			h3("2. Model estimation"),
+			h3("2. Model fit"),
 			radioButtons(
 				inputId = "who_estimates_parms",
 				label = "Model parameters",
 				choices = list(
 					"Automated parameter estimation" = "auto",
 					"Use values below" = "user"
-				)
+				),
+				selected = "user"
 			),
 			fluidRow(
-				column(4, numericInput("lnoise", "L-noise", 0, step = .1)),
-				column(4, numericInput("diamenter", "Diameter", 0, step = .1)),
-				column(4, numericInput("threshold", "Threshold", 0, step = .1))
+				column(4, numericInput("lnoise", "L-noise", 1, step = .1)),
+				column(4, numericInput("diameter", "Diameter", 10, step = .1)),
+				column(4, numericInput("threshold", "Threshold", 5, step = .1))
 			),
-			numericInput("num_threads", "Number of CPU threads to use", 2, 1),
-			actionButton("fit_model", "Submit")
+			numericInput(
+				inputId = "num_threads",
+				label   = "Number of CPU threads to use",
+				value   = parallel::detectCores() - 2,
+				min     = 1,
+				max     = parallel::detectCores()
+			),
+			actionButton("fit_model", "Fit model and plot"), br(),
+			"Note: automated parameter estimation can take several minutes to complete"
 		),
 		# ----------------------------------------------------------------------
 		# Cell tracking
 		# ----------------------------------------------------------------------
 		conditionalPanel(
-			condition = "input.fit_model",
+			condition = "output.step == '3'",
 			hr(),
 			h3("3. Cell tracking"),
 			numericInput(
@@ -144,17 +152,27 @@ ui <- fluidPage(
 		# Output data
 		# ----------------------------------------------------------------------
 		conditionalPanel(
-			condition = "input.track_cells",
+			condition = "output.step >= '4'",
 			hr(),
 			h3("4. Output data"),
-			actionButton("extract_trajectories", "Extract Trajectories"),
-			actionButton("extract_summary", "Extract Summary")
+			downloadButton("extract_trajectories", "Extract Trajectories"),
+			downloadButton("extract_summary", "Extract Summary"),
+			"Download the output data by clicking the buttons above, then click the",
+			"'Exit app' button on the top right corner of this page to close the app."
 		)
 	),
 	# --------------------------------------------------------------------------
 	# Main panel for displaying outputs
 	# --------------------------------------------------------------------------
 	mainPanel(
+		fluidRow(
+			column(width = 9, h3("Message box")),
+			column(width = 3, actionLink("quit", "Exit app"))
+		),
+		fluidRow(
+			column(width = 1, verbatimTextOutput("step")),
+			column(width = 11, verbatimTextOutput("message"))
+		),
 		conditionalPanel(
 			condition = "!output.slider",
 			img(
@@ -162,16 +180,21 @@ ui <- fluidPage(
 				width = "50%"
 			),
 			h1("Welcome to the cellmigRation Shiny app!"), p(),
-			"Please load a proper TIFF file using the 'Browse' button on the",
+			"Please load a suitable TIFF file using the 'Browse' button on the",
 			"left. After the file is loaded, you will be presented with more",
 			"options and a help page."
 		),
 		conditionalPanel(
 			condition = "output.slider",
 			tabsetPanel(
-				tabPanel("Original image", imageOutput("image_frame")),
-				tabPanel("Processed image", plotOutput("processed_image")),
-				tabPanel("Model estimation",
+				tabPanel("Images",
+					h1("Original image"),
+					imageOutput("image_frame"),
+					br(), br(), br(), br(), br(), br(),
+					h1("Processed image"),
+					plotOutput("processed_image")
+				),
+				tabPanel("Model and tracking",
 					h1("Instructions"),
 					"Estimating parameters usually takes several minutes.",
 					"Please click the 'Submit' button on the left and wait",
@@ -182,12 +205,12 @@ ui <- fluidPage(
 					"adjust the number of CPU threads to match your processor",
 					"so operations run in parallel and produce output faster.",
 					"We recommend leaving one thread for your computer's",
-					"internal operations. In other words, if your CPU has $X$",
+					"internal operations. In other words, if your CPU has ", em("X"),
 					"threads, we recommend setting the number of CPU threads",
-					"to use by this app to $X - 1$.",
-					h1("Matrix image"),
+					"to use by this app to ", em("X − 1"), ".",
 					p(),
-					plotOutput("VisualizeImg"),
+					h1("Matrix image"),
+					plotOutput("VisualizeImg")
 				),
 				tabPanel("About/Help",
 					img(
@@ -195,11 +218,41 @@ ui <- fluidPage(
 						width = "30%"
 					),
 					h1("Welcome to the cellmigRation Shiny app!"), p(),
+					"cellmigRation is an R package for tracking cells",
+					"and analyzing their trajectories. This Shiny app",
+					"provides a graphical version of the package, allowing for",
+					"easier access to some of its most important features. To",
+					"access all the features of cellmigRation, please use the",
+					a(
+						href="https://bioconductor.org/packages/cellmigRation/",
+						"R package published on Bioconductor"
+					), ".",
+					h2("Troubleshooting"), p(),
+					h3("Frame selection is not working as expected"), p(),
 					"Frame selection on the slider and autoplay is disabled",
 					"for the processed image for performance purposes.",
 					"Use the 'Previous/Next frame' buttons instead.",
 					"You can also select a frame on the slider and then press",
-					"one of the aforementioned buttons to load a slide."
+					"one of the aforementioned buttons to load a slide.",
+					h3("Form fields are too tiny"), p(),
+					"Try increasing the screenspace the app is taking,",
+					"for example by setting the window to fullscreen.",
+					h3("I press 'Fit model' and nothing happens"), p(),
+					"This is a very computer-intensive process,",
+					"so please allow at lease a few minutes (potentially,",
+					"hours, depending on how large your file is and the",
+					"hardware it's running on) for the software to run.",
+					"If you are running this app locally, you may increase the",
+					"number of CPU threads to be used. You can run",
+					"'detectCores()' in R to see how high you can go, though",
+					"it's a good idea to use a number slightly lower than the",
+					"one output by R.",
+					h3("Something else is wrong"), p(),
+					"Please file a bug report on",
+					a(
+						href="https://github.com/ocbe-uio/CellMigRation/issues",
+						"https://github.com/ocbe-uio/CellMigRation/issues"
+					)
 				),
 				id = "post_load"
 			)
@@ -210,10 +263,11 @@ ui <- fluidPage(
 			condition = "input.track_cells",
 			tabsetPanel(
 				tabPanel(
-					"Trajectories"
+					title = "Trajectories",
+					plotOutput("VisualizeCellTracks")
 				),
 				tabPanel(
-					"Summary"
+					title = "Summary"
 				)
 			)
 		)
