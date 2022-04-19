@@ -99,7 +99,6 @@ server <- function(input, output, session) {
     # FIXME #68: doesn't reselect if frame is changed on the slider (only buttons work)
     time_var <- input$frame_duration
     res_var <- input$pixel_size
-    invert_background <- input$invert_background
     VisualizeImg(
       img_mtx = x$x1@images$images[[frame$out]],
       las = 1,

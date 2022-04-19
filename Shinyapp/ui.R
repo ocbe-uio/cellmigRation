@@ -38,7 +38,6 @@ ui <- fluidPage(
 		# ----------------------------------------------------------------------
 		conditionalPanel(
 			condition = "output.slider",
-			checkboxInput("invert_background", "Invert background"),
 			hr(),
 			h4("Metadata"),
 			textInput(
