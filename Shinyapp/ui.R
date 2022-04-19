@@ -30,6 +30,7 @@ ui <- fluidPage(
 		fileInput("imported_tiff", "Import TIFF file"),
 		uiOutput("slider"),
 		fluidRow(
+			HTML('&emsp;'), uiOutput("frame_selector_text", inline = TRUE, container = tags$b),
 			column(width = 6, uiOutput("prev")),
 			column(width = 6, uiOutput("nxt")),
 		),

@@ -46,14 +46,24 @@ server <- function(input, output, session) {
   output$tot_frames <- renderText(tot_frames())
   output$slider <- renderUI(
     sliderInput(
-      inputId = "frameSelector", label = "Frame select:",
-      min = 1, max = tot_frames(), value = frame$out, step = 1,
+      inputId = "frameSelector",
+      label = "Frame selection (original image only):",
+      min = 1,
+      max = tot_frames(),
+      value = frame$out,
+      step = 1,
       animate = animationOptions(
         interval = 200,
         playButton = "Autoplay",
         pauseButton = "Pause"
       ),
     )
+  )
+  output$frame_selector_text <- renderText(
+    ifelse(
+      test = is.null(tot_frames()),
+      yes = "",
+      no = "Frame selection (original and processed images):")
   )
   output$prev <- renderUI({
     if (is.null(tot_frames())) return()
