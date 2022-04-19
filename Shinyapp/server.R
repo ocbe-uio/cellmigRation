@@ -131,7 +131,11 @@ server <- function(input, output, session) {
     )
     if (input$who_estimates_parms == "auto") {
       message(Sys.time(), " - Optimizing model parameters. Please wait")
-      x$x1 <- OptimizeParams(tc_obj = x$x1, threads = input$num_threads)
+      x$x1 <- OptimizeParams(
+        tc_obj = x$x1,
+        threads = input$num_threads,
+        verbose = TRUE
+      )
       parms$lnoise    <- x$x1@optimized$auto_params$lnoise
       parms$diameter  <- x$x1@optimized$auto_params$diameter
       parms$threshold <- x$x1@optimized$auto_params$threshold
@@ -197,7 +201,7 @@ server <- function(input, output, session) {
       maxDisp    = input$max_disp,
       threads    = input$num_threads,
       show_plots = FALSE,
-      verbose    = FALSE,
+      verbose    = TRUE,
       dryrun     = FALSE
     )
     # Switching active tab -----------------------------------------------------
