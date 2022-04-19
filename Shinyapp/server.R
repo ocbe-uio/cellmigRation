@@ -22,7 +22,7 @@ server <- function(input, output, session) {
   output$message <- renderText(step$message)
 
   # Load imported data ---------------------------------------------------------
-    image <- reactive({
+  image <- reactive({
     req(input$imported_tiff)
     filename <- normalizePath(file.path(input$imported_tiff$datapath))
     filepath <- gsub(
@@ -43,6 +43,7 @@ server <- function(input, output, session) {
     file_list <- list.files(filepath, pattern = "*.png")
     return(list(path = filepath, name = file_list))
   })
+
   # Creating image controls ----------------------------------------------------
   tot_frames <- reactive(length(image()$name))
   output$tot_frames <- renderText(tot_frames())
@@ -99,6 +100,7 @@ server <- function(input, output, session) {
     },
     deleteFile = FALSE
   )
+
   # 1. Displaying data ---------------------------------------------------------
   output$processed_image <- renderPlot({
     req(input$imported_tiff)
@@ -117,6 +119,7 @@ server <- function(input, output, session) {
       main = paste("Stack num.", frame$out)
     )
   })
+
   # Model and tracking ---------------------------------------------------------
   observeEvent(input$fit_model, {
     # Actually fitting model (or using user values) ----------------------------
@@ -146,8 +149,8 @@ server <- function(input, output, session) {
     )
 
     # Rendering plot -----------------------------------------------------------
-    step$message <- "Rendering plot. This could take a few minutes. Please wait."
-    output$VisualizeImg <- renderPlot({
+    step$message <- "Rendering matrix image. This could take minutes. Please wait."
+    output$matrix_image <- renderPlot({
       message(Sys.time(), " - Performing bandpass")
       b <- cellmigRation:::bpass(
         image_array = x$x1@images$images[[frame$out]],
@@ -200,7 +203,7 @@ server <- function(input, output, session) {
     # Switching active tab -----------------------------------------------------
     step$message <- "Plotting centroids"
     message(Sys.time(), " - ", step$message)
-    output$VisualizeImg <- renderPlot({
+    output$matrix_image <- renderPlot({
       VisualizeImg(
         img_mtx = x$x2@proc_images$images[[frame$out]],
         las = 1,

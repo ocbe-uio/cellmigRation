@@ -210,7 +210,7 @@ ui <- fluidPage(
 					"to use by this app to ", em("X − 1"), ".",
 					p(),
 					h1("Matrix image"),
-					plotOutput("VisualizeImg")
+					plotOutput("matrix_image")
 				),
 				tabPanel("About/Help",
 					img(
