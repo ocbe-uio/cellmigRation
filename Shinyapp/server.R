@@ -1,6 +1,8 @@
 # Loading necessary packages and options ---------------------------------------
 library(remotes)
-remotes::install_github("ocbe-uio/cellmigRation")
+if (!("cellmigRation" %in% installed.packages())) {
+  remotes::install_github("ocbe-uio/cellmigRation")
+}
 library(cellmigRation)
 options(shiny.maxRequestSize = 1024*1024^2)  # file limit: 1 GB
 
