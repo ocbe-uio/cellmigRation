@@ -77,11 +77,9 @@ preproc <- rmPreProcessing(df, PixelSize = 1.24, TimeInterval = 100)
 # Shiny application
 
 
-Some cellmigRation features are also available as a standalone web application powered by an R package called Shiny. **The Shiny app is still under construction**, so it is not feature-complete and is not guaranteed to perform as expected. Until release, we advise you to use the R package directly.
+Some cellmigRation features are also available as a standalone web application powered by an R package called Shiny.
 
-To access the cellmigRation Shiny app, visit https://ocbe.shinyapps.io/cellmigRation/.
-
-Alternatively, you can run the Shiny app locally on your computer. To do so, download a copy of this repository and either run `make runshiny` or `R -e "shiny::runApp('Shinyapp', port=3029)"` from its root directory.
+You can run the Shiny app locally on your computer. To do so, download a copy of this repository and either run `make runshiny` or `R -e "shiny::runApp('Shinyapp', port=3029)"` from its root directory.
 
 <!--
 ###############################################################################
